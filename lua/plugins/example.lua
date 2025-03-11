@@ -16,8 +16,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
-    },
+      colorscheme = "gruvbox"
+    }
   },
 
   -- change trouble config
@@ -37,7 +37,7 @@ return {
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       table.insert(opts.sources, { name = "emoji" })
-    end,
+    end
   },
 
   -- change some telescope options and a keymap to browse plugin files
@@ -49,8 +49,8 @@ return {
       {
         "<leader>fp",
         function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
-        desc = "Find Plugin File",
-      },
+        desc = "Find Plugin File"
+      }
     },
     -- change some options
     opts = {
@@ -58,9 +58,9 @@ return {
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
-        winblend = 0,
-      },
-    },
+        winblend = 0
+      }
+    }
   },
 
   -- add pyright to lspconfig
@@ -71,9 +71,9 @@ return {
       ---@type lspconfig.options
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
-        pyright = {},
-      },
-    },
+        pyright = {}
+      }
+    }
   },
 
   -- add tsserver and setup with typescript.nvim instead of lspconfig
@@ -87,14 +87,14 @@ return {
           vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
           vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
         end)
-      end,
+      end
     },
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
       servers = {
         -- tsserver will be automatically installed with mason and loaded with lspconfig
-        tsserver = {},
+        tsserver = {}
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
@@ -104,11 +104,11 @@ return {
         tsserver = function(_, opts)
           require("typescript").setup({ server = opts })
           return true
-        end,
+        end
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
-      },
-    },
+      }
+    }
   },
 
   -- for typescript, LazyVim also includes extra specs to properly setup lspconfig,
@@ -133,9 +133,9 @@ return {
         "tsx",
         "typescript",
         "vim",
-        "yaml",
-      },
-    },
+        "yaml"
+      }
+    }
   },
 
   -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
@@ -147,9 +147,9 @@ return {
       -- add tsx and treesitter
       vim.list_extend(opts.ensure_installed, {
         "tsx",
-        "typescript",
+        "typescript"
       })
-    end,
+    end
   },
 
   -- the opts function can also be used to change the default opts:
@@ -160,9 +160,9 @@ return {
       table.insert(opts.sections.lualine_x, {
         function()
           return "😄"
-        end,
+        end
       })
-    end,
+    end
   },
 
   -- or you can return new options to override all the defaults
@@ -173,7 +173,7 @@ return {
       return {
         --[[add your custom lualine config here]]
       }
-    end,
+    end
   },
 
   -- use mini.starter instead of alpha
@@ -190,8 +190,8 @@ return {
         "stylua",
         "shellcheck",
         "shfmt",
-        "flake8",
-      },
-    },
-  },
+        "flake8"
+      }
+    }
+  }
 }
