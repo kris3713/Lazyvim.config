@@ -8,11 +8,3 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
   desc = "restore the cursor shape on exit of neovim",
   command = "set guicursor=a:ver20",
 })
-
--- Get rid of Neovim's keybind for Ctrl+Z
-local unbind_ctrl_z = vim.api.nvim_create_augroup("unbind_ctrl_z__on_exit", { clear = true })
-vim.api.nvim_create_autocmd({ "VimLeave" }, {
-  group = unbind_ctrl_z,
-  desc = "Unbinds Ctrl+Z",
-  command = "nnoremap <C-Z> <Nop>",
-})
