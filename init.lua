@@ -8,3 +8,18 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
   desc = "restore the cursor shape on exit of neovim",
   command = "set guicursor=a:ver20",
 })
+
+-- Set font family and font size
+vim.opt.guifont = { "JetBrainsMono Nerd Font", ":h16" }
+
+-- Set zoom function
+vim.g.neovide_scale_factor = 1.0
+local change_scale_factor = function(delta)
+  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+end
+vim.keymap.set("n", "<C-=>", function()
+  change_scale_factor(1.25)
+end)
+vim.keymap.set("n", "<C-->", function()
+  change_scale_factor(1/1.25)
+end)
