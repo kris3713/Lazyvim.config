@@ -48,8 +48,5 @@ return {
     ---@module 'ibl'
     ---@type ibl.config
     opts = {}
-  },
-  {
-    'neoclide/coc.nvim'
   }
 }
