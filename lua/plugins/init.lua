@@ -38,5 +38,6 @@ return {
     config = function()
       require('log-highlight').setup {}
     end
-  }
+  },
+  { 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim' }
 }
