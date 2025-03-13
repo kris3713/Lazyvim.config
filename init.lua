@@ -18,7 +18,7 @@ vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
 -- Set softwrapping to always be true
 vim.opt.wrap = true
 -- Set hovering to enable
-vim.lsp.buf.hover()
+vim.lsp.buf.hover = true
 
 -- Set zoom function
 vim.g.neovide_scale_factor = 1.0
