@@ -23,3 +23,6 @@ end)
 vim.keymap.set("n", "<C-->", function()
   change_scale_factor(1/1.25)
 end)
+
+-- For the Comment.nvim
+require('Comment').setup()
