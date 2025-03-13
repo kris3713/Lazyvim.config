@@ -39,5 +39,17 @@ return {
       require('log-highlight').setup {}
     end
   },
-  { 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim' }
+  {
+    'https://gitlab.com/HiPhish/rainbow-delimiters.nvim'
+  },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    ---@module 'ibl'
+    ---@type ibl.config
+    opts = {}
+  },
+  {
+    'neoclide/coc.nvim'
+  }
 }
