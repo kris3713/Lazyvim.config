@@ -40,3 +40,5 @@ vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
 
 -- Make it easier to paste in INSERT mode
 vim.keymap.set('i', '<C-v>', '<C-r>+')
+
+vim.keymap.set('i', '<S-Insert>', '<C-r>+')
