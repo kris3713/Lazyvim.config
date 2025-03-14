@@ -62,8 +62,8 @@ return {
         lsp = {
           omnisharp = { enable = false },
           roslyn = {
-            enable = true
-            -- cmd_path = '/home/kris/DO-NOT-DELETE/roslyn-lsp/Microsoft.CodeAnalysis.LanguageServer.dll'
+            enable = true,
+            cmd_path = '/home/kris/DO-NOT-DELETE/roslyn-lsp/Microsoft.CodeAnalysis.LanguageServer.dll'
           }
         }
       })
