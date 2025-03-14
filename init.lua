@@ -87,7 +87,7 @@ require('trim').setup({
 })
 
 -- Change default cursor to a line
-vim.opt.guicursor = "i:ver25-iCursor"
+vim.opt.guicursor = 'n:ver25-iCursor'
 
 -- cspell.nvim
 -- local cspell = require('davidmh/cspell.nvim')

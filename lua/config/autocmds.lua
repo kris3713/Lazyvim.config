@@ -14,7 +14,7 @@ local restore_cursor_augroup = vim.api
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
   group = restore_cursor_augroup,
   desc = 'Restore the cursor shape on exit of neovim',
-  command = 'set guicursor=""'
+  command = 'set guicursor=a:ver20'
 })
 
 -- Toggle visual whitespaces
