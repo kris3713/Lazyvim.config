@@ -34,15 +34,18 @@ local rainbow_delimiters = require('rainbow-delimiters')
 vim.g.rainbow_delimiters = {
   strategy = {
     [''] = rainbow_delimiters.strategy['global'],
-    vim = rainbow_delimiters.strategy['local']
+    vim = rainbow_delimiters.strategy['local'],
+    c_sharp = rainbow_delimiters.strategy['local']
   },
   query = {
     [''] = 'rainbow-delimiters',
-    lua = 'rainbow-blocks'
+    lua = 'rainbow-blocks',
+    c_sharp = 'rainbow-delimiters'
   },
   priority = {
     [''] = 110,
-    lua = 210
+    lua = 210,
+    c_sharp = 210
   },
   highlight = {
     'RainbowDelimiterRed',
@@ -66,7 +69,7 @@ local highlight = {
   'RainbowCyan'
 }
 
-local hooks = require 'ibl.hooks'
+local hooks = require('ibl.hooks')
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()

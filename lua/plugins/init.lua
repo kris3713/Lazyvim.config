@@ -40,7 +40,7 @@ return {
     end
   },
   {
-    'https://gitlab.com/HiPhish/rainbow-delimiters.nvim'
+    'HiPhish/rainbow-delimiters.nvim'
   },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -63,7 +63,7 @@ return {
           omnisharp = { enable = false },
           roslyn = {
             enable = true,
-            cmd_path = '/home/kris/csharp/roslyn-lsp/Microsoft.CodeAnalysis.LanguageServer.dll'
+            cmd_path = '/home/kris/DO-NOT-DELETE/roslyn-lsp/Microsoft.CodeAnalysis.LanguageServer.dll'
           }
         }
       })
