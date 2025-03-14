@@ -1,11 +1,10 @@
 return {
-  { -- Set colorscheme
-    'LazyVim/LazyVim',
+  {     'LazyVim/LazyVim',
     opts = {
       colorscheme = 'catppuccin-macchiato'
     }
   },
-  { -- Activate roobert/surround-ui.nvim
+  {
     'roobert/surround-ui.nvim',
     dependencies = {
       'kylechui/nvim-surround',
@@ -17,7 +16,7 @@ return {
       })
     end
   },
-  { -- Activate kylechui/nvim-surround
+  {
     'kylechui/nvim-surround',
     version = '*', -- Use for stability; omit to use `main` branch for the latest features
     event = 'VeryLazy',
@@ -27,7 +26,7 @@ return {
       })
     end
   },
-  { -- Activate numToStr/Comment
+  {
     'numToStr/Comment.nvim',
     opts = {
       -- add any options here
@@ -49,7 +48,7 @@ return {
     ---@type ibl.config
     opts = {}
   },
-  {
+  { -- Activate csharp.nvim
     'iabdelkareem/csharp.nvim',
     dependencies = {
       'williamboman/mason.nvim', -- Required, automatically installs omnisharp
@@ -69,7 +68,7 @@ return {
       })
     end
   },
-  {
+  { -- Activate lazygit.nvim
   'kdheepak/lazygit.nvim',
     lazy = true,
     cmd = {
@@ -83,10 +82,29 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim'
     },
-    -- setting the keybinding for LazyGit with 'keys' is recommended in
+      -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
     keys = {
       { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' }
     }
+  },
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+
+    ---enables autocomplete for opts
+    ---@module "auto-session"
+    ---@type AutoSession.Config
+    opts = {
+      suppressed_dirs = { '/' }
+    }
+  },
+  { -- Important for whitespace trimming
+    'cappyzawa/trim.nvim',
+    opts = {}
+  },
+  {
+    'mcauley-penney/visual-whitespace.nvim',
+    config = true
   }
 }

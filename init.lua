@@ -3,16 +3,6 @@ require('config.lazy')
 -- For Comment.nvim
 require('Comment').setup()
 
--- Get rid of Neovim's stupid cursor change
-local restore_cursor_augroup = vim.api.nvim_create_augroup('restore_cursor_shape_on_exit', {
-  clear = true
-})
-vim.api.nvim_create_autocmd({ 'VimLeave' }, {
-  group = restore_cursor_augroup,
-  desc = 'Restore the cursor shape on exit of neovim',
-  command = 'set guicursor=a:ver20'
-})
-
 -- Set font family and font size (For Neovide and Neovim-Qt)
 vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
 -- Set softwrapping to always be true
@@ -78,3 +68,32 @@ require('ibl').setup { indent = { highlight = highlight } }
 
 -- Add parsing for csharp
 require('nvim-treesitter.parsers').ft_to_lang('cs')
+
+require('trim').setup({
+  -- if you want to ignore markdown file.
+  -- you can specify filetypes.
+  ft_blocklist = {"markdown"},
+
+  -- if you want to remove multiple blank lines
+  patterns = {
+    [[%s/\(\n\n\)\n\+/\1/]],   -- replace multiple blank lines with a single line
+  },
+
+  -- if you want to disable trim on write by default
+  trim_on_write = true,
+
+  -- highlight trailing spaces
+  highlight = true
+})
+
+-- Change default cursor to a line
+vim.opt.guicursor = "i:ver25-iCursor"
+
+-- cspell.nvim
+-- local cspell = require('davidmh/cspell.nvim')
+-- require("null-ls").setup {
+--     sources = {
+--         cspell.diagnostics,
+--         cspell.code_actions,
+--     }
+-- }
