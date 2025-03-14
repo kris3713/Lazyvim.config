@@ -9,8 +9,8 @@ local restore_cursor_augroup = vim.api.nvim_create_augroup('restore_cursor_shape
 })
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
   group = restore_cursor_augroup,
-  desc = 'restore the cursor shape on exit of neovim',
-  command = 'set guicursor=a:ver20',
+  desc = 'Restore the cursor shape on exit of neovim',
+  command = 'set guicursor=a:ver20'
 })
 
 -- Set font family and font size (For Neovide and Neovim-Qt)
