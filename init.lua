@@ -96,8 +96,8 @@ vim.opt.guicursor = 'i:ver25-iCursor'
 -- }
 
 ---- Override Netrw with Neo-tree
--- if vim.bo.filetype == 'netrw' and vim.b.netrw_method == nil then
---     vim.defer_fn(function()
---       vim.cmd('enew | Neotree current dir=' .. vim.b.netrw_curdir)
---   end, 0)
--- end
+if vim.bo.filetype == 'netrw' and vim.b.netrw_method == nil then
+    vim.defer_fn(function()
+      vim.cmd('enew | Neotree current dir=' .. vim.b.netrw_curdir)
+  end, 0)
+end
