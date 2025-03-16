@@ -107,12 +107,33 @@ return {
   },
   {
     'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim'
     },
+    cmd = 'Neotree',
+    init = function ()
+      vim.api.nvim_create_autocmd('BufNewFile', {
+        group    = vim.api.nvim_create_augroup('RemoteFile', {clear = true}),
+        callback = function()
+          local f = vim.fn.expand('%:p')
+          for _, v in ipairs{'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync'} do
+            local p = v .. '://'
+            if string.sub(f, 1, #p) == p then
+              vim.cmd[[
+                unlet g:loaded_netrw
+                unlet g:loaded_netrwPlugin
+                runtime! plugin/netrwPlugin.vim
+                silent Explore %
+              ]]
+              vim.api.nvim_clear_autocmds{group = 'RemoteFile'}
+              break
+            end
+          end
+        end
+      })
+    end,
     config = function ()
       require('nvim-neo-tree/neo-tree.nvim').setup({
         filesystem = {
@@ -124,12 +145,6 @@ return {
           }
         }
       })
-      ---- Override Netrw functionality with Neo-tree
-      if vim.bo.filetype == 'netrw' and vim.b.netrw_method == nil then
-        vim.defer_fn(function()
-            vim.cmd('enew | Neotree current dir=' .. vim.b.netrw_curdir)
-        end, 0)
-      end
     end
   }
 }
