@@ -14,7 +14,7 @@ vim.keymap.set('x', '<C-->', function() change_scale_factor(1/1.25) end)
 vim.keymap.set('i', '<C-=>', function() change_scale_factor(1.25) end)
 vim.keymap.set('i', '<C-->', function() change_scale_factor(1/1.25) end)
 
--- Map Ctrl-Z to do nothing
+-- Map Ctrl-z to do nothing
 vim.keymap.set('n', '<C-z>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('x', '<C-z>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-z>', '<Nop>', { noremap = true, silent = true })
@@ -23,14 +23,14 @@ vim.keymap.set('i', '<C-z>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('n', 'q', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('x', 'q', '<Nop>', { noremap = true, silent = true })
 
--- for quit command
+-- Map quit command to Ctrl-q
 vim.keymap.set('n', '<C-q>', ':q<cr>', {
   desc = 'Quit neovim', noremap = true, silent = true
 })
 
 -- Map c to yank command
 vim.keymap.set('n', 'c', ':y<cr>', { noremap = true })
-vim.keymap.set('x', 'c', ':y<cr>', { noremap = true })
+-- vim.keymap.set('x', 'c', ':y<cr>', { noremap = true })
 
 -- Change delete keymaps to "Delete without yanking"
 vim.keymap.set('n', 'd', '"_x', { noremap = true })

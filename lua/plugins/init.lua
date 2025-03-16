@@ -1,5 +1,6 @@
 return {
-  {     'LazyVim/LazyVim',
+  {
+    'LazyVim/LazyVim',
     opts = {
       colorscheme = 'catppuccin-macchiato'
     }
@@ -21,9 +22,7 @@ return {
     version = '*', -- Use for stability; omit to use `main` branch for the latest features
     event = 'VeryLazy',
     config = function()
-      require('nvim-surround').setup({
-        -- Configuration here, or leave empty to use defaults
-      })
+      require('nvim-surround').setup()
     end
   },
   {
@@ -35,7 +34,7 @@ return {
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
     config = function()
-      require('log-highlight').setup {}
+      require('log-highlight').setup()
     end
   },
   {
@@ -91,7 +90,6 @@ return {
   {
     'rmagatti/auto-session',
     lazy = false,
-
     ---enables autocomplete for opts
     ---@module "auto-session"
     ---@type AutoSession.Config
