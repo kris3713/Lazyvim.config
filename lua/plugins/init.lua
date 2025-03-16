@@ -9,7 +9,7 @@ return {
     'roobert/surround-ui.nvim',
     dependencies = {
       'kylechui/nvim-surround',
-      'folke/which-key.nvim',
+      'folke/which-key.nvim'
     },
     config = function()
       require('surround-ui').setup {
@@ -26,10 +26,7 @@ return {
     end
   },
   {
-    'numToStr/Comment.nvim',
-    opts = {
-      -- add any options here
-    }
+    'numToStr/Comment.nvim'
   },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
