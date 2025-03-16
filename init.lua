@@ -66,7 +66,7 @@ end)
 
 require('ibl').setup { indent = { highlight = highlight } }
 
-require('trim').setup({
+require('trim').setup {
   -- if you want to ignore markdown file.
   -- you can specify filetypes.
   ft_blocklist = {"markdown"},
@@ -81,7 +81,7 @@ require('trim').setup({
 
   -- highlight trailing spaces
   highlight = true
-})
+}
 
 -- Change default cursor to a line
 vim.opt.guicursor = 'i:ver25-iCursor'
@@ -94,3 +94,10 @@ vim.opt.guicursor = 'i:ver25-iCursor'
 --         cspell.code_actions,
 --     }
 -- }
+
+---- Override Netrw with Neo-tree
+-- if vim.bo.filetype == 'netrw' and vim.b.netrw_method == nil then
+--     vim.defer_fn(function()
+--       vim.cmd('enew | Neotree current dir=' .. vim.b.netrw_curdir)
+--   end, 0)
+-- end

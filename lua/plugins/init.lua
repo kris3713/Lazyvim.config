@@ -12,9 +12,9 @@ return {
       'folke/which-key.nvim',
     },
     config = function()
-      require('surround-ui').setup({
+      require('surround-ui').setup {
         root_key = 'S'
-      })
+      }
     end
   },
   {
@@ -56,7 +56,7 @@ return {
     },
     config = function ()
       -- require('mason').setup() -- Mason setup must run before csharp, only if you want to use omnisharp
-      require('csharp').setup({
+      require('csharp').setup {
         lsp = {
           omnisharp = { enable = false },
           roslyn = {
@@ -64,7 +64,7 @@ return {
             cmd_path = '/home/kris/DO-NOT-DELETE/roslyn-lsp/Microsoft.CodeAnalysis.LanguageServer.dll'
           }
         }
-      })
+      }
     end
   },
   { -- Activate lazygit.nvim
@@ -91,7 +91,7 @@ return {
     'rmagatti/auto-session',
     lazy = false,
     ---enables autocomplete for opts
-    ---@module "auto-session"
+    ---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
       suppressed_dirs = { '/' }
@@ -104,5 +104,26 @@ return {
   {
     'mcauley-penney/visual-whitespace.nvim',
     config = true
+  },
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim'
+    },
+    config = function ()
+      require('nvim-neo-tree/neo-tree.nvim').setup {
+        filesystem = {
+          filtered_items = {
+            visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            hijack_netrw_behavior = 'open_current'
+          }
+        }
+      }
+    end
   }
 }
