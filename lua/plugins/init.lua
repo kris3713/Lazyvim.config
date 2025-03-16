@@ -114,16 +114,22 @@ return {
       'MunifTanjim/nui.nvim'
     },
     config = function ()
-      require('nvim-neo-tree/neo-tree.nvim').setup {
+      require('nvim-neo-tree/neo-tree.nvim').setup({
         filesystem = {
+          hijack_netrw_behavior = 'open_current',
           filtered_items = {
             visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
             hide_dotfiles = false,
-            hide_gitignored = false,
-            hijack_netrw_behavior = 'open_current'
+            hide_gitignored = false
           }
         }
-      }
+      })
+      ---- Override Netrw functionality with Neo-tree
+      if vim.bo.filetype == 'netrw' and vim.b.netrw_method == nil then
+        vim.defer_fn(function()
+            vim.cmd('enew | Neotree current dir=' .. vim.b.netrw_curdir)
+        end, 0)
+      end
     end
   }
 }
