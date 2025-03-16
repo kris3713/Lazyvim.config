@@ -30,7 +30,7 @@ vim.keymap.set('n', '<C-q>', ':q<cr>', {
 
 -- Map c to yank command
 vim.keymap.set('n', 'c', ':y<cr>', { noremap = true })
--- vim.keymap.set('x', 'c', ':y<cr>', { noremap = true })
+vim.keymap.set('x', 'c', ':y<cr>', { noremap = true })
 
 -- Change delete keymaps to "Delete without yanking"
 vim.keymap.set('n', 'd', '"_x', { noremap = true })
