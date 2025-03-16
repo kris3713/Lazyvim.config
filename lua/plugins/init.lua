@@ -69,7 +69,7 @@ return {
     end
   },
   { -- Activate lazygit.nvim
-  'kdheepak/lazygit.nvim',
+    'kdheepak/lazygit.nvim',
     lazy = true,
     cmd = {
       'LazyGit',

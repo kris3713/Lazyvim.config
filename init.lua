@@ -66,9 +66,6 @@ end)
 
 require('ibl').setup { indent = { highlight = highlight } }
 
--- Add parsing for csharp
-require('nvim-treesitter.parsers').ft_to_lang('cs')
-
 require('trim').setup({
   -- if you want to ignore markdown file.
   -- you can specify filetypes.
@@ -76,7 +73,7 @@ require('trim').setup({
 
   -- if you want to remove multiple blank lines
   patterns = {
-    [[%s/\(\n\n\)\n\+/\1/]],   -- replace multiple blank lines with a single line
+    [[%s/\(\n\n\)\n\+/\1/]]   -- replace multiple blank lines with a single line
   },
 
   -- if you want to disable trim on write by default
@@ -87,7 +84,6 @@ require('trim').setup({
 })
 
 -- Change default cursor to a line
-vim.opt.guicursor = 'n:ver25-iCursor'
 vim.opt.guicursor = 'i:ver25-iCursor'
 
 -- cspell.nvim
