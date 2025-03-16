@@ -24,6 +24,6 @@ vim.api.nvim_create_autocmd('VimEnter', {
   group = 'VisualWhitespace',
   pattern = '*',
   callback = function()
-    require("visual-whitespace").toggle()
+    require('nvim-neo-tree/neo-tree.nvim').toggle()
   end,
 })

@@ -61,7 +61,7 @@ return {
           omnisharp = { enable = false },
           roslyn = {
             enable = true,
-            cmd_path = '/home/kris/DO-NOT-DELETE/roslyn-lsp/Microsoft.CodeAnalysis.LanguageServer.dll'
+            cmd_path = os.getenv('ROSLYN_LSP') .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
           }
         }
       }
@@ -80,11 +80,6 @@ return {
     -- optional for floating window border decoration
     dependencies = {
       'nvim-lua/plenary.nvim'
-    },
-      -- setting the keybinding for LazyGit with 'keys' is recommended in
-    -- order to load the plugin when the command is run for the first time
-    keys = {
-      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' }
     }
   },
   {
@@ -107,6 +102,7 @@ return {
   },
   {
     'nvim-neo-tree/neo-tree.nvim',
+    lazy = true,
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
@@ -115,10 +111,10 @@ return {
     cmd = 'Neotree',
     init = function ()
       vim.api.nvim_create_autocmd('BufNewFile', {
-        group    = vim.api.nvim_create_augroup('RemoteFile', {clear = true}),
+        group    = vim.api.nvim_create_augroup('RemoteFile', { clear = true }),
         callback = function()
           local f = vim.fn.expand('%:p')
-          for _, v in ipairs{'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync'} do
+          for _, v in ipairs{ 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
             local p = v .. '://'
             if string.sub(f, 1, #p) == p then
               vim.cmd[[
@@ -127,24 +123,22 @@ return {
                 runtime! plugin/netrwPlugin.vim
                 silent Explore %
               ]]
-              vim.api.nvim_clear_autocmds{group = 'RemoteFile'}
+              vim.api.nvim_clear_autocmds{ group = 'RemoteFile' }
               break
             end
           end
         end
       })
     end,
-    config = function ()
-      require('nvim-neo-tree/neo-tree.nvim').setup({
-        filesystem = {
-          hijack_netrw_behavior = 'open_current',
-          filtered_items = {
-            visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
-            hide_dotfiles = false,
-            hide_gitignored = false
-          }
+    opts = {
+      filesystem = {
+        hijack_netrw_behavior = 'open_current',
+        filtered_items = {
+          visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+          hide_dotfiles = false,
+          hide_gitignored = false
         }
-      })
-    end
+      }
+    }
   }
 }

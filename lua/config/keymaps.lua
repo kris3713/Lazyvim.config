@@ -25,7 +25,7 @@ vim.keymap.set('x', 'q', '<Nop>', { noremap = true, silent = true })
 
 -- Map quit command to Ctrl-q
 vim.keymap.set('n', '<C-q>', ':q<cr>', {
-  desc = 'Quit neovim', noremap = true, silent = true
+  desc = 'Quit Neovim', noremap = true, silent = true
 })
 
 -- Map c to yank command
@@ -42,4 +42,8 @@ vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
 vim.keymap.set('i', '<C-v>', '<C-r>+')
 vim.keymap.set('i', '<S-Insert>', '<C-r>+')
 
--- Change keybin ld
+-- Change keymap for "Explorer Snacks" (Netrw)
+vim.keymap.set('n', '<Space>e', ':Neotree<CR>', { desc = 'Open Neotree', remap = false })
+
+-- lazygit keymaps
+vim.keymap.set('n', '\\lg', ':LazyGit<cr>', { desc = 'LazyGit' })
