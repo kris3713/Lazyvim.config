@@ -39,20 +39,17 @@ vim.keymap.set('x', 'd', '"_x', { noremap = true })
 vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
 
 -- Make it easier to paste in INSERT mode
-vim.keymap.set('i', '<C-v>', '<C-R>+')
-vim.keymap.set('i', '<S-Insert>', '<C-R>+')
+vim.keymap.set('i', '<C-v>', '<C-R>+', { noremap = true })
+vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
 
 -- Change keymap for "Explorer Snacks" (Netrw)
-vim.keymap.set('n', '<Space>e', ':Neotree<CR>', { desc = 'Open Neotree', remap = false })
+vim.keymap.set('n', '<Space>e', ':Neotree<CR>', { desc = 'Open Neotree', noremap = true })
 
 -- lazygit keymaps
-vim.keymap.set('n', '\\l', ':LazyGit<cr>', { desc = 'LazyGit' })
-vim.keymap.set('n', '\\L', ':LazyGit<cr>', { desc = 'LazyGit' })
+vim.keymap.set('n', 'gl', ':LazyGit<cr>', { desc = 'LazyGit', noremap = true })
 
 -- Neovim Diagnostics Float
-
--- Toggles Diagnostics
-function Toggle_Diagnostics()
+vim.keymap.set("n", "gi", function()
   -- If we find a floating window, close it.
   local found_float = false
   for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -65,10 +62,12 @@ function Toggle_Diagnostics()
   if found_float then return end
 
   vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
-end
+end, { desc = "Toggle Diagnostics", noremap = true })
 
-vim.keymap.set("n", "\\i", function() Toggle_Diagnostics() end, { desc = "Toggle Diagnostics" })
-vim.keymap.set("n", "\\I", function() Toggle_Diagnostics() end, { desc = "Toggle Diagnostics" })
+-- actions-preview.nvim
+vim.keymap.set({ "v", "n" }, "gf", require("actions-preview").code_actions, {
+  desc = 'Open Code Actions', noremap = true
+})
 
--- Neovim Code Actions
-vim.keymap.set('n', '\\c', function() vim.lsp.buf.code_action() end, { buffer = true })
+-- Map the reverse tab character to Shift + Tab
+vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
