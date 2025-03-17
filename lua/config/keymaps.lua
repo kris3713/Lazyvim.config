@@ -24,7 +24,7 @@ vim.keymap.set('n', 'q', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('x', 'q', '<Nop>', { noremap = true, silent = true })
 
 -- Map quit command to Ctrl-q
-vim.keymap.set('n', '<C-q>', ':q<cr>', {
+vim.keymap.set('n', '<C-q>', ':exit<cr>', {
   desc = 'Quit Neovim', noremap = true, silent = true
 })
 
@@ -39,11 +39,36 @@ vim.keymap.set('x', 'd', '"_x', { noremap = true })
 vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
 
 -- Make it easier to paste in INSERT mode
-vim.keymap.set('i', '<C-v>', '<C-r>+')
-vim.keymap.set('i', '<S-Insert>', '<C-r>+')
+vim.keymap.set('i', '<C-v>', '<C-R>+')
+vim.keymap.set('i', '<S-Insert>', '<C-R>+')
 
 -- Change keymap for "Explorer Snacks" (Netrw)
 vim.keymap.set('n', '<Space>e', ':Neotree<CR>', { desc = 'Open Neotree', remap = false })
 
 -- lazygit keymaps
-vim.keymap.set('n', '\\lg', ':LazyGit<cr>', { desc = 'LazyGit' })
+vim.keymap.set('n', '\\l', ':LazyGit<cr>', { desc = 'LazyGit' })
+vim.keymap.set('n', '\\L', ':LazyGit<cr>', { desc = 'LazyGit' })
+
+-- Neovim Diagnostics Float
+
+-- Toggles Diagnostics
+function Toggle_Diagnostics()
+  -- If we find a floating window, close it.
+  local found_float = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= "" then
+      vim.api.nvim_win_close(win, true)
+      found_float = true
+    end
+  end
+
+  if found_float then return end
+
+  vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+end
+
+vim.keymap.set("n", "\\i", function() Toggle_Diagnostics() end, { desc = "Toggle Diagnostics" })
+vim.keymap.set("n", "\\I", function() Toggle_Diagnostics() end, { desc = "Toggle Diagnostics" })
+
+-- Neovim Code Actions
+vim.keymap.set('n', '\\c', function() vim.lsp.buf.code_action() end, { buffer = true })
