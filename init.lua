@@ -13,25 +13,8 @@ vim.opt.wrap = true
 
 -- rainbow delimiters
 -- This module contains a number of default definitions
-local rainbow_delimiters = require('rainbow-delimiters')
-
 ---@type rainbow_delimiters.config
 vim.g.rainbow_delimiters = {
-  strategy = {
-    [''] = rainbow_delimiters.strategy['global'],
-    vim = rainbow_delimiters.strategy['local'],
-    c_sharp = rainbow_delimiters.strategy['local']
-  },
-  query = {
-    [''] = 'rainbow-delimiters',
-    lua = 'rainbow-blocks',
-    c_sharp = 'rainbow-delimiters'
-  },
-  priority = {
-    [''] = 110,
-    lua = 210,
-    c_sharp = 210
-  },
   highlight = {
     'RainbowDelimiterRed',
     'RainbowDelimiterYellow',
@@ -42,6 +25,8 @@ vim.g.rainbow_delimiters = {
     'RainbowDelimiterCyan'
   }
 }
+-- Change the colour of "RainbowDelimiterGreen"
+vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#40a02b' })
 
 -- indent blankline
 local highlight = {
