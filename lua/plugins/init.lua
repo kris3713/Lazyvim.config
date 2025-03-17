@@ -144,5 +144,8 @@ return {
   {
     'Exafunction/codeium.vim',
     event = 'BufEnter'
+  },
+  {
+    'aznhe21/actions-preview.nvim'
   }
 }
