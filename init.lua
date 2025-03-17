@@ -3,6 +3,9 @@ require('config.lazy')
 -- For Comment.nvim
 require('Comment').setup()
 
+-- MOST IMPORTANT
+require('lspconfig').lua_ls.setup {}
+
 -- Set font family and font size (For Neovide and Neovim-Qt)
 vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
 -- Set softwrapping to always be true
