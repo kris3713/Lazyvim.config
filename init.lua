@@ -21,7 +21,7 @@ vim.g.rainbow_delimiters = {
     'RainbowDelimiterCyan'
   }
 }
--- Change the colour of "RainbowDelimiterGreen"
+-- Change the colour of 'RainbowDelimiterGreen'
 vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#40a02b' })
 
 -- indent blankline
@@ -69,15 +69,42 @@ require('trim').setup {
 -- Change default cursor to a line
 vim.opt.guicursor = 'i:ver25-iCursor'
 
--- cspell.nvim
--- local cspell = require('davidmh/cspell.nvim')
--- require("null-ls").setup {
---     sources = {
---         cspell.diagnostics,
---         cspell.code_actions,
---     }
--- }
-
 -- For Ruby development
 require('lspconfig').solargraph.setup {}
 require('lspconfig').sorbet.setup {}
+
+-- none-ls.nvim
+local null_ls = require('null-ls')
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.completion.spell,
+    require('none-ls.diagnostics.eslint') -- requires none-ls-extras.nvim
+  }
+})
+
+-- -- cspell.nvim
+-- local config = {
+--   -- The CSpell configuration file can take a few different names this option
+--   -- lets you specify which name you would like to use when creating a new
+--   -- config file from within the `Add word to cspell json file` action.
+--   --
+--   -- See the currently supported files in https://github.com/davidmh/cspell.nvim/blob/main/lua/cspell/helpers.lua
+--   config_file_preferred_name = 'cspell.yml',
+--
+--   -- A list of directories that contain additional cspell.json config files or
+--   -- support the creation of a new config file from a code action
+--   --
+--   -- looks for a cspell config in the ~/.config/ directory, or creates a file in the directory
+--   -- using 'config_file_preferred_name' when a code action for one of the locations is selected
+--   cspell_config_dirs = { '~/MEGA/Others/' }
+-- }
+--
+-- local cspell = require('lspconfig.configs.openscad_ls')
+-- require('null-ls').setup {
+--     sources = {
+--         cspell.diagnostics.with({ config = config }),
+--         cspell.code_actions.with({ config = config }),
+--     }
+-- }
