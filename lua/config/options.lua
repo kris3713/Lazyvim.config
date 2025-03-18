@@ -8,3 +8,9 @@ vim.g.autoformat = false -- Remove annoying autoformat
 vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
 -- Set softwrapping to always be true
 vim.opt.wrap = true
+
+-- -- Set leader key
+-- vim.g.mapleader = ","
+
+-- Change default cursor to a line
+vim.opt.guicursor = 'i:ver25-iCursor'

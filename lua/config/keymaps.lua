@@ -52,7 +52,7 @@ vim.keymap.set('n', 'gl', ':LazyGit<cr>', {
 })
 
 -- Neovim Diagnostics Float
-vim.keymap.set("n", "gi", function()
+vim.keymap.set('n', 'gi', function()
   -- If we find a floating window, close it.
   local found_float = false
   for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -77,5 +77,21 @@ vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
 
 -- Keymap for disabling Codeium
 vim.keymap.set('n', 'g\\', '<cmd>CodeiumToggle<CR>', {
-  desc = 'Toggle Codeium on and off', noremap = true
+  desc = 'Toggles Codeium on or off', noremap = true
+})
+
+-- nvim-spectre
+local cmd_part = '<cmd>lua require("spectre")'
+
+vim.keymap.set('n', '<leader>S', cmd_part .. '.toggle()<CR>', {
+  desc = 'Toggle Spectre'
+})
+vim.keymap.set('n', '<leader>sw', cmd_part .. '.open_visual({select_word=true})<CR>', {
+  desc = 'Search current word'
+})
+vim.keymap.set('v', '<leader>sw', '<esc>' .. cmd_part .. '.open_visual()<CR>', {
+  desc = 'Search current word'
+})
+vim.keymap.set('n', '<leader>sp', cmd_part .. '.open_file_search({select_word=true})<CR>', {
+  desc = 'Search on current file'
 })

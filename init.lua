@@ -66,9 +66,6 @@ require('trim').setup {
   highlight = true
 }
 
--- Change default cursor to a line
-vim.opt.guicursor = 'i:ver25-iCursor'
-
 -- For Ruby development
 require('lspconfig').solargraph.setup {}
 require('lspconfig').sorbet.setup {}

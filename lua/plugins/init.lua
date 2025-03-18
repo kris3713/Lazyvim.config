@@ -25,18 +25,14 @@ return {
       require('nvim-surround').setup()
     end
   },
-  {
-    'numToStr/Comment.nvim'
-  },
+  { 'numToStr/Comment.nvim' },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
     config = function()
       require('log-highlight').setup()
     end
   },
-  {
-    'HiPhish/rainbow-delimiters.nvim'
-  },
+  { 'HiPhish/rainbow-delimiters.nvim' },
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
@@ -111,7 +107,7 @@ return {
         group    = vim.api.nvim_create_augroup('RemoteFile', { clear = true }),
         callback = function()
           local f = vim.fn.expand('%:p')
-          for _, v in ipairs{ 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
+          for _, v in ipairs { 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
             local p = v .. '://'
             if string.sub(f, 1, #p) == p then
               vim.cmd[[
@@ -120,7 +116,7 @@ return {
                 runtime! plugin/netrwPlugin.vim
                 silent Explore %
               ]]
-              vim.api.nvim_clear_autocmds{ group = 'RemoteFile' }
+              vim.api.nvim_clear_autocmds { group = 'RemoteFile' }
               break
             end
           end
@@ -138,24 +134,19 @@ return {
       }
     }
   },
-  {
-    'neovim/nvim-lspconfig'
-  },
+  { 'neovim/nvim-lspconfig' },
   {
     'Exafunction/codeium.vim',
     event = 'BufEnter'
   },
-  {
-    'aznhe21/actions-preview.nvim'
-  },
-  {
-    'nanotee/zoxide.vim'
-  },
+  { 'aznhe21/actions-preview.nvim' },
+  { 'nanotee/zoxide.vim' },
   {
     'nvimtools/none-ls.nvim',
-    dependencies = {
-      'nvimtools/none-ls-extras.nvim'
-    },
+    dependencies = { 'nvimtools/none-ls-extras.nvim' },
     event = 'VeryLazy'
+  },
+  {
+    'nvim-pack/nvim-spectre'
   }
 }
