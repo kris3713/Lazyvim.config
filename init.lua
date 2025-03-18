@@ -68,6 +68,7 @@ require('trim').setup {
 
 -- For Ruby development
 require('lspconfig').solargraph.setup {}
+-- require('lspconfig').ruby_ls.setup {}
 require('lspconfig').sorbet.setup {}
 
 -- none-ls.nvim
