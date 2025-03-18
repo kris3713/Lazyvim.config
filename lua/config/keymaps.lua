@@ -97,6 +97,6 @@ vim.keymap.set('n', '<leader>sp', cmd_part .. '.open_file_search({select_word=tr
 })
 
 -- neogen
-vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", {
+vim.api.nvim_set_keymap('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
   noremap = true, silent = true
 })
