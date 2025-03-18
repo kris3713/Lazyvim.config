@@ -3,3 +3,8 @@
 -- Add any additional options here
 
 vim.g.autoformat = false -- Remove annoying autoformat
+
+-- Set font family and font size (For Neovide and Neovim-Qt)
+vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
+-- Set softwrapping to always be true
+vim.opt.wrap = true

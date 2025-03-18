@@ -6,11 +6,6 @@ require('Comment').setup()
 -- MOST IMPORTANT
 require('lspconfig').lua_ls.setup {}
 
--- Set font family and font size (For Neovide and Neovim-Qt)
-vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
--- Set softwrapping to always be true
-vim.opt.wrap = true
-
 -- rainbow delimiters
 -- This module contains a number of default definitions
 ---@type rainbow_delimiters.config

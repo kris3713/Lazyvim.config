@@ -74,3 +74,8 @@ vim.keymap.set({ 'v', 'n' }, 'gf', require('actions-preview').code_actions, {
 
 -- Map the reverse tab character to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
+
+-- Keymap for disabling Codeium
+vim.keymap.set('n', 'g\\', function ()
+  require('codeium').toggle()
+end, { noremap = true })
