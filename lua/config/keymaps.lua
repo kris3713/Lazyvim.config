@@ -29,7 +29,7 @@ vim.keymap.set('n', '<C-q>', ':exit<cr>', {
 })
 
 -- Map c to yank command
-vim.keymap.set({ 'v', 'n' }, 'c', ':y<cr>', { noremap = true })
+vim.keymap.set({ 'v', 'n' }, 'c', ':y<CR>', { noremap = true })
 
 -- Change delete keymaps to "Delete without yanking"
 vim.keymap.set('n', 'd', '"_x', { noremap = true })
@@ -94,4 +94,9 @@ vim.keymap.set('v', '<leader>sw', '<esc>' .. cmd_part .. '.open_visual()<CR>', {
 })
 vim.keymap.set('n', '<leader>sp', cmd_part .. '.open_file_search({select_word=true})<CR>', {
   desc = 'Search on current file'
+})
+
+-- neogen
+vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", {
+  noremap = true, silent = true
 })

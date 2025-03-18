@@ -71,9 +71,7 @@ return {
       'LazyGitFilterCurrentFile'
     },
     -- optional for floating window border decoration
-    dependencies = {
-      'nvim-lua/plenary.nvim'
-    }
+    dependencies = { 'nvim-lua/plenary.nvim' }
   },
   {
     'rmagatti/auto-session',
@@ -146,7 +144,9 @@ return {
     dependencies = { 'nvimtools/none-ls-extras.nvim' },
     event = 'VeryLazy'
   },
+  { 'nvim-pack/nvim-spectre' },
   {
-    'nvim-pack/nvim-spectre'
+    'danymat/neogen',
+    config = true
   }
 }
