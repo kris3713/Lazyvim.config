@@ -32,28 +32,32 @@ vim.keymap.set('n', '<C-q>', ':exit<cr>', {
 vim.keymap.set('n', 'c', ':y<cr>', { noremap = true })
 vim.keymap.set('x', 'c', ':y<cr>', { noremap = true })
 
--- Change delete keymaps to "Delete without yanking"
-vim.keymap.set('n', 'd', '"_x', { noremap = true })
-vim.keymap.set('n', '<Del>', '"_x', { noremap = true })
-vim.keymap.set('x', 'd', '"_x', { noremap = true })
-vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
+-- Change delete keymaps to 'Delete without yanking'
+vim.keymap.set('n', 'd', "'_x", { noremap = true })
+vim.keymap.set('n', '<Del>', "'_x", { noremap = true })
+vim.keymap.set('x', 'd', "'_x", { noremap = true })
+vim.keymap.set('x', '<Del>', "'_x", { noremap = true })
 
 -- Make it easier to paste in INSERT mode
 vim.keymap.set('i', '<C-v>', '<C-R>+', { noremap = true })
 vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
 
--- Change keymap for "Explorer Snacks" (Netrw)
-vim.keymap.set('n', '<Space>e', ':Neotree<CR>', { desc = 'Open Neotree', noremap = true })
+-- Change keymap for 'Explorer Snacks' (Netrw)
+vim.keymap.set('n', '<Space>e', ':Neotree<CR>', {
+  desc = 'Open Neotree', noremap = true
+})
 
 -- lazygit keymaps
-vim.keymap.set('n', 'gl', ':LazyGit<cr>', { desc = 'LazyGit', noremap = true })
+vim.keymap.set('n', 'gl', ':LazyGit<cr>', {
+  desc = 'LazyGit', noremap = true
+})
 
 -- Neovim Diagnostics Float
-vim.keymap.set("n", "gi", function()
+vim.keymap.set('n', 'gi', function()
   -- If we find a floating window, close it.
   local found_float = false
   for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative ~= "" then
+    if vim.api.nvim_win_get_config(win).relative ~= '' then
       vim.api.nvim_win_close(win, true)
       found_float = true
     end
@@ -61,11 +65,11 @@ vim.keymap.set("n", "gi", function()
 
   if found_float then return end
 
-  vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
-end, { desc = "Toggle Diagnostics", noremap = true })
+  vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
+end, { desc = 'Toggle Diagnostics', noremap = true })
 
 -- actions-preview.nvim
-vim.keymap.set({ "v", "n" }, "gf", require("actions-preview").code_actions, {
+vim.keymap.set('n', 'gf', require('actions-preview').code_actions, {
   desc = 'Open Code Actions', noremap = true
 })
 
