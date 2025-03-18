@@ -8,6 +8,7 @@ require('lspconfig').lua_ls.setup {}
 
 -- rainbow delimiters
 -- This module contains a number of default definitions
+---@diagnostic disable-next-line: undefined-doc-name
 ---@type rainbow_delimiters.config
 vim.g.rainbow_delimiters = {
   highlight = {
@@ -55,15 +56,12 @@ require('trim').setup {
   ft_blocklist = {
     'markdown'
   },
-
   -- if you want to remove multiple blank lines
   patterns = {
     [[%s/\(\n\n\)\n\+/\1/]]   -- replace multiple blank lines with a single line
   },
-
   -- if you want to disable trim on write by default
   trim_on_write = true,
-
   -- highlight trailing spaces
   highlight = true
 }

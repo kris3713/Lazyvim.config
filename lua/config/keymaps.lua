@@ -76,6 +76,4 @@ vim.keymap.set({ 'v', 'n' }, 'gf', require('actions-preview').code_actions, {
 vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
 
 -- Keymap for disabling Codeium
-vim.keymap.set('n', 'g\\', function ()
-  require('codeium').toggle()
-end, { noremap = true })
+vim.keymap.set('n', 'g\\', '<cmd>CodeiumToggle<CR>', { noremap = true })
