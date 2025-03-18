@@ -76,14 +76,14 @@ vim.keymap.set({ 'v', 'n' }, 'gf', require('actions-preview').code_actions, {
 vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
 
 -- Keymap for disabling Codeium
-vim.keymap.set('n', 'g\\', '<cmd>CodeiumToggle<CR>', {
+vim.keymap.set('n', '<leader>\\', '<cmd>CodeiumToggle<CR>', {
   desc = 'Toggles Codeium on or off', noremap = true
 })
 
 -- nvim-spectre
 local cmd_part = '<cmd>lua require("spectre")'
 
-vim.keymap.set('n', '<leader>S', cmd_part .. '.toggle()<CR>', {
+vim.keymap.set('n', '<leader>sS', cmd_part .. '.toggle()<CR>', {
   desc = 'Toggle Spectre'
 })
 vim.keymap.set('n', '<leader>sw', cmd_part .. '.open_visual({select_word=true})<CR>', {
