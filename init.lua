@@ -85,5 +85,6 @@ vim.opt.guicursor = 'i:ver25-iCursor'
 --     }
 -- }
 
--- For Solargraph language server for Ruby
+-- For Ruby development
 require('lspconfig').solargraph.setup {}
+require('lspconfig').sorbet.setup {}
