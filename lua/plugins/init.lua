@@ -147,5 +147,8 @@ return {
   },
   {
     'aznhe21/actions-preview.nvim'
+  },
+  {
+    'nanotee/zoxide.vim'
   }
 }
