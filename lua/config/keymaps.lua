@@ -69,7 +69,7 @@ vim.keymap.set({ 'v', 'n' }, 'gf', require('actions-preview').code_actions, {
   desc = 'Open Code Actions', noremap = true
 })
 
--- Map the reverse tab character to Shift + Tab
+-- Map the backwards indent to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
 
 -- -- Keymap for disabling Codeium

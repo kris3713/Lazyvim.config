@@ -1,10 +1,10 @@
 return {
-  -- {
-  --   'LazyVim/LazyVim',
-  --   opts = {
-  --     colorscheme = 'catppuccin-macchiato'
-  --   }
-  -- },
+  -- No config plugins go here
+  'HiPhish/rainbow-delimiters.nvim',
+  'aznhe21/actions-preview.nvim',
+  'nanotee/zoxide.vim',
+  'numToStr/Comment.nvim',
+  -- Plugins with configs go here
   {
     'roobert/surround-ui.nvim',
     dependencies = {
@@ -24,14 +24,12 @@ return {
       require('nvim-surround').setup()
     end
   },
-  { 'numToStr/Comment.nvim' },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
     config = function()
       require('log-highlight').setup()
     end
   },
-  { 'HiPhish/rainbow-delimiters.nvim' },
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
@@ -42,7 +40,6 @@ return {
   { -- Activate csharp.nvim
     'iabdelkareem/csharp.nvim',
     dependencies = {
-      'williamboman/mason.nvim', -- Required, automatically installs omnisharp
       'mfussenegger/nvim-dap',
       'Tastyep/structlog.nvim' -- Optional, but highly recommended for debugging
     },
@@ -68,9 +65,7 @@ return {
       'LazyGitCurrentFile',
       'LazyGitFilter',
       'LazyGitFilterCurrentFile'
-    },
-    -- optional for floating window border decoration
-    dependencies = { 'nvim-lua/plenary.nvim' }
+    }
   },
   {
     'rmagatti/auto-session',
@@ -90,49 +85,6 @@ return {
     'mcauley-penney/visual-whitespace.nvim',
     config = true
   },
-  -- {
-  --   'nvim-neo-tree/neo-tree.nvim',
-  --   lazy = true,
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim',
-  --     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-  --     'MunifTanjim/nui.nvim'
-  --   },
-  --   cmd = 'Neotree',
-  --   init = function ()
-  --     vim.api.nvim_create_autocmd('BufNewFile', {
-  --       group    = vim.api.nvim_create_augroup('RemoteFile', { clear = true }),
-  --       callback = function()
-  --         local f = vim.fn.expand('%:p')
-  --         for _, v in ipairs { 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
-  --           local p = v .. '://'
-  --           if string.sub(f, 1, #p) == p then
-  --             vim.cmd[[
-  --               unlet g:loaded_netrw
-  --               unlet g:loaded_netrwPlugin
-  --               runtime! plugin/netrwPlugin.vim
-  --               silent Explore %
-  --             ]]
-  --             vim.api.nvim_clear_autocmds { group = 'RemoteFile' }
-  --             break
-  --           end
-  --         end
-  --       end
-  --     })
-  --   end,
-  --   opts = {
-  --     filesystem = {
-  --       hijack_netrw_behavior = 'open_current',
-  --       filtered_items = {
-  --         visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
-  --         hide_dotfiles = false,
-  --         hide_gitignored = false
-  --       }
-  --     }
-  --   }
-  -- },
-  { 'aznhe21/actions-preview.nvim' },
-  { 'nanotee/zoxide.vim' },
   {
     'nvimtools/none-ls.nvim',
     dependencies = { 'nvimtools/none-ls-extras.nvim' },
@@ -159,59 +111,16 @@ return {
     }
   },
   {
+    'akinsho/bufferline.nvim',
+    opts = function(_, opts)
+      if (vim.g.colors_name or ''):find('catppuccin') then
+        opts.highlights = require('catppuccin.groups.integrations.bufferline').get()
+      end
+    end
+  },
+  {
     'catppuccin/nvim',
     lazy = true,
-    name = 'catppuccin',
-    opts = {
-      integrations = {
-        aerial = true,
-        alpha = true,
-        cmp = true,
-        dashboard = true,
-        flash = true,
-        fzf = true,
-        grug_far = true,
-        gitsigns = true,
-        headlines = true,
-        illuminate = true,
-        indent_blankline = { enabled = true },
-        leap = true,
-        lsp_trouble = true,
-        mason = true,
-        markdown = true,
-        mini = true,
-        native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { 'undercurl' },
-            hints = { 'undercurl' },
-            warnings = { 'undercurl' },
-            information = { 'undercurl' },
-          },
-        },
-        navic = { enabled = true, custom_bg = 'lualine' },
-        neotest = true,
-        neotree = true,
-        noice = true,
-        notify = true,
-        semantic_tokens = true,
-        snacks = true,
-        telescope = true,
-        treesitter = true,
-        treesitter_context = true,
-        which_key = true,
-      },
-  },
-  specs = {
-    {
-      'akinsho/bufferline.nvim',
-      optional = true,
-      opts = function(_, opts)
-        if (vim.g.colors_name or ''):find('catppuccin') then
-          opts.highlights = require('catppuccin.groups.integrations.bufferline').get()
-        end
-      end,
-    },
-  }
+    name = 'catppuccin'
   }
 }

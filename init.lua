@@ -1,5 +1,9 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require('config.lazy')
+
+-- Set the theme to Catpuccin Macchiato
+vim.api.nvim_command('colorscheme catppuccin-macchiato')
+
 -- For Comment.nvim
 require('Comment').setup()
 
