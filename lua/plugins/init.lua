@@ -2,13 +2,23 @@ return {
   -- No config plugins go here
   'HiPhish/rainbow-delimiters.nvim',
   'aznhe21/actions-preview.nvim',
-  'nanotee/zoxide.vim',
   'numToStr/Comment.nvim',
   'nvim-tree/nvim-web-devicons',
   'MunifTanjim/nui.nvim',
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
   -- Plugins with configs go here
+  {
+    'nanotee/zoxide.vim',
+    init = function()
+      vim.g.zoxide_use_select = 1
+
+      -- -- Enable if you want to start zoxide.vim on startup
+      -- if vim.fn.argc() == 0 then
+      --   vim.defer_fn(function () vim.api.nvim_command('Zi') end, 0)
+      -- end
+    end
+  },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
     config = function()
@@ -52,7 +62,9 @@ return {
     ---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
-      suppressed_dirs = { '/' }
+      suppressed_dirs = { '/' },
+      auto_restore_last_session = true,
+      auto_restore = true
     }
   },
   {
