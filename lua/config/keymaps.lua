@@ -92,42 +92,30 @@ vim.keymap.set('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
 -- Set softwrap to Alt + Z
 vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', { desc = 'Toggle softwrap.', noremap = true })
 
--- TODO: NEOTREE stuff
---
--- #region
---
---    keys = {
---
---     "<leader>fe",
---     function()
---       require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
---     end,
---     desc = "Explorer NeoTree (Root Dir)",
---   },
---   {
---     "<leader>fE",
---     function()
---       require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
---     end,
---     desc = "Explorer NeoTree (cwd)",
---   },
---   { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
---   { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
---   {
---     "<leader>ge",
---     function()
---       require("neo-tree.command").execute({ source = "git_status", toggle = true })
---     end,
---     desc = "Git Explorer",
---   },
---   {
---     "<leader>be",
---     function()
---       require("neo-tree.command").execute({ source = "buffers", toggle = true })
---     end,
---     desc = "Buffer Explorer",
---   },
--- }
---
--- #endregion
--- Convert the above to standard vim keymaps in lua
+-- NEOTREE stuff
+vim.keymap.set('n', '<leader>fe', function()
+  require('neo-tree.command').execute({ toggle = true, dir = LazyVim.root() })
+end, {
+  desc = 'Explorer NeoTree (Root Dir)', noremap = true
+})
+vim.keymap.set('n', '<leader>fE', function()
+  require('neo-tree.command').execute({ toggle = true, dir = vim.uv.cwd() })
+end, {
+  desc = 'Explorer NeoTree (cwd)', noremap = true
+})
+vim.keymap.set('n', '<leader>e', '<leader>fe', {
+  desc = 'Explorer NeoTree (Root Dir)', remap = true
+})
+vim.keymap.set('n', '<leader>E', '<leader>fE', {
+  desc = 'Explorer NeoTree (cwd)', remap = true
+})
+vim.keymap.set('n', '<leader>ge', function()
+  require('neo-tree.command').execute({ source = 'git_status', toggle = true })
+end, {
+  desc = 'Git Explorer', noremap = true
+})
+vim.keymap.set('n', '<leader>be', function()
+  require('neo-tree.command').execute({ source = 'buffers', toggle = true })
+end, {
+  desc = 'Buffer Explorer', noremap = true
+})

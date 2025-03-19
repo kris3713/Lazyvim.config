@@ -1,50 +1,23 @@
-return {
-  -- file explorer
-  {
+return { -- Copied from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
+  { -- file explorer
     'nvim-neo-tree/neo-tree.nvim',
     cmd = 'Neotree',
-    keys = {
-      {
-        '<leader>fe',
-        function()
-          require('neo-tree.command').execute({ toggle = true, dir = LazyVim.root() })
-        end,
-        desc = 'Explorer NeoTree (Root Dir)',
-      },
-      {
-        '<leader>fE',
-        function()
-          require('neo-tree.command').execute({ toggle = true, dir = vim.uv.cwd() })
-        end,
-        desc = 'Explorer NeoTree (cwd)',
-      },
-      { '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
-      { '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
-      {
-        '<leader>ge',
-        function()
-          require('neo-tree.command').execute({ source = 'git_status', toggle = true })
-        end,
-        desc = 'Git Explorer',
-      },
-      {
-        '<leader>be',
-        function()
-          require('neo-tree.command').execute({ source = 'buffers', toggle = true })
-        end,
-        desc = 'Buffer Explorer',
-      },
-    },
-    deactivate = function()
-      vim.api.nvim_command('Neotree close')
-    end,
+    deactivate = function() vim.api.nvim_command('Neotree close') end,
+    --- @module 'neo-tree'
+    --- @type neotree.Config
     opts = {
       sources = { 'filesystem', 'buffers', 'git_status' },
       open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true
+        use_libuv_file_watcher = true,
+        hijack_netrw_behavior = 'open_current',
+        filtered_items = {
+          visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
+          hide_dotfiles = false,
+          hide_gitignored = false
+        }
       },
       window = {
         mappings = {
@@ -87,6 +60,7 @@ return {
       local function on_move(data)
         Snacks.rename.on_rename_file(data.source, data.destination)
       end
+
       local events = require('neo-tree.events')
       opts.event_handlers = opts.event_handlers or {}
       vim.list_extend(opts.event_handlers, {
