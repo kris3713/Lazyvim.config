@@ -4,38 +4,33 @@ return {
   'aznhe21/actions-preview.nvim',
   'nanotee/zoxide.vim',
   'numToStr/Comment.nvim',
+  'nvim-tree/nvim-web-devicons',
+  'MunifTanjim/nui.nvim',
   -- Plugins with configs go here
-  {
-    'roobert/surround-ui.nvim',
-    dependencies = {
-      'kylechui/nvim-surround'
-    },
-    config = function()
-      require('surround-ui').setup {
-        root_key = 'S'
-      }
-    end
-  },
-  {
-    'kylechui/nvim-surround',
-    version = '*', -- Use for stability; omit to use `main` branch for the latest features
-    event = 'VeryLazy',
-    config = function()
-      require('nvim-surround').setup()
-    end
-  },
+  -- {
+  --   'roobert/surround-ui.nvim',
+  --   dependencies = {
+  --     'kylechui/nvim-surround'
+  --   },
+  --   config = function()
+  --     require('surround-ui').setup {
+  --       root_key = 'S'
+  --     }
+  --   end
+  -- },
+  -- {
+  --   'kylechui/nvim-surround',
+  --   version = '*', -- Use for stability; omit to use `main` branch for the latest features
+  --   event = 'VeryLazy',
+  --   config = function()
+  --     require('nvim-surround').setup()
+  --   end
+  -- },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
     config = function()
       require('log-highlight').setup()
     end
-  },
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    ---@module 'ibl'
-    ---@type ibl.config
-    opts = {}
   },
   { -- Activate csharp.nvim
     'iabdelkareem/csharp.nvim',
@@ -121,6 +116,47 @@ return {
   {
     'catppuccin/nvim',
     lazy = true,
-    name = 'catppuccin'
+    name = 'catppuccin',
+    opts = {
+      integrations = {
+        aerial = true,
+        alpha = true,
+        cmp = true,
+        flash = true,
+        fzf = true,
+        grug_far = true,
+        gitsigns = true,
+        headlines = true,
+        illuminate = true,
+        indent_blankline = { enabled = true },
+        leap = true,
+        lsp_trouble = true,
+        mason = true,
+        markdown = true,
+        mini = true,
+        native_lsp = {
+          enabled = true,
+          underlines = {
+            errors = { 'undercurl' },
+            hints = { 'undercurl' },
+            warnings = { 'undercurl' },
+            information = { 'undercurl' }
+          }
+        },
+        neotree = true,
+        notify = true,
+        semantic_tokens = true,
+        snacks = true,
+        treesitter = true,
+        treesitter_context = true,
+        which_key = true
+      }
+    }
+  },
+  {
+    'antosha417/nvim-lsp-file-operations',
+    config = function ()
+      require('lsp-file-operations').setup()
+    end
   }
 }

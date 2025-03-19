@@ -86,6 +86,9 @@ null_ls.setup({
   }
 })
 
+-- Keep everything else from mini.animate except the cursor animation.
+require('mini.animate').config.cursor.enable = false
+
 -- -- cspell.nvim
 -- local config = {
 --   -- The CSpell configuration file can take a few different names this option

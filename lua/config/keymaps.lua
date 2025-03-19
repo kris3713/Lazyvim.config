@@ -38,11 +38,6 @@ vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
 vim.keymap.set('i', '<C-v>', '<C-R>+', { noremap = true })
 vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
 
--- -- Change keymap for Explorer Snacks
--- vim.keymap.set('n', '<Space>e', ':Neotree<CR>', {
---   desc = 'Open Neotree', noremap = true
--- })
-
 -- lazygit keymaps
 vim.keymap.set('n', 'gl', ':LazyGit<cr>', {
   desc = 'LazyGit', noremap = true
@@ -72,32 +67,67 @@ vim.keymap.set({ 'v', 'n' }, 'gf', require('actions-preview').code_actions, {
 -- Map the backwards indent to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
 
--- -- Keymap for disabling Codeium
--- vim.keymap.set('n', '<leader>\\', '<cmd>CodeiumToggle<CR>', {
---   desc = 'Toggles Codeium on or off', noremap = true
+-- -- nvim-spectre
+-- local cmd_part = '<cmd>lua require("spectre")'
+--
+-- vim.keymap.set('n', '<leader>sS', cmd_part .. '.toggle()<CR>', {
+--   desc = 'Toggle Spectre'
+-- })
+-- vim.keymap.set('n', '<leader>sw', cmd_part .. '.open_visual({select_word=true})<CR>', {
+--   desc = 'Search current word'
+-- })
+-- vim.keymap.set('v', '<leader>sw', '<esc>' .. cmd_part .. '.open_visual()<CR>', {
+--   desc = 'Search current word'
+-- })
+-- vim.keymap.set('n', '<leader>sp', cmd_part .. '.open_file_search({select_word=true})<CR>', {
+--   desc = 'Search on current file'
 -- })
 
--- nvim-spectre
-local cmd_part = '<cmd>lua require("spectre")'
-
-vim.keymap.set('n', '<leader>sS', cmd_part .. '.toggle()<CR>', {
-  desc = 'Toggle Spectre'
-})
-vim.keymap.set('n', '<leader>sw', cmd_part .. '.open_visual({select_word=true})<CR>', {
-  desc = 'Search current word'
-})
-vim.keymap.set('v', '<leader>sw', '<esc>' .. cmd_part .. '.open_visual()<CR>', {
-  desc = 'Search current word'
-})
-vim.keymap.set('n', '<leader>sp', cmd_part .. '.open_file_search({select_word=true})<CR>', {
-  desc = 'Search on current file'
-})
-
 -- neogen
-vim.api.nvim_set_keymap('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
+vim.keymap.set('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
   desc = 'Generate annotations',
   noremap = true, silent = true
 })
 
 -- Set softwrap to Alt + Z
-vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', { desc = 'Toggle softwrap.' })
+vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', { desc = 'Toggle softwrap.', noremap = true })
+
+-- TODO: NEOTREE stuff
+--
+-- #region
+--
+--    keys = {
+--
+--     "<leader>fe",
+--     function()
+--       require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
+--     end,
+--     desc = "Explorer NeoTree (Root Dir)",
+--   },
+--   {
+--     "<leader>fE",
+--     function()
+--       require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+--     end,
+--     desc = "Explorer NeoTree (cwd)",
+--   },
+--   { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
+--   { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+--   {
+--     "<leader>ge",
+--     function()
+--       require("neo-tree.command").execute({ source = "git_status", toggle = true })
+--     end,
+--     desc = "Git Explorer",
+--   },
+--   {
+--     "<leader>be",
+--     function()
+--       require("neo-tree.command").execute({ source = "buffers", toggle = true })
+--     end,
+--     desc = "Buffer Explorer",
+--   },
+-- }
+--
+-- #endregion
+-- Convert the above to standard vim keymaps in lua

@@ -18,4 +18,5 @@ vim.opt.guicursor = 'i:ver25-iCursor'
 -- Set lazyvim picker to fzf
 vim.g.lazyvim_picker = 'fzf'
 
-vim.o.timeoutlen = 1100
+-- -- Increase timeoutlen
+-- vim.o.timeoutlen = 1000
