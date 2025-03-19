@@ -37,8 +37,8 @@ vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
 -- Make it easier to paste in INSERT mode
 vim.keymap.set('i', '<C-v>', '<C-R>+', { noremap = true })
 vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
-vim.keymap.set('n', '<C-v>', '<C-R>+', { noremap = true })
-vim.keymap.set('n', '<S-Insert>', '<C-R>+', { noremap = true })
+vim.keymap.set('n', '<C-v>', '"+p', { noremap = true })
+vim.keymap.set('n', '<S-Insert>', '"+p', { noremap = true })
 
 -- lazygit keymaps
 vim.keymap.set('n', 'gl', ':LazyGit<cr>', {
@@ -67,7 +67,7 @@ vim.keymap.set({ 'v', 'n' }, 'gf', require('actions-preview').code_actions, {
 })
 
 -- Map the backwards indent to Shift + Tab
-vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
+vim.keymap.set('i', '<S-Tab>', '<C-d><CR>', { noremap = true })
 
 -- neogen
 vim.keymap.set('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {

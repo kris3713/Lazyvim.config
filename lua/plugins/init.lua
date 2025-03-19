@@ -7,26 +7,8 @@ return {
   'nvim-tree/nvim-web-devicons',
   'MunifTanjim/nui.nvim',
   'nvimtools/none-ls-extras.nvim',
+  'cappyzawa/trim.nvim',
   -- Plugins with configs go here
-  -- {
-  --   'roobert/surround-ui.nvim',
-  --   dependencies = {
-  --     'kylechui/nvim-surround'
-  --   },
-  --   config = function()
-  --     require('surround-ui').setup {
-  --       root_key = 'S'
-  --     }
-  --   end
-  -- },
-  -- {
-  --   'kylechui/nvim-surround',
-  --   version = '*', -- Use for stability; omit to use `main` branch for the latest features
-  --   event = 'VeryLazy',
-  --   config = function()
-  --     require('nvim-surround').setup()
-  --   end
-  -- },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
     config = function()
@@ -73,86 +55,101 @@ return {
       suppressed_dirs = { '/' }
     }
   },
-  { -- Important for whitespace trimming
-    'cappyzawa/trim.nvim',
-    opts = {}
-  },
   {
     'mcauley-penney/visual-whitespace.nvim',
     config = true
   },
-  {
-    'folke/snacks.nvim',
-    --- @module 'snacks'
-    --- @type snacks.Config
-    opts = {
-      notifier = { enabled = true },
-      -- show hidden files in snacks.explorer
-      picker = {
-        sources = {
-          explorer = {
-            -- show hidden files like .env
-            hidden = true,
-            -- show files ignored by git like node_modules
-            ignored = true,
-            exclude = { 'node_modules', '.git' }
-          }
-        }
-      }
-    }
-  },
-  {
-    'akinsho/bufferline.nvim',
-    opts = function(_, opts)
-      if (vim.g.colors_name or ''):find('catppuccin') then
-        opts.highlights = require('catppuccin.groups.integrations.bufferline').get()
-      end
-    end
-  },
-  {
-    'catppuccin/nvim',
-    lazy = true,
-    name = 'catppuccin',
-    opts = {
-      integrations = {
-        aerial = true,
-        alpha = true,
-        cmp = true,
-        flash = true,
-        fzf = true,
-        grug_far = true,
-        gitsigns = true,
-        headlines = true,
-        illuminate = true,
-        indent_blankline = { enabled = true },
-        leap = true,
-        lsp_trouble = true,
-        mason = true,
-        markdown = true,
-        mini = true,
-        native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { 'undercurl' },
-            hints = { 'undercurl' },
-            warnings = { 'undercurl' },
-            information = { 'undercurl' }
-          }
-        },
-        neotree = true,
-        notify = true,
-        semantic_tokens = true,
-        snacks = true,
-        treesitter = true,
-        treesitter_context = true,
-        which_key = true
-      }
-    }
-  },
+  -- {
+  --   'akinsho/bufferline.nvim',
+  --   opts = function(_, opts)
+  --     if (vim.g.colors_name or ''):find('catppuccin') then
+  --       opts.highlights = require('catppuccin.groups.integrations.bufferline').get()
+  --     end
+  --   end
+  -- },
   {
     'antosha417/nvim-lsp-file-operations',
     config = function ()
       require('lsp-file-operations').setup()
+    end
+  },
+  { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
+    'nvim-neo-tree/neo-tree.nvim',
+    cmd = 'Neotree',
+    deactivate = function() vim.api.nvim_command('Neotree close') end,
+    --- @module 'neo-tree'
+    --- @type neotree.Config
+    opts = {
+      sources = { 'filesystem', 'buffers', 'git_status' },
+      open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
+      filesystem = {
+        bind_to_cwd = false,
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+        hijack_netrw_behavior = 'open_current',
+        filtered_items = {
+          visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
+          hide_dotfiles = false,
+          hide_gitignored = false
+        }
+      },
+      window = {
+        mappings = {
+          ['l'] = 'open',
+          ['h'] = 'close_node',
+          ['<space>'] = 'none',
+          ['Y'] = {
+            function(state)
+              local node = state.tree:get_node()
+              local path = node:get_id()
+              vim.fn.setreg('+', path, 'c')
+            end,
+            desc = 'Copy Path to Clipboard'
+          },
+          ['O'] = {
+            function(state)
+              require('lazy.util').open(state.tree:get_node().path, { system = true })
+            end,
+            desc = 'Open with System Application'
+          },
+          ['P'] = { 'toggle_preview', config = { use_float = false } }
+        }
+      },
+      default_component_configs = {
+        indent = {
+          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+          expander_collapsed = '',
+          expander_expanded = '',
+          expander_highlight = 'NeoTreeExpander'
+        },
+        git_status = {
+          symbols = {
+            unstaged = '󰄱',
+            staged = '󰱒'
+          }
+        }
+      }
+    },
+    config = function(_, opts)
+      local function on_move(data)
+        Snacks.rename.on_rename_file(data.source, data.destination)
+      end
+
+      local events = require('neo-tree.events')
+      opts.event_handlers = opts.event_handlers or {}
+      vim.list_extend(opts.event_handlers, {
+        { event = events.FILE_MOVED, handler = on_move },
+        { event = events.FILE_RENAMED, handler = on_move }
+      })
+      require('neo-tree').setup(opts)
+      vim.api.nvim_create_autocmd('TermClose', {
+        pattern = '*lazygit',
+        callback = function()
+          if package.loaded['neo-tree.sources.git_status'] then
+            require('neo-tree.sources.git_status').refresh()
+          end
+        end
+      })
     end
   }
 }
