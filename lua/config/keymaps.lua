@@ -37,6 +37,8 @@ vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
 -- Make it easier to paste in INSERT mode
 vim.keymap.set('i', '<C-v>', '<C-R>+', { noremap = true })
 vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
+vim.keymap.set('n', '<C-v>', '<C-R>+', { noremap = true })
+vim.keymap.set('n', '<S-Insert>', '<C-R>+', { noremap = true })
 
 -- lazygit keymaps
 vim.keymap.set('n', 'gl', ':LazyGit<cr>', {
@@ -67,26 +69,9 @@ vim.keymap.set({ 'v', 'n' }, 'gf', require('actions-preview').code_actions, {
 -- Map the backwards indent to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', { noremap = true })
 
--- -- nvim-spectre
--- local cmd_part = '<cmd>lua require("spectre")'
---
--- vim.keymap.set('n', '<leader>sS', cmd_part .. '.toggle()<CR>', {
---   desc = 'Toggle Spectre'
--- })
--- vim.keymap.set('n', '<leader>sw', cmd_part .. '.open_visual({select_word=true})<CR>', {
---   desc = 'Search current word'
--- })
--- vim.keymap.set('v', '<leader>sw', '<esc>' .. cmd_part .. '.open_visual()<CR>', {
---   desc = 'Search current word'
--- })
--- vim.keymap.set('n', '<leader>sp', cmd_part .. '.open_file_search({select_word=true})<CR>', {
---   desc = 'Search on current file'
--- })
-
 -- neogen
 vim.keymap.set('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
-  desc = 'Generate annotations',
-  noremap = true, silent = true
+  desc = 'Generate annotations', noremap = true, silent = true
 })
 
 -- Set softwrap to Alt + Z
@@ -119,3 +104,51 @@ vim.keymap.set('n', '<leader>be', function()
 end, {
   desc = 'Buffer Explorer', noremap = true
 })
+
+-- Make it easier to open LazyExtras
+vim.keymap.set('n', '<leader>L', ':LazyExtras<CR>', { remap = true })
+
+-- Custom FZF integration for project.nvim - part 2
+local ok, fzf = pcall(require, 'fzf-lua')
+if ok then
+  vim.keymap.set('n', '<leader>fp', function()
+    fzf.fzf_exec(function(add_to_results)
+      local contents = require('project_nvim').get_recent_projects()
+      for _, project in pairs(contents) do
+        add_to_results(project)
+      end
+      -- close the fzf named pipe, this signals EOF and terminates the fzf 'loading' indicator.
+      add_to_results()
+    end, {
+      prompt = 'Projects> ',
+      actions = {
+        ['default'] = function(choice)
+          vim.cmd.edit(choice[1])
+        end,
+        ['ctrl-x'] = {
+          function(choice)
+            local history = require('project_nvim.utils.history')
+            local delete = vim.fn.confirm("Delete '' .. choice[1] .. '' projects? ", '&Yes\n&No', 2)
+            if delete == 1 then
+              history.delete_project({ value = choice[1] })
+            end
+          end,
+          fzf.actions.resume,
+        },
+      },
+    })
+  end, { silent = true, desc = 'Projects' })
+end
+
+-- Luasnip
+local ls = require("luasnip")
+
+vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, { silent = true })
+vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, { silent = true })
+vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, { silent = true })
+
+vim.keymap.set({"i", "s"}, "<C-E>", function()
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
+end, { silent = true })

@@ -89,6 +89,20 @@ null_ls.setup({
 -- Keep everything else from mini.animate except the cursor animation.
 require('mini.animate').config.cursor.enable = false
 
+-- Custom FZF integration for project.nvim - part 1
+require('project_nvim').setup({
+  detection_methods = { 'pattern', 'lsp' },
+  show_hidden = true -- show hidden files in telescope
+})
+-- Continued in ./lua/config/keymaps.lua
+
+-- LuaSnip
+require("luasnip.loaders.from_vscode").lazy_load ({
+  paths = {
+    '~/MEGA/Personal Application Settings/For VSCodium or VSCode'
+  }
+})
+
 -- -- cspell.nvim
 -- local config = {
 --   -- The CSpell configuration file can take a few different names this option

@@ -6,6 +6,7 @@ return {
   'numToStr/Comment.nvim',
   'nvim-tree/nvim-web-devicons',
   'MunifTanjim/nui.nvim',
+  'nvimtools/none-ls-extras.nvim',
   -- Plugins with configs go here
   -- {
   --   'roobert/surround-ui.nvim',
@@ -79,11 +80,6 @@ return {
   {
     'mcauley-penney/visual-whitespace.nvim',
     config = true
-  },
-  {
-    'nvimtools/none-ls.nvim',
-    dependencies = { 'nvimtools/none-ls-extras.nvim' },
-    event = 'VeryLazy'
   },
   {
     'folke/snacks.nvim',

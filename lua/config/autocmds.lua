@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   group    = vim.api.nvim_create_augroup('RemoteFile', {clear = true}),
   callback = function()
     local f = vim.fn.expand('%:p')
-    for _, v in ipairs{'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync'} do
+    for _, v in ipairs{ 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
       local p = v .. '://'
       if string.sub(f, 1, #p) == p then
         vim.cmd[[
@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd('BufNewFile', {
           runtime! plugin/netrwPlugin.vim
           silent Explore %
         ]]
-        vim.api.nvim_clear_autocmds{group = 'RemoteFile'}
+        vim.api.nvim_clear_autocmds{ group = 'RemoteFile' }
         break
       end
     end
