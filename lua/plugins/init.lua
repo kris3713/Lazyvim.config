@@ -1,15 +1,14 @@
 return {
-  {
-    'LazyVim/LazyVim',
-    opts = {
-      colorscheme = 'catppuccin-macchiato'
-    }
-  },
+  -- {
+  --   'LazyVim/LazyVim',
+  --   opts = {
+  --     colorscheme = 'catppuccin-macchiato'
+  --   }
+  -- },
   {
     'roobert/surround-ui.nvim',
     dependencies = {
-      'kylechui/nvim-surround',
-      'folke/which-key.nvim'
+      'kylechui/nvim-surround'
     },
     config = function()
       require('surround-ui').setup {
@@ -91,52 +90,47 @@ return {
     'mcauley-penney/visual-whitespace.nvim',
     config = true
   },
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    lazy = true,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim'
-    },
-    cmd = 'Neotree',
-    init = function ()
-      vim.api.nvim_create_autocmd('BufNewFile', {
-        group    = vim.api.nvim_create_augroup('RemoteFile', { clear = true }),
-        callback = function()
-          local f = vim.fn.expand('%:p')
-          for _, v in ipairs { 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
-            local p = v .. '://'
-            if string.sub(f, 1, #p) == p then
-              vim.cmd[[
-                unlet g:loaded_netrw
-                unlet g:loaded_netrwPlugin
-                runtime! plugin/netrwPlugin.vim
-                silent Explore %
-              ]]
-              vim.api.nvim_clear_autocmds { group = 'RemoteFile' }
-              break
-            end
-          end
-        end
-      })
-    end,
-    opts = {
-      filesystem = {
-        hijack_netrw_behavior = 'open_current',
-        filtered_items = {
-          visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
-          hide_dotfiles = false,
-          hide_gitignored = false
-        }
-      }
-    }
-  },
-  { 'neovim/nvim-lspconfig' },
-  {
-    'Exafunction/codeium.vim',
-    event = 'BufEnter'
-  },
+  -- {
+  --   'nvim-neo-tree/neo-tree.nvim',
+  --   lazy = true,
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+  --     'MunifTanjim/nui.nvim'
+  --   },
+  --   cmd = 'Neotree',
+  --   init = function ()
+  --     vim.api.nvim_create_autocmd('BufNewFile', {
+  --       group    = vim.api.nvim_create_augroup('RemoteFile', { clear = true }),
+  --       callback = function()
+  --         local f = vim.fn.expand('%:p')
+  --         for _, v in ipairs { 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
+  --           local p = v .. '://'
+  --           if string.sub(f, 1, #p) == p then
+  --             vim.cmd[[
+  --               unlet g:loaded_netrw
+  --               unlet g:loaded_netrwPlugin
+  --               runtime! plugin/netrwPlugin.vim
+  --               silent Explore %
+  --             ]]
+  --             vim.api.nvim_clear_autocmds { group = 'RemoteFile' }
+  --             break
+  --           end
+  --         end
+  --       end
+  --     })
+  --   end,
+  --   opts = {
+  --     filesystem = {
+  --       hijack_netrw_behavior = 'open_current',
+  --       filtered_items = {
+  --         visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
+  --         hide_dotfiles = false,
+  --         hide_gitignored = false
+  --       }
+  --     }
+  --   }
+  -- },
   { 'aznhe21/actions-preview.nvim' },
   { 'nanotee/zoxide.vim' },
   {
@@ -144,9 +138,80 @@ return {
     dependencies = { 'nvimtools/none-ls-extras.nvim' },
     event = 'VeryLazy'
   },
-  { 'nvim-pack/nvim-spectre' },
   {
-    'danymat/neogen',
-    config = true
+    'folke/snacks.nvim',
+    --- @module 'snacks'
+    --- @type snacks.Config
+    opts = {
+      notifier = { enabled = true },
+      -- show hidden files in snacks.explorer
+      picker = {
+        sources = {
+          explorer = {
+            -- show hidden files like .env
+            hidden = true,
+            -- show files ignored by git like node_modules
+            ignored = true,
+            exclude = { 'node_modules', '.git' }
+          }
+        }
+      }
+    }
+  },
+  {
+    'catppuccin/nvim',
+    lazy = true,
+    name = 'catppuccin',
+    opts = {
+      integrations = {
+        aerial = true,
+        alpha = true,
+        cmp = true,
+        dashboard = true,
+        flash = true,
+        fzf = true,
+        grug_far = true,
+        gitsigns = true,
+        headlines = true,
+        illuminate = true,
+        indent_blankline = { enabled = true },
+        leap = true,
+        lsp_trouble = true,
+        mason = true,
+        markdown = true,
+        mini = true,
+        native_lsp = {
+          enabled = true,
+          underlines = {
+            errors = { 'undercurl' },
+            hints = { 'undercurl' },
+            warnings = { 'undercurl' },
+            information = { 'undercurl' },
+          },
+        },
+        navic = { enabled = true, custom_bg = 'lualine' },
+        neotest = true,
+        neotree = true,
+        noice = true,
+        notify = true,
+        semantic_tokens = true,
+        snacks = true,
+        telescope = true,
+        treesitter = true,
+        treesitter_context = true,
+        which_key = true,
+      },
+  },
+  specs = {
+    {
+      'akinsho/bufferline.nvim',
+      optional = true,
+      opts = function(_, opts)
+        if (vim.g.colors_name or ''):find('catppuccin') then
+          opts.highlights = require('catppuccin.groups.integrations.bufferline').get()
+        end
+      end,
+    },
+  }
   }
 }
