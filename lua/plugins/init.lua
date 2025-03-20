@@ -149,5 +149,11 @@ return {
     opts = {
       inlay_hints = { enabled = false }
     }
+  },
+  {
+    'chrisgrieser/nvim-scissors',
+    opts = {
+      snippetDir = '~/MEGA/Personal Application Settings/For VSCodium or VSCode/'
+    }
   }
 }

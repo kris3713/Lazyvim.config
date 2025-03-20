@@ -103,13 +103,6 @@ require('project_nvim').setup({
 })
 -- Continued in ./lua/config/keymaps.lua
 
--- -- LuaSnip
--- require("luasnip.loaders.from_vscode").lazy_load ({
---   paths = {
---     '~/MEGA/Personal Application Settings/For VSCodium or VSCode'
---   }
--- })
-
 -- noice.nvim
 require('noice').setup { lsp = { hover = { silent = true }}}
 
@@ -121,6 +114,13 @@ wk.add {
     '<leader>S',
     group = 'auto-session',
     remap = true
+  }
+}
+
+-- nvim-snippets
+require('snippets').setup {
+  search_paths = {
+    '~/MEGA/Personal Application Settings/For VSCodium or VSCode/'
   }
 }
 
