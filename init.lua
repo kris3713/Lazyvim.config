@@ -4,8 +4,39 @@ require('config.lazy')
 -- Set the theme to Catpuccin Macchiato
 vim.cmd.colorscheme('catppuccin-macchiato')
 
+--- LSP configs
 -- MOST IMPORTANT (for Neovim)
 require('lspconfig').lua_ls.setup {}
+
+-- Dprint
+require('lspconfig').dprint.setup {}
+
+-- For Ruby development
+require('lspconfig').solargraph.setup {}
+-- require('lspconfig').ruby_ls.setup {}
+require('lspconfig').sorbet.setup {}
+require('lspconfig').rubocop.setup {}
+
+-- Typescript/Javascript
+require('lspconfig').eslint.setup {}
+require('lspconfig').ts_ls.setup {}
+
+-- css
+require('lspconfig').css_variables.setup {}
+require('lspconfig').cssmodules_ls.setup {}
+require('lspconfig').tailwindcss.setup {}
+
+-- Spelling and Grammar checking
+require('lspconfig').textlsp.setup {}
+
+-- Nushell
+require('lspconfig').nushell.setup {}
+
+-- YAML
+require('lspconfig').yamlls.setup {}
+
+-- JSON
+require('lspconfig').jsonls.setup {}
 
 -- rainbow delimiters
 -- This module contains a number of default definitions
@@ -66,11 +97,6 @@ require('trim').setup {
   -- highlight trailing spaces
   highlight = true
 }
-
--- For Ruby development
-require('lspconfig').solargraph.setup {}
--- require('lspconfig').ruby_ls.setup {}
-require('lspconfig').sorbet.setup {}
 
 -- none-ls.nvim
 local null_ls = require('null-ls')
