@@ -147,3 +147,11 @@ end, { silent = true, noremap = true })
 vim.keymap.set('n', '<leader>S', ':SessionSearch<CR>', {
   desc = 'Search Saved Sessions', silent = true, remap = true
 })
+
+-- Mouse button bindings
+-- vim.keymap.set('n', '<LeftMouse>', function() vim.lsp.buf.hover() end, {
+--   noremap = true, silent=true
+-- })
+-- vim.keymap.set('n', '<RightMouse>', 'lua vim.lsp.buf.definition()', {
+--   noremap = true, silent =true
+-- })

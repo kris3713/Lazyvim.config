@@ -11,7 +11,7 @@
 local restore_cursor_augroup = vim.api
   .nvim_create_augroup('restore_cursor_shape_on_exit', { clear = true })
 
-vim.api.nvim_create_autocmd('VimLeave',{
+vim.api.nvim_create_autocmd('VimLeave', {
   group = restore_cursor_augroup,
   desc = 'Restore the cursor shape on exit of neovim',
   command = 'set guicursor=a:ver20'
@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   group = 'VisualWhitespace',
   pattern = '*',
   callback = function()
-    require('nvim-neo-tree/neo-tree.nvim').toggle()
+    require('visual-whitespace').toggle()
   end,
 })
 
@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
 -- because `cwd` is not set up properly.
 vim.api.nvim_create_autocmd('BufNewFile', {
-  group    = vim.api.nvim_create_augroup('RemoteFile', {clear = true}),
+  group = vim.api.nvim_create_augroup('RemoteFile', { clear = true }),
   callback = function()
     local f = vim.fn.expand('%:p')
     for _, v in ipairs{ 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
@@ -50,3 +50,21 @@ vim.api.nvim_create_autocmd('BufNewFile', {
     end
   end
 })
+
+-- -- LSP Hover
+-- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+--   vim.lsp.handlers.hover, {
+--     silent = true
+--   }
+-- )
+--
+-- vim.api.nvim_create_augroup('LspBufferHover', { clear = true })
+--
+-- vim.api.nvim_create_autocmd('CursorHoldI', {
+--   pattern = '*',
+--   group = 'LspBufferHover',
+--   desc = 'Creates a LSP buffer instance when the cursor hovers over a variable, function, etc.',
+--   callback = function ()
+--     vim.lsp.buf.hover()
+--   end
+-- })
