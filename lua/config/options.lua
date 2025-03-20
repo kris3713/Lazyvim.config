@@ -2,10 +2,15 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.g.autoformat = false -- Remove annoying autoformat
+-- Remove annoying autoformat
+vim.g.autoformat = false
+
+-- Neovide options (continued in ./keymaps.lua)
+vim.g.neovide_scale_factor = 1.0
 
 -- Set font family and font size (For Neovide and Neovim-Qt)
 vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
+
 -- Set softwrapping to always be true
 vim.opt.wrap = true
 

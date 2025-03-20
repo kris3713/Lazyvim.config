@@ -1,18 +1,21 @@
 return {
   -- No config plugins go here
-  'HiPhish/rainbow-delimiters.nvim',
+  'https://gitlab.com/HiPhish/rainbow-delimiters.nvim',
   'aznhe21/actions-preview.nvim',
-  'numToStr/Comment.nvim',
   'nvim-tree/nvim-web-devicons',
-  'MunifTanjim/nui.nvim',
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
   -- Plugins with configs go here
   {
+    'numToStr/Comment.nvim',
+    config = function ()
+      require('Comment').setup()
+    end
+  },
+  {
     'nanotee/zoxide.vim',
     init = function()
       vim.g.zoxide_use_select = 1
-
       -- -- Enable if you want to start zoxide.vim on startup
       -- if vim.fn.argc() == 0 then
       --   vim.defer_fn(function () vim.api.nvim_command('Zi') end, 0)
@@ -25,14 +28,13 @@ return {
       require('log-highlight').setup()
     end
   },
-  { -- Activate csharp.nvim
+  {
     'iabdelkareem/csharp.nvim',
     dependencies = {
       'mfussenegger/nvim-dap',
       'Tastyep/structlog.nvim' -- Optional, but highly recommended for debugging
     },
     config = function ()
-      -- require('mason').setup() -- Mason setup must run before csharp, only if you want to use omnisharp
       require('csharp').setup {
         lsp = {
           omnisharp = { enable = false },
@@ -44,7 +46,7 @@ return {
       }
     end
   },
-  { -- Activate lazygit.nvim
+  {
     'kdheepak/lazygit.nvim',
     lazy = true,
     cmd = {
@@ -69,16 +71,11 @@ return {
   },
   {
     'mcauley-penney/visual-whitespace.nvim',
-    config = true
+    config = true,
+    opts = {
+      space_char = '·'
+    }
   },
-  -- {
-  --   'akinsho/bufferline.nvim',
-  --   opts = function(_, opts)
-  --     if (vim.g.colors_name or ''):find('catppuccin') then
-  --       opts.highlights = require('catppuccin.groups.integrations.bufferline').get()
-  --     end
-  --   end
-  -- },
   {
     'antosha417/nvim-lsp-file-operations',
     config = function ()
@@ -87,13 +84,13 @@ return {
   },
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
     'nvim-neo-tree/neo-tree.nvim',
-    cmd = 'Neotree',
-    deactivate = function() vim.api.nvim_command('Neotree close') end,
     --- @module 'neo-tree'
     --- @type neotree.Config
     opts = {
       sources = { 'filesystem', 'buffers', 'git_status' },
-      open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
+      open_files_do_not_replace_types = {
+        'terminal', 'Trouble', 'trouble', 'qf', 'Outline'
+      },
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
@@ -141,27 +138,16 @@ return {
           }
         }
       }
-    },
-    config = function(_, opts)
-      local function on_move(data)
-        Snacks.rename.on_rename_file(data.source, data.destination)
-      end
-
-      local events = require('neo-tree.events')
-      opts.event_handlers = opts.event_handlers or {}
-      vim.list_extend(opts.event_handlers, {
-        { event = events.FILE_MOVED, handler = on_move },
-        { event = events.FILE_RENAMED, handler = on_move }
-      })
-      require('neo-tree').setup(opts)
-      vim.api.nvim_create_autocmd('TermClose', {
-        pattern = '*lazygit',
-        callback = function()
-          if package.loaded['neo-tree.sources.git_status'] then
-            require('neo-tree.sources.git_status').refresh()
-          end
-        end
-      })
-    end
+    }
+  },
+  { -- Get rid of annoying pop-up from mini.ai
+    'echasnovski/mini.ai',
+    enabled = false
+  },
+  {
+    'neovim/nvim-lspconfig',
+    opts = {
+      inlay_hints = { enabled = false }
+    }
   }
 }

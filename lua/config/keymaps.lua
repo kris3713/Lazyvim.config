@@ -2,16 +2,21 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- Set zoom function
-vim.g.neovide_scale_factor = 1.0
+-- Set zoom function for Neovide
 local function change_scale_factor(delta)
   vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
-vim.keymap.set({ 'n', 'x', 'i' }, '<C-=>', function() change_scale_factor(1.25) end)
-vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() change_scale_factor(1/1.25) end)
+vim.keymap.set({ 'n', 'x', 'i' }, '<C-=>', function()
+  change_scale_factor(1.25)
+end)
+vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function()
+  change_scale_factor(1/1.25)
+end)
 
 -- Map Ctrl-z to do nothing
-vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', {
+  noremap = true, silent = true
+})
 
 -- Map q to do nothing
 vim.keymap.set('n', 'q', '<Nop>', { noremap = true, silent = true })
@@ -34,11 +39,6 @@ vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
 vim.keymap.set('n', '<C-v>', '"+p', { noremap = true })
 vim.keymap.set('n', '<S-Insert>', '"+p', { noremap = true })
 
--- -- lazygit keymaps
--- vim.keymap.set('n', 'gl', ':LazyGit<cr>', {
---   desc = 'LazyGit', noremap = true
--- })
-
 -- Neovim Diagnostics Float
 vim.keymap.set({ 'x', 'n' }, 'gi', function()
   -- If we find a floating window, close it.
@@ -56,12 +56,11 @@ vim.keymap.set({ 'x', 'n' }, 'gi', function()
 end, { desc = 'Toggle Diagnostics', noremap = true })
 
 -- actions-preview.nvim
-vim.keymap.set({ 'v', 'n' }, 'gf', require('actions-preview').code_actions, {
+local ap = require('actions-preview')
+
+vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, {
   desc = 'Open Code Actions', noremap = true
 })
-
--- Map the backwards indent to Shift + Tab
-vim.keymap.set('i', '<S-Tab>', '<C-d><CR>', { noremap = true })
 
 -- neogen
 vim.keymap.set('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
@@ -69,35 +68,15 @@ vim.keymap.set('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
 })
 
 -- Set softwrap to Alt + Z
-vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', { desc = 'Toggle softwrap.', noremap = true })
-
--- NEOTREE stuff
-vim.keymap.set('n', '<leader>fe', function()
-  require('neo-tree.command').execute({ toggle = true, dir = LazyVim.root() })
-end, { desc = 'Explorer NeoTree (Root Dir)', noremap = true })
-
-vim.keymap.set('n', '<leader>fE', function()
-  require('neo-tree.command').execute({ toggle = true, dir = vim.uv.cwd() })
-end, { desc = 'Explorer NeoTree (cwd)', noremap = true })
-
-vim.keymap.set('n', '<leader>e', '<leader>fe', {
-  desc = 'Explorer NeoTree (Root Dir)', remap = true
+vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', {
+  desc = 'Toggle softwrap.', noremap = true
 })
-
-vim.keymap.set('n', '<leader>E', '<leader>fE', {
-  desc = 'Explorer NeoTree (cwd)', remap = true
-})
-
-vim.keymap.set('n', '<leader>ge', function()
-  require('neo-tree.command').execute({ source = 'git_status', toggle = true })
-end, { desc = 'Git Explorer', noremap = true })
-
-vim.keymap.set('n', '<leader>be', function()
-  require('neo-tree.command').execute({ source = 'buffers', toggle = true })
-end, { desc = 'Buffer Explorer', noremap = true })
 
 -- Make it easier to open LazyExtras
 vim.keymap.set('n', '<leader>L', ':LazyExtras<CR>', { remap = true })
+
+-- Make it easier to open Mason
+vim.keymap.set('n', '<leader>M', ':Mason<CR>', { remap = true })
 
 -- Custom FZF integration for project.nvim - part 2
 local ok, fzf = pcall(require, 'fzf-lua')
@@ -133,25 +112,30 @@ if ok then
 end
 
 -- Luasnip
-local ls = require('luasnip')
-
-vim.keymap.set('i', '<C-K>', function() ls.expand() end, { silent = true, noremap = true })
-vim.keymap.set({ 'i', 's' }, '<C-L>', function() ls.jump( 1) end, { silent = true, noremap = true })
-vim.keymap.set({ 'i', 's' }, '<C-J>', function() ls.jump(-1) end, { silent = true, noremap = true })
-
-vim.keymap.set({ 'i', 's' }, '<C-E>', function()
-  if ls.choice_active() then ls.change_choice(1) end
-end, { silent = true, noremap = true })
+-- local ls = require('luasnip')
+--
+-- vim.keymap.set('i', '<C-K>', function()
+--   ls.expand()
+-- end, { silent = true, noremap = true })
+-- vim.keymap.set({ 'i', 's' }, '<C-L>', function()
+--   ls.jump( 1)
+-- end, { silent = true, noremap = true })
+-- vim.keymap.set({ 'i', 's' }, '<C-J>', function()
+--   ls.jump(-1)
+-- end, { silent = true, noremap = true })
+--
+-- vim.keymap.set({ 'i', 's' }, '<C-E>', function()
+--   if ls.choice_active() then ls.change_choice(1) end
+-- end, { silent = true, noremap = true })
 
 -- auto-session
-vim.keymap.set('n', '<leader>S', ':SessionSearch<CR>', {
-  desc = 'Search Saved Sessions', silent = true, remap = true
+vim.keymap.set('n', '<leader>SS', ':SessionSearch<CR>', {
+  desc = 'Search Saved Sessions', noremap = true
 })
 
--- Mouse button bindings
--- vim.keymap.set('n', '<LeftMouse>', function() vim.lsp.buf.hover() end, {
---   noremap = true, silent=true
--- })
--- vim.keymap.set('n', '<RightMouse>', 'lua vim.lsp.buf.definition()', {
---   noremap = true, silent =true
--- })
+vim.keymap.set('n', '<leader>Ss', ':SessionSave<CR>', {
+    desc = 'Save Session', noremap = true
+})
+
+-- Map the backwards indent to Shift + Tab
+vim.keymap.set({ 'i' , 's' }, '<S-Tab>', '<C-d>', { noremap = true, silent = true })

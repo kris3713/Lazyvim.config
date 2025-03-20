@@ -2,12 +2,9 @@
 require('config.lazy')
 
 -- Set the theme to Catpuccin Macchiato
-vim.api.nvim_command('colorscheme catppuccin-macchiato')
+vim.cmd.colorscheme('catppuccin-macchiato')
 
--- For Comment.nvim
-require('Comment').setup()
-
--- MOST IMPORTANT
+-- MOST IMPORTANT (for Neovim)
 require('lspconfig').lua_ls.setup {}
 
 -- rainbow delimiters
@@ -77,6 +74,7 @@ require('lspconfig').sorbet.setup {}
 
 -- none-ls.nvim
 local null_ls = require('null-ls')
+local none_ls_diag = require('none-ls.diagnostics.eslint')
 
 null_ls.setup({
   sources = {
@@ -88,12 +86,15 @@ null_ls.setup({
     null_ls.builtins.completion.tags,
     null_ls.builtins.diagnostics.todo_comments,
     null_ls.builtins.formatting.stylua,
-    require('none-ls.diagnostics.eslint') -- requires none-ls-extras.nvim
+    none_ls_diag
   }
 })
 
 -- Keep everything else from mini.animate except the cursor animation.
-require('mini.animate').config.cursor.enable = false
+local ok, mod = pcall(require, 'mini.animate')
+if ok then
+  mod.config.cursor.enable = false
+end
 
 -- Custom FZF integration for project.nvim - part 1
 require('project_nvim').setup({
@@ -102,12 +103,26 @@ require('project_nvim').setup({
 })
 -- Continued in ./lua/config/keymaps.lua
 
--- LuaSnip
-require("luasnip.loaders.from_vscode").lazy_load ({
-  paths = {
-    '~/MEGA/Personal Application Settings/For VSCodium or VSCode'
+-- -- LuaSnip
+-- require("luasnip.loaders.from_vscode").lazy_load ({
+--   paths = {
+--     '~/MEGA/Personal Application Settings/For VSCodium or VSCode'
+--   }
+-- })
+
+-- noice.nvim
+require('noice').setup { lsp = { hover = { silent = true }}}
+
+-- which-key.nvim
+local wk = require('which-key')
+
+wk.add {
+  {
+    '<leader>S',
+    group = 'auto-session',
+    remap = true
   }
-})
+}
 
 -- -- cspell.nvim
 -- local config = {
