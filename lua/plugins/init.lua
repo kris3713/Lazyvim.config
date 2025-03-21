@@ -78,7 +78,7 @@ return {
   },
   {
     'antosha417/nvim-lsp-file-operations',
-    config = function ()
+    config = function()
       require('lsp-file-operations').setup()
     end
   },
@@ -155,5 +155,22 @@ return {
     opts = {
       snippetDir = '~/MEGA/Personal Application Settings/For VSCodium or VSCode/'
     }
+  },
+  {
+    'm-demare/hlargs.nvim',
+    config = function()
+      require('hlargs').setup()
+    end
+  },
+  {
+    'mfussenegger/nvim-lint',
+    concfig = function()
+      require('lint').linters_by_ft = {
+        lua = { 'cspell', 'luacheck', 'languagetool' },
+        markdown = { 'cspell', 'languagetool' },
+        bash = { 'cspell', 'languagetool', 'shellcheck' },
+        fish = { 'cspell', 'languagetool', 'fish' }
+      }
+    end
   }
 }
