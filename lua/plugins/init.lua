@@ -161,16 +161,11 @@ return {
     config = function()
       require('hlargs').setup()
     end
-  },
-  {
-    'mfussenegger/nvim-lint',
-    concfig = function()
-      require('lint').linters_by_ft = {
-        lua = { 'cspell', 'luacheck', 'languagetool' },
-        markdown = { 'cspell', 'languagetool' },
-        bash = { 'cspell', 'languagetool', 'shellcheck' },
-        fish = { 'cspell', 'languagetool', 'fish' }
-      }
-    end
   }
+  -- {
+  --   'mfussenegger/nvim-lint',
+  --   concfig = function()
+  --     require('lint').linters_by_fit = {}
+  --   end
+  -- }
 }

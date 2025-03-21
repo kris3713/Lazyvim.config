@@ -17,7 +17,7 @@ require('lspconfig').solargraph.setup {}
 require('lspconfig').sorbet.setup {}
 require('lspconfig').rubocop.setup {}
 
--- Typescript/Javascript
+-- TypeScript/JavaScript
 require('lspconfig').eslint.setup {}
 require('lspconfig').ts_ls.setup {}
 
@@ -27,7 +27,8 @@ require('lspconfig').cssmodules_ls.setup {}
 require('lspconfig').tailwindcss.setup {}
 
 -- Spelling and Grammar checking
-require('lspconfig').textlsp.setup {}
+require('lspconfig').typos_lsp.setup {}
+require('lspconfig').harper_ls.setup {}
 
 -- Nushell
 require('lspconfig').nushell.setup {}
@@ -38,7 +39,7 @@ require('lspconfig').yamlls.setup {}
 -- JSON
 require('lspconfig').jsonls.setup {}
 
--- rainbow delimiters
+-- rainbow-delimiters
 -- This module contains a number of default definitions
 ---@diagnostic disable-next-line: undefined-doc-name
 ---@type rainbow_delimiters.config
@@ -56,7 +57,7 @@ vim.g.rainbow_delimiters = {
 -- Change the colour of 'RainbowDelimiterGreen'
 vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#40a02b' })
 
--- indent blankline
+-- indent-blankline
 local highlight = {
   'RainbowRed',
   'RainbowYellow',
