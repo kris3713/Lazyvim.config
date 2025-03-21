@@ -139,3 +139,6 @@ vim.keymap.set('n', '<leader>Ss', ':SessionSave<CR>', {
 
 -- Map the backwards indent to Shift + Tab
 vim.keymap.set({ 'i' , 's' }, '<S-Tab>', '<C-d>', { noremap = true, silent = true })
+
+-- Map Shift+s to Shift+k
+vim.keymap.set('n', '<S-s>', '<S-k>', { noremap = true, silent = true })

@@ -21,10 +21,13 @@ require('lspconfig').rubocop.setup {}
 require('lspconfig').eslint.setup {}
 require('lspconfig').ts_ls.setup {}
 
--- css
+-- CSS
 require('lspconfig').css_variables.setup {}
 require('lspconfig').cssmodules_ls.setup {}
 require('lspconfig').tailwindcss.setup {}
+
+-- GitHub Actions
+require('lspconfig').gh_actions_ls.setup{}
 
 -- Spelling and Grammar checking
 -- require('lspconfig').typos_lsp.setup {
@@ -40,6 +43,7 @@ require('lspconfig').harper_ls.setup {
     }
   }
 }
+require('lspconfig').ltex_plus.setup {}
 
 -- Nushell
 require('lspconfig').nushell.setup {}
