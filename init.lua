@@ -36,8 +36,8 @@ require('lspconfig').nushell.setup {}
 -- YAML
 require('lspconfig').yamlls.setup {}
 
--- JSON
-require('lspconfig').jsonls.setup {}
+-- -- JSON
+-- require('lspconfig').jsonls.setup {}
 
 -- rainbow-delimiters
 -- This module contains a number of default definitions
