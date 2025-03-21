@@ -64,9 +64,7 @@ return {
     ---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
-      suppressed_dirs = { '/' },
-      auto_restore_last_session = true,
-      auto_restore = true
+      suppressed_dirs = { '~/', '/' }
     }
   },
   {

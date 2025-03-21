@@ -27,8 +27,19 @@ require('lspconfig').cssmodules_ls.setup {}
 require('lspconfig').tailwindcss.setup {}
 
 -- Spelling and Grammar checking
-require('lspconfig').typos_lsp.setup {}
-require('lspconfig').harper_ls.setup {}
+-- require('lspconfig').typos_lsp.setup {
+--   init_options = {
+--       config = '~/MEGA/typos.toml'
+--   }
+-- }
+require('lspconfig').harper_ls.setup {
+  settings = {
+    ["harper-ls"] = {
+      userDictPath = '~/MEGA/harperdict.txt',
+      fileDictPath = '~/MEGA/harperdict.txt'
+    }
+  }
+}
 
 -- Nushell
 require('lspconfig').nushell.setup {}
@@ -147,7 +158,7 @@ wk.add {
 -- nvim-snippets
 require('snippets').setup {
   search_paths = {
-    '~/MEGA/Personal Application Settings/For VSCodium or VSCode/'
+    '~/MEGA/'
   }
 }
 
