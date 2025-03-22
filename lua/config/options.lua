@@ -22,3 +22,17 @@ vim.opt.guicursor = 'i:ver25-iCursor'
 
 -- Set lazyvim picker to fzf
 vim.g.lazyvim_picker = 'fzf'
+
+-- .NET development
+vim.filetype.add({
+  extension = {
+    props = 'msbuild',
+    tasks = 'msbuild',
+    targets = 'msbuild',
+  },
+  pattern = {
+    [ [[.*\..*proj]] ] = 'msbuild',
+  },
+})
+
+vim.treesitter.language.register('xml', { 'msbuild' })
