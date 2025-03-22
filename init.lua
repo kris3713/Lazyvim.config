@@ -185,9 +185,11 @@ require("hlargs").setup {
     { fg = "#DE9A4E" },
     { fg = "#BBEA87" },
     { fg = "#EEF06D" },
-    { fg = "#8FB272" },
+    { fg = "#8FB272" }
   },
-  excluded_filetypes = { "lua", "rust", "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  excluded_filetypes = {
+    "lua", "rust", "typescript", "typescriptreact", "javascript", "javascriptreact"
+  }
 }
 
 -- -- cspell.nvim
