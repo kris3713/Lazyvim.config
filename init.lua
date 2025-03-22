@@ -29,6 +29,15 @@ require('lspconfig').tailwindcss.setup {}
 -- GitHub Actions
 require('lspconfig').gh_actions_ls.setup{}
 
+-- .NET development
+require'lspconfig'.csharp_ls.setup {}
+require('lspconfig').msbuild_project_tools_server.setup {
+  cmd = {
+    'dotnet',
+    os.getenv('MSBUILD_LSP') .. '/MSBuildProjectTools.LanguageServer.Host.dll'
+  }
+}
+
 -- Spelling and Grammar checking
 require('lspconfig').harper_ls.setup {
   settings = {
@@ -38,7 +47,6 @@ require('lspconfig').harper_ls.setup {
     }
   }
 }
-require('lspconfig').ltex_plus.setup {}
 
 -- Nushell
 require('lspconfig').nushell.setup {}
