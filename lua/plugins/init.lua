@@ -5,6 +5,7 @@ return {
   'nvim-tree/nvim-web-devicons',
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
+  'Tastyep/structlog.nvim',
   -- Plugins with configs go here
   {
     'numToStr/Comment.nvim',
@@ -26,24 +27,6 @@ return {
     'fei6409/log-highlight.nvim',
     config = function()
       require('log-highlight').setup()
-    end
-  },
-  {
-    'iabdelkareem/csharp.nvim',
-    dependencies = {
-      'mfussenegger/nvim-dap',
-      'Tastyep/structlog.nvim' -- Optional, but highly recommended for debugging
-    },
-    config = function()
-      require('csharp').setup({
-        lsp = {
-          omnisharp = { enable = false },
-          roslyn = {
-            enable = true,
-            cmd_path = os.getenv('ROSLYN_LSP') .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
-          }
-        }
-      })
     end
   },
   {
@@ -165,10 +148,28 @@ return {
       require('hlargs').setup()
     end
   }
+  --- Might use again if needed.
   -- {
   --   'mfussenegger/nvim-lint',
-  --   concfig = function()
+  --   config = function()
   --     require('lint').linters_by_fit = {}
+  --   end
+  -- },
+  -- {
+  --   'iabdelkareem/csharp.nvim',
+  --   dependencies = {
+  --     'mfussenegger/nvim-dap'
+  --   },
+  --   config = function()
+  --     require('csharp').setup({
+  --       lsp = {
+  --         omnisharp = { enable = false },
+  --         roslyn = {
+  --           enable = true,
+  --           cmd_path = os.getenv('ROSLYN_LSP') .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
+  --         }
+  --       }
+  --     })
   --   end
   -- }
 }
