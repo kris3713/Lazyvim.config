@@ -138,7 +138,7 @@ if ok then
   mod.config.cursor.enable = false
 end
 
--- Custom FZF integration for project.nvim - part 1
+-- project.nvim - part 1
 require('project_nvim').setup({
   detection_methods = { 'pattern', 'lsp' },
   show_hidden = true -- show hidden files in telescope

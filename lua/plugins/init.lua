@@ -159,11 +159,16 @@ return {
     config = function()
       require('hlargs').setup()
     end
-  }
+  },
   -- {
   --   'mfussenegger/nvim-lint',
   --   concfig = function()
   --     require('lint').linters_by_fit = {}
   --   end
   -- }
+  {
+    'amitds1997/remote-nvim.nvim',
+    version = '*',
+    config = true
+  }
 }
