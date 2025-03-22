@@ -28,10 +28,10 @@ vim.keymap.set('n', '<C-q>', ':exit<CR>', {
 })
 
 -- Change delete keymaps to "Delete without yanking"
-vim.keymap.set('n', 'd', '"_x', { noremap = true })
-vim.keymap.set('n', '<Del>', '"_x', { noremap = true })
-vim.keymap.set('x', 'd', '"_x', { noremap = true })
-vim.keymap.set('x', '<Del>', '"_x', { noremap = true })
+vim.keymap.set('n', 'd', '"_x', { silent = true, noremap = true })
+vim.keymap.set('n', '<Del>', '"_x', { silent = true, noremap = true })
+vim.keymap.set('x', 'd', '"_x', { silent = true, noremap = true })
+vim.keymap.set('x', '<Del>', '"_x', { silent = true, noremap = true })
 
 -- Make it easier to paste in INSERT mode
 vim.keymap.set('i', '<C-v>', '<C-R>+', { noremap = true })
@@ -53,7 +53,7 @@ vim.keymap.set({ 'x', 'n' }, 'gi', function()
   if found_float then return end
 
   vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
-end, { desc = 'Toggle Diagnostics', noremap = true })
+end, { desc = 'Toggle Diagnostics', silent = true, noremap = true })
 
 -- actions-preview.nvim
 local ap = require('actions-preview')
@@ -73,10 +73,14 @@ vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', {
 })
 
 -- Make it easier to open LazyExtras
-vim.keymap.set('n', '<leader>L', ':LazyExtras<CR>', { remap = true })
+vim.keymap.set('n', '<leader>L', ':LazyExtras<CR>', {
+  silent = true, remap = true
+})
 
 -- Make it easier to open Mason
-vim.keymap.set('n', '<leader>M', ':Mason<CR>', { remap = true })
+vim.keymap.set('n', '<leader>M', ':Mason<CR>', {
+  silent = true, remap = true
+})
 
 -- Custom FZF integration for project.nvim - part 2
 local ok, fzf = pcall(require, 'fzf-lua')
@@ -105,36 +109,19 @@ if ok then
             end
           end,
           fzf.actions.resume,
-        },
-      },
+        }
+      }
     })
   end, { silent = true, desc = 'Projects', remap = true })
 end
 
--- Luasnip
--- local ls = require('luasnip')
---
--- vim.keymap.set('i', '<C-K>', function()
---   ls.expand()
--- end, { silent = true, noremap = true })
--- vim.keymap.set({ 'i', 's' }, '<C-L>', function()
---   ls.jump( 1)
--- end, { silent = true, noremap = true })
--- vim.keymap.set({ 'i', 's' }, '<C-J>', function()
---   ls.jump(-1)
--- end, { silent = true, noremap = true })
---
--- vim.keymap.set({ 'i', 's' }, '<C-E>', function()
---   if ls.choice_active() then ls.change_choice(1) end
--- end, { silent = true, noremap = true })
-
 -- auto-session
 vim.keymap.set('n', '<leader>SS', ':SessionSearch<CR>', {
-  desc = 'Search Saved Sessions', noremap = true
+  desc = 'Search Saved Sessions', silent = true, noremap = true
 })
 
 vim.keymap.set('n', '<leader>Ss', ':SessionSave<CR>', {
-    desc = 'Save Session', noremap = true
+  desc = 'Save Session', silent = true, noremap = true
 })
 
 -- Map the backwards indent to Shift + Tab
