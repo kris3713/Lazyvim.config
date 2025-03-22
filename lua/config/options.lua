@@ -20,5 +20,5 @@ vim.opt.wrap = true
 -- Change default cursor to a line
 vim.opt.guicursor = 'i:ver25-iCursor'
 
--- Set lazyvim picker to fzf (or telescope)
-vim.g.lazyvim_picker = 'telescope'
+-- Set lazyvim picker to fzf
+vim.g.lazyvim_picker = 'fzf'
