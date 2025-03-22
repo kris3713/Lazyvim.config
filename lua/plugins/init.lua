@@ -8,7 +8,7 @@ return {
   -- Plugins with configs go here
   {
     'numToStr/Comment.nvim',
-    config = function ()
+    config = function()
       require('Comment').setup()
     end
   },
@@ -20,7 +20,7 @@ return {
       -- if vim.fn.argc() == 0 then
       --   vim.defer_fn(function () vim.api.nvim_command('Zi') end, 0)
       -- end
-    end
+    end,
   },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
@@ -34,8 +34,8 @@ return {
       'mfussenegger/nvim-dap',
       'Tastyep/structlog.nvim' -- Optional, but highly recommended for debugging
     },
-    config = function ()
-      require('csharp').setup {
+    config = function()
+      require('csharp').setup({
         lsp = {
           omnisharp = { enable = false },
           roslyn = {
@@ -43,7 +43,7 @@ return {
             cmd_path = os.getenv('ROSLYN_LSP') .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
           }
         }
-      }
+      })
     end
   },
   {
@@ -78,7 +78,7 @@ return {
     'antosha417/nvim-lsp-file-operations',
     config = function()
       require('lsp-file-operations').setup()
-    end
+    end,
   },
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
     'nvim-neo-tree/neo-tree.nvim',
@@ -87,7 +87,11 @@ return {
     opts = {
       sources = { 'filesystem', 'buffers', 'git_status' },
       open_files_do_not_replace_types = {
-        'terminal', 'Trouble', 'trouble', 'qf', 'Outline'
+        'terminal',
+        'Trouble',
+        'trouble',
+        'qf',
+        'Outline'
       },
       filesystem = {
         bind_to_cwd = false,
@@ -98,10 +102,11 @@ return {
           visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
           hide_dotfiles = false,
           hide_gitignored = false
-        }
+        },
       },
       window = {
         mappings = {
+          -- Regular mappings
           ['l'] = 'open',
           ['h'] = 'close_node',
           ['<space>'] = 'none',
@@ -120,19 +125,19 @@ return {
             desc = 'Open with System Application'
           },
           ['P'] = { 'toggle_preview', config = { use_float = false } }
-        }
-      },
-      default_component_configs = {
-        indent = {
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-          expander_collapsed = '',
-          expander_expanded = '',
-          expander_highlight = 'NeoTreeExpander'
         },
-        git_status = {
-          symbols = {
-            unstaged = '󰄱',
-            staged = '󰱒'
+        default_component_configs = {
+          indent = {
+            with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+            expander_collapsed = '',
+            expander_expanded = '',
+            expander_highlight = 'NeoTreeExpander'
+          },
+          git_status = {
+            symbols = {
+              unstaged = '󰄱',
+              staged = '󰱒'
+            }
           }
         }
       }
