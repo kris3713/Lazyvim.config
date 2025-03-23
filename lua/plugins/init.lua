@@ -61,7 +61,7 @@ return {
     'antosha417/nvim-lsp-file-operations',
     config = function()
       require('lsp-file-operations').setup()
-    end,
+    end
   },
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
     'nvim-neo-tree/neo-tree.nvim',
@@ -126,10 +126,6 @@ return {
       }
     }
   },
-  { -- Get rid of annoying pop-up from mini.ai
-    'echasnovski/mini.ai',
-    enabled = false
-  },
   {
     'neovim/nvim-lspconfig',
     opts = {
@@ -147,6 +143,27 @@ return {
     config = function()
       require('hlargs').setup()
     end
+  },
+  {
+    'ibhagwan/fzf-lua',
+    opts = {
+      lsp = {
+        async_or_timeout = 3000
+      }
+    }
+  },
+  -- Disabled plugins go here
+  { -- Get rid of annoying pop-up from mini.ai
+    'echasnovski/mini.ai',
+    enabled = false
+  },
+  {
+    'stevearc/conform.nvim',
+    enabled = false
+  },
+  {
+    'mfussenegger/nvim-lint',
+    enabled = false
   }
   --- Might use again if needed.
   -- {

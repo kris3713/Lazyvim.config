@@ -61,6 +61,28 @@ require('lspconfig').yamlls.setup {}
 -- -- JSON
 -- require('lspconfig').jsonls.setup {}
 
+-- none-ls.nvim
+local null_ls = require('null-ls')
+local none_ls_diag = require('none-ls.diagnostics.eslint')
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.code_actions.refactoring,
+    null_ls.builtins.code_actions.ts_node_action,
+    null_ls.builtins.code_actions.statix,
+    null_ls.builtins.completion.luasnip,
+    null_ls.builtins.completion.tags,
+    null_ls.builtins.diagnostics.fish,
+    null_ls.builtins.diagnostics.todo_comments,
+    null_ls.builtins.diagnostics.trail_space,
+    null_ls.builtins.formatting.fish_indent,
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.markdownlint,
+    null_ls.builtins.formatting.prettier,
+    none_ls_diag
+  }
+})
+
 -- rainbow-delimiters
 -- This module contains a number of default definitions
 ---@diagnostic disable-next-line: undefined-doc-name
@@ -116,28 +138,10 @@ require('trim').setup {
     [[%s/\(\n\n\)\n\+/\1/]]   -- replace multiple blank lines with a single line
   },
   -- if you want to disable trim on write by default
-  trim_on_write = true,
+  trim_on_write = false,
   -- highlight trailing spaces
   highlight = true
 }
-
--- none-ls.nvim
-local null_ls = require('null-ls')
-local none_ls_diag = require('none-ls.diagnostics.eslint')
-
-null_ls.setup({
-  sources = {
-    null_ls.builtins.code_actions.refactoring,
-    null_ls.builtins.code_actions.ts_node_action,
-    null_ls.builtins.code_actions.statix,
-    null_ls.builtins.completion.spell,
-    null_ls.builtins.completion.luasnip,
-    null_ls.builtins.completion.tags,
-    null_ls.builtins.diagnostics.todo_comments,
-    null_ls.builtins.formatting.stylua,
-    none_ls_diag
-  }
-})
 
 -- Keep everything else from mini.animate except the cursor animation.
 local ok, mod = pcall(require, 'mini.animate')
@@ -177,7 +181,7 @@ require('snippets').setup {
 -- hlargs
 require('hlargs').setup {
   color = '#ef9062',
-  use_colorpalette = false,
+  use_colorpalette = true,
   -- highlight = { 'TSParameter' },
   colorpalette = {
     { fg = '#ef9062' },
