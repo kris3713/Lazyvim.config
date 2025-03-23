@@ -19,7 +19,8 @@ require('lspconfig').rubocop.setup {}
 
 -- TypeScript/JavaScript
 require('lspconfig').eslint.setup {}
-require('lspconfig').ts_ls.setup {}
+-- require('lspconfig').ts_ls.setup {}
+require('lspconfig').vtsls.setup {}
 
 -- CSS
 require('lspconfig').css_variables.setup {}
