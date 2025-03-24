@@ -69,7 +69,7 @@ vim.keymap.set('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
 
 -- Set softwrap to Alt + Z
 vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', {
-  desc = 'Toggle softwrap.', noremap = true, silent = true
+  desc = 'Toggle softwrap.', noremap = true
 })
 
 -- Make it easier to open LazyExtras
@@ -139,6 +139,3 @@ end, { desc = 'Open a new terminal instance' })
 vim.keymap.set({ 'n', 'x' }, '<C-\\>', function()
   toggleterm.toggle_all()
 end, { desc = 'Close or Open a terminal instance' })
-
--- New keymap for Ctrl+Backspace
-vim.keymap.set('i', '<C-BS>', '<C-w>', { noremap = true })
