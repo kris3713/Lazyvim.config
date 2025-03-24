@@ -166,12 +166,6 @@ return {
   }
   --- Might use again if needed.
   -- {
-  --   'm-demare/hlargs.nvim',
-  --   config = function()
-  --     require('hlargs').setup()
-  --   end
-  -- },
-  -- {
   --   'mfussenegger/nvim-lint',
   --   config = function()
   --     require('lint').linters_by_fit = {}
