@@ -97,18 +97,18 @@ if ok then
     {
       prompt = 'Projects> ',
       actions = {
-        ['default'] = function(choice)
-          vim.cmd.edit(choice[1])
-        end,
+        ['default'] = function(choice) vim.cmd.edit(choice[1]) end,
         ['ctrl-x'] = {
           function(choice)
             local history = require('project_nvim.utils.history')
-            local delete = vim.fn.confirm("Delete '' .. choice[1] .. '' projects? ", '&Yes\n&No', 2)
+            local delete = vim.fn.confirm(
+              "Delete '' .. choice[1] .. '' projects? ", '&Yes\n&No', 2
+            )
             if delete == 1 then
               history.delete_project({ value = choice[1] })
             end
           end,
-          fzf.actions.resume,
+          fzf.actions.resume
         }
       }
     })
@@ -125,4 +125,6 @@ vim.keymap.set('n', '<leader>Ss', ':SessionSave<CR>', {
 })
 
 -- Map the backwards indent to Shift + Tab
-vim.keymap.set({ 'i' , 's' }, '<S-Tab>', '<C-d>', { noremap = true, silent = true })
+vim.keymap.set({ 'i' , 's' }, '<S-Tab>', '<C-d>', {
+  noremap = true, silent = true
+})

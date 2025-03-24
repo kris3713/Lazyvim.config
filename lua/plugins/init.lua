@@ -6,6 +6,7 @@ return {
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
   'Tastyep/structlog.nvim',
+  'karb94/neoscroll.nvim',
   -- Plugins with configs go here
   {
     'numToStr/Comment.nvim',
@@ -139,12 +140,6 @@ return {
     }
   },
   {
-    'm-demare/hlargs.nvim',
-    config = function()
-      require('hlargs').setup()
-    end
-  },
-  {
     'ibhagwan/fzf-lua',
     opts = {
       lsp = {
@@ -166,6 +161,12 @@ return {
     enabled = false
   }
   --- Might use again if needed.
+  -- {
+  --   'm-demare/hlargs.nvim',
+  --   config = function()
+  --     require('hlargs').setup()
+  --   end
+  -- },
   -- {
   --   'mfussenegger/nvim-lint',
   --   config = function()

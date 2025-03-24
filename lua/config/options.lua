@@ -23,6 +23,13 @@ vim.opt.guicursor = 'i:ver25-iCursor'
 -- Set lazyvim picker to fzf
 vim.g.lazyvim_picker = 'fzf'
 
+-- Enable smooth scrolling
+vim.o.smoothscroll = true
+
+vim.g.lualine_laststatus = 2
+
+vim.g.lazyvim_cmp = 'nvim-cmp'
+
 -- .NET development
 vim.filetype.add({
   extension = {
