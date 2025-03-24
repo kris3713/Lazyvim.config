@@ -91,11 +91,11 @@ vim.g.rainbow_delimiters = {
   highlight = {
     'RainbowDelimiterRed',
     'RainbowDelimiterYellow',
-    'RainbowDelimiterBlue',
     'RainbowDelimiterOrange',
     'RainbowDelimiterGreen',
-    'RainbowDelimiterViolet',
-    'RainbowDelimiterCyan'
+    'RainbowDelimiterBlue',
+    'RainbowDelimiterCyan',
+    'RainbowDelimiterViolet'
   }
 }
 -- Change the colour of 'RainbowDelimiterGreen'
@@ -105,24 +105,24 @@ vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#40a02b' })
 local highlight = {
   'RainbowRed',
   'RainbowYellow',
-  'RainbowBlue',
   'RainbowOrange',
   'RainbowGreen',
-  'RainbowViolet',
-  'RainbowCyan'
+  'RainbowBlue',
+  'RainbowCyan',
+  'RainbowViolet'
 }
 
 local hooks = require('ibl.hooks')
 -- create the highlight groups in the highlight setup hook, so they are reset
--- every time the colorscheme changes
+-- every time the colorscheme chanColorSchemeges
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
   vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#ed8796' })
   vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#eed49f' })
-  vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#8aadf4' })
   vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#f5a97f' })
   vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#40a02b' })
-  vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#c6a0f6' })
+  vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#8aadf4' })
   vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#7dc4e4' })
+  vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#c6a0f6' })
 end)
 
 require('ibl').setup { indent = { highlight = highlight } }
@@ -178,28 +178,6 @@ require('snippets').setup {
   }
 }
 
--- hlargs
-require('hlargs').setup {
-  color = '#ef9062',
-  use_colorpalette = true,
-  -- highlight = { 'TSParameter' },
-  colorpalette = {
-    { fg = '#ef9062' },
-    { fg = '#3AC6BE' },
-    { fg = '#35D27F' },
-    { fg = '#EB75D6' },
-    { fg = '#E5D180' },
-    { fg = '#8997F5' },
-    { fg = '#D49DA5' },
-    { fg = '#7FEC35' },
-    { fg = '#F6B223' },
-    { fg = '#F67C1B' },
-    { fg = '#DE9A4E' },
-    { fg = '#BBEA87' },
-    { fg = '#EEF06D' },
-    { fg = '#8FB272' }
-  },
-  excluded_filetypes = {
-    'lua', 'rust', 'typescript', 'typescriptreact', 'javascript', 'javascriptreact'
-  }
+require('neoscroll').setup {
+  hide_cursor = false
 }
