@@ -143,4 +143,13 @@ end, { desc = 'Open a new terminal instance' })
 
 vim.keymap.set({ 'n', 'x' }, '<C-\\>', function()
   toggleterm.toggle_all()
-end, { desc = 'Close or Open a terminal instance' })
+end, { desc = 'Closes or Opens a terminal instance' })
+
+-- grug-far
+local grug = require('grug-far')
+
+vim.keymap.set('n', '<leader>s/', function()
+  grug.with_visual_selection({ prefills = {
+    paths = vim.fn.expand('%')
+  } })
+end, { desc = 'Search and Replace in current file', noremap = true })
