@@ -63,13 +63,13 @@ vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, {
 })
 
 -- neogen
-vim.keymap.set('n', '<Leader>N', ':lua require("neogen").generate()<CR>', {
+vim.keymap.set('n', '<Leader>N', function() require('neogen').generate() end, {
   desc = 'Generate annotations', remap = true, silent = true
 })
 
 -- Set softwrap to Alt + Z
 vim.keymap.set('n', '<A-z>', ':set wrap!<CR>', {
-  desc = 'Toggle softwrap.', noremap = true
+  desc = 'Toggle softwrap.', noremap = true, silent = true
 })
 
 -- Make it easier to open LazyExtras
