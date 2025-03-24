@@ -128,3 +128,14 @@ vim.keymap.set('n', '<leader>Ss', ':SessionSave<CR>', {
 vim.keymap.set({ 'i' , 's' }, '<S-Tab>', '<C-d>', {
   noremap = true, silent = true
 })
+
+-- toggleterm.nvim
+local toggleterm = require('toggleterm')
+
+vim.keymap.set({ 'n', 'x' }, '<C-/>', function()
+  toggleterm.new(nil, nil, 'horizontal')
+end, { desc = 'Open a new terminal instance' })
+
+vim.keymap.set({ 'n', 'x' }, '<C-\\>', function()
+  toggleterm.toggle_all()
+end, { desc = 'Close or Open a terminal instance' })

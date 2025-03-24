@@ -86,7 +86,7 @@ return {
           visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
           hide_dotfiles = false,
           hide_gitignored = false
-        },
+        }
       },
       window = {
         mappings = {
@@ -146,6 +146,10 @@ return {
         async_or_timeout = 3000
       }
     }
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    config = true
   },
   -- Disabled plugins go here
   { -- Get rid of annoying pop-up from mini.ai
