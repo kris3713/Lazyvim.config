@@ -26,8 +26,10 @@ vim.g.lazyvim_picker = 'fzf'
 -- Enable smooth scrolling
 vim.o.smoothscroll = true
 
+-- Set lualine status
 vim.g.lualine_laststatus = 2
 
+-- Set lazyvim completion engine
 vim.g.lazyvim_cmp = 'nvim-cmp'
 
 -- .NET development
