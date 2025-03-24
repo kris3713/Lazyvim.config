@@ -10,9 +10,7 @@ return {
   -- Plugins with configs go here
   {
     'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
+    config = true
   },
   {
     'nanotee/zoxide.vim',
@@ -22,13 +20,11 @@ return {
       -- if vim.fn.argc() == 0 then
       --   vim.defer_fn(function () vim.api.nvim_command('Zi') end, 0)
       -- end
-    end,
+    end
   },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
-    config = function()
-      require('log-highlight').setup()
-    end
+    config = true
   },
   {
     'kdheepak/lazygit.nvim',
@@ -60,9 +56,7 @@ return {
   },
   {
     'antosha417/nvim-lsp-file-operations',
-    config = function()
-      require('lsp-file-operations').setup()
-    end
+    config = true
   },
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
     'nvim-neo-tree/neo-tree.nvim',
@@ -149,6 +143,12 @@ return {
   },
   {
     'akinsho/toggleterm.nvim',
+    config = true
+  },
+  {
+    's1n7ax/nvim-window-picker',
+    name = 'window-picker',
+    event = 'VeryLazy',
     config = true
   },
   -- Disabled plugins go here
