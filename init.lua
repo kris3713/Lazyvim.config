@@ -194,3 +194,29 @@ require('snippets').setup {
     '~/MEGA/'
   }
 }
+
+-- lualine.nvim
+local function line_ending()
+  local fileformat = vim.bo.fileformat
+  if fileformat == 'unix' then
+    return 'LF'
+  elseif fileformat == 'dos' then
+    return 'CRLF'
+  elseif fileformat == 'mac' then
+    return 'CR'
+  else
+    return fileformat
+  end
+end
+
+local fileformat = function()
+  return line_ending()
+end
+
+require('lualine').setup {
+  sections = {
+    lualine_x = { 'encoding', fileformat, 'filetype' },
+    lualine_y = { 'selectioncount', 'progress' },
+    lualine_z = { 'location' }
+  }
+}
