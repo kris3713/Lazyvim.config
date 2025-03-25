@@ -137,15 +137,7 @@ return {
   {
     'chrisgrieser/nvim-scissors',
     opts = {
-      snippetDir = '~/MEGA/Personal Application Settings/For VSCodium or VSCode/'
-    }
-  },
-  {
-    'ibhagwan/fzf-lua',
-    opts = {
-      lsp = {
-        async_or_timeout = 3000
-      }
+      snippetDir = '~/MEGA/'
     }
   },
   {
@@ -162,6 +154,15 @@ return {
     'catgoose/nvim-colorizer.lua',
     event = 'BufReadPre',
     opts = {}
+  },
+  {
+    'luckasRanarison/tailwind-tools.nvim',
+    name = 'tailwind-tools',
+    build = ':UpdateRemotePlugins',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+    opts = {} -- your configuration
   },
   -- Disabled plugins go here
   { -- Get rid of annoying pop-up from mini.ai

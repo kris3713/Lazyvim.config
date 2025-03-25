@@ -17,9 +17,14 @@ lspconfig.rubocop.setup {}
 lspconfig.eslint.setup {}
 
 -- CSS
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 lspconfig.css_variables.setup {}
 lspconfig.cssmodules_ls.setup {}
-lspconfig.cssls.setup {}
+lspconfig.cssls.setup {
+  capabilities = capabilities
+}
 
 -- GitHub Actions
 lspconfig.gh_actions_ls.setup{}
@@ -151,13 +156,6 @@ local ok, mod = pcall(require, 'mini.animate')
 if ok then
   mod.config.cursor.enable = false
 end
-
--- Custom FZF integration for project.nvim - part 1
-require('project_nvim').setup({
-  detection_methods = { 'pattern', 'lsp' },
-  show_hidden = true -- show hidden files in telescope
-})
--- Continued in ./lua/config/keymaps.lua
 
 --- which-key.nvim
 local wk = require('which-key')
