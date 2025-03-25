@@ -67,20 +67,14 @@ local none_ls_diag = require('none-ls.diagnostics.eslint')
 
 null_ls.setup({
   sources = {
+    -- Only add sources that are not natively
+    -- supported by built-in lsp.
     null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.code_actions.ts_node_action,
-    null_ls.builtins.code_actions.statix,
-    null_ls.builtins.completion.luasnip,
-    null_ls.builtins.completion.nvim_snippets,
     null_ls.builtins.completion.tags,
-    null_ls.builtins.diagnostics.fish,
     null_ls.builtins.diagnostics.todo_comments,
     null_ls.builtins.diagnostics.trail_space,
-    null_ls.builtins.diagnostics.rubocop,
     null_ls.builtins.formatting.fish_indent,
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.markdownlint,
-    null_ls.builtins.formatting.prettier,
     none_ls_diag
   }
 })
