@@ -7,12 +7,6 @@ vim.cmd.colorscheme('catppuccin-macchiato')
 --- LSP configs
 local lspconfig = require('lspconfig')
 
--- MOST IMPORTANT (for Neovim)
-lspconfig.lua_ls.setup {}
-
--- Dprint
--- lspconfig.dprint.setup {}
-
 -- For Ruby development
 lspconfig.solargraph.setup {}
 -- lspconfig.ruby_ls.setup {}
@@ -21,12 +15,11 @@ lspconfig.rubocop.setup {}
 
 -- TypeScript/JavaScript
 lspconfig.eslint.setup {}
-lspconfig.ts_ls.setup {}
 
 -- CSS
 lspconfig.css_variables.setup {}
 lspconfig.cssmodules_ls.setup {}
-lspconfig.tailwindcss.setup {}
+lspconfig.cssls.setup {}
 
 -- GitHub Actions
 lspconfig.gh_actions_ls.setup{}
@@ -35,12 +28,10 @@ lspconfig.gh_actions_ls.setup{}
 lspconfig.csharp_ls.setup {}
 
 local msbuild = os.getenv('MSBUILD_LSP')
-
 if (msbuild ~= '' and msbuild ~= nil) then
   lspconfig.msbuild_project_tools_server.setup {
     cmd = {
-      'dotnet',
-      msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll'
+      'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll'
     }
   }
 end
@@ -65,13 +56,7 @@ lspconfig.nushell.setup {}
 -- FISH
 lspconfig.fish_lsp.setup {}
 
--- YAML
-lspconfig.yamlls.setup {}
-
--- JSON
-lspconfig.jsonls.setup {}
-
--- none-ls.nvim
+--- none-ls.nvim
 local null_ls = require('null-ls')
 
 null_ls.setup({
@@ -94,7 +79,7 @@ null_ls.setup({
     null_ls.builtins.formatting.pg_format,
     null_ls.builtins.formatting.prettier.with {
       disabled_filetypes = {
-        'css', 'scss', 'less', 'html', 'json', 'jsonc', 'yaml', 'markdown', 'markdown.mdx'
+        'css', 'scss', 'less', 'html', 'json', 'jsonc', 'yaml'
       }
     },
     null_ls.builtins.formatting.rubocop,
@@ -153,11 +138,7 @@ require('trim').setup {
   -- if you want to ignore markdown file.
   -- you can specify filetypes.
   ft_blocklist = {
-    'markdown'
-  },
-  -- if you want to remove multiple blank lines
-  patterns = {
-    [[%s/\(\n\n\)\n\+/\1/]]   -- replace multiple blank lines with a single line
+    'ruby', 'lua', 'fish', 'sh', 'bash', 'csharp'
   },
   -- if you want to disable trim on write by default
   trim_on_write = false,
@@ -178,7 +159,7 @@ require('project_nvim').setup({
 })
 -- Continued in ./lua/config/keymaps.lua
 
--- which-key.nvim
+--- which-key.nvim
 local wk = require('which-key')
 
 -- auto-session.nvim

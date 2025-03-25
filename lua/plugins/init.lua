@@ -1,12 +1,15 @@
 return {
   -- No config plugins go here
   'https://gitlab.com/HiPhish/rainbow-delimiters.nvim',
-  'aznhe21/actions-preview.nvim',
   'nvim-tree/nvim-web-devicons',
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
   'Tastyep/structlog.nvim',
   -- Plugins with configs go here
+  {
+    'aznhe21/actions-preview.nvim',
+    config = true
+  },
   {
     'numToStr/Comment.nvim',
     config = true
