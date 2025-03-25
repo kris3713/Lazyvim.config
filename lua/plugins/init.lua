@@ -144,7 +144,7 @@ return {
     'akinsho/toggleterm.nvim',
     config = true
   },
-  {
+  { -- Needed by neotree
     's1n7ax/nvim-window-picker',
     name = 'window-picker',
     event = 'VeryLazy',
