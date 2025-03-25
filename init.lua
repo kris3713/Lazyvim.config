@@ -34,12 +34,17 @@ lspconfig.gh_actions_ls.setup{}
 
 -- .NET development
 lspconfig.csharp_ls.setup {}
-lspconfig.msbuild_project_tools_server.setup {
-  cmd = {
-    'dotnet',
-    os.getenv('MSBUILD_LSP') .. '/MSBuildProjectTools.LanguageServer.Host.dll'
+
+local msbuild = os.getenv('MSBUILD_LSP')
+
+if (msbuild ~= '' and msbuild ~= nil) then
+  lspconfig.msbuild_project_tools_server.setup {
+    cmd = {
+      'dotnet',
+      msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll'
+    }
   }
-}
+end
 
 -- Spelling and Grammar checking
 lspconfig.harper_ls.setup {
