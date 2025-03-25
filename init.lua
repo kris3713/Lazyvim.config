@@ -11,7 +11,7 @@ local lspconfig = require('lspconfig')
 lspconfig.lua_ls.setup {}
 
 -- Dprint
-lspconfig.dprint.setup {}
+-- lspconfig.dprint.setup {}
 
 -- For Ruby development
 lspconfig.solargraph.setup {}
@@ -21,8 +21,7 @@ lspconfig.rubocop.setup {}
 
 -- TypeScript/JavaScript
 lspconfig.eslint.setup {}
--- lspconfig.ts_ls.setup {}
-lspconfig.vtsls.setup {}
+lspconfig.ts_ls.setup {}
 
 -- CSS
 lspconfig.css_variables.setup {}
@@ -68,6 +67,9 @@ lspconfig.fish_lsp.setup {}
 
 -- YAML
 lspconfig.yamlls.setup {}
+
+-- JSON
+lspconfig.jsonls.setup {}
 
 -- none-ls.nvim
 local null_ls = require('null-ls')
