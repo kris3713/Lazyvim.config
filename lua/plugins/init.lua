@@ -26,17 +26,6 @@ return {
     config = true
   },
   {
-    'kdheepak/lazygit.nvim',
-    lazy = true,
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile'
-    }
-  },
-  {
     'rmagatti/auto-session',
     lazy = false,
     ---enables autocomplete for opts
