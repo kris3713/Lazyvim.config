@@ -173,9 +173,6 @@ require('project_nvim').setup({
 })
 -- Continued in ./lua/config/keymaps.lua
 
--- noice.nvim
-require('noice').setup { lsp = { hover = { silent = true }}}
-
 -- which-key.nvim
 local wk = require('which-key')
 
