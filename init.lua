@@ -131,7 +131,7 @@ local highlight = {
 
 local hooks = require('ibl.hooks')
 -- create the highlight groups in the highlight setup hook, so they are reset
--- every time the colorscheme chanColorSchemeges
+-- every time the colorscheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
   vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#ed8796' })
   vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#eed49f' })
@@ -193,8 +193,4 @@ require('snippets').setup {
   search_paths = {
     '~/MEGA/'
   }
-}
-
-require('neoscroll').setup {
-  hide_cursor = false
 }

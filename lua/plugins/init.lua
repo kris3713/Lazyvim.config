@@ -6,7 +6,6 @@ return {
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
   'Tastyep/structlog.nvim',
-  'karb94/neoscroll.nvim',
   -- Plugins with configs go here
   {
     'numToStr/Comment.nvim',
@@ -150,6 +149,11 @@ return {
     name = 'window-picker',
     event = 'VeryLazy',
     config = true
+  },
+  {
+    'catgoose/nvim-colorizer.lua',
+    event = 'BufReadPre',
+    opts = {}
   },
   -- Disabled plugins go here
   { -- Get rid of annoying pop-up from mini.ai
