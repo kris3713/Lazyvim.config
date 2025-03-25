@@ -71,7 +71,6 @@ lspconfig.yamlls.setup {}
 
 -- none-ls.nvim
 local null_ls = require('null-ls')
-local none_ls_diag = require('none-ls.diagnostics.eslint')
 
 null_ls.setup({
   sources = {
@@ -88,8 +87,8 @@ null_ls.setup({
     null_ls.builtins.diagnostics.editorconfig_checker,
     null_ls.builtins.formatting.markdownlint,
     null_ls.builtins.formatting.fish_indent,
-    null_ls.builtins.formatting.nixfmt,
-    null_ls.builtins.formatting.nix_flake_fmt,
+    -- null_ls.builtins.formatting.nixfmt,
+    -- null_ls.builtins.formatting.nix_flake_fmt,
     null_ls.builtins.formatting.pg_format,
     null_ls.builtins.formatting.prettier.with {
       disabled_filetypes = {
@@ -100,8 +99,7 @@ null_ls.setup({
     -- null_ls.builtins.formatting.rubyfmt,
     null_ls.builtins.formatting.shfmt,
     null_ls.builtins.formatting.yamlfmt,
-    null_ls.builtins.hover.dictionary,
-    none_ls_diag
+    null_ls.builtins.hover.dictionary
   }
 })
 
