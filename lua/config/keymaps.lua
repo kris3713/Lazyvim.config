@@ -153,3 +153,8 @@ vim.keymap.set('n', '<leader>s/', function()
     paths = vim.fn.expand('%')
   } })
 end, { desc = 'Search and Replace in current file', noremap = true })
+
+-- Keymap for built-in renaming
+vim.keymap.set('n', '<leader>cr', function() vim.lsp.buf.rename() end, {
+  desc = 'Rename', noremap = true
+})

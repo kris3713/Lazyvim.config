@@ -27,9 +27,9 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
     vim.api.nvim_set_hl(0, '@lsp.typemod.variable.defaultLibrary', {
       fg = '#f5a97f', italic = true
     })
-    -- vim.api.nvim_set_hl(0, '@lsp.mod.declaration', { fg = '#f5bde6' })
-    -- vim.api.nvim_set_hl(0, '@lsp.mod.global', { fg = '##', bold = true })
     vim.api.nvim_set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
     vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
+
+    vim.api.nvim_set_hl(0, '@variable.parameter.ruby', { fg = '#ed8796' })
   end
 })

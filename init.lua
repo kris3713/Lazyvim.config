@@ -14,7 +14,7 @@ require('lspconfig').dprint.setup {}
 -- For Ruby development
 require('lspconfig').solargraph.setup {}
 -- require('lspconfig').ruby_ls.setup {}
-require('lspconfig').sorbet.setup {}
+-- require('lspconfig').sorbet.setup {}
 require('lspconfig').rubocop.setup {}
 
 -- TypeScript/JavaScript
