@@ -86,7 +86,11 @@ null_ls.setup({
     null_ls.builtins.formatting.nixfmt,
     null_ls.builtins.formatting.nix_flake_fmt,
     null_ls.builtins.formatting.pg_format,
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier.with {
+      disabled_filetypes = {
+        'css', 'scss', 'less', 'html', 'json', 'jsonc', 'yaml', 'markdown', 'markdown.mdx'
+      }
+    },
     null_ls.builtins.formatting.rubocop,
     -- null_ls.builtins.formatting.rubyfmt,
     null_ls.builtins.formatting.shfmt,
