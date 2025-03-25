@@ -5,34 +5,36 @@ require('config.lazy')
 vim.cmd.colorscheme('catppuccin-macchiato')
 
 --- LSP configs
+local lspconfig = require('lspconfig')
+
 -- MOST IMPORTANT (for Neovim)
-require('lspconfig').lua_ls.setup {}
+lspconfig.lua_ls.setup {}
 
 -- Dprint
-require('lspconfig').dprint.setup {}
+lspconfig.dprint.setup {}
 
 -- For Ruby development
-require('lspconfig').solargraph.setup {}
--- require('lspconfig').ruby_ls.setup {}
--- require('lspconfig').sorbet.setup {}
-require('lspconfig').rubocop.setup {}
+lspconfig.solargraph.setup {}
+-- lspconfig.ruby_ls.setup {}
+-- lspconfig.sorbet.setup {}
+lspconfig.rubocop.setup {}
 
 -- TypeScript/JavaScript
-require('lspconfig').eslint.setup {}
--- require('lspconfig').ts_ls.setup {}
-require('lspconfig').vtsls.setup {}
+lspconfig.eslint.setup {}
+-- lspconfig.ts_ls.setup {}
+lspconfig.vtsls.setup {}
 
 -- CSS
-require('lspconfig').css_variables.setup {}
-require('lspconfig').cssmodules_ls.setup {}
-require('lspconfig').tailwindcss.setup {}
+lspconfig.css_variables.setup {}
+lspconfig.cssmodules_ls.setup {}
+lspconfig.tailwindcss.setup {}
 
 -- GitHub Actions
-require('lspconfig').gh_actions_ls.setup{}
+lspconfig.gh_actions_ls.setup{}
 
 -- .NET development
-require'lspconfig'.csharp_ls.setup {}
-require('lspconfig').msbuild_project_tools_server.setup {
+lspconfig.csharp_ls.setup {}
+lspconfig.msbuild_project_tools_server.setup {
   cmd = {
     'dotnet',
     os.getenv('MSBUILD_LSP') .. '/MSBuildProjectTools.LanguageServer.Host.dll'
@@ -40,7 +42,7 @@ require('lspconfig').msbuild_project_tools_server.setup {
 }
 
 -- Spelling and Grammar checking
-require('lspconfig').harper_ls.setup {
+lspconfig.harper_ls.setup {
   settings = {
     ['harper-ls'] = {
       userDictPath = '~/MEGA/harperdict.txt',
@@ -49,17 +51,18 @@ require('lspconfig').harper_ls.setup {
   }
 }
 
+-- Containers
+lspconfig.dockerls.setup {}
+lspconfig.docker_compose_language_service.setup {}
+
 -- Nushell
-require('lspconfig').nushell.setup {}
+lspconfig.nushell.setup {}
 
 -- FISH
-require('lspconfig').fish_lsp.setup {}
+lspconfig.fish_lsp.setup {}
 
 -- YAML
-require('lspconfig').yamlls.setup {}
-
--- -- JSON
--- require('lspconfig').jsonls.setup {}
+lspconfig.yamlls.setup {}
 
 -- none-ls.nvim
 local null_ls = require('null-ls')
@@ -72,9 +75,23 @@ null_ls.setup({
     null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.code_actions.ts_node_action,
     null_ls.builtins.completion.tags,
+    null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.todo_comments,
     null_ls.builtins.diagnostics.trail_space,
+    null_ls.builtins.diagnostics.markdownlint_cli2,
+    null_ls.builtins.diagnostics.dotenv_linter,
+    null_ls.builtins.diagnostics.editorconfig_checker,
+    null_ls.builtins.formatting.markdownlint,
     null_ls.builtins.formatting.fish_indent,
+    null_ls.builtins.formatting.nixfmt,
+    null_ls.builtins.formatting.nix_flake_fmt,
+    null_ls.builtins.formatting.pg_format,
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.rubocop,
+    -- null_ls.builtins.formatting.rubyfmt,
+    null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.yamlfmt,
+    null_ls.builtins.hover.dictionary,
     none_ls_diag
   }
 })
