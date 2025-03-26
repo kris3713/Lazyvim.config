@@ -16,13 +16,7 @@ return {
   },
   {
     'nanotee/zoxide.vim',
-    init = function()
-      vim.g.zoxide_use_select = 1
-      -- -- Enable if you want to start zoxide.vim on startup
-      -- if vim.fn.argc() == 0 then
-      --   vim.defer_fn(function () vim.api.nvim_command('Zi') end, 0)
-      -- end
-    end
+    init = function() vim.g.zoxide_use_select = 1 end
   },
   { -- Set syntax highlighting for logs
     'fei6409/log-highlight.nvim',
