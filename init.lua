@@ -2,8 +2,9 @@
 require('config.lazy')
 
 -- Set the theme to Catpuccin Macchiato
-vim.cmd.colorscheme('catppuccin-macchiato')
+vim.cmd('colorscheme catppuccin-macchiato')
 
+-- TODO: Convert all of these to use coc.nvim instead.
 --- LSP configs
 local lspconfig = require('lspconfig')
 
@@ -194,10 +195,16 @@ local fileformat = function()
   return line_ending()
 end
 
+-- Customize lualine
 require('lualine').setup {
   sections = {
     lualine_x = { 'encoding', fileformat, 'filetype' },
     lualine_y = { 'selectioncount', 'progress' },
     lualine_z = { 'location' }
   }
+}
+
+-- Initialize tailwindcss-colorizer-cmp
+require("cmp").config.formatting = {
+  format = require("tailwindcss-colorizer-cmp").formatter
 }

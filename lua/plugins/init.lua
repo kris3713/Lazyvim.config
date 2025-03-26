@@ -113,28 +113,6 @@ return {
     }
   },
   {
-    'folke/snacks.nvim',
-    opts = {
-      explorer = { enabled = false }
-    }
-  },
-  {
-    'folke/noice.nvim',
-    opts = {
-      lsp = {
-        hover = {
-          silent = true
-        }
-      }
-    }
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      inlay_hints = { enabled = false }
-    }
-  },
-  {
     'chrisgrieser/nvim-scissors',
     opts = {
       snippetDir = '~/MEGA/'
@@ -163,6 +141,35 @@ return {
       'nvim-treesitter/nvim-treesitter',
     },
     opts = {} -- your configuration
+  },
+  {
+    'roobert/tailwindcss-colorizer-cmp.nvim',
+    config = function()
+      require('tailwindcss-colorizer-cmp').setup({
+        color_square_width = 2
+      })
+    end
+  },
+  -- Configurations for plugins installed using LazyExtras
+  {
+    'folke/snacks.nvim',
+    opts = {
+      explorer = { enabled = false }
+    }
+  },
+  {
+    'folke/noice.nvim',
+    opts = {
+      lsp = {
+        hover = { silent = true }
+      }
+    }
+  },
+  {
+    'neovim/nvim-lspconfig',
+    opts = {
+      inlay_hints = { enabled = false }
+    }
   },
   -- Disabled plugins go here
   { -- Get rid of annoying pop-up from mini.ai
