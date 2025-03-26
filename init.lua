@@ -65,7 +65,6 @@ null_ls.setup({
   sources = {
     -- Only add sources that are not natively
     -- supported by built-in lsp.
-    null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.code_actions.ts_node_action,
     null_ls.builtins.completion.tags,
     null_ls.builtins.diagnostics.hadolint,
