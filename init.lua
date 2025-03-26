@@ -13,9 +13,6 @@ lspconfig.solargraph.setup {}
 -- lspconfig.sorbet.setup {}
 lspconfig.rubocop.setup {}
 
--- TypeScript/JavaScript
-lspconfig.eslint.setup {}
-
 -- CSS
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true

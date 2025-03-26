@@ -128,12 +128,20 @@ return {
     opts = {}
   },
   {
+    'roobert/tailwindcss-colorizer-cmp.nvim',
+    config = function()
+      require("tailwindcss-colorizer-cmp").setup({
+        color_square_width = 2
+      })
+    end
+  },
+  {
     'luckasRanarison/tailwind-tools.nvim',
     name = 'tailwind-tools',
     build = ':UpdateRemotePlugins',
     opts = {} -- your configuration
   },
-  -- Configuration for plugins already installed by other means (eg. LazyExtras)
+  -- Configuration for plugins already installed by LazyExtras
   {
     'folke/snacks.nvim',
     opts = {
@@ -192,5 +200,9 @@ return {
   --       }
   --     })
   --   end
-  -- }
+  -- },
+  -- {
+  --   'pmizio/typescript-tools.nvim',
+  --   opts = {}
+  -- },
 }
