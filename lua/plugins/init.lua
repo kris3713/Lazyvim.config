@@ -113,28 +113,6 @@ return {
     }
   },
   {
-    'folke/snacks.nvim',
-    opts = {
-      explorer = { enabled = false }
-    }
-  },
-  {
-    'folke/noice.nvim',
-    opts = {
-      lsp = {
-        hover = {
-          silent = true
-        }
-      }
-    }
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      inlay_hints = { enabled = false }
-    }
-  },
-  {
     'chrisgrieser/nvim-scissors',
     opts = {
       snippetDir = '~/MEGA/'
@@ -159,10 +137,30 @@ return {
     'luckasRanarison/tailwind-tools.nvim',
     name = 'tailwind-tools',
     build = ':UpdateRemotePlugins',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-    },
     opts = {} -- your configuration
+  },
+  -- Configuration for plugins already installed by other means (eg. LazyExtras)
+  {
+    'folke/snacks.nvim',
+    opts = {
+      explorer = { enabled = false }
+    }
+  },
+  {
+    'folke/noice.nvim',
+    opts = {
+      lsp = {
+        hover = {
+          silent = true
+        }
+      }
+    }
+  },
+  {
+    'neovim/nvim-lspconfig',
+    opts = {
+      inlay_hints = { enabled = false }
+    }
   },
   -- Disabled plugins go here
   { -- Get rid of annoying pop-up from mini.ai
