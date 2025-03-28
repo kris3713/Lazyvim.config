@@ -48,8 +48,8 @@ end
 lspconfig.harper_ls.setup {
   settings = {
     ['harper-ls'] = {
-      userDictPath = '~/MEGA/harperdict.txt',
-      fileDictPath = '~/MEGA/harperdict.txt'
+      userDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt',
+      fileDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt'
     }
   }
 }
