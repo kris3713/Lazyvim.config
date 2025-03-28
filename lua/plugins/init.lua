@@ -5,6 +5,7 @@ return {
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
   'Tastyep/structlog.nvim',
+  'Hoffs/omnisharp-extended-lsp.nvim',
   -- Plugins with configs go here
   {
     'aznhe21/actions-preview.nvim',

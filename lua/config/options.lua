@@ -5,8 +5,16 @@
 -- Remove annoying autoformat
 vim.g.autoformat = false
 
--- Neovide options (continued in ./keymaps.lua)
-vim.g.neovide_scale_factor = 1.0
+--- Neovide options
+local scale_factor_exists = pcall(function()
+  return vim.g.neovide_scale_factor
+end)
+
+-- Check if the neovide_scale_factor variable exists
+if scale_factor_exists then
+  -- Used for custom scaling (zooming) in Neovide
+  vim.g.neovide_scale_factor = 1.0
+end
 
 -- Set font family and font size (For Neovide and Neovim-Qt)
 vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }

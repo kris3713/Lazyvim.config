@@ -26,9 +26,12 @@ lspconfig.cssls.setup {
 -- GitHub Actions
 lspconfig.gh_actions_ls.setup{}
 
--- .NET development
-lspconfig.csharp_ls.setup {}
+-- .NET developmen
+lspconfig.omnisharp.setup {
+  cmd = { 'sh', vim.fn.stdpath('data') .. '/mason/bin/omnisharp' }
+}
 
+-- lspconfig.csharp_ls.setup {}
 local msbuild = os.getenv('MSBUILD_LSP')
 if (msbuild ~= '' and msbuild ~= nil) then
   lspconfig.msbuild_project_tools_server.setup {
