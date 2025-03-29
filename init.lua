@@ -27,9 +27,9 @@ lspconfig.cssls.setup {
 lspconfig.gh_actions_ls.setup{}
 
 -- .NET development
-lspconfig.omnisharp.setup {
-  cmd = { 'sh', vim.fn.stdpath('data') .. '/mason/bin/omnisharp' }
-}
+-- lspconfig.omnisharp.setup {
+--   cmd = { 'sh', vim.fn.stdpath('data') .. '/mason/bin/omnisharp' }
+-- }
 
 local msbuild = os.getenv('MSBUILD_LSP')
 if (msbuild ~= '' and msbuild ~= nil) then

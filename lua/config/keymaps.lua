@@ -21,12 +21,17 @@ end
 --- which-key.nvim
 local wk = require('which-key')
 
--- auto-session.nvim
 wk.add {
-  {
+  { -- auto-session.nvim
     mode = 'n',
     '<leader>S',
     group = 'auto-session',
+    noremap = true
+  },
+  { -- nvim-surround
+    mode = 'n',
+    'gs',
+    group = 'nvim-surround',
     noremap = true
   }
 }
@@ -105,12 +110,12 @@ vim.keymap.set('n', '<A-z>', function() vim.cmd('set wrap!') end, {
 
 -- Make it easier to open LazyExtras
 vim.keymap.set('n', '<leader>L', function() vim.cmd('LazyExtras') end, {
-  silent = true, remap = true
+  desc = 'Open LazyExtras', silent = true, remap = true
 })
 
 -- Make it easier to open Mason
 vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, {
-  silent = true, remap = true
+  desc = 'Open Mason', silent = true, remap = true
 })
 
 -- auto-session
@@ -139,17 +144,17 @@ vim.keymap.set('i' , '<S-Tab>', '<C-d>', {
 local tt = require('toggleterm')
 
 vim.keymap.set({ 'n', 'x' }, '<C-/>', function() tt.new(nil, nil, 'horizontal') end, {
-  desc = 'Open a new terminal instance'
+  desc = 'Open a new terminal instance', remap = true
 })
 
 vim.keymap.set({ 'n', 'x' }, '<C-\\>', function() tt.toggle_all() end, {
-  desc = 'Closes or Opens a terminal instance'
+  desc = 'Toggles an active terminal instance', remap = true
 })
 
 -- grug-far
 local grug = require('grug-far')
 
-vim.keymap.set('n', '<leader>s/', function()
+vim.keymap.set({ 'n', 'x' }, '<leader>s/', function()
   grug.with_visual_selection({
     prefills = { paths = vim.fn.expand('%') }
   })

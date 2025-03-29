@@ -5,8 +5,31 @@ return {
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
   'Tastyep/structlog.nvim',
-  'Hoffs/omnisharp-extended-lsp.nvim',
+  'JoosepAlviste/nvim-ts-context-commentstring',
   -- Plugins with configs go here
+  {
+    'kylechui/nvim-surround',
+    event = 'VeryLazy',
+    config = function ()
+      local nvim_surround = require('nvim-surround')
+
+      nvim_surround.setup {
+        keymaps = {
+          insert = '<Nop>',
+          insert_line = '<Nop>',
+          normal = 'gs',
+          normal_cur = 'gss',
+          normal_line = 'gsS',
+          normal_cur_line = 'gsSs',
+          visual = 'gs',
+          visual_line = 'gsS',
+          delete = 'gsd',
+          change = 'gsc',
+          change_line = 'gsC'
+        }
+      }
+    end
+  },
   {
     'aznhe21/actions-preview.nvim',
     config = true
@@ -29,16 +52,12 @@ return {
     ---enables autocomplete for opts
     ---@module 'auto-session'
     ---@type AutoSession.Config
-    opts = {
-      suppressed_dirs = { '~/', '/' }
-    }
+    opts = { suppressed_dirs = { '~/', '/' } }
   },
   {
     'mcauley-penney/visual-whitespace.nvim',
     config = true,
-    opts = {
-      space_char = '·'
-    }
+    opts = { space_char = '·' }
   },
   {
     'antosha417/nvim-lsp-file-operations',
@@ -93,14 +112,14 @@ return {
         default_component_configs = {
           indent = {
             with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-            expander_collapsed = '',
-            expander_expanded = '',
+            expander_collapsed = 'ï ',
+            expander_expanded = 'ï¼',
             expander_highlight = 'NeoTreeExpander'
           },
           git_status = {
             symbols = {
-              unstaged = '󰄱',
-              staged = '󰱒'
+              unstaged = 'ó°±',
+              staged = 'ó°±'
             }
           }
         }
@@ -109,9 +128,7 @@ return {
   },
   {
     'chrisgrieser/nvim-scissors',
-    opts = {
-      snippetDir = '~/MEGA/'
-    }
+    opts = { snippetDir = '~/MEGA/' }
   },
   {
     'akinsho/toggleterm.nvim',
@@ -129,14 +146,6 @@ return {
     opts = {}
   },
   {
-    'roobert/tailwindcss-colorizer-cmp.nvim',
-    config = function()
-      require("tailwindcss-colorizer-cmp").setup({
-        color_square_width = 2
-      })
-    end
-  },
-  {
     'luckasRanarison/tailwind-tools.nvim',
     name = 'tailwind-tools',
     build = ':UpdateRemotePlugins',
@@ -148,9 +157,7 @@ return {
     opts = {
       -- if you want to open yazi instead of netrw, see below for more info
       open_for_directories = true,
-      keymaps = {
-        show_help = '<f1>'
-      }
+      -- keymaps = { show_help = '<f1>' }
     },
     -- 👇 if you use `open_for_directories=true`, this is recommended
     init = function()
