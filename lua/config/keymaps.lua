@@ -18,6 +18,19 @@ local function is_lsp_active(name)
   return false -- If not found
 end
 
+--- which-key.nvim
+local wk = require('which-key')
+
+-- auto-session.nvim
+wk.add {
+  {
+    mode = 'n',
+    '<leader>S',
+    group = 'auto-session',
+    noremap = true
+  }
+}
+
 -- Neovide options
 if vim.g.neovide then
   -- Set zoom function for Neovide

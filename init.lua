@@ -159,18 +159,6 @@ if ok then
   mod.config.cursor.enable = false
 end
 
---- which-key.nvim
-local wk = require('which-key')
-
--- auto-session.nvim
-wk.add {
-  {
-    '<leader>S',
-    group = 'auto-session',
-    remap = true
-  }
-}
-
 -- nvim-snippets
 require('snippets').setup {
   search_paths = {
