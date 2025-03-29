@@ -175,11 +175,12 @@ return {
   },
   {
     'folke/noice.nvim',
+    ---@module 'noice'
+    ---@type NoiceConfig
     opts = {
       lsp = {
-        hover = {
-          silent = true
-        }
+        hover = { silent = true },
+        message = { silent = true }
       }
     }
   },
