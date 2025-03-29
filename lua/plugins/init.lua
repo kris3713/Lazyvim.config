@@ -212,9 +212,6 @@ return {
   -- },
   -- {
   --   'iabdelkareem/csharp.nvim',
-  --   dependencies = {
-  --     'mfussenegger/nvim-dap'
-  --   },
   --   config = function()
   --     require('csharp').setup({
   --       lsp = {
