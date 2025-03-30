@@ -53,3 +53,21 @@ vim.filetype.add({
 })
 
 vim.treesitter.language.register('xml', { 'msbuild' })
+
+-- Set listchars
+vim.o.listchars = 'tab:>-,trail:·,extends:>,precedes:<,space:·,nbsp:+'
+
+-- Enable list
+vim.o.list = true
+
+-- Change current directory when opening a file
+vim.o.acd = true
+
+-- Remove snippets from completion that are not related to the current file.
+vim.g.lazyvim_mini_snippets_in_completion = false
+
+-- Ensure the encoding is always UTF-8
+vim.o.encoding = 'utf-8'
+
+
+vim.o.mousemoveevent = true

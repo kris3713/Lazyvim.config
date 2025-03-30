@@ -55,11 +55,6 @@ return {
     opts = { suppressed_dirs = { '~/', '/' } }
   },
   {
-    'mcauley-penney/visual-whitespace.nvim',
-    config = true,
-    opts = { space_char = '·' }
-  },
-  {
     'antosha417/nvim-lsp-file-operations',
     config = true
   },
@@ -166,6 +161,10 @@ return {
       vim.g.loaded_netrwPlugin = 1
     end
   },
+  {
+    'soulis-1256/eagle.nvim',
+    opts = {}
+  },
   -- Configuration for plugins already installed by LazyExtras
   {
     'folke/snacks.nvim',
@@ -227,5 +226,11 @@ return {
   -- {
   --   'pmizio/typescript-tools.nvim',
   --   opts = {}
+  -- },
+  -- {
+  --   'mcauley-penney/visual-whitespace.nvim',
+  --   version = '>=0.11',
+  --   config = true,
+  --   opts = { space_char = '·' }
   -- },
 }

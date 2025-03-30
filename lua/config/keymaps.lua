@@ -179,25 +179,3 @@ vim.keymap.set('n', '<leader>cw', function() yz.yazi(yz.config, cwd, nil) end, {
 vim.keymap.set('n', '<leader><up>', function() yz.toggle(yz.config) end, {
   desc = 'Resume the last yazi session', noremap = true, silent = true
 })
-
-
--- omnisharp-extended
-if is_lsp_active('omnisharp') then
-  local osharp_ext = require('omnisharp_extended')
-
-  vim.keymap.set('n', 'gd', function() osharp_ext.lsp_definition() end, {
-    noremap = true, force = true
-  })
-
-  vim.keymap.set('n', 'gy', function() osharp_ext.lsp_type_definition() end, {
-    noremap = true, force = true
-  })
-
-  vim.keymap.set('n', 'gr', function() osharp_ext.lsp_references() end, {
-    noremap = true, force = true
-  })
-
-  vim.keymap.set('n', 'gI', function() osharp_ext.lsp_implementation() end, {
-    noremap = true, force = true
-  })
-end
