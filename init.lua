@@ -27,9 +27,7 @@ lspconfig.cssls.setup {
 lspconfig.gh_actions_ls.setup{}
 
 -- .NET development
--- lspconfig.omnisharp.setup {
---   cmd = { 'sh', vim.fn.stdpath('data') .. '/mason/bin/omnisharp' }
--- }
+-- No need to setup omnisharp-roslyn since LazyExtras takes care of it
 
 local msbuild = os.getenv('MSBUILD_LSP')
 if (msbuild ~= '' and msbuild ~= nil) then
@@ -39,10 +37,6 @@ if (msbuild ~= '' and msbuild ~= nil) then
     }
   }
 end
-
--- TODO: Setup this LSP with csharpls-extended-lsp.nvim
--- https://github.com/Decodetalkers/csharpls-extended-lsp.nvim
--- lspconfig.csharp_ls.setup {}
 
 -- Spelling and Grammar checking
 lspconfig.harper_ls.setup {
