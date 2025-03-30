@@ -45,10 +45,10 @@ vim.filetype.add({
   extension = {
     props = 'msbuild',
     tasks = 'msbuild',
-    targets = 'msbuild',
+    targets = 'msbuild'
   },
   pattern = {
-    [ [[.*\..*proj]] ] = 'msbuild',
+    [ [[.*\..*proj]] ] = 'msbuild'
   },
 })
 

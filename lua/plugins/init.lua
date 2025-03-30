@@ -6,6 +6,7 @@ return {
   'cappyzawa/trim.nvim',
   'Tastyep/structlog.nvim',
   'JoosepAlviste/nvim-ts-context-commentstring',
+  'Issafalcon/neotest-dotnet',
   -- Plugins with configs go here
   {
     'kylechui/nvim-surround',
@@ -165,6 +166,24 @@ return {
     'soulis-1256/eagle.nvim',
     opts = {}
   },
+  {
+    'iabdelkareem/csharp.nvim',
+    config = function()
+      -- Don't even bother loading if ROSLYN_LSP is not set
+      if os.getenv('ROSLYN_LSP') == nil then return end
+
+      require('csharp').setup{
+        lsp = {
+          omnisharp = { enable = false },
+          roslyn = {
+            enable = true,
+            cmd_path = os.getenv('ROSLYN_LSP') .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
+          }
+        }
+      }
+    end,
+    enabled = false
+  },
   -- Configuration for plugins already installed by LazyExtras
   {
     'folke/snacks.nvim',
@@ -207,20 +226,6 @@ return {
   --   'mfussenegger/nvim-lint',
   --   config = function()
   --     require('lint').linters_by_fit = {}
-  --   end
-  -- },
-  -- {
-  --   'iabdelkareem/csharp.nvim',
-  --   config = function()
-  --     require('csharp').setup({
-  --       lsp = {
-  --         omnisharp = { enable = false },
-  --         roslyn = {
-  --           enable = true,
-  --           cmd_path = os.getenv('ROSLYN_LSP') .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
-  --         }
-  --       }
-  --     })
   --   end
   -- },
   -- {
