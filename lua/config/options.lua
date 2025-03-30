@@ -70,4 +70,6 @@ vim.g.lazyvim_mini_snippets_in_completion = false
 vim.o.encoding = 'utf-8'
 
 
+-- For mouse
 vim.o.mousemoveevent = true
+vim.opt.mouse = 'a'
