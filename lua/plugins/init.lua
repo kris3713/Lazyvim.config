@@ -99,6 +99,12 @@ return {
       vim.g.loaded_netrwPlugin = 1
     end
   },
+  {
+    'soulis-1256/eagle.nvim',
+    opts = {
+      show_headers = false
+    }
+  },
   -- Configuration for plugins already installed by LazyExtras
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
     'nvim-neo-tree/neo-tree.nvim',
@@ -155,10 +161,6 @@ return {
     enabled = false
   }
   --- Might use again if needed.
-  -- {
-  --   'soulis-1256/eagle.nvim',
-  --   opts = {}
-  -- },
   -- {
   --   'iabdelkareem/csharp.nvim',
   --   config = function()
