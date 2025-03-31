@@ -59,69 +59,6 @@ return {
     'antosha417/nvim-lsp-file-operations',
     config = true
   },
-  { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
-    'nvim-neo-tree/neo-tree.nvim',
-    --- @module 'neo-tree'
-    --- @type neotree.Config
-    opts = {
-      sources = { 'filesystem', 'buffers', 'git_status' },
-      open_files_do_not_replace_types = {
-        'terminal',
-        'Trouble',
-        'trouble',
-        'qf',
-        'Outline'
-      },
-      filesystem = {
-        bind_to_cwd = false,
-        follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
-        hijack_netrw_behavior = 'open_current',
-        filtered_items = {
-          visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
-          hide_dotfiles = false,
-          hide_gitignored = false
-        }
-      },
-      window = {
-        mappings = {
-          -- Regular mappings
-          ['l'] = 'open',
-          ['h'] = 'close_node',
-          ['<space>'] = 'none',
-          ['Y'] = {
-            function(state)
-              local node = state.tree:get_node()
-              local path = node:get_id()
-              vim.fn.setreg('+', path, 'c')
-            end,
-            desc = 'Copy Path to Clipboard'
-          },
-          ['O'] = {
-            function(state)
-              require('lazy.util').open(state.tree:get_node().path, { system = true })
-            end,
-            desc = 'Open with System Application'
-          },
-          ['P'] = { 'toggle_preview', config = { use_float = false } }
-        },
-        default_component_configs = {
-          indent = {
-            with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-            expander_collapsed = '',
-            expander_expanded = '',
-            expander_highlight = 'NeoTreeExpander'
-          },
-          git_status = {
-            symbols = {
-              unstaged = '󰄱',
-              staged = '󰱒'
-            }
-          }
-        }
-      }
-    }
-  },
   {
     'chrisgrieser/nvim-scissors',
     opts = { snippetDir = '~/MEGA/' }
@@ -162,11 +99,25 @@ return {
       vim.g.loaded_netrwPlugin = 1
     end
   },
-  {
-    'soulis-1256/eagle.nvim',
-    opts = {}
-  },
   -- Configuration for plugins already installed by LazyExtras
+  { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
+    'nvim-neo-tree/neo-tree.nvim',
+    --- @module 'neo-tree'
+    --- @type neotree.Config
+    opts = {
+      filesystem = {
+        bind_to_cwd = false,
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+        hijack_netrw_behavior = 'open_current',
+        filtered_items = {
+          visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
+          hide_dotfiles = false,
+          hide_gitignored = false
+        }
+      }
+    }
+  },
   {
     'folke/snacks.nvim',
     opts = {
@@ -205,6 +156,10 @@ return {
   }
   --- Might use again if needed.
   -- {
+  --   'soulis-1256/eagle.nvim',
+  --   opts = {}
+  -- },
+  -- {
   --   'iabdelkareem/csharp.nvim',
   --   config = function()
   --     ROSLYN_LSP = os.getenv('ROSLYN_LSP')
@@ -212,7 +167,6 @@ return {
   --     -- Don't even bother loading if ROSLYN_LSP is not set
   --     if ROSLYN_LSP == nil then return end
   --
-  --     ---@diagnostic disable-next-line: missing-fields
   --     require('csharp').setup {
   --       lsp = {
   --         omnisharp = { enable = false },

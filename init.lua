@@ -46,8 +46,22 @@ lspconfig.omnisharp.setup {
     -- incomplete reference lists for symbols.
     LoadProjectsOnDemand = true
   },
+  RoslynExtensionsOptions = {
+    -- Enables support for roslyn analyzers, code fixes and rulesets.
+    EnableAnalyzersSupport = true,
+    -- Enables support for showing unimported types and unimported extension
+    -- methods in completion lists. When committed, the appropriate using
+    -- directive will be added at the top of the current file. This option can
+    -- have a negative impact on initial completion responsiveness,
+    -- particularly for the first few completion sessions after opening a
+    -- solution.
+    EnableImportCompletion = true,
+    -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
+    -- true
+    AnalyzeOpenDocumentsOnly = nil
+  },
   handlers = {
-    ["textDocument/definition"] = require('omnisharp_extended').definition_handler,
+    ["textDocument/definition"] = require('omnisharp_extended').telescope_lsp_definition,
     ["textDocument/typeDefinition"] = require('omnisharp_extended').type_definition_handler,
     ["textDocument/references"] = require('omnisharp_extended').references_handler,
     ["textDocument/implementation"] = require('omnisharp_extended').implementation_handler
@@ -118,8 +132,6 @@ null_ls.setup({
 
 -- rainbow-delimiters
 -- This module contains a number of default definitions
----@diagnostic disable-next-line: undefined-doc-name
----@type rainbow_delimiters.config
 vim.g.rainbow_delimiters = {
   highlight = {
     'RainbowDelimiterRed',
@@ -212,7 +224,6 @@ require('lualine').setup {
 }
 
 -- neotest
----@diagnostic disable-next-line: missing-fields
 require('neotest').setup {
   adapters = { require('neotest-dotnet') }
 }
