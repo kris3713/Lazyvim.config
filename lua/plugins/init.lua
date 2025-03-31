@@ -182,7 +182,7 @@ return {
         }
       }
     end,
-    enabled = false
+    enabled = true
   },
   -- Configuration for plugins already installed by LazyExtras
   {
