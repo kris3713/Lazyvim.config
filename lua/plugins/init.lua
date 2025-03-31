@@ -166,24 +166,6 @@ return {
     'soulis-1256/eagle.nvim',
     opts = {}
   },
-  {
-    'iabdelkareem/csharp.nvim',
-    config = function()
-      -- Don't even bother loading if ROSLYN_LSP is not set
-      if os.getenv('ROSLYN_LSP') == nil then return end
-
-      require('csharp').setup{
-        lsp = {
-          omnisharp = { enable = false },
-          roslyn = {
-            enable = true,
-            cmd_path = os.getenv('ROSLYN_LSP') .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
-          }
-        }
-      }
-    end,
-    enabled = true
-  },
   -- Configuration for plugins already installed by LazyExtras
   {
     'folke/snacks.nvim',
@@ -222,6 +204,26 @@ return {
     enabled = false
   }
   --- Might use again if needed.
+  -- {
+  --   'iabdelkareem/csharp.nvim',
+  --   config = function()
+  --     ROSLYN_LSP = os.getenv('ROSLYN_LSP')
+  --
+  --     -- Don't even bother loading if ROSLYN_LSP is not set
+  --     if ROSLYN_LSP == nil then return end
+  --
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('csharp').setup {
+  --       lsp = {
+  --         omnisharp = { enable = false },
+  --         roslyn = {
+  --           enable = true,
+  --           cmd_path = ROSLYN_LSP .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
+  --         }
+  --       }
+  --     }
+  --   end
+  -- },
   -- {
   --   'mfussenegger/nvim-lint',
   --   config = function()
