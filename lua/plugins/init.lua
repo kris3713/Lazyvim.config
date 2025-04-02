@@ -116,11 +116,24 @@ return {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
     config = function ()
-      require('ufo').setup({
+      require('ufo').setup {
         provider_selector = function(bufnr, filetype, buftype)
-          return {'treesitter', 'indent'}
+          return { 'treesitter', 'indent' }
         end
-      })
+      }
+    end
+  },
+  {
+    'zbirenbaum/neodim',
+    event = 'LspAttach',
+    config = function()
+      require('neodim').setup {
+        hide = {
+          underline = true,
+          virtual_text = false,
+          signs = true
+        }
+      }
     end
   },
   -- Configuration for plugins already installed by LazyExtras
@@ -135,7 +148,7 @@ return {
         use_libuv_file_watcher = true,
         hijack_netrw_behavior = 'open_current',
         filtered_items = {
-          visible = true, -- This is what you want: If you set this to `true`, all 'hide' just mean 'dimmed out'
+          visible = true,
           hide_dotfiles = false,
           hide_gitignored = false
         }

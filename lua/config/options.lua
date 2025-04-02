@@ -49,7 +49,7 @@ vim.filetype.add({
   },
   pattern = {
     [ [[.*\..*proj]] ] = 'msbuild'
-  },
+  }
 })
 
 vim.treesitter.language.register('xml', { 'msbuild' })
