@@ -55,7 +55,7 @@ vim.filetype.add({
 vim.treesitter.language.register('xml', { 'msbuild' })
 
 -- Set listchars
-vim.o.listchars = 'tab:>-,trail:•,extends:>,precedes:<,space:·,nbsp:+'
+vim.o.listchars = 'tab:>-,trail:•,extends:>,precedes:<,space:•,nbsp:+'
 
 -- Enable list
 vim.o.list = true
