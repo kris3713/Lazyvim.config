@@ -112,6 +112,17 @@ return {
       require('hlargs').setup()
     end
   },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    config = function ()
+      require('ufo').setup({
+        provider_selector = function(bufnr, filetype, buftype)
+          return {'treesitter', 'indent'}
+        end
+      })
+    end
+  },
   -- Configuration for plugins already installed by LazyExtras
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
     'nvim-neo-tree/neo-tree.nvim',

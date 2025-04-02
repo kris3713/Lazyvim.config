@@ -179,3 +179,7 @@ vim.keymap.set('n', '<leader>cw', function() yz.yazi(yz.config, cwd, nil) end, {
 vim.keymap.set('n', '<leader><up>', function() yz.toggle(yz.config) end, {
   desc = 'Resume the last yazi session', noremap = true, silent = true
 })
+
+-- nvim-ufo
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)

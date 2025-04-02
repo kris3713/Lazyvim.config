@@ -73,3 +73,9 @@ vim.o.encoding = 'utf-8'
 -- For mouse
 vim.o.mousemoveevent = true
 vim.opt.mouse = 'a'
+
+-- nvim-ufo
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
