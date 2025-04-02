@@ -102,8 +102,15 @@ return {
   {
     'soulis-1256/eagle.nvim',
     opts = {
-      show_headers = false
+      show_lsp_info = false
     }
+  },
+  {
+    'm-demare/hlargs.nvim',
+    config = function()
+      -- Will modify later...
+      require('hlargs').setup()
+    end
   },
   -- Configuration for plugins already installed by LazyExtras
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
