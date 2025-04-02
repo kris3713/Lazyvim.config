@@ -130,22 +130,7 @@ null_ls.setup({
   }
 })
 
--- rainbow-delimiters
--- This module contains a number of default definitions
-vim.g.rainbow_delimiters = {
-  highlight = {
-    'RainbowDelimiterRed',
-    'RainbowDelimiterYellow',
-    'RainbowDelimiterOrange',
-    'RainbowDelimiterGreen',
-    'RainbowDelimiterBlue',
-    'RainbowDelimiterCyan',
-    'RainbowDelimiterViolet'
-  }
-}
--- Change the colour of 'RainbowDelimiterGreen'
-vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#40a02b' })
-
+-- rainbow-delimiters and
 -- indent-blankline
 local highlight = {
   'RainbowRed',
@@ -170,7 +155,34 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
   vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#c6a0f6' })
 end)
 
-require('ibl').setup { indent = { highlight = highlight } }
+require('ibl').setup {
+  indent = { highlight = highlight }
+}
+
+-- rainbow-delimiters
+-- This module contains a number of default definitions
+local delimiter_highlight = {
+  'RainbowDelimiterRed',
+  'RainbowDelimiterYellow',
+  'RainbowDelimiterOrange',
+  'RainbowDelimiterGreen',
+  'RainbowDelimiterBlue',
+  'RainbowDelimiterCyan',
+  'RainbowDelimiterViolet'
+}
+
+vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = '#ed8796' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#eed49f' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = '#f5a97f' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#40a02b' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = '#8aadf4' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = '#7dc4e4' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = '#c6a0f6' })
+
+vim.g.rainbow_delimiters = {
+  highlight = delimiter_highlight
+}
+
 
 require('trim').setup {
   -- if you want to ignore markdown file.
