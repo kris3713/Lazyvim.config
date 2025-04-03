@@ -10,12 +10,6 @@ return {
   'debugloop/telescope-undo.nvim',
   -- Plugins with configs go here
   {
-    'LazyVim/LazyVim',
-    keys = {
-      { "K", false }
-    }
-  },
-  {
     'kylechui/nvim-surround',
     event = 'VeryLazy',
     config = function ()
@@ -29,7 +23,7 @@ return {
           normal_cur = 'gss',
           normal_line = 'gsS',
           normal_cur_line = 'gsSs',
-          visual = 'gsv',
+          visual = 'gss',
           visual_line = 'gsS',
           delete = 'gsd',
           change = 'gsc',
