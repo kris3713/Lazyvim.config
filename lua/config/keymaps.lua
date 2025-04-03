@@ -188,6 +188,11 @@ vim.keymap.set('n', '<leader>O', function() vim.cmd('Lspsaga outline') end, {
 lsp_keymaps[#lsp_keymaps + 1] = {
   'K', function() vim.cmd('Lspsaga hover_doc') end, desc = 'Hover Doc', noremap = true
 }
+
+-- Diagnostics
+lsp_keymaps[#lsp_keymaps + 1] = {
+  '<leader>cd', function() vim.cmd('Lspsaga show_line_diagnostics') end, noremap = true
+}
 --- lspsaga
 
 -- omnisharp
