@@ -186,3 +186,24 @@ vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, {
 vim.keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end , {
   desc = 'Telescope undo', noremap = true
 })
+
+--- lspsaga
+-- Definition
+vim.keymap.set('n', 'gt', function() vim.cmd('Lspsaga peek_definition') end, {
+  desc = 'Peek definition', noremap = true
+})
+
+vim.keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end, {
+  desc = 'Peek type definition', noremap = true
+})
+
+-- Outline
+vim.keymap.set('n', '<leader>O', function() vim.cmd('Lspsaga outline') end, {
+  desc = 'Outline', noremap = true
+})
+
+-- Hover Doc
+local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
+lsp_keymaps[#lsp_keymaps + 1] = {
+  'K', function() vim.cmd('Lspsaga hover_doc') end, desc = 'Hover Doc', noremap = true
+}
