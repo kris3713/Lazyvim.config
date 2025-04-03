@@ -7,6 +7,7 @@ return {
   'Tastyep/structlog.nvim',
   'JoosepAlviste/nvim-ts-context-commentstring',
   'Issafalcon/neotest-dotnet',
+  'debugloop/telescope-undo.nvim',
   -- Plugins with configs go here
   {
     'kylechui/nvim-surround',
@@ -109,7 +110,7 @@ return {
     'm-demare/hlargs.nvim',
     config = function()
       -- Will modify later...
-      require('hlargs').setup()
+      require('hlargs').setup {}
     end
   },
   {
@@ -135,6 +136,56 @@ return {
         }
       }
     end
+  },
+  {
+    'AckslD/muren.nvim',
+    config = true
+  },
+  {
+    'zeioth/garbage-day.nvim',
+    event = 'VeryLazy',
+    opts = {} -- For later configuration
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    config = function ()
+      require('nvim-ts-autotag').setup {}
+    end
+  },
+  {
+    'glepnir/nerdicons.nvim',
+    cmd = 'NerdIcons',
+    config = function()
+      require('nerdicons').setup {}
+    end
+  },
+  {
+    'nvimdev/lspsaga.nvim',
+    config = function()
+      require('lspsaga').setup {}
+    end
+  },
+  {
+    'Wansmer/treesj',
+     keys = { '<leader>m', '<leader>j', '<leader>a' },
+    config = function()
+      require('treesj').setup({})
+    end
+  },
+  {
+    'nacro90/numb.nvim',
+    config = function()
+      require('numb').setup {}
+    end
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {}
+  },
+  {
+    'gbprod/substitute.nvim',
+    opts = {} -- For configuring later
   },
   -- Configuration for plugins already installed by LazyExtras
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
@@ -179,7 +230,7 @@ return {
     }
   },
   -- Disabled plugins go here
-  { -- Get rid of annoying pop-up from mini.ai
+  {
     'echasnovski/mini.ai',
     enabled = false
   },
@@ -189,6 +240,14 @@ return {
   },
   {
     'mfussenegger/nvim-lint',
+    enabled = false
+  },
+  {
+    'mini.icons',
+    enabled = false
+  },
+  {
+    'mini.pairs',
     enabled = false
   }
   --- Might use again if needed.
@@ -226,5 +285,13 @@ return {
   --   version = '>=0.11',
   --   config = true,
   --   opts = { space_char = '·' }
+  -- },
+  -- {
+  --   'kosayoda/nvim-lightbulb',
+  --   config = function ()
+  --     require('nvim-lightbulb').setup {
+  --       autocmd = { enabled = true }
+  --     }
+  --   end
   -- },
 }

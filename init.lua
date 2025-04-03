@@ -104,7 +104,6 @@ null_ls.setup({
   sources = {
     -- Only add sources that are not natively
     -- supported by built-in lsp.
-    null_ls.builtins.code_actions.ts_node_action,
     null_ls.builtins.completion.tags,
     null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.todo_comments,
@@ -232,6 +231,7 @@ end
 
 require('lualine').setup {
   sections = {
+    lualine_c = { 'diagnostics', 'lsp_status' },
     lualine_x = { 'encoding', fileformat, 'filetype' },
     lualine_y = { 'selectioncount', 'progress' },
     lualine_z = { 'location' }
@@ -242,3 +242,16 @@ require('lualine').setup {
 require('neotest').setup {
   adapters = { require('neotest-dotnet') }
 }
+
+-- telescope-undo
+require('telescope').setup({
+  -- the rest of your telescope config goes here
+  extensions = {
+    undo = {
+      -- telescope-undo.nvim config, see below
+    },
+    -- other extensions:
+    -- file_browser = { ... }
+  },
+})
+require('telescope').load_extension('undo')

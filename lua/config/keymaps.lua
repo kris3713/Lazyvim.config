@@ -27,12 +27,6 @@ wk.add {
     '<leader>S',
     group = 'auto-session',
     noremap = true
-  },
-  { -- nvim-surround
-    mode = 'n',
-    'gs',
-    group = 'nvim-surround',
-    noremap = true
   }
 }
 
@@ -181,5 +175,14 @@ vim.keymap.set('n', '<leader><up>', function() yz.toggle(yz.config) end, {
 })
 
 -- nvim-ufo
-vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds, {
+  desc = 'Open all folds', noremap = true
+})
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, {
+  desc = 'Close all folds', noremap = true
+})
+
+-- telescope-undo
+vim.keymap.set('n', '<leader>U', function () vim.cmd('Telescope undo') end , {
+  desc = 'Telescope undo', noremap = true
+})
