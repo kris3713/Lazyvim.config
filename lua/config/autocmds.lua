@@ -14,17 +14,9 @@ vim.api.nvim_create_autocmd('VimLeave', {
   command = 'set guicursor=a:ver20'
 })
 
--- Generate random colors
--- local function random_color()
---   local r = math.random(0, 255)
---   local g = math.random(0, 255)
---   local b = math.random(0, 255)
---   return string.format('#%02X%02X%02X', r, g, b)
--- end
-
 -- Enable semantic highlighting
 vim.api.nvim_create_autocmd('LspTokenUpdate', {
-  group = vim.api.nvim_create_augroup('set_semantic_highlighting', { clear = false }),
+  group = vim.api.nvim_create_augroup('set_semantic_highlighting', { clear = true }),
   callback = function()
     vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = '#eed49f' })
     vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = '#ed8796' })
@@ -37,7 +29,23 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
     })
     vim.api.nvim_set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
     vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
-    -- vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = random_color() })
   end
 })
 
+-- -- Generate random colors
+-- local function random_color()
+--   local r = math.random(0, 255)
+--   local g = math.random(0, 255)
+--   local b = math.random(0, 255)
+--   return string.format('#%02X%02X%02X', r, g, b)
+-- end
+--
+-- -- Enable semantic highlighting for variables
+-- vim.api.nvim_create_autocmd('LspTokenUpdate', {
+--   group = vim.api.nvim_create_augroup('set_semantic_highlighting_variables', { clear = true }),
+--   pattern = '*',
+--   callback = function()
+--     vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = random_color() })
+--   end,
+--   once = true
+-- })
