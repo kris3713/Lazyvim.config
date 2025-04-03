@@ -183,6 +183,6 @@ vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, {
 })
 
 -- telescope-undo
-vim.keymap.set('n', '<leader>U', function () vim.cmd('Telescope undo') end , {
+vim.keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end , {
   desc = 'Telescope undo', noremap = true
 })
