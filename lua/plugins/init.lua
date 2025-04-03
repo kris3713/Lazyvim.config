@@ -187,6 +187,14 @@ return {
     'gbprod/substitute.nvim',
     opts = {} -- For configuring later
   },
+  {
+    'nvzone/volt',
+    lazy = true
+  },
+  {
+    'nvzone/minty',
+    cmd = { 'Shades', 'Heufy' }
+  },
   -- Configuration for plugins already installed by LazyExtras
   { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
     'nvim-neo-tree/neo-tree.nvim',
