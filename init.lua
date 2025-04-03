@@ -130,6 +130,9 @@ null_ls.setup({
   }
 })
 
+-- XML language server
+lspconfig.lemminx.setup {}
+
 -- rainbow-delimiters and
 -- indent-blankline
 local highlight = {
