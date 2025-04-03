@@ -74,12 +74,16 @@ vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
 vim.keymap.set('n', '<C-v>', '"+p', { noremap = true })
 vim.keymap.set('n', '<S-Insert>', '"+p', { noremap = true })
 
---- actions-preview.nvim
+-- actions-preview.nvim
 local ap = require('actions-preview')
 
 vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, {
   desc = 'Open Code Actions', noremap = true
 })
+
+lsp_keymaps[#lsp_keymaps + 1] = {
+  '<leader>ca', ap.code_actions, desc = 'Open Code Actions', noremap = true
+}
 
 -- Override <leader>ca to open code actions
 vim.keymap.set({ 'x', 'n' }, '<leader>ca', ap.code_actions, {
@@ -202,6 +206,7 @@ vim.keymap.set('n', '<leader>O', function() vim.cmd('Lspsaga outline') end, {
 lsp_keymaps[#lsp_keymaps + 1] = {
   'K', function() vim.cmd('Lspsaga hover_doc') end, desc = 'Hover Doc', noremap = true
 }
+--- lspsaga
 
 -- omnisharp
 local omnisharp_active = is_lsp_active('omnisharp')
