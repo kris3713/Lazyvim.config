@@ -5,18 +5,21 @@
 -- current directory
 local cwd = vim.fn.getcwd()
 
--- -- Checks if a certain LSP is active
--- ---@return boolean
--- local function is_lsp_active(name)
---   local clients = vim.lsp.get_clients()
---   -- Iterate through the clients
---   for _, client in pairs(clients) do
---     if client.name == name then
---       return true
---     end
---   end
---   return false -- If not found
--- end
+-- Checks if a certain LSP is active
+---@return boolean
+local function is_lsp_active(name)
+  local clients = vim.lsp.get_clients()
+  -- Iterate through the clients
+  for _, client in pairs(clients) do
+    if client.name == name then
+      return true
+    end
+  end
+  return false -- If not found
+end
+
+-- lsp keymaps
+local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
 
 --- which-key.nvim
 local wk = require('which-key')
@@ -70,13 +73,6 @@ vim.keymap.set('i', '<C-v>', '<C-R>+', { noremap = true })
 vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
 vim.keymap.set('n', '<C-v>', '"+p', { noremap = true })
 vim.keymap.set('n', '<S-Insert>', '"+p', { noremap = true })
-
--- Neovim Diagnostics Float
-local diag = vim.diagnostic
-
-vim.keymap.set({ 'x', 'n' }, 'gi', function()
-  diag.open_float(nil, { focus = false, scope = 'cursor' })
-end, { desc = 'Toggle Diagnostics', silent = true, noremap = true })
 
 --- actions-preview.nvim
 local ap = require('actions-preview')
@@ -203,7 +199,31 @@ vim.keymap.set('n', '<leader>O', function() vim.cmd('Lspsaga outline') end, {
 })
 
 -- Hover Doc
-local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
 lsp_keymaps[#lsp_keymaps + 1] = {
   'K', function() vim.cmd('Lspsaga hover_doc') end, desc = 'Hover Doc', noremap = true
 }
+
+-- omnisharp
+local omnisharp_active = is_lsp_active('omnisharp')
+
+local f_type = vim.bo.filetype
+
+if omnisharp_active and (f_type == 'cs' or f_type == 'vb') then
+  local omni = require('omnisharp_extended')
+
+  lsp_keymaps[#lsp_keymaps + 1] = {
+    'gd', omni.definition_handler, desc = 'Go to definition (omnisharp)', noremap = true
+  }
+
+  lsp_keymaps[#lsp_keymaps + 1] = {
+    'gD', omni.type_definition_handler, desc = 'Go to type definition (omnisharp)', noremap = true
+  }
+
+  lsp_keymaps[#lsp_keymaps + 1] = {
+    'gr', omni.telescope_lsp_references, desc = 'References (omnisharp)', noremap = true
+  }
+
+  lsp_keymaps[#lsp_keymaps + 1] = {
+    'gI', omni.telescope_lsp_implementation, desc = 'Implementation (omnisharp)', noremap = true
+  }
+end
