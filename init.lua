@@ -254,4 +254,11 @@ require('telescope').setup({
     -- file_browser = { ... }
   },
 })
+
 require('telescope').load_extension('undo')
+
+-- menu
+-- vim.cmd([[
+--   menu PopUp.Save  :w<CR>
+-- ]])
+
