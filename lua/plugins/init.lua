@@ -167,7 +167,7 @@ return {
   },
   {
     'Wansmer/treesj',
-     keys = { '<leader>m', '<leader>j', '<leader>a' },
+    keys = { '<leader>m', '<leader>j', '<leader>a' },
     config = function()
       require('treesj').setup({})
     end
