@@ -5,19 +5,6 @@
 -- current directory
 local cwd = vim.fn.getcwd()
 
--- Checks if a certain LSP is active
----@return boolean
-local function is_lsp_active(name)
-  local clients = vim.lsp.get_clients()
-  -- Iterate through the clients
-  for _, client in pairs(clients) do
-    if client.name == name then
-      return true
-    end
-  end
-  return false -- If not found
-end
-
 -- lsp keymaps
 local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
 
@@ -209,19 +196,13 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 --- lspsaga
 
 -- omnisharp
-local omnisharp_active = is_lsp_active('omnisharp')
-
 local f_type = vim.bo.filetype
 
-if omnisharp_active and (f_type == 'cs' or f_type == 'vb') then
+if (f_type == 'cs' or f_type == 'vb') then
   local omni = require('omnisharp_extended')
 
   lsp_keymaps[#lsp_keymaps + 1] = {
-    'gd', omni.definition_handler, desc = 'Go to definition (omnisharp)', noremap = true
-  }
-
-  lsp_keymaps[#lsp_keymaps + 1] = {
-    'gD', omni.type_definition_handler, desc = 'Go to type definition (omnisharp)', noremap = true
+    'gy', omni.telescope_lsp_type_definition, desc = 'Goto T[y]pe Definition (omnisharp)', noremap = true
   }
 
   lsp_keymaps[#lsp_keymaps + 1] = {

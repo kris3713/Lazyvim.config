@@ -27,7 +27,8 @@ lspconfig.cssls.setup {
 lspconfig.gh_actions_ls.setup{}
 
 -- .NET development
--- No need to setup omnisharp-roslyn since LazyExtras takes care of it
+local omni = require('omnisharp_extended')
+
 lspconfig.omnisharp.setup {
   FormattingOptions = {
     -- Enables support for reading code style, naming convention and analyzer
@@ -61,10 +62,10 @@ lspconfig.omnisharp.setup {
     AnalyzeOpenDocumentsOnly = nil
   },
   handlers = {
-    ["textDocument/definition"] = require('omnisharp_extended').lsp_definition,
-    ["textDocument/typeDefinition"] = require('omnisharp_extended').type_definition_handler,
-    ["textDocument/references"] = require('omnisharp_extended').references_handler,
-    ["textDocument/implementation"] = require('omnisharp_extended').implementation_handler
+    ["textDocument/definition"] = omni.definition_handler,
+    ["textDocument/typeDefinition"] = omni.type_definition_handler,
+    ["textDocument/references"] = omni.references_handler,
+    ["textDocument/implementation"] = omni.implementation_handler
   }
 }
 
