@@ -72,11 +72,6 @@ lsp_keymaps[#lsp_keymaps + 1] = {
   '<leader>ca', ap.code_actions, desc = 'Open Code Actions', noremap = true
 }
 
--- Override <leader>ca to open code actions
-vim.keymap.set({ 'x', 'n' }, '<leader>ca', ap.code_actions, {
-  desc = 'Open Code Actions', noremap = true
-})
-
 -- neogen
 local ngen = require('neogen')
 
