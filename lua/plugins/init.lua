@@ -104,7 +104,9 @@ return {
     'm-demare/hlargs.nvim',
     config = function()
       -- Will modify later...
-      require('hlargs').setup {}
+      require('hlargs').setup {
+        color = '#ed8796'
+      }
     end
   },
   {
