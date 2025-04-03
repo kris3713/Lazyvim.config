@@ -5,18 +5,18 @@
 -- current directory
 local cwd = vim.fn.getcwd()
 
--- -- Checks if a certain LSP is active
--- ---@return boolean
--- local function is_lsp_active(name)
---   local clients = vim.lsp.get_clients()
---   -- Iterate through the clients
---   for _, client in pairs(clients) do
---     if client.name == name then
---       return true
---     end
---   end
---   return false -- If not found
--- end
+-- Checks if a certain LSP is active
+---@return boolean
+local function is_lsp_active(name)
+  local clients = vim.lsp.get_clients()
+  -- Iterate through the clients
+  for _, client in pairs(clients) do
+    if client.name == name then
+      return true
+    end
+  end
+  return false -- If not found
+end
 
 --- which-key.nvim
 local wk = require('which-key')

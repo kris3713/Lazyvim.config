@@ -61,7 +61,7 @@ lspconfig.omnisharp.setup {
     AnalyzeOpenDocumentsOnly = nil
   },
   handlers = {
-    ["textDocument/definition"] = require('omnisharp_extended').telescope_lsp_definition,
+    ["textDocument/definition"] = require('omnisharp_extended').lsp_definition,
     ["textDocument/typeDefinition"] = require('omnisharp_extended').type_definition_handler,
     ["textDocument/references"] = require('omnisharp_extended').references_handler,
     ["textDocument/implementation"] = require('omnisharp_extended').implementation_handler
