@@ -42,7 +42,6 @@ return {
   {
     'rmagatti/auto-session',
     lazy = false,
-    ---enables autocomplete for opts
     ---@module 'auto-session'
     ---@type AutoSession.Config
     opts = { suppressed_dirs = { '~/', '/' } }
@@ -68,7 +67,16 @@ return {
   {
     'catgoose/nvim-colorizer.lua',
     event = 'BufReadPre',
-    opts = {}
+    opts = {
+      filetypes = {
+        '!TelescopePrompt'
+      },
+      buftypes = {
+        -- exclude prompt and popup buftypes from highlight
+        '!prompt',
+        '!popup'
+      }
+    }
   },
   {
     'luckasRanarison/tailwind-tools.nvim',
