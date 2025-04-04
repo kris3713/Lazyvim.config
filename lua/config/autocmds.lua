@@ -7,16 +7,20 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
+local function create_augroup(name)
+  return vim.api.nvim_create_augroup(name, { clear = true })
+end
+
 -- Get rid of Neovim's stupid cursor change
 vim.api.nvim_create_autocmd('VimLeave', {
-  group = vim.api.nvim_create_augroup('restore_cursor_shape_on_exit', { clear = true }),
+  group = create_augroup('restore_cursor_shape_on_exit'),
   desc = 'Restore the cursor shape on exit of neovim',
   command = 'set guicursor=a:ver20'
 })
 
 -- Enable semantic highlighting
 vim.api.nvim_create_autocmd('LspTokenUpdate', {
-  group = vim.api.nvim_create_augroup('set_semantic_highlighting', { clear = true }),
+  group = create_augroup('set_semantic_highlighting'),
   callback = function()
     vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = '#eed49f' })
     vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = '#ed8796' })
@@ -42,10 +46,31 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
 --
 -- -- Enable semantic highlighting for variables
 -- vim.api.nvim_create_autocmd('LspTokenUpdate', {
---   group = vim.api.nvim_create_augroup('set_semantic_highlighting_variables', { clear = true }),
+--   group = create_augroup('set_semantic_highlighting'),
 --   pattern = '*',
 --   callback = function()
 --     vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = random_color() })
 --   end,
 --   once = true
 -- })
+
+-- Auto-start for nvim-tree
+vim.api.nvim_create_autocmd('VimEnter', {
+  group = vim.api.nvim_create_augroup('autostart_nvim_tree', { clear = true }),
+  desc = 'Auto-start nvim-tree with directory',
+  once = true,
+  ---@param data vim.api.create_autocmd.callback.args
+  callback = function(data)
+    -- Check if the `data` parameter is a table
+    if type(data) ~= "table" then return end
+
+    -- buffer is a directory
+    if not (vim.fn.isdirectory(data.file) == 1) then return end
+
+    -- change to the directory
+    vim.cmd.cd(data.file)
+
+    -- open the tree
+    require('nvim-tree.api').tree.open()
+  end
+})

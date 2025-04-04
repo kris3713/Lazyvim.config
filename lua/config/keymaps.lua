@@ -31,14 +31,24 @@ if vim.g.neovide then
   vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() zoom(1/1.25) end)
 end
 
--- -- nvim-tree
--- local ntree_api = require('nvim-tree.api')
---
--- vim.keymap.set('n', '<leader>e', function()
---   ntree_api.tree.toggle()
--- end, {
---   desc = 'Explorer nvim-tree (root)', noremap = true
--- })
+-- nvim-tree
+local ntree_api = require('nvim-tree.api').tree
+
+vim.keymap.set('n', '<leader>e', function() ntree_api.toggle({ path = root }) end, {
+  desc = 'Explorer nvim-tree (root)', noremap = true
+})
+
+vim.keymap.set('n', '<leader>E', function() ntree_api.toggle({ path = cwd }) end, {
+  desc = 'Explorer nvim-tree (cwd)', noremap = true
+})
+
+vim.keymap.set('n', '<leader>fe', function() ntree_api.toggle({ path = root }) end, {
+  desc = 'Explorer nvim-tree (root)', noremap = true
+})
+
+vim.keymap.set('n', '<leader>fE', function() ntree_api.toggle({ path = cwd }) end, {
+  desc = 'Explorer nvim-tree (cwd)', noremap = true
+})
 
 -- Map Ctrl-z to do nothing
 vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', {

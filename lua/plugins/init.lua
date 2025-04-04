@@ -1,14 +1,4 @@
 return {
-  -- No config plugins go here
-  'https://gitlab.com/HiPhish/rainbow-delimiters.nvim',
-  'nvim-tree/nvim-web-devicons',
-  'nvimtools/none-ls-extras.nvim',
-  'cappyzawa/trim.nvim',
-  'Tastyep/structlog.nvim',
-  'JoosepAlviste/nvim-ts-context-commentstring',
-  'Issafalcon/neotest-dotnet',
-  'debugloop/telescope-undo.nvim',
-  'onsails/lspkind.nvim',
   -- Plugins with configs go here
   {
     'kylechui/nvim-surround',
@@ -141,7 +131,12 @@ return {
   {
     'zeioth/garbage-day.nvim',
     event = 'VeryLazy',
-    opts = {} -- For later configuration
+    opts = {
+      -- Put misbehaving lsp clients here
+      excluded_lsp_clients = {
+        'marksman'
+      }
+    }
   },
   {
     'windwp/nvim-ts-autotag',
@@ -192,65 +187,65 @@ return {
     'nvzone/minty',
     cmd = { 'Shades', 'Heufy' }
   },
-  -- Configuration for plugins already installed by LazyExtras
-  { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
-    'nvim-neo-tree/neo-tree.nvim',
-    --- @module 'neo-tree'
-    --- @type neotree.Config
-    opts = {
-      filesystem = {
-        bind_to_cwd = false,
-        follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
-        hijack_netrw_behavior = 'open_current',
-        filtered_items = {
-          visible = true,
-          hide_dotfiles = false,
-          hide_gitignored = false
-        }
+  {
+    'nvim-tree/nvim-tree.lua',
+    lazy = false,
+    config = function()
+      require('nvim-tree').setup {
+        filters = { dotfiles = false }
       }
-    }
-  },
-  {
-    'folke/snacks.nvim',
+    end,
     opts = {
-      explorer = { enabled = false }
-    }
+      on_attach = function(bufnr)
+        -- Get nvim-tree api
+        local api = require('nvim-tree.api')
+
+        -- Get node under cursor (Copied from eddiebergman)
+        local node = api.tree.get_node_under_cursor()
+
+        -- (Copied from eddiebergman)
+        local function edit_or_open()
+          if node.nodes ~= nil then
+            -- expand or collapse folder
+            api.node.open.edit()
+          else
+            -- open file
+            api.node.open.edit()
+            -- Close the tree if file was opened
+            api.tree.close()
+          end
+        end
+
+        -- (Copied from eddiebergman)
+        local function vsplit_preview()
+          if node.nodes ~= nil then
+            -- expand or collapse folder
+            api.node.open.edit()
+          else
+            -- open file as vsplit
+            api.node.open.vertical()
+          end
+          -- Finally refocus on tree if it was lost
+          api.tree.focus()
+        end
+
+        -- opts function (from eddiebergman)
+        local function opts(desc)
+          return { desc = desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+
+        -- default mappings (Copied from eddiebergman)
+        api.config.mappings.default_on_attach(bufnr)
+
+        -- Set keymaps on attach (Copied from eddiebergman)
+        vim.keymap.set('n', 'l', edit_or_open, opts('Edit or Open'))
+        vim.keymap.set('n', 'L', vsplit_preview, opts('Vsplit Preview'))
+        vim.keymap.set('n', 'h', api.tree.close, opts('Close'))
+        vim.keymap.set('n', 'H', api.tree.collapse_all, opts('Collapse'))
+      end
+    },
+    deactivate = function() vim.cmd('NvimTreeClose') end
   },
-  {
-    'folke/noice.nvim',
-    ---@module 'noice'
-    ---@type NoiceConfig
-    opts = {
-      lsp = {
-        hover = { silent = true },
-        message = { silent = true }
-      }
-    }
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      inlay_hints = { enabled = false }
-    }
-  },
-  -- Disabled plugins go here
-  {
-    'echasnovski/mini.ai',
-    enabled = false
-  },
-  {
-    'stevearc/conform.nvim',
-    enabled = false
-  },
-  {
-    'mfussenegger/nvim-lint',
-    enabled = false
-  },
-  {
-    'mini.pairs',
-    enabled = false
-  }
   --- Might use again if needed.
   -- {
   --   'iabdelkareem/csharp.nvim',
@@ -288,29 +283,28 @@ return {
   --   opts = { space_char = '·' }
   -- },
   -- {
-  --   'kosayoda/nvim-lightbulb',
-  --   config = function ()
-  --     require('nvim-lightbulb').setup {
-  --       autocmd = { enabled = true }
-  --     }
-  --   end
-  -- },
-  -- {
   --   'ray-x/navigator.lua',
   --   dependencies = { 'ray-x/guihua.lua' },
   --   config = function ()
   --     require('navigator').setup()
   --   end
   -- },
-  -- {
-  --   'nvim-tree/nvim-tree.lua',
-  --   lazy = false,
-  --   config = function()
-  --     require('nvim-tree').setup {
-  --       filters = {
-  --         dotfiles = false
+  -- { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
+  --   'nvim-neo-tree/neo-tree.nvim',
+  --   --- @module 'neo-tree'
+  --   --- @type neotree.Config
+  --   opts = {
+  --     filesystem = {
+  --       bind_to_cwd = false,
+  --       follow_current_file = { enabled = true },
+  --       use_libuv_file_watcher = true,
+  --       hijack_netrw_behavior = 'open_current',
+  --       filtered_items = {
+  --         visible = true,
+  --         hide_dotfiles = false,
+  --         hide_gitignored = false
   --       }
   --     }
-  --   end
+  --   }
   -- },
 }

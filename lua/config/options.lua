@@ -26,7 +26,7 @@ vim.opt.wrap = true
 -- vim.g.mapleader = ","
 
 -- Change default cursor to a line
-vim.opt.guicursor = 'i:ver25-iCursor'
+vim.opt.guicursor = 'a:ver25-iCursor'
 
 -- Set lazyvim picker to telescope
 vim.g.lazyvim_picker = 'telescope'
