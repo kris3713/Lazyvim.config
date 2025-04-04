@@ -200,10 +200,8 @@ require('trim').setup {
 }
 
 -- Keep everything else from mini.animate except the cursor animation.
-local ok, mod = pcall(require, 'mini.animate')
-if ok then
-  mod.config.cursor.enable = false
-end
+local mini_animate_exists, mod = pcall(require, 'mini.animate')
+if mini_animate_exists then mod.config.cursor.enable = false end
 
 -- nvim-snippets
 require('snippets').setup {
@@ -258,14 +256,20 @@ require('telescope').setup({
 
 require('telescope').load_extension('undo')
 
--- menu
--- vim.cmd([[
---   menu PopUp.Save  :w<CR>
--- ]])
-
 -- lspkind + nvim-cmp
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 cmp.setup {
   formatting = { format = lspkind.cmp_format {} }
 }
+
+-- mouse menu
+vim.cmd.iunmenu('PopUp.How-to\\ disable\\ mouse')
+vim.cmd([[
+  unmenu PopUp.How-to\ disable\ mouse
+  " Implement all goto definitions
+  menu PopUp.Definition gd
+  menu PopUp.References gr
+  menu PopUp.Implementation gI
+  menu PopUp.Type\ Definition gy
+]])

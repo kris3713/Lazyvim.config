@@ -23,12 +23,14 @@ wk.add {
 
 -- Neovide options
 if vim.g.neovide then
+  local opts = { nowait = false, noremap = false }
+
   -- Set zoom function for Neovide
   local function zoom(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
-  vim.keymap.set({ 'n', 'x', 'i' }, '<C-=>', function() zoom(1.25) end)
-  vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() zoom(1/1.25) end)
+  vim.keymap.set({ 'n', 'x', 'i' }, '<C-=>', function() zoom(1.25) end, opts)
+  vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() zoom(1/1.25) end, opts)
 end
 
 -- nvim-tree
@@ -75,9 +77,9 @@ vim.keymap.set('n', '<Del>', '"_x', { silent = true, noremap = true })
 vim.keymap.set('x', 'd', '"_x', { silent = true, noremap = true })
 vim.keymap.set('x', '<Del>', '"_x', { silent = true, noremap = true })
 
--- Make it easier to paste in INSERT mode
-vim.keymap.set('i', '<C-v>', '<C-R>+', { noremap = true })
-vim.keymap.set('i', '<S-Insert>', '<C-R>+', { noremap = true })
+-- Make it easier to paste
+vim.keymap.set({ 'i', 'c' }, '<C-v>', '<C-r>+', { noremap = true })
+vim.keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', { noremap = true })
 vim.keymap.set('n', '<C-v>', '"+p', { noremap = true })
 vim.keymap.set('n', '<S-Insert>', '"+p', { noremap = true })
 
@@ -132,7 +134,7 @@ vim.keymap.set('n', '<leader>Sd', function() ses.DeleteSession(cwd) end, {
 })
 
 -- Map the backwards indent to Shift + Tab
-vim.keymap.set('i' , '<S-Tab>', '<C-d>', {
+vim.keymap.set('i', '<S-Tab>', '<C-d>', {
   noremap = true, silent = true
 })
 
@@ -191,27 +193,27 @@ vim.keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end , {
 
 --- lspsaga
 -- Definition
-vim.keymap.set('n', 'gt', function() vim.cmd('Lspsaga peek_definition') end, {
+vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, {
   desc = 'Peek definition', noremap = true
 })
 
-vim.keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end, {
+vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, {
   desc = 'Peek type definition', noremap = true
 })
 
 -- Outline
-vim.keymap.set('n', '<leader>O', function() vim.cmd('Lspsaga outline') end, {
+vim.keymap.set('n', '<leader>O', function() vim.cmd.Lspsaga('outline') end, {
   desc = 'Outline', noremap = true
 })
 
 -- Hover Doc
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'K', function() vim.cmd('Lspsaga hover_doc') end, desc = 'Hover Doc', noremap = true
+  'K', function() vim.cmd.Lspsaga('hover_doc') end, desc = 'Hover Doc', noremap = true
 }
 
 -- Diagnostics
 lsp_keymaps[#lsp_keymaps + 1] = {
-  '<leader>cd', function() vim.cmd('Lspsaga show_line_diagnostics') end, desc = 'Line Diagnostics', noremap = true
+  '<leader>cd', function() vim.cmd.Lspsaga('show_line_diagnostics') end, desc = 'Line Diagnostics', noremap = true
 }
 --- lspsaga
 
