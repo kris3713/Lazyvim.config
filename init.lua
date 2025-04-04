@@ -251,7 +251,7 @@ require('telescope').setup({
     },
     -- other extensions:
     -- file_browser = { ... }
-  },
+  }
 })
 
 require('telescope').load_extension('undo')
