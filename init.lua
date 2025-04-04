@@ -263,3 +263,9 @@ require('telescope').load_extension('undo')
 --   menu PopUp.Save  :w<CR>
 -- ]])
 
+-- lspkind + nvim-cmp
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+cmp.setup {
+  formatting = { format = lspkind.cmp_format {} }
+}

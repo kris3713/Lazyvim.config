@@ -8,6 +8,7 @@ return {
   'JoosepAlviste/nvim-ts-context-commentstring',
   'Issafalcon/neotest-dotnet',
   'debugloop/telescope-undo.nvim',
+  'onsails/lspkind.nvim',
   -- Plugins with configs go here
   {
     'kylechui/nvim-surround',
@@ -19,7 +20,7 @@ return {
         keymaps = {
           insert = '<Nop>',
           insert_line = '<Nop>',
-          normal = 'gs',
+          normal = 'gss',
           normal_cur = 'gss',
           normal_line = 'gsS',
           normal_cur_line = 'gsSs',
@@ -247,10 +248,6 @@ return {
     enabled = false
   },
   {
-    'mini.icons',
-    enabled = false
-  },
-  {
     'mini.pairs',
     enabled = false
   }
@@ -303,6 +300,17 @@ return {
   --   dependencies = { 'ray-x/guihua.lua' },
   --   config = function ()
   --     require('navigator').setup()
+  --   end
+  -- },
+  -- {
+  --   'nvim-tree/nvim-tree.lua',
+  --   lazy = false,
+  --   config = function()
+  --     require('nvim-tree').setup {
+  --       filters = {
+  --         dotfiles = false
+  --       }
+  --     }
   --   end
   -- },
 }

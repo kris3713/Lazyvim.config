@@ -4,6 +4,7 @@
 
 -- current directory
 local cwd = vim.fn.getcwd()
+local root = LazyVim.root()
 
 -- lsp keymaps
 local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
@@ -29,6 +30,15 @@ if vim.g.neovide then
   vim.keymap.set({ 'n', 'x', 'i' }, '<C-=>', function() zoom(1.25) end)
   vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() zoom(1/1.25) end)
 end
+
+-- -- nvim-tree
+-- local ntree_api = require('nvim-tree.api')
+--
+-- vim.keymap.set('n', '<leader>e', function()
+--   ntree_api.tree.toggle()
+-- end, {
+--   desc = 'Explorer nvim-tree (root)', noremap = true
+-- })
 
 -- Map Ctrl-z to do nothing
 vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', {
@@ -191,7 +201,7 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 
 -- Diagnostics
 lsp_keymaps[#lsp_keymaps + 1] = {
-  '<leader>cd', function() vim.cmd('Lspsaga show_line_diagnostics') end, noremap = true
+  '<leader>cd', function() vim.cmd('Lspsaga show_line_diagnostics') end, desc = 'Line Diagnostics', noremap = true
 }
 --- lspsaga
 
