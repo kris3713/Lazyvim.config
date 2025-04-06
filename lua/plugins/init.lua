@@ -25,7 +25,30 @@ return {
   },
   {
     'aznhe21/actions-preview.nvim',
-    config = true
+    config = function()
+      -- local hl = require('actions-preview.highlight')
+
+      require('actions-preview').setup({
+        backend = 'telescope',
+        telescope = {
+          sorting_strategy = "ascending",
+          layout_strategy = "vertical",
+          layout_config = {
+            width = 0.8,
+            -- height = 0.9,
+            prompt_position = "top",
+            preview_cutoff = 25,
+            ---@param max_lines number
+            preview_height = function(_, _, max_lines)
+              return max_lines - 20
+            end
+          }
+        },
+        highlight_command = {
+          require('actions-preview.highlight').delta()
+        }
+      })
+    end
   },
   {
     'numToStr/Comment.nvim',
@@ -104,7 +127,7 @@ return {
     dependencies = 'kevinhwang91/promise-async',
     config = function ()
       require('ufo').setup {
-        provider_selector = function(bufnr, filetype, buftype)
+        provider_selector = function(_, _, _)
           return { 'treesitter', 'indent' }
         end
       }
@@ -160,7 +183,7 @@ return {
     'Wansmer/treesj',
     keys = { '<leader>m', '<leader>j', '<leader>a' },
     config = function()
-      require('treesj').setup({})
+      require('treesj').setup {}
     end
   },
   {

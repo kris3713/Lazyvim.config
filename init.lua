@@ -2,7 +2,7 @@
 require('config.lazy')
 
 -- Set the theme to Catpuccin Macchiato
-vim.cmd('colorscheme catppuccin-macchiato')
+vim.cmd.colorscheme('catppuccin-macchiato')
 
 --- LSP configs
 local lspconfig = require('lspconfig')

@@ -83,3 +83,6 @@ vim.o.foldenable = true
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Disable inlay hints
+vim.lsp.inlay_hint.enable(false)

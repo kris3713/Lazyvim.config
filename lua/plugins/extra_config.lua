@@ -6,14 +6,21 @@ return {
     ---@type snacks.Config
     opts = {
       explorer = { enabled = false },
+      scratch = { enabled = false },
       picker = {
         previewers = {
           diff = {
             builtin = false,
-            cmd = { 'delta', '--paging=never' }
+            cmd = { 'delta' }
+          },
+          git = {
+            builtin = false
           },
           man_pager = 'nvim +Man!'
         }
+      },
+      win = {
+        border = 'rounded'
       }
     }
   },
@@ -30,8 +37,8 @@ return {
   },
   {
     'neovim/nvim-lspconfig',
-    opts = {
-      inlay_hints = { enabled = false }
-    }
+    ---@module 'lspconfig'
+    ---@type lspconfig.Config
+    opts = {} -- For later configuration
   }
 }
