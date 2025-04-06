@@ -224,7 +224,7 @@ local function line_ending()
   end
 end
 
-local fileformat = function()
+local function fileformat()
   return line_ending()
 end
 
@@ -267,6 +267,8 @@ cmp.setup {
 vim.cmd.iunmenu('PopUp.How-to\\ disable\\ mouse')
 vim.cmd([[
   unmenu PopUp.How-to\ disable\ mouse
+  " Add code actions
+  menu PopUp.Code\ Actions <leader>ca
   " Implement all goto definitions
   menu PopUp.Definition gd
   menu PopUp.References gr

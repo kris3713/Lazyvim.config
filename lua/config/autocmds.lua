@@ -15,6 +15,7 @@ end
 vim.api.nvim_create_autocmd('VimLeave', {
   group = create_augroup('restore_cursor_shape_on_exit'),
   desc = 'Restore the cursor shape on exit of neovim',
+  once = true,
   command = 'set guicursor=a:ver20'
 })
 

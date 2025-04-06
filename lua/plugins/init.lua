@@ -67,16 +67,7 @@ return {
   {
     'catgoose/nvim-colorizer.lua',
     event = 'BufReadPre',
-    opts = {
-      filetypes = {
-        '!TelescopePrompt'
-      },
-      buftypes = {
-        -- exclude prompt and popup buftypes from highlight
-        '!prompt',
-        '!popup'
-      }
-    }
+    opts = {}
   },
   {
     'luckasRanarison/tailwind-tools.nvim',
@@ -96,7 +87,7 @@ return {
   {
     'soulis-1256/eagle.nvim',
     opts = {
-      show_lsp_info = false
+      border = 'rounded'
     }
   },
   {

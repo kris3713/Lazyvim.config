@@ -4,6 +4,7 @@
 
 -- current directory
 local cwd = vim.fn.getcwd()
+-- root directory
 local root = LazyVim.root()
 
 -- lsp keymaps
@@ -21,50 +22,49 @@ wk.add {
   }
 }
 
+--- Sets options for keymaps
+---@param desc any
+---@param silent? boolean
+---@return table
+local function opts(desc, silent)
+  silent = silent or false
+  return { desc = desc, silent = silent, noremap = true }
+end
+
 -- Neovide options
 if vim.g.neovide then
-  local opts = { nowait = false, noremap = false }
+  local other_opts = { nowait = false, noremap = false }
 
   -- Set zoom function for Neovide
   local function zoom(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
-  vim.keymap.set({ 'n', 'x', 'i' }, '<C-=>', function() zoom(1.25) end, opts)
-  vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() zoom(1/1.25) end, opts)
+  vim.keymap.set({ 'n', 'x', 'i' }, '<C-=>', function() zoom(1.25) end, other_opts)
+  vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() zoom(1/1.25) end, other_opts)
 end
 
 -- nvim-tree
 local ntree_api = require('nvim-tree.api').tree
+local function open_at_root() ntree_api.toggle({ path = root }) end
+local function open_at_cwd() ntree_api.toggle({ path = cwd }) end
 
-vim.keymap.set('n', '<leader>e', function() ntree_api.toggle({ path = root }) end, {
-  desc = 'Explorer nvim-tree (root)', noremap = true
-})
+vim.keymap.set('n', '<leader>e', open_at_root, opts('Explorer nvim-tree (root)'))
 
-vim.keymap.set('n', '<leader>E', function() ntree_api.toggle({ path = cwd }) end, {
-  desc = 'Explorer nvim-tree (cwd)', noremap = true
-})
+vim.keymap.set('n', '<leader>E', open_at_cwd, opts('Explorer nvim-tree (cwd)'))
 
-vim.keymap.set('n', '<leader>fe', function() ntree_api.toggle({ path = root }) end, {
-  desc = 'Explorer nvim-tree (root)', noremap = true
-})
+vim.keymap.set('n', '<leader>fe', open_at_root, opts('Explorer nvim-tree (root)'))
 
-vim.keymap.set('n', '<leader>fE', function() ntree_api.toggle({ path = cwd }) end, {
-  desc = 'Explorer nvim-tree (cwd)', noremap = true
-})
+vim.keymap.set('n', '<leader>fE', open_at_cwd, opts('Explorer nvim-tree (cwd)'))
 
 -- Map Ctrl-z to do nothing
-vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', {
-  noremap = true, silent = true
-})
+vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', opts('', true))
 
 -- Map q to do nothing
-vim.keymap.set('n', 'q', '<Nop>', { noremap = true, silent = true })
-vim.keymap.set('x', 'q', '<Nop>', { noremap = true, silent = true })
+vim.keymap.set('n', 'q', '<Nop>', opts('', true))
+vim.keymap.set('x', 'q', '<Nop>', opts('', true))
 
 -- Map quit command to Ctrl-q
-vim.keymap.set('n', '<C-q>', function() vim.cmd('q') end, {
-  desc = 'Quit Neovim', noremap = true, silent = true
-})
+vim.keymap.set('n', '<C-q>', function() vim.cmd('q') end, opts('Quit Neovim', true))
 
 -- Map quit all command to Ctrl+Alt+q
 vim.keymap.set('n', '<C-A-q>', function() vim.cmd('qa') end, {
@@ -72,23 +72,21 @@ vim.keymap.set('n', '<C-A-q>', function() vim.cmd('qa') end, {
 })
 
 -- Change delete keymaps to "Delete without yanking"
-vim.keymap.set('n', 'd', '"_x', { silent = true, noremap = true })
-vim.keymap.set('n', '<Del>', '"_x', { silent = true, noremap = true })
-vim.keymap.set('x', 'd', '"_x', { silent = true, noremap = true })
-vim.keymap.set('x', '<Del>', '"_x', { silent = true, noremap = true })
+vim.keymap.set('n', 'd', '"_x', opts('', true))
+vim.keymap.set('n', '<Del>', '"_x', opts('', true))
+vim.keymap.set('x', 'd', '"_x', opts('', true))
+vim.keymap.set('x', '<Del>', '"_x', opts('', true))
 
 -- Make it easier to paste
-vim.keymap.set({ 'i', 'c' }, '<C-v>', '<C-r>+', { noremap = true })
-vim.keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', { noremap = true })
-vim.keymap.set('n', '<C-v>', '"+p', { noremap = true })
-vim.keymap.set('n', '<S-Insert>', '"+p', { noremap = true })
+vim.keymap.set({ 'i', 'c' }, '<C-v>', '<C-r>+', opts('', false))
+vim.keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', opts('', false))
+vim.keymap.set('n', '<C-v>', '"+p', opts('', false))
+vim.keymap.set('n', '<S-Insert>', '"+p', opts('', false))
 
 -- actions-preview.nvim
 local ap = require('actions-preview')
 
-vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, {
-  desc = 'Open Code Actions', noremap = true
-})
+vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, opts('Open Code Actions'))
 
 lsp_keymaps[#lsp_keymaps + 1] = {
   '<leader>ca', ap.code_actions, desc = 'Open Code Actions', noremap = true
@@ -97,57 +95,49 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 -- neogen
 local ngen = require('neogen')
 
-vim.keymap.set('n', '<Leader>N', function() ngen.generate() end, {
-  desc = 'Generate annotations', remap = true, silent = true
-})
+vim.keymap.set('n', '<Leader>N', function() ngen.generate() end, opts('Generate annotations'))
 
 -- Set softwrap to Alt + Z
-vim.keymap.set('n', '<A-z>', function() vim.cmd('set wrap!') end, {
-  desc = 'Toggle softwrap.', noremap = true, silent = true
-})
+vim.keymap.set('n', '<A-z>', function() vim.cmd('set wrap!') end, opts('Toggle softwrap', true))
 
 -- Make it easier to open LazyExtras
-vim.keymap.set('n', '<leader>L', function() vim.cmd('LazyExtras') end, {
-  desc = 'Open LazyExtras', silent = true, remap = true
-})
+vim.keymap.set('n', '<leader>L', function() vim.cmd('LazyExtras') end, opts('Open LazyExtras'))
 
 -- Make it easier to open Mason
-vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, {
-  desc = 'Open Mason', silent = true, remap = true
-})
+vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mason'))
 
 -- auto-session
 local ses = require('auto-session')
 
-vim.keymap.set('n', '<leader>SS', function () vim.cmd('SessionSearch') end, {
-    desc = 'Search Saved Sessions', silent = true, noremap = true
-})
+vim.keymap.set('n', '<leader>SS', function () vim.cmd('SessionSearch') end, opts('Search Saved Sessions'))
 
-vim.keymap.set('n', '<leader>Ss', function() ses.SaveSession(cwd) end, {
-  desc = 'Save Session', silent = true, noremap = true
-})
+vim.keymap.set('n', '<leader>Ss', function() ses.SaveSession(cwd) end, opts('Save Session'))
 
--- Set a keymap for deleting the
--- saved session based on the cwd (Current Working Directory)
-vim.keymap.set('n', '<leader>Sd', function() ses.DeleteSession(cwd) end, {
-  desc = 'Delete Session based on cwd', silent = true, noremap = true
-})
+vim.keymap.set('n', '<leader>Sd', function() ses.DeleteSession(cwd) end, opts('Delete Session based on cwd'))
 
 -- Map the backwards indent to Shift + Tab
-vim.keymap.set('i', '<S-Tab>', '<C-d>', {
-  noremap = true, silent = true
-})
+vim.keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
 
 -- toggleterm.nvim
 local tt = require('toggleterm')
 
-vim.keymap.set({ 'n', 'x' }, '<C-/>', function() tt.new(nil, nil, 'horizontal') end, {
-  desc = 'Open a new terminal instance', remap = true
-})
+vim.keymap.set('n', '<C-/>', function()
+  local terminals = require('toggleterm.terminal').get_all()
+  if #terminals == 0 then tt.new(nil, root, 'horizontal')
+  else tt.toggle_all() end
+end, opts('Open a Terminal (if one is not open)'))
 
-vim.keymap.set({ 'n', 'x' }, '<C-\\>', function() tt.toggle_all() end, {
-  desc = 'Toggles an active terminal instance', remap = true
-})
+vim.keymap.set('n', '<C-\\>', function()
+  local terminals = require('toggleterm.terminal').get_all()
+  if #terminals ~= 0 then tt.new(nil, root, 'horizontal') end
+end, opts('Create a new Terminal (if one is active)'))
+
+-- Keymap is short for Ctrl + Shift + /
+vim.keymap.set('n', '<C-?>', function() tt.toggle_all() end, opts('Toggles all Terminal instances'))
+
+vim.keymap.set('n', '<leader>ft', function() tt.new(nil, root, 'horizontal') end, opts('Open a Terminal (Root Dir)'))
+
+vim.keymap.set('n', '<leader>fT', function() tt.new(nil, cwd, 'horizontal') end, opts('Open a Terminal (cwd)'))
 
 -- grug-far
 local grug = require('grug-far')
@@ -156,55 +146,36 @@ vim.keymap.set({ 'n', 'x' }, '<leader>s/', function()
   grug.with_visual_selection({
     prefills = { paths = vim.fn.expand('%') }
   })
-end, { desc = 'Search and Replace in current file', noremap = true })
+end, opts('Search and Replace in current file'))
 
 -- Keymap for built-in renaming
-vim.keymap.set('n', '<leader>cr', function() vim.lsp.buf.rename() end, {
-  desc = 'Rename', noremap = true
-})
+vim.keymap.set('n', '<leader>cr', function() vim.lsp.buf.rename() end, opts('Rename'))
 
 -- Yazi keymaps for later.
 local yz = require('yazi')
 
-vim.keymap.set('n', '<leader>Y', function() yz.yazi(yz.config) end, {
-  desc = 'Open yazi at the current file', noremap = true, silent = true
-})
+vim.keymap.set('n', '<leader>Y', function() yz.yazi(yz.config) end, opts('Open yazi at the current file'))
 
-vim.keymap.set('n', '<leader>cw', function() yz.yazi(yz.config, cwd, nil) end, {
-  desc = "Open yazi in the cwd", noremap = true, silent = true
-})
+vim.keymap.set('n', '<leader>cw', function() yz.yazi(yz.config, cwd, nil) end, opts('Open yazi in the cwd'))
 
-vim.keymap.set('n', '<leader><up>', function() yz.toggle(yz.config) end, {
-  desc = 'Resume the last yazi session', noremap = true, silent = true
-})
+vim.keymap.set('n', '<leader><up>', function() yz.toggle(yz.config) end, opts('Resume the last yazi session'))
 
 -- nvim-ufo
-vim.keymap.set('n', 'zR', require('ufo').openAllFolds, {
-  desc = 'Open all folds', noremap = true
-})
-vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, {
-  desc = 'Close all folds', noremap = true
-})
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds, opts('Open all folds'))
+
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, opts('Close all folds'))
 
 -- telescope-undo
-vim.keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end , {
-  desc = 'Telescope undo', noremap = true
-})
+vim.keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end, opts('Telescope undo'))
 
 --- lspsaga
 -- Definition
-vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, {
-  desc = 'Peek definition', noremap = true
-})
+vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, opts('Peek definition'))
 
-vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, {
-  desc = 'Peek type definition', noremap = true
-})
+vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, opts('Peek type definition'))
 
 -- Outline
-vim.keymap.set('n', '<leader>O', function() vim.cmd.Lspsaga('outline') end, {
-  desc = 'Outline', noremap = true
-})
+vim.keymap.set('n', '<leader>O', function() vim.cmd.Lspsaga('outline') end, opts('Outline'))
 
 -- Hover Doc
 lsp_keymaps[#lsp_keymaps + 1] = {
