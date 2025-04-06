@@ -4,9 +4,7 @@ return {
     'kylechui/nvim-surround',
     event = 'VeryLazy',
     config = function ()
-      local nvim_surround = require('nvim-surround')
-
-      nvim_surround.setup {
+      require('nvim-surround').setup {
         keymaps = {
           insert = '<Nop>',
           insert_line = '<Nop>',
@@ -26,8 +24,6 @@ return {
   {
     'aznhe21/actions-preview.nvim',
     config = function()
-      -- local hl = require('actions-preview.highlight')
-
       require('actions-preview').setup({
         backend = 'telescope',
         telescope = {
@@ -81,12 +77,6 @@ return {
     'akinsho/toggleterm.nvim',
     config = true
   },
-  { -- Needed by neotree
-    's1n7ax/nvim-window-picker',
-    name = 'window-picker',
-    event = 'VeryLazy',
-    config = true
-  },
   {
     'catgoose/nvim-colorizer.lua',
     event = 'BufReadPre',
@@ -101,10 +91,10 @@ return {
   {
     'mikavilpas/yazi.nvim',
     event = 'VeryLazy',
+    ---@module 'yazi'
+    ---@type YaziConfig
     opts = {
-      -- if you want to open yazi instead of netrw, see below for more info
-      open_for_directories = true,
-      -- keymaps = { show_help = '<f1>' }
+      open_for_directories = true
     }
   },
   {
@@ -116,7 +106,6 @@ return {
   {
     'm-demare/hlargs.nvim',
     config = function()
-      -- Will modify later...
       require('hlargs').setup {
         color = '#ed8796'
       }
@@ -176,7 +165,9 @@ return {
   {
     'nvimdev/lspsaga.nvim',
     config = function()
-      require('lspsaga').setup {}
+      require('lspsaga').setup {
+        symbol_in_winbar = { enable = false }
+      }
     end
   },
   {
@@ -196,10 +187,6 @@ return {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     opts = {}
-  },
-  {
-    'gbprod/substitute.nvim',
-    opts = {} -- For configuring later
   },
   {
     'nvzone/volt',
@@ -270,33 +257,10 @@ return {
   },
   --- Might use again if needed.
   -- {
-  --   'iabdelkareem/csharp.nvim',
-  --   config = function()
-  --     ROSLYN_LSP = os.getenv('ROSLYN_LSP')
-  --
-  --     -- Don't even bother loading if ROSLYN_LSP is not set
-  --     if ROSLYN_LSP == nil then return end
-  --
-  --     require('csharp').setup {
-  --       lsp = {
-  --         omnisharp = { enable = false },
-  --         roslyn = {
-  --           enable = true,
-  --           cmd_path = ROSLYN_LSP .. '/Microsoft.CodeAnalysis.LanguageServer.dll'
-  --         }
-  --       }
-  --     }
-  --   end
-  -- },
-  -- {
   --   'mfussenegger/nvim-lint',
   --   config = function()
   --     require('lint').linters_by_fit = {}
   --   end
-  -- },
-  -- {
-  --   'pmizio/typescript-tools.nvim',
-  --   opts = {}
   -- },
   -- {
   --   'mcauley-penney/visual-whitespace.nvim',
@@ -328,5 +292,11 @@ return {
   --       }
   --     }
   --   }
+  -- },
+  -- { -- Needed by neotree
+  --   's1n7ax/nvim-window-picker',
+  --   name = 'window-picker',
+  --   event = 'VeryLazy',
+  --   config = true
   -- },
 }
