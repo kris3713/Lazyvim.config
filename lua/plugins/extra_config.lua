@@ -2,6 +2,7 @@ return {
   -- Configuration for plugins already installed by LazyExtras
   {
     'folke/snacks.nvim',
+    ---@module 'snacks'
     ---@type snacks.Config
     opts = {
       explorer = { enabled = false },
