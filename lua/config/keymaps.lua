@@ -67,9 +67,7 @@ vim.keymap.set('x', 'q', '<Nop>', opts('', true))
 vim.keymap.set('n', '<C-q>', function() vim.cmd('q') end, opts('Quit Neovim', true))
 
 -- Map quit all command to Ctrl+Alt+q
-vim.keymap.set('n', '<C-A-q>', function() vim.cmd('qa') end, {
-  desc = 'Quit all Neovim instances', noremap = true, silent = true
-})
+vim.keymap.set('n', '<C-A-q>', function() vim.cmd('qa') end, opts('Quit all Neovim instances', true))
 
 -- Change delete keymaps to "Delete without yanking"
 vim.keymap.set('n', 'd', '"_x', opts('', true))
@@ -95,7 +93,7 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 -- neogen
 local ngen = require('neogen')
 
-vim.keymap.set('n', '<Leader>N', function() ngen.generate() end, opts('Generate annotations'))
+vim.keymap.set('n', '<leader>N', function() ngen.generate() end, opts('Generate annotations', true))
 
 -- Set softwrap to Alt + Z
 vim.keymap.set('n', '<A-z>', function() vim.cmd('set wrap!') end, opts('Toggle softwrap', true))
@@ -109,11 +107,11 @@ vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mas
 -- auto-session
 local ses = require('auto-session')
 
-vim.keymap.set('n', '<leader>SS', function () vim.cmd('SessionSearch') end, opts('Search Saved Sessions'))
+vim.keymap.set('n', '<leader>SS', function() vim.cmd('SessionSearch') end, opts('Search Saved Sessions', true))
 
-vim.keymap.set('n', '<leader>Ss', function() ses.SaveSession(cwd) end, opts('Save Session'))
+vim.keymap.set('n', '<leader>Ss', function() ses.SaveSession(cwd) end, opts('Save Session', true))
 
-vim.keymap.set('n', '<leader>Sd', function() ses.DeleteSession(cwd) end, opts('Delete Session based on cwd'))
+vim.keymap.set('n', '<leader>Sd', function() ses.DeleteSession(cwd) end, opts('Delete Session based on cwd', true))
 
 -- Map the backwards indent to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
@@ -142,7 +140,7 @@ vim.keymap.set('n', '<leader>fT', function() tt.new(nil, cwd, 'horizontal') end,
 -- grug-far
 local grug = require('grug-far')
 
-vim.keymap.set({ 'n', 'x' }, '<leader>s/', function()
+vim.keymap.set('v', '<leader>s/', function()
   grug.with_visual_selection({
     prefills = { paths = vim.fn.expand('%') }
   })
@@ -151,14 +149,14 @@ end, opts('Search and Replace in current file'))
 -- Keymap for built-in renaming
 vim.keymap.set('n', '<leader>cr', function() vim.lsp.buf.rename() end, opts('Rename'))
 
--- Yazi keymaps for later.
+-- Yazi keymaps
 local yz = require('yazi')
 
-vim.keymap.set('n', '<leader>Y', function() yz.yazi(yz.config) end, opts('Open yazi at the current file'))
+vim.keymap.set('n', '<leader>Y', function() yz.yazi(yz.config) end, opts('Open yazi at the current file', true))
 
-vim.keymap.set('n', '<leader>cw', function() yz.yazi(yz.config, cwd, nil) end, opts('Open yazi in the cwd'))
+vim.keymap.set('n', '<leader>cw', function() yz.yazi(yz.config, cwd, nil) end, opts('Open yazi in the cwd', true))
 
-vim.keymap.set('n', '<leader><up>', function() yz.toggle(yz.config) end, opts('Resume the last yazi session'))
+vim.keymap.set('n', '<leader><up>', function() yz.toggle(yz.config) end, opts('Resume the last yazi session', true))
 
 -- nvim-ufo
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds, opts('Open all folds'))

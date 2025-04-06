@@ -2,8 +2,18 @@ return {
   -- Configuration for plugins already installed by LazyExtras
   {
     'folke/snacks.nvim',
+    ---@type snacks.Config
     opts = {
-      explorer = { enabled = false }
+      explorer = { enabled = false },
+      picker = {
+        previewers = {
+          diff = {
+            builtin = false,
+            cmd = { 'delta', '--paging=never' }
+          },
+          man_pager = 'nvim +Man!'
+        }
+      }
     }
   },
   {
