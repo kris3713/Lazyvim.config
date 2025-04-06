@@ -69,8 +69,7 @@ vim.g.lazyvim_mini_snippets_in_completion = false
 -- Ensure the encoding is always UTF-8
 vim.o.encoding = 'utf-8'
 
-
--- For mouse
+-- Mouse support
 vim.o.mousemoveevent = true
 vim.opt.mouse = 'a'
 
@@ -80,9 +79,6 @@ vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decr
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
--- disable netrw at the very start of your init.lua
+-- Disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
--- Disable inlay hints
-vim.lsp.inlay_hint.enable(false)

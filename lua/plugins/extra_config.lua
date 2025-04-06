@@ -22,6 +22,9 @@ return {
       win = {
         border = 'rounded'
       }
+    },
+    keys = {
+      { '<leader>S', false }
     }
   },
   {
@@ -39,6 +42,9 @@ return {
     'neovim/nvim-lspconfig',
     ---@module 'lspconfig'
     ---@type lspconfig.Config
-    opts = {} -- For later configuration
+    opts = {
+      -- Disable inlay hints
+      inlay_hints = { enabled = false }
+    }
   }
 }
