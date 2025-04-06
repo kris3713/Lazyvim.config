@@ -92,11 +92,14 @@ lspconfig.harper_ls.setup {
 lspconfig.dockerls.setup {}
 lspconfig.docker_compose_language_service.setup {}
 
--- Nushell
-lspconfig.nushell.setup {}
-
 -- FISH
 lspconfig.fish_lsp.setup {}
+
+-- BASH
+lspconfig.bashls.setup{}
+
+-- XML language server
+lspconfig.lemminx.setup {}
 
 --- none-ls.nvim
 local null_ls = require('null-ls')
@@ -129,9 +132,6 @@ null_ls.setup({
     null_ls.builtins.hover.dictionary
   }
 })
-
--- XML language server
-lspconfig.lemminx.setup {}
 
 -- rainbow-delimiters and
 -- indent-blankline
