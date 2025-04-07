@@ -9,7 +9,6 @@ local lspconfig = require('lspconfig')
 
 -- For Ruby development
 lspconfig.solargraph.setup {}
-lspconfig.sorbet.setup {}
 
 -- CSS
 local capabilities = vim.lsp.protocol.make_client_capabilities()
