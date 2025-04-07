@@ -197,6 +197,18 @@ return {
     cmd = { 'Shades', 'Heufy' }
   },
   {
+    'Bekaboo/dropbar.nvim',
+    config = function()
+      require('dropbar').setup {
+        menu = {
+          win_configs = {
+            border = 'rounded'
+          }
+        }
+      }
+    end
+  },
+  {
     'nvim-tree/nvim-tree.lua',
     lazy = false,
     config = function()

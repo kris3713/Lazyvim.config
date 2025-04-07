@@ -199,7 +199,9 @@ require('trim').setup {
 
 -- Keep everything else from mini.animate except the cursor animation.
 local mini_animate_exists, mod = pcall(require, 'mini.animate')
-if mini_animate_exists then mod.config.cursor.enable = false end
+if mini_animate_exists then
+  mod.config.cursor.enable = false
+end
 
 -- nvim-snippets
 require('snippets').setup {
@@ -258,8 +260,21 @@ require('telescope').load_extension('undo')
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 cmp.setup {
+  window = {
+    completion = {
+      border = 'rounded'
+    },
+    documentation = {
+      border = 'rounded'
+    }
+  },
   formatting = { format = lspkind.cmp_format {} }
 }
+
+-- snacks.nvim
+local snacks = require('snacks')
+
+snacks.scroll.enable()
 
 -- mouse menu
 vim.cmd.iunmenu('PopUp.How-to\\ disable\\ mouse')
@@ -268,7 +283,6 @@ vim.cmd([[
   " Add code actions
   menu PopUp.Code\ Actions <leader>ca
   " Implement all goto definitions
-  menu PopUp.Definition gd
   menu PopUp.References gr
   menu PopUp.Implementation gI
   menu PopUp.Type\ Definition gy

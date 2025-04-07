@@ -6,7 +6,6 @@ return {
     ---@type snacks.Config
     opts = {
       explorer = { enabled = false },
-      scratch = { enabled = false },
       picker = {
         previewers = {
           diff = {
