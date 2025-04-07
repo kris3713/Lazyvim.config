@@ -213,58 +213,66 @@ return {
     lazy = false,
     config = function()
       require('nvim-tree').setup {
-        filters = { dotfiles = false }
+        filters = { dotfiles = false },
+        on_attach = function(bufnr)
+          -- Get nvim-tree api
+          local api = require('nvim-tree.api')
+
+          -- Get node under cursor (Copied from eddiebergman)
+          local node = api.tree.get_node_under_cursor()
+
+          -- (Copied from eddiebergman)
+          local function edit_or_open()
+            if node.nodes ~= nil then
+              -- expand or collapse folder
+              api.node.open.edit()
+            else
+              -- open file
+              api.node.open.edit()
+              -- Close the tree if file was opened
+              api.tree.close()
+            end
+          end
+
+          -- (Copied from eddiebergman)
+          local function vsplit_preview()
+            if node.nodes ~= nil then
+              -- expand or collapse folder
+              api.node.open.edit()
+            else
+              -- open file as vsplit
+              api.node.open.vertical()
+            end
+            -- Finally refocus on tree if it was lost
+            api.tree.focus()
+          end
+
+          -- opts function (from eddiebergman)
+          local function opts(desc)
+            return { desc = desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+          end
+
+          -- default mappings (Copied from eddiebergman)
+          api.config.mappings.default_on_attach(bufnr)
+
+          -- Set keymaps on attach (Copied from eddiebergman)
+          vim.keymap.set('n', 'l', edit_or_open, opts('Edit or Open'))
+          vim.keymap.set('n', 'L', vsplit_preview, opts('Vsplit Preview'))
+          vim.keymap.set('n', 'h', api.tree.close, opts('Close'))
+          vim.keymap.set('n', 'H', api.tree.collapse_all, opts('Collapse'))
+        end,
+        renderer = {
+          icons = {
+            glyphs = {
+              git = {
+                unstaged = '󰄱',
+                staged = '󰱒'
+              }
+            }
+          }
+        }
       }
     end,
-    opts = {
-      on_attach = function(bufnr)
-        -- Get nvim-tree api
-        local api = require('nvim-tree.api')
-
-        -- Get node under cursor (Copied from eddiebergman)
-        local node = api.tree.get_node_under_cursor()
-
-        -- (Copied from eddiebergman)
-        local function edit_or_open()
-          if node.nodes ~= nil then
-            -- expand or collapse folder
-            api.node.open.edit()
-          else
-            -- open file
-            api.node.open.edit()
-            -- Close the tree if file was opened
-            api.tree.close()
-          end
-        end
-
-        -- (Copied from eddiebergman)
-        local function vsplit_preview()
-          if node.nodes ~= nil then
-            -- expand or collapse folder
-            api.node.open.edit()
-          else
-            -- open file as vsplit
-            api.node.open.vertical()
-          end
-          -- Finally refocus on tree if it was lost
-          api.tree.focus()
-        end
-
-        -- opts function (from eddiebergman)
-        local function opts(desc)
-          return { desc = desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-        end
-
-        -- default mappings (Copied from eddiebergman)
-        api.config.mappings.default_on_attach(bufnr)
-
-        -- Set keymaps on attach (Copied from eddiebergman)
-        vim.keymap.set('n', 'l', edit_or_open, opts('Edit or Open'))
-        vim.keymap.set('n', 'L', vsplit_preview, opts('Vsplit Preview'))
-        vim.keymap.set('n', 'h', api.tree.close, opts('Close'))
-        vim.keymap.set('n', 'H', api.tree.collapse_all, opts('Collapse'))
-      end
-    },
     deactivate = function() vim.cmd('NvimTreeClose') end
   },
   --- Might use again if needed.
