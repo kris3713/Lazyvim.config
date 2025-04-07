@@ -204,3 +204,12 @@ end
 
 -- Aerial
 vim.keymap.set('n', '<leader>O', function() require('aerial').toggle() end, opts('Outline'))
+
+-- dropbar
+local dropbar_api = require('dropbar.api')
+
+vim.keymap.set('n', '<Leader>;', dropbar_api.pick, opts('Pick symbols in winbar'))
+
+vim.keymap.set('n', '[;', dropbar_api.goto_context_start, opts('Go to start of current context'))
+
+vim.keymap.set('n', '];', dropbar_api.select_next_context, opts('Select next context'))
