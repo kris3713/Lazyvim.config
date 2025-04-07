@@ -23,7 +23,7 @@ wk.add {
 }
 
 --- Sets options for keymaps
----@param desc any
+---@param desc string
 ---@param silent? boolean
 ---@return table
 local function opts(desc, silent)

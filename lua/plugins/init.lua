@@ -214,6 +214,7 @@ return {
     config = function()
       require('nvim-tree').setup {
         filters = { dotfiles = false },
+        ---@param bufnr number
         on_attach = function(bufnr)
           -- Get nvim-tree api
           local api = require('nvim-tree.api')
@@ -247,7 +248,9 @@ return {
             api.tree.focus()
           end
 
-          -- opts function (from eddiebergman)
+          --- (Copied from eddiebergman)
+          ---@param desc string
+          ---@return table
           local function opts(desc)
             return { desc = desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
           end
