@@ -273,8 +273,6 @@ cmp.setup {
 -- snacks.nvim
 local snacks = require('snacks')
 
-snacks.scroll.enable()
-
 -- mouse menu
 vim.cmd.iunmenu('PopUp.How-to\\ disable\\ mouse')
 vim.cmd([[

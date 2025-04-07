@@ -172,9 +172,6 @@ vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, opt
 
 vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, opts('Peek type definition'))
 
--- Outline
-vim.keymap.set('n', '<leader>O', function() vim.cmd.Lspsaga('outline') end, opts('Outline'))
-
 -- Hover Doc
 lsp_keymaps[#lsp_keymaps + 1] = {
   'K', function() vim.cmd.Lspsaga('hover_doc') end, desc = 'Hover Doc', noremap = true
@@ -204,3 +201,6 @@ if (f_type == 'cs' or f_type == 'vb') then
     'gI', omni.telescope_lsp_implementation, desc = 'Implementation (omnisharp)', noremap = true
   }
 end
+
+-- Aerial
+vim.keymap.set('n', '<leader>O', function() require('aerial').toggle() end, opts('Outline'))
