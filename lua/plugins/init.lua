@@ -48,7 +48,11 @@ return {
   },
   {
     'numToStr/Comment.nvim',
-    config = true
+    config = function()
+      require('Comment').setup {
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+      }
+    end
   },
   {
     'nanotee/zoxide.vim',
@@ -216,14 +220,10 @@ return {
         filters = { dotfiles = false },
         ---@param bufnr number
         on_attach = function(bufnr)
-          -- Get nvim-tree api
           local api = require('nvim-tree.api')
 
-          -- Get node under cursor (Copied from eddiebergman)
-          local node = api.tree.get_node_under_cursor()
-
-          -- (Copied from eddiebergman)
           local function edit_or_open()
+            local node = api.tree.get_node_under_cursor()
             if node.nodes ~= nil then
               -- expand or collapse folder
               api.node.open.edit()
@@ -235,8 +235,9 @@ return {
             end
           end
 
-          -- (Copied from eddiebergman)
+          -- open as vsplit on current node
           local function vsplit_preview()
+            local node = api.tree.get_node_under_cursor()
             if node.nodes ~= nil then
               -- expand or collapse folder
               api.node.open.edit()
