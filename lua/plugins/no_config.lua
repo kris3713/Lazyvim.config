@@ -5,7 +5,6 @@ return {
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
   'Tastyep/structlog.nvim',
-  'JoosepAlviste/nvim-ts-context-commentstring',
   'Issafalcon/neotest-dotnet',
   'debugloop/telescope-undo.nvim',
   'onsails/lspkind.nvim'

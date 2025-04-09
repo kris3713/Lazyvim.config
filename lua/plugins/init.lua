@@ -55,6 +55,14 @@ return {
     end
   },
   {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    config = function()
+      require('ts_context_commentstring').setup {
+        enable_autocmd = false
+      }
+    end
+  },
+  {
     'nanotee/zoxide.vim',
     init = function() vim.g.zoxide_use_select = 1 end
   },
