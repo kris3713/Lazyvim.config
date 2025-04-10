@@ -90,11 +90,6 @@ return {
     config = true
   },
   {
-    'catgoose/nvim-colorizer.lua',
-    event = 'BufReadPre',
-    opts = {}
-  },
-  {
     'luckasRanarison/tailwind-tools.nvim',
     name = 'tailwind-tools',
     build = ':UpdateRemotePlugins',
@@ -331,5 +326,9 @@ return {
   --     border = 'rounded'
   --   }
   -- },
-
+  -- {
+  --   'catgoose/nvim-colorizer.lua',
+  --   event = 'BufReadPre',
+  --   opts = {}
+  -- },
 }
