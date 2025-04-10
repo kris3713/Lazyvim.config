@@ -82,3 +82,6 @@ vim.o.foldenable = true
 -- Disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Stop line numbers from shifting forward and back
+vim.o.signcolumn = 'yes:3'
