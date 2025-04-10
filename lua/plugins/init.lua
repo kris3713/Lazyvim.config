@@ -110,12 +110,6 @@ return {
     }
   },
   {
-    'soulis-1256/eagle.nvim',
-    opts = {
-      border = 'rounded'
-    }
-  },
-  {
     'm-demare/hlargs.nvim',
     config = function()
       require('hlargs').setup {
@@ -331,4 +325,11 @@ return {
   --   event = 'VeryLazy',
   --   config = true
   -- },
+  -- {
+  --   'soulis-1256/eagle.nvim',
+  --   opts = {
+  --     border = 'rounded'
+  --   }
+  -- },
+
 }
