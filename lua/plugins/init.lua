@@ -335,4 +335,21 @@ return {
   --   event = 'BufReadPre',
   --   opts = {}
   -- },
+  -- {
+  --   'kdheepak/lazygit.nvim',
+  --   lazy = false,
+  --   cmd = {
+  --     'LazyGit',
+  --     'LazyGitConfig',
+  --     'LazyGitCurrentFile',
+  --     'LazyGitFilter',
+  --     'LazyGitFilterCurrentFile'
+  --   },
+  --   keys = {
+  --       { '<leader>gg', function() vim.cmd('LazyGit') end, desc = 'LazyGit', noremap = true }
+  --   },
+  --   config = function()
+  --     require('telescope').load_extension('lazygit')
+  --   end
+  -- },
 }
