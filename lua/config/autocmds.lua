@@ -72,6 +72,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end,
 })
 
+-- Enforce Unix-style line endings for all files
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   group = vim.api.nvim_create_augroup('change_line_ending', { clear = true }),
   desc = 'Ensure that all files have Unix-style line endings',

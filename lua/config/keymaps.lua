@@ -11,16 +11,7 @@ local root = LazyVim.root()
 local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
 
 --- which-key.nvim
-local wk = require('which-key')
-
-wk.add {
-  { -- auto-session.nvim
-    mode = 'n',
-    '<leader>S',
-    group = 'auto-session',
-    noremap = true
-  }
-}
+-- local wk = require('which-key')
 
 --- Sets options for keymaps
 ---@param desc string
@@ -107,11 +98,25 @@ vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mas
 -- auto-session
 local ses = require('auto-session')
 
-vim.keymap.set('n', '<leader>SS', function() vim.cmd('SessionSearch') end, opts('Search Saved Sessions', true))
+local function enable_auto_save()
+  if not ses.DisableAutoSave then
+    ses.DisableAutoSave(true)
+    vim.cmd.echo("'Auto-save is disabled'")
+  else
+    ses.DisableAutoSave(false)
+    vim.cmd.echo("'Auto-save is enabled'")
+  end
+end
 
-vim.keymap.set('n', '<leader>Ss', function() ses.SaveSession(cwd) end, opts('Save Session', true))
+vim.keymap.set('n', '<leader>qf', function() vim.cmd('SessionSearch') end, opts('Select a session to load'))
 
-vim.keymap.set('n', '<leader>Sd', function() ses.DeleteSession(cwd) end, opts('Delete Session based on cwd', true))
+vim.keymap.set('n', '<leader>qS', function() ses.SaveSession(cwd) end, opts('Restore session based on cwd'))
+
+vim.keymap.set('n', '<leader>qs', function() ses.RestoreSession(cwd) end, opts('Restore last session based on cwd'))
+
+vim.keymap.set('n', '<leader>qD', function() ses.DeleteSession(cwd) end, opts('Delete Session based on cwd'))
+
+vim.keymap.set('n', '<leader>qd', enable_auto_save, opts('Toggle autosave'))
 
 -- Map the backwards indent to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))

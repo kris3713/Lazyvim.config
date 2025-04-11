@@ -236,23 +236,7 @@ require('lualine').setup {
   }
 }
 
--- neotest
-require('neotest').setup {
-  adapters = { require('neotest-dotnet') }
-}
-
 -- telescope-undo
-require('telescope').setup({
-  -- the rest of your telescope config goes here
-  extensions = {
-    undo = {
-      -- telescope-undo.nvim config, see below
-    },
-    -- other extensions:
-    -- file_browser = { ... }
-  }
-})
-
 require('telescope').load_extension('undo')
 
 -- lspkind + nvim-cmp
@@ -262,10 +246,7 @@ local lspkind = require('lspkind')
 local cmp_config = cmp.get_config()
 
 local new_sources = {
-  { name = 'nvim_lsp_document_symbol' },
   { name = 'nvim_lsp_signature_help' },
-  { name = 'emoji' },
-  { name = 'nerdfont' },
   { name = 'dap' }
 }
 
