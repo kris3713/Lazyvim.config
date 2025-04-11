@@ -258,6 +258,22 @@ require('telescope').load_extension('undo')
 -- lspkind + nvim-cmp
 local cmp = require('cmp')
 local lspkind = require('lspkind')
+
+local cmp_config = cmp.get_config()
+
+local new_sources = {
+  { name = 'nvim_lsp_document_symbol' },
+  { name = 'nvim_lsp_signature_help' },
+  { name = 'emoji' },
+  { name = 'nerdfont' },
+  { name = 'dap' }
+}
+
+for _, i in ipairs(new_sources) do
+  table.insert(cmp_config.sources, i)
+end
+
+---@type cmp.Config
 cmp.setup {
   window = {
     completion = {
@@ -267,7 +283,8 @@ cmp.setup {
       border = 'rounded'
     }
   },
-  formatting = { format = lspkind.cmp_format {} }
+  formatting = { format = lspkind.cmp_format {} },
+  sources = cmp_config.sources
 }
 
 -- snacks.nvim

@@ -210,11 +210,15 @@ return {
     end
   },
   {
+    'jmbuhr/otter.nvim',
+    opts = {}
+  },
+  {
     'nvim-tree/nvim-tree.lua',
     lazy = false,
     config = function()
       require('nvim-tree').setup {
-        filters = { dotfiles = false },
+        filters = { enable = false },
         ---@param bufnr number
         on_attach = function(bufnr)
           local api = require('nvim-tree.api')
@@ -275,7 +279,7 @@ return {
       }
     end,
     deactivate = function() vim.cmd('NvimTreeClose') end
-  },
+  }
   --- Might use again if needed.
   -- {
   --   'mfussenegger/nvim-lint',
