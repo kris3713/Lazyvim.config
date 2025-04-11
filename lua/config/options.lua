@@ -85,3 +85,9 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Stop line numbers from shifting forward and back
 vim.o.signcolumn = 'yes:3'
+
+-- Set all line endings to unix style (LF)
+vim.o.fileformat = 'unix'
+
+-- Ensure Neovim always create an undo file
+vim.o.undofile = true
