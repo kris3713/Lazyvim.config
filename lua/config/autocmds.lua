@@ -37,24 +37,6 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
   end
 })
 
--- -- Generate random colors
--- local function random_color()
---   local r = math.random(0, 255)
---   local g = math.random(0, 255)
---   local b = math.random(0, 255)
---   return string.format('#%02X%02X%02X', r, g, b)
--- end
---
--- -- Enable semantic highlighting for variables
--- vim.api.nvim_create_autocmd('LspTokenUpdate', {
---   group = create_augroup('set_semantic_highlighting'),
---   pattern = '*',
---   callback = function()
---     vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = random_color() })
---   end,
---   once = true
--- })
-
 -- Auto-start for nvim-tree
 vim.api.nvim_create_autocmd('VimEnter', {
   group = vim.api.nvim_create_augroup('autostart_nvim_tree', { clear = true }),
@@ -78,6 +60,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
 -- nvim-tree workaround when using rmagatti/auto-session
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  group = vim.api.nvim_create_augroup('auto_session', { clear = true }),
   pattern = 'NvimTree*',
   callback = function()
     local api = require('nvim-tree.api')
@@ -87,4 +70,14 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
       api.tree.open()
     end
   end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  group = vim.api.nvim_create_augroup('change_line_ending', { clear = true }),
+  desc = 'Ensure that all files have Unix-style line endings',
+  pattern = '*',
+  command = [[
+    set fileformat=unix
+    set fileformats=unix,dos
+  ]]
 })
