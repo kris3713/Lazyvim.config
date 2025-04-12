@@ -302,3 +302,17 @@ vim.keymap.set(
 vim.keymap.set(
   'n', '<leader>i', function() require('treesj').split() end, opts('Split code block')
 )
+
+-- Swap between fileformats
+local function swap_fileformats()
+  local fileformat = vim.bo.fileformat
+  if fileformat == 'unix' then
+    vim.o.fileformat = 'dos'
+  elseif fileformat == 'dos' then
+    vim.o.fileformat = 'mac'
+  elseif fileformat == 'mac' then
+    vim.o.fileformat = 'unix'
+  end
+end
+
+vim.keymap.set('n', '<leader>fq', swap_fileformats, opts('Swap fileformats (unix, dos, mac)'))
