@@ -213,11 +213,11 @@ require('snippets').setup {
 local function line_ending()
   local fileformat = vim.bo.fileformat
   if fileformat == 'unix' then
-    return 'LF'
+    return 'LF (unix)'
   elseif fileformat == 'dos' then
-    return 'CRLF'
+    return 'CRLF (dos)'
   elseif fileformat == 'mac' then
-    return 'CR'
+    return 'CR (mac)'
   else
     return fileformat
   end
@@ -267,9 +267,6 @@ cmp.setup {
   formatting = { format = lspkind.cmp_format {} },
   sources = cmp_config.sources
 }
-
--- snacks.nvim
-local snacks = require('snacks')
 
 -- mouse menu
 vim.cmd.iunmenu('PopUp.How-to\\ disable\\ mouse')
