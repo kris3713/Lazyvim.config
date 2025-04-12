@@ -7,6 +7,8 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
+---@param name string
+---@return integer
 local function create_augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
@@ -22,10 +24,13 @@ vim.api.nvim_create_autocmd('VimLeave', {
 -- Enable semantic highlighting
 vim.api.nvim_create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
+  desc = 'Set semantic highlighting for LSP tokens',
   callback = function()
     vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = '#eed49f' })
-    vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = '#ed8796' })
-    vim.api.nvim_set_hl(0, '@lsp.type.typeParameter', { fg = '#ed8796' })
+    -- vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = '#ed8796' })
+    vim.api.nvim_set_hl(0, '@lsp.type.typeParameter', {
+      fg = '#ed8796', italic = true
+    })
     vim.api.nvim_set_hl(0, '@lsp.type.method', { fg = '#8aadf4' })
     vim.api.nvim_set_hl(0, '@lsp.typemod.variable.global', { fg = '#8bd5ca' })
     vim.api.nvim_set_hl(0, '@lsp.type.event', { fg = '#40a02b' })
@@ -59,26 +64,25 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 -- nvim-tree workaround when using rmagatti/auto-session
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-  group = vim.api.nvim_create_augroup('auto_session', { clear = true }),
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = create_augroup('auto_session'),
+  desc = 'nvim-tree workaround for auto-session',
   pattern = 'NvimTree*',
   callback = function()
-    local api = require('nvim-tree.api')
-    local view = require('nvim-tree.view')
-
-    if not view.is_visible() then
-      api.tree.open()
+    if not require('nvim-tree.view').is_visible then
+      require('nvim-tree.api').tree.open()
     end
   end,
 })
 
 -- Enforce Unix-style line endings for all files
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  group = vim.api.nvim_create_augroup('change_line_ending', { clear = true }),
+  group = create_augroup('change_line_ending'),
   desc = 'Ensure that all files have Unix-style line endings',
-  pattern = '*',
-  command = [[
-    set fileformat=unix
-    set fileformats=unix,dos
-  ]]
+  callback = function()
+    if (vim.o.filetype ~= 'help') or (vim.o.filetype ~= 'man') then
+      vim.o.fileformat = 'unix'
+      vim.o.fileformats = 'unix,dos,mac'
+    end
+  end
 })
