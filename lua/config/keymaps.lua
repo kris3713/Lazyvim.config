@@ -118,10 +118,10 @@ local ses = require('auto-session')
 local function enable_auto_save()
   if not ses.DisableAutoSave then
     ses.DisableAutoSave(true)
-    vim.cmd.echo("'Auto-save is disabled'")
+    vim.cmd("echo 'Auto-save is disabled'")
   else
     ses.DisableAutoSave(false)
-    vim.cmd.echo("'Auto-save is enabled'")
+    vim.cmd("echo 'Auto-save is enabled'")
   end
 end
 
@@ -275,27 +275,27 @@ vim.keymap.set('n', '];', dropbar_api.select_next_context, opts('Select next con
 
 -- refactoring.nvim (Overriding their functions because they are not working as expected)
 vim.keymap.set(
-  'n', '<leader>ri', function() vim.cmd('Refactor inline_var') end, opts('Inline Variable')
+  'n', '<leader>ri', function() vim.cmd.Refactor('inline_var') end, opts('Inline Variable')
 )
 
 vim.keymap.set(
-  'n', '<leader>rb', function() vim.cmd('Refactor extract_block') end, opts('Extract Block')
+  'n', '<leader>rb', function() vim.cmd.Refactor('extract_block') end, opts('Extract Block')
 )
 
 vim.keymap.set(
-  'n', '<leader>rf', function() vim.cmd('Refactor extract_block_to_file') end, opts('Extract Block To File')
+  'n', '<leader>rf', function() vim.cmd.Refactor('extract_block_to_file') end, opts('Extract Block To File')
 )
 
 vim.keymap.set(
-  'v', '<leader>rf', function() vim.cmd('Refactor extract_function') end, opts('Extract Function')
+  'v', '<leader>rf', function() vim.cmd.Refactor('extract_function') end, opts('Extract Function')
 )
 
 vim.keymap.set(
-  'v', '<leader>rF', function() vim.cmd('Refactor extract_function_to_file') end, opts('Extract Function To File')
+  'v', '<leader>rF', function() vim.cmd.Refactor('extract_function_to_file') end, opts('Extract Function To File')
 )
 
 vim.keymap.set(
-  'v', '<leader>rx', function() vim.cmd('Refactor extract_var') end, opts('Extract Variable')
+  'v', '<leader>rx', function() vim.cmd.Refactor('extract_var') end, opts('Extract Variable')
 )
 
 -- treesj
