@@ -80,7 +80,8 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   group = create_augroup('change_line_ending'),
   desc = 'Ensure that all files have Unix-style line endings',
   callback = function()
-    if (vim.o.filetype ~= 'help') or (vim.o.filetype ~= 'man') then
+    local is_true = (vim.o.filetype ~= 'help') or (vim.o.filetype ~= 'man') or (vim.o.filetype ~= 'gitcommit')
+    if is_true then
       vim.o.fileformat = 'unix'
       vim.o.fileformats = 'unix,dos,mac'
     end
