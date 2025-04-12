@@ -44,20 +44,18 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
 
 -- Auto-start for nvim-tree
 vim.api.nvim_create_autocmd('VimEnter', {
-  group = vim.api.nvim_create_augroup('autostart_nvim_tree', { clear = true }),
+  group = create_augroup('autostart_nvim_tree'),
   desc = 'Auto-start nvim-tree with directory',
   once = true,
   ---@param data vim.api.create_autocmd.callback.args
   callback = function(data)
     -- Check if the `data` parameter is a table
     if type(data) ~= "table" then return end
-
     -- buffer is a directory
     if not (vim.fn.isdirectory(data.file) == 1) then return end
 
     -- change to the directory
     vim.cmd.cd(data.file)
-
     -- open the tree
     require('nvim-tree.api').tree.open()
   end
@@ -72,7 +70,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     if not require('nvim-tree.view').is_visible then
       require('nvim-tree.api').tree.open()
     end
-  end,
+  end
 })
 
 -- Enforce Unix-style line endings for all files
@@ -80,7 +78,9 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   group = create_augroup('change_line_ending'),
   desc = 'Ensure that all files have Unix-style line endings',
   callback = function()
-    local is_true = (vim.o.filetype ~= 'help') or (vim.o.filetype ~= 'man') or (vim.o.filetype ~= 'gitcommit')
+    local is_true = (vim.o.filetype ~= 'help') or
+      (vim.o.filetype ~= 'man') or
+      (vim.o.filetype ~= 'gitcommit')
     if is_true then
       vim.o.fileformat = 'unix'
       vim.o.fileformats = 'unix,dos,mac'
