@@ -8,7 +8,6 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 ---@param name string
----@return integer
 local function create_augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
