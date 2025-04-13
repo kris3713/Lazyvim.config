@@ -41,16 +41,14 @@ vim.g.lualine_laststatus = 2
 vim.g.lazyvim_cmp = 'nvim-cmp'
 
 -- .NET development
-vim.filetype.add({
+vim.filetype.add {
   extension = {
     props = 'msbuild',
     tasks = 'msbuild',
     targets = 'msbuild'
   },
-  pattern = {
-    [ [[.*\..*proj]] ] = 'msbuild'
-  }
-})
+  pattern = { [ [[.*\..*proj]] ] = 'msbuild' }
+}
 
 vim.treesitter.language.register('xml', { 'msbuild' })
 
@@ -84,7 +82,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Stop line numbers from shifting forward and back
-vim.o.signcolumn = 'yes:3'
+vim.o.signcolumn = 'yes:2'
 
 -- Ensure Neovim always create an undo file
 vim.o.undofile = true

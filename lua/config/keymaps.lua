@@ -91,10 +91,8 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 }
 
 -- neogen
-local ngen = require('neogen')
-
 vim.keymap.set(
-  'n', '<leader>N', function() ngen.generate() end, opts('Generate annotations', true)
+  'n', '<leader>N', function() require('neogen').generate() end, opts('Generate annotations', true)
 )
 
 -- Set softwrap to Alt + Z
@@ -130,7 +128,7 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  'n', '<leader>qS', function() ses.SaveSession(cwd) end, opts('Restore session based on cwd')
+  'n', '<leader>qS', function() ses.SaveSession(cwd) end, opts('Save session based on cwd')
 )
 
 vim.keymap.set(
@@ -153,18 +151,13 @@ local tt = require('toggleterm')
 
 local function open_terminal()
   local terminals = require('toggleterm.terminal').get_all()
-  if #terminals == 0 then
-    tt.new(nil, root, 'horizontal')
-  else
-    tt.toggle_all()
-  end
+  if #terminals == 0 then tt.new(nil, root, 'horizontal')
+  else tt.toggle_all() end
 end
 
 local function create_terminal()
   local terminals = require('toggleterm.terminal').get_all()
-  if #terminals ~= 0 then
-    tt.new(nil, root, 'horizontal')
-  end
+  if #terminals ~= 0 then tt.new(nil, root, 'horizontal') end
 end
 
 vim.keymap.set('n', '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
@@ -219,7 +212,7 @@ vim.keymap.set('n', 'zR', require('ufo').openAllFolds, opts('Open all folds'))
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, opts('Close all folds'))
 
 -- telescope-undo
-vim.keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end, opts('Telescope undo'))
+vim.keymap.set('n', '<leader>U', function() vim.cmd.Telescope('undo') end, opts('Telescope undo'))
 
 --- lspsaga
 -- Definition
@@ -231,10 +224,6 @@ vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end
 local function hover_doc() vim.cmd.Lspsaga('hover_doc') end
 
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'K', hover_doc, desc = 'Hover Doc', noremap = true
-}
-
-lsp_keymaps[#lsp_keymaps + 2] = {
   'K', hover_doc, desc = 'Hover Doc', noremap = true
 }
 
@@ -309,14 +298,9 @@ vim.keymap.set(
 
 -- Swap between fileformats
 local function swap_fileformats()
-  local fileformat = vim.bo.fileformat
-  if fileformat == 'unix' then
-    vim.o.fileformat = 'dos'
-  elseif fileformat == 'dos' then
-    vim.o.fileformat = 'mac'
-  elseif fileformat == 'mac' then
-    vim.o.fileformat = 'unix'
-  end
+  if vim.bo.fileformat == 'unix' then vim.o.fileformat = 'dos'
+  elseif vim.bo.fileformat == 'dos' then vim.o.fileformat = 'mac'
+  elseif vim.bo.fileformat == 'mac' then vim.o.fileformat = 'unix' end
 end
 
 vim.keymap.set('n', '<leader>fq', swap_fileformats, opts('Swap fileformats (unix, dos, mac)'))

@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   ---@param data vim.api.create_autocmd.callback.args
   callback = function(data)
     -- Check if the `data` parameter is a table
-    if type(data) ~= "table" then return end
+    if type(data) ~= 'table' then return end
     -- buffer is a directory
     if not (vim.fn.isdirectory(data.file) == 1) then return end
 

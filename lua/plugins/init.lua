@@ -1,64 +1,17 @@
 return {
   -- Plugins with configs go here
   {
-    'kylechui/nvim-surround',
-    event = 'VeryLazy',
-    config = function ()
-      require('nvim-surround').setup {
-        keymaps = {
-          insert = '<Nop>',
-          insert_line = '<Nop>',
-          normal = 'gss',
-          normal_cur = 'gss',
-          normal_line = 'gsS',
-          normal_cur_line = 'gsSs',
-          visual = 'gss',
-          visual_line = 'gsS',
-          delete = 'gsd',
-          change = 'gsc',
-          change_line = 'gsC'
-        }
-      }
-    end
-  },
-  {
-    'aznhe21/actions-preview.nvim',
+    'JoosepAlviste/nvim-ts-context-commentstring',
     config = function()
-      require('actions-preview').setup({
-        backend = 'telescope',
-        telescope = {
-          sorting_strategy = 'ascending',
-          layout_strategy = 'vertical',
-          layout_config = {
-            width = 0.8,
-            -- height = 0.9,
-            prompt_position = 'top',
-            preview_cutoff = 25,
-            ---@param max_lines number
-            preview_height = function(_, _, max_lines)
-              return max_lines - 20
-            end
-          }
-        },
-        highlight_command = {
-          require('actions-preview.highlight').delta()
-        }
-      })
+      require('ts_context_commentstring').setup { enable_autocmd = false }
     end
   },
   {
     'numToStr/Comment.nvim',
     config = function()
+      local c = require('ts_context_commentstring.integrations.comment_nvim')
       require('Comment').setup {
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
-      }
-    end
-  },
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',
-    config = function()
-      require('ts_context_commentstring').setup {
-        enable_autocmd = false
+        pre_hook = c.create_pre_hook()
       }
     end
   },
@@ -75,11 +28,9 @@ return {
     lazy = false,
     ---@module 'auto-session'
     ---@type AutoSession.Config
-    opts = { suppressed_dirs = { '~/', '/' } }
-  },
-  {
-    'antosha417/nvim-lsp-file-operations',
-    config = true
+    opts = {
+      suppressed_dirs = { '~/', '/' }
+    }
   },
   {
     'chrisgrieser/nvim-scissors',
@@ -145,9 +96,7 @@ return {
     event = 'VeryLazy',
     opts = {
       -- Put misbehaving lsp clients here
-      excluded_lsp_clients = {
-        'marksman'
-      }
+      excluded_lsp_clients = { 'marksman' }
     }
   },
   {
@@ -218,7 +167,59 @@ return {
     ft = 'fish'
   },
   {
+    'mcauley-penney/visual-whitespace.nvim',
+    config = true,
+    opts = { space_char = '·' }
+  },
+  {
+    'kylechui/nvim-surround',
+    event = 'VeryLazy',
+    config = function ()
+      require('nvim-surround').setup {
+        keymaps = {
+          insert = '<Nop>',
+          insert_line = '<Nop>',
+          normal = 'gss',
+          normal_cur = 'gss',
+          normal_line = 'gsS',
+          normal_cur_line = 'gsSs',
+          visual = 'gss',
+          visual_line = 'gsS',
+          delete = 'gsd',
+          change = 'gsc',
+          change_line = 'gsC'
+        }
+      }
+    end
+  },
+  {
+    'aznhe21/actions-preview.nvim',
+    config = function()
+      require('actions-preview').setup({
+        backend = 'telescope',
+        telescope = {
+          sorting_strategy = 'ascending',
+          layout_strategy = 'vertical',
+          layout_config = {
+            width = 0.8,
+            -- height = 0.9,
+            prompt_position = 'top',
+            preview_cutoff = 25,
+            ---@param max_lines number
+            preview_height = function(_, _, max_lines)
+              return max_lines - 20
+            end
+          }
+        },
+        highlight_command = {
+          require('actions-preview.highlight').delta()
+        }
+      })
+    end
+  },
+  {
     'nvim-tree/nvim-tree.lua',
+    dependencies = 'antosha417/nvim-lsp-file-operations',
     lazy = false,
     config = function()
       require('nvim-tree').setup {
@@ -285,18 +286,6 @@ return {
     deactivate = function() vim.cmd('NvimTreeClose') end
   }
   --- Might use again if needed.
-  -- {
-  --   'mfussenegger/nvim-lint',
-  --   config = function()
-  --     require('lint').linters_by_fit = {}
-  --   end
-  -- },
-  -- {
-  --   'mcauley-penney/visual-whitespace.nvim',
-  --   version = '>=0.11',
-  --   config = true,
-  --   opts = { space_char = '·' }
-  -- },
   -- {
   --   'ray-x/navigator.lua',
   --   dependencies = { 'ray-x/guihua.lua' },
