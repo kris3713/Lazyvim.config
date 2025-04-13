@@ -272,6 +272,8 @@ cmp.setup(cmp_setup)
 vim.cmd.iunmenu('PopUp.How-to\\ disable\\ mouse')
 vim.cmd([[
   unmenu PopUp.How-to\ disable\ mouse
+  " Add diagnostics
+  menu PopUp.Diagnostics <leader>cd
   " Add code actions
   menu PopUp.Code\ Actions <leader>ca
   " Implement all goto definitions
