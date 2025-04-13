@@ -214,6 +214,10 @@ return {
     opts = {}
   },
   {
+    'mtoohey31/cmp-fish',
+    ft = 'fish'
+  },
+  {
     'nvim-tree/nvim-tree.lua',
     lazy = false,
     config = function()

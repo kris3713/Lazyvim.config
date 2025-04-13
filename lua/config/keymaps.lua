@@ -234,6 +234,10 @@ lsp_keymaps[#lsp_keymaps + 1] = {
   'K', hover_doc, desc = 'Hover Doc', noremap = true
 }
 
+lsp_keymaps[#lsp_keymaps + 2] = {
+  'K', hover_doc, desc = 'Hover Doc', noremap = true
+}
+
 vim.keymap.set('n', '<Tab>', hover_doc, opts('Hover Doc'))
 
 -- Diagnostics

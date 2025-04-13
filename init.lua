@@ -23,13 +23,25 @@ lspconfig.cssls.setup {
 -- GitHub Actions
 lspconfig.gh_actions_ls.setup{}
 
+-- Markdown
+lspconfig.marksman.setup {
+  -- This solves the problem of Marksman exiting when a new hover doc buffer (from Lspsaga) is created
+  autostart = function()
+    local is_md = (vim.bo.filetype == 'markdown') or (vim.bo.filetype == 'markdown.mdx')
+    if (vim.bo.modifiable) and is_md then
+      return true -- Return true to allow autostart
+    end
+    return false -- Otherwise, return false to prevent autostart
+  end
+}
+
 -- .NET development
 local omni = require('omnisharp_extended')
 
 lspconfig.omnisharp.setup {
   FormattingOptions = {
     -- Enables support for reading code style, naming convention and analyzer
-    -- settings from .editorconfig.
+    -- settings from `.editorconfig`
     EnableEditorConfigSupport = true,
     -- Specifies whether 'using' directives should be grouped and sorted during
     -- document formatting.
@@ -241,21 +253,21 @@ require('telescope').load_extension('undo')
 
 -- lspkind + nvim-cmp
 local cmp = require('cmp')
-local lspkind = require('lspkind')
-
 local cmp_config = cmp.get_config()
 
+---@type cmp.SourceConfig
 local new_sources = {
   { name = 'nvim_lsp_signature_help' },
-  { name = 'dap' }
+  { name = 'dap' },
+  { name = 'fish', option = { fish_path = '/usr/bin/fish' } }
 }
 
 for _, i in ipairs(new_sources) do
   table.insert(cmp_config.sources, i)
 end
 
----@type cmp.Config
-cmp.setup {
+---@type cmp.ConfigSchema
+local cmp_setup = {
   window = {
     completion = {
       border = 'rounded'
@@ -264,9 +276,11 @@ cmp.setup {
       border = 'rounded'
     }
   },
-  formatting = { format = lspkind.cmp_format {} },
+  formatting = { format = require('lspkind').cmp_format {} },
   sources = cmp_config.sources
 }
+
+cmp.setup(cmp_setup)
 
 -- mouse menu
 vim.cmd.iunmenu('PopUp.How-to\\ disable\\ mouse')
