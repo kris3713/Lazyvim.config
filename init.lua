@@ -16,9 +16,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 lspconfig.css_variables.setup {}
 lspconfig.cssmodules_ls.setup {}
-lspconfig.cssls.setup {
-  capabilities = capabilities
-}
+lspconfig.cssls.setup { capabilities = capabilities }
 
 -- GitHub Actions
 lspconfig.gh_actions_ls.setup {}
@@ -173,8 +171,8 @@ require('ibl').setup {
 -- This module contains a number of default definitions
 local delimiter_highlight = {
   'RainbowDelimiterRed',
-  'RainbowDelimiterYellow',
   'RainbowDelimiterOrange',
+  'RainbowDelimiterYellow',
   'RainbowDelimiterGreen',
   'RainbowDelimiterBlue',
   'RainbowDelimiterCyan',
@@ -182,8 +180,8 @@ local delimiter_highlight = {
 }
 
 vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = '#ed8796' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#eed49f' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = '#f5a97f' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#eed49f' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#40a02b' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = '#8aadf4' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = '#7dc4e4' })
@@ -245,7 +243,8 @@ local new_sources = {
   {
     name = 'fish',
     option = { fish_path = '/usr/bin/fish' }
-  }
+  },
+  { name = 'render-markdown' }
 }
 
 for _, i in ipairs(new_sources) do

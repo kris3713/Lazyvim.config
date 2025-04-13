@@ -18,9 +18,7 @@ return {
           man_pager = 'nvim +Man!'
         }
       },
-      win = {
-        border = 'rounded'
-      }
+      win = { border = 'rounded' }
     },
     keys = {
       { '<leader>S', false }
