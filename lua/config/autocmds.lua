@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
 -- nvim-tree workaround when using rmagatti/auto-session
 vim.api.nvim_create_autocmd('BufEnter', {
-  group = create_augroup('auto_session'),
+  group = create_augroup('auto_session_workaround'),
   desc = 'nvim-tree workaround for auto-session',
   pattern = 'NvimTree*',
   callback = function()
