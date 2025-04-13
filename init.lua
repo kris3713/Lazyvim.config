@@ -220,7 +220,7 @@ local function line_ending()
   else return vim.bo.fileformat end
 end
 
-local function fileformat() return line_ending end
+local function fileformat() return line_ending() end
 
 require('lualine').setup {
   sections = {
