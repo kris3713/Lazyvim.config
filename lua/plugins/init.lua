@@ -29,12 +29,12 @@ return {
     ---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
-      suppressed_dirs = { '~/', '/' }
+      suppressed_dirs = { vim.uv.os_homedir(), '/' }
     }
   },
   {
     'chrisgrieser/nvim-scissors',
-    opts = { snippetDir = '~/MEGA/' }
+    opts = { snippetDir = vim.uv.os_homedir() .. '/MEGA' }
   },
   {
     'akinsho/toggleterm.nvim',

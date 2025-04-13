@@ -87,8 +87,8 @@ end
 lspconfig.harper_ls.setup {
   settings = {
     ['harper-ls'] = {
-      userDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt',
-      fileDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt'
+      userDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt',
+      fileDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt'
     }
   }
 }
@@ -207,7 +207,7 @@ if mini_ani_exists then mod.config.cursor.enable = false end
 
 -- nvim-snippets
 require('snippets').setup {
-  search_paths = { '~/MEGA/' }
+  search_paths = { vim.uv.os_homedir() .. '/MEGA' }
 }
 
 -- lualine.nvim
