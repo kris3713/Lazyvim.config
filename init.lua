@@ -21,7 +21,7 @@ lspconfig.cssls.setup {
 }
 
 -- GitHub Actions
-lspconfig.gh_actions_ls.setup{}
+lspconfig.gh_actions_ls.setup {}
 
 -- Markdown
 lspconfig.marksman.setup {
@@ -81,9 +81,7 @@ lspconfig.omnisharp.setup {
 local msbuild = os.getenv('MSBUILD_LSP')
 if (msbuild ~= '' and msbuild ~= nil) then
   lspconfig.msbuild_project_tools_server.setup {
-    cmd = {
-      'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll'
-    }
+    cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
   }
 end
 
@@ -113,10 +111,10 @@ lspconfig.lemminx.setup {}
 --- none-ls.nvim
 local null_ls = require('null-ls')
 
-null_ls.setup({
+null_ls.setup {
   sources = {
     -- Only add sources that are not natively
-    -- supported by built-in lsp.
+    -- supported by the built-in lsp.
     null_ls.builtins.completion.tags,
     null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.todo_comments,
@@ -140,14 +138,14 @@ null_ls.setup({
     null_ls.builtins.formatting.yamlfmt,
     null_ls.builtins.hover.dictionary
   }
-})
+}
 
 -- rainbow-delimiters and
 -- indent-blankline
 local highlight = {
   'RainbowRed',
-  'RainbowYellow',
   'RainbowOrange',
+  'RainbowYellow',
   'RainbowGreen',
   'RainbowBlue',
   'RainbowCyan',
@@ -159,8 +157,8 @@ local hooks = require('ibl.hooks')
 -- every time the colorscheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
   vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#ed8796' })
-  vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#eed49f' })
   vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#f5a97f' })
+  vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#eed49f' })
   vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#40a02b' })
   vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#8aadf4' })
   vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#7dc4e4' })
@@ -191,10 +189,7 @@ vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = '#8aadf4' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = '#7dc4e4' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = '#c6a0f6' })
 
-vim.g.rainbow_delimiters = {
-  highlight = delimiter_highlight
-}
-
+vim.g.rainbow_delimiters = { highlight = delimiter_highlight }
 
 require('trim').setup {
   -- if you want to ignore markdown file.
@@ -209,35 +204,23 @@ require('trim').setup {
 }
 
 -- Keep everything else from mini.animate except the cursor animation.
-local mini_animate_exists, mod = pcall(require, 'mini.animate')
-if mini_animate_exists then
-  mod.config.cursor.enable = false
-end
+local mini_ani_exists, mod = pcall(require, 'mini.animate')
+if mini_ani_exists then mod.config.cursor.enable = false end
 
 -- nvim-snippets
 require('snippets').setup {
-  search_paths = {
-    '~/MEGA/'
-  }
+  search_paths = { '~/MEGA/' }
 }
 
 -- lualine.nvim
 local function line_ending()
-  local fileformat = vim.bo.fileformat
-  if fileformat == 'unix' then
-    return 'LF (unix)'
-  elseif fileformat == 'dos' then
-    return 'CRLF (dos)'
-  elseif fileformat == 'mac' then
-    return 'CR (mac)'
-  else
-    return fileformat
-  end
+  if vim.bo.fileformat == 'unix' then return 'LF (unix)'
+  elseif vim.bo.fileformat == 'dos' then return 'CRLF (dos)'
+  elseif vim.bo.fileformat == 'mac' then return 'CR (mac)'
+  else return vim.bo.fileformat end
 end
 
-local function fileformat()
-  return line_ending()
-end
+local function fileformat() return line_ending end
 
 require('lualine').setup {
   sections = {
@@ -259,7 +242,10 @@ local cmp_config = cmp.get_config()
 local new_sources = {
   { name = 'nvim_lsp_signature_help' },
   { name = 'dap' },
-  { name = 'fish', option = { fish_path = '/usr/bin/fish' } }
+  {
+    name = 'fish',
+    option = { fish_path = '/usr/bin/fish' }
+  }
 }
 
 for _, i in ipairs(new_sources) do
