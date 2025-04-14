@@ -4,9 +4,6 @@ require('config.lazy')
 -- Set the theme to Catpuccin Macchiato
 vim.cmd.colorscheme('catppuccin-macchiato')
 
--- Set environmental variables
-vim.env.NVIM_LISTEN_ADDRESS = vim.uv.os_homedir() .. '/nvimsocket'
-
 --- LSP configs
 local lspconfig = require('lspconfig')
 
