@@ -169,16 +169,19 @@ return {
   {
     'mcauley-penney/visual-whitespace.nvim',
     config = true,
-    opts = { space_char = '·' }
+    event = 'ModeChanged *:[vV\22]',
+    ---@module 'visual-whitespace'
+    opts = {
+      space_char = '·',
+      tab_char = '󰌒 '
+    }
   },
   {
     'Bekaboo/dropbar.nvim',
     config = function()
       require('dropbar').setup {
         menu = {
-          win_configs = {
-            border = 'rounded'
-          }
+          win_configs = { border = 'rounded' }
         }
       }
     end
