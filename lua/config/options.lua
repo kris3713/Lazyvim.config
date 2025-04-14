@@ -25,7 +25,7 @@ vim.opt.wrap = true
 -- -- Set leader key
 -- vim.g.mapleader = ","
 
--- Change default cursor to a line
+-- Change the default cursor (for Insert mode) to a vertical line
 vim.opt.guicursor = 'i:ver25-iCursor'
 
 -- Set lazyvim picker to telescope
@@ -78,8 +78,8 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 -- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = false
+vim.g.loaded_netrwPlugin = false
 
 -- Stop line numbers from shifting forward and back
 vim.o.signcolumn = 'yes:2'
