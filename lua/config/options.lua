@@ -86,3 +86,6 @@ vim.o.signcolumn = 'yes:2'
 
 -- Ensure Neovim always create an undo file
 vim.o.undofile = true
+
+-- Ensure the relative line number is always shown
+vim.o.relativenumber = false
