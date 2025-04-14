@@ -159,7 +159,7 @@ return {
     config = function()
       require('ale').setup {}
 
-      vim.g.ale_use_neovim_diagnostics_api = 1
+      vim.g.ale_use_neovim_diagnostics_api = true
       vim.g.ale_linters = {
         txt = { 'textlint' },
         markdown = { 'textlint' }
