@@ -42,6 +42,18 @@ return {
     opts = {}
   },
   {
+    'kevinhwang91/nvim-hlslens',
+    config = function()
+      require('hlslens').setup {}
+    end
+  },
+  {
+    'lewis6991/satellite.nvim',
+    config = function()
+      require('satellite').setup {}
+    end
+  },
+  {
     'nacro90/numb.nvim',
     config = function()
       require('numb').setup {}
