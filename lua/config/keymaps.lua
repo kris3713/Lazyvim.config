@@ -22,6 +22,8 @@ require('which-key').add {
   }
 }
 
+-- harper:ignore
+
 --- Sets options for keymaps
 ---@param desc string
 ---@param silent? boolean

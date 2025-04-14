@@ -1,36 +1,12 @@
 return {
   -- Plugins with configs go here
   {
-    'JoosepAlviste/nvim-ts-context-commentstring',
-    config = function()
-      require('ts_context_commentstring').setup { enable_autocmd = false }
-    end
-  },
-  {
-    'numToStr/Comment.nvim',
-    config = function()
-      local c = require('ts_context_commentstring.integrations.comment_nvim')
-      require('Comment').setup {
-        pre_hook = c.create_pre_hook()
-      }
-    end
-  },
-  {
     'nanotee/zoxide.vim',
     init = function() vim.g.zoxide_use_select = 1 end
   },
-  { -- Set syntax highlighting for logs
+  {
     'fei6409/log-highlight.nvim',
     config = true
-  },
-  {
-    'rmagatti/auto-session',
-    lazy = false,
-    ---@module 'auto-session'
-    ---@type AutoSession.Config
-    opts = {
-      suppressed_dirs = { vim.uv.os_homedir(), '/' }
-    }
   },
   {
     'chrisgrieser/nvim-scissors',
@@ -41,55 +17,47 @@ return {
     config = true
   },
   {
+    'AckslD/muren.nvim',
+    config = true
+  },
+  {
+    'nvzone/volt',
+    lazy = true
+  },
+  {
+    'nvzone/minty',
+    cmd = { 'Shades', 'Heufy' }
+  },
+  {
+    'jmbuhr/otter.nvim',
+    opts = {}
+  },
+  {
+    'mtoohey31/cmp-fish',
+    ft = 'fish'
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {}
+  },
+  {
+    'nacro90/numb.nvim',
+    config = function()
+      require('numb').setup {}
+    end
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    config = function()
+      require('ts_context_commentstring').setup { enable_autocmd = false }
+    end
+  },
+  {
     'luckasRanarison/tailwind-tools.nvim',
     name = 'tailwind-tools',
     build = ':UpdateRemotePlugins',
     opts = {} -- your configuration
-  },
-  {
-    'mikavilpas/yazi.nvim',
-    event = 'VeryLazy',
-    ---@module 'yazi'
-    ---@type YaziConfig
-    opts = {
-      open_for_directories = true
-    }
-  },
-  {
-    'm-demare/hlargs.nvim',
-    config = function()
-      require('hlargs').setup {
-        color = '#ed8796'
-      }
-    end
-  },
-  {
-    'kevinhwang91/nvim-ufo',
-    dependencies = 'kevinhwang91/promise-async',
-    config = function ()
-      require('ufo').setup {
-        provider_selector = function(_, _, _)
-          return { 'treesitter', 'indent' }
-        end
-      }
-    end
-  },
-  {
-    'zbirenbaum/neodim',
-    event = 'LspAttach',
-    config = function()
-      require('neodim').setup {
-        hide = {
-          underline = true,
-          virtual_text = false,
-          signs = true
-        }
-      }
-    end
-  },
-  {
-    'AckslD/muren.nvim',
-    config = true
   },
   {
     'zeioth/garbage-day.nvim',
@@ -113,6 +81,13 @@ return {
     end
   },
   {
+    'Wansmer/treesj',
+    keys = { '<leader>m', '<leader>j' },
+    config = function()
+      require('treesj').setup {}
+    end
+  },
+  {
     'nvimdev/lspsaga.nvim',
     config = function()
       require('lspsaga').setup {
@@ -121,30 +96,80 @@ return {
     end
   },
   {
-    'Wansmer/treesj',
-    keys = { '<leader>m', '<leader>j' },
+    'rmagatti/auto-session',
+    lazy = false,
+    ---@module 'auto-session'
+    ---@type AutoSession.Config
+    opts = {
+      suppressed_dirs = { vim.uv.os_homedir(), '/' }
+    }
+  },
+  {
+    'm-demare/hlargs.nvim',
     config = function()
-      require('treesj').setup {}
+      require('hlargs').setup {
+        color = '#ed8796'
+      }
     end
   },
   {
-    'nacro90/numb.nvim',
+    'mikavilpas/yazi.nvim',
+    event = 'VeryLazy',
+    ---@module 'yazi'
+    ---@type YaziConfig
+    opts = {
+      open_for_directories = true
+    }
+  },
+  {
+    'numToStr/Comment.nvim',
     config = function()
-      require('numb').setup {}
+      local c = require('ts_context_commentstring.integrations.comment_nvim')
+      require('Comment').setup {
+        pre_hook = c.create_pre_hook()
+      }
     end
   },
   {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    opts = {}
+    'zbirenbaum/neodim',
+    event = 'LspAttach',
+    config = function()
+      require('neodim').setup {
+        hide = {
+          underline = true,
+          virtual_text = false,
+          signs = true
+        }
+      }
+    end
   },
   {
-    'nvzone/volt',
-    lazy = true
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    config = function ()
+      require('ufo').setup {
+        provider_selector = function(_, _, _)
+          return { 'treesitter', 'indent' }
+        end
+      }
+    end
   },
   {
-    'nvzone/minty',
-    cmd = { 'Shades', 'Heufy' }
+    'dense-analysis/ale',
+    config = function()
+      require('ale').setup {}
+
+      vim.g.ale_use_neovim_diagnostics_api = 1
+      vim.g.ale_linters = {
+        txt = { 'textlint' },
+        markdown = { 'textlint' }
+      }
+    end
+  },
+  {
+    'mcauley-penney/visual-whitespace.nvim',
+    config = true,
+    opts = { space_char = '·' }
   },
   {
     'Bekaboo/dropbar.nvim',
@@ -157,19 +182,6 @@ return {
         }
       }
     end
-  },
-  {
-    'jmbuhr/otter.nvim',
-    opts = {}
-  },
-  {
-    'mtoohey31/cmp-fish',
-    ft = 'fish'
-  },
-  {
-    'mcauley-penney/visual-whitespace.nvim',
-    config = true,
-    opts = { space_char = '·' }
   },
   {
     'kylechui/nvim-surround',
@@ -241,6 +253,7 @@ return {
             end
           end
 
+          -- harper:ignore
           -- open as vsplit on current node
           local function vsplit_preview()
             local node = api.tree.get_node_under_cursor()
@@ -285,6 +298,7 @@ return {
     end,
     deactivate = function() vim.cmd('NvimTreeClose') end
   }
+  -- harper:ignore
   --- Might use again if needed.
   -- {
   --   'ray-x/navigator.lua',
