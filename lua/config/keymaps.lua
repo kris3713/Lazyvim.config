@@ -101,7 +101,7 @@ vim.keymap.set(
 
 -- Set softwrap to Alt + Z
 vim.keymap.set(
-  'n', '<A-z>', function() vim.cmd('set wrap!') end, opts('Toggle softwrap', true)
+  'n', '<A-z>', function() vim.cmd.set('wrap!') end, opts('Toggle softwrap', true)
 )
 
 -- Make it easier to open LazyExtras
@@ -116,16 +116,6 @@ vim.keymap.set(
 
 -- auto-session
 local ses = require('auto-session')
-
-local function enable_auto_save()
-  if not ses.DisableAutoSave then
-    ses.DisableAutoSave(true)
-    vim.cmd("echo 'Auto-save is disabled'")
-  else
-    ses.DisableAutoSave(false)
-    vim.cmd("echo 'Auto-save is enabled'")
-  end
-end
 
 vim.keymap.set(
   'n', '<leader>qf', function() vim.cmd('SessionSearch') end, opts('Select a session to load')
@@ -144,7 +134,7 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  'n', '<leader>qd', enable_auto_save, opts('Toggle autosave')
+  'n', '<leader>qd', function () vim.cmd('SessionToggleAutoSave') end, opts('Toggle autosave')
 )
 
 -- Map the backwards indent to Shift + Tab
@@ -225,13 +215,11 @@ vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, opt
 vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, opts('Peek type definition'))
 
 -- Hover Doc
-local function hover_doc() vim.cmd.Lspsaga('hover_doc') end
-
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'K', hover_doc, desc = 'Hover Doc', noremap = true
+  'K', function() vim.cmd.Lspsaga('hover_doc') end, desc = 'Hover Doc', noremap = true
 }
 
-vim.keymap.set('n', '<Tab>', hover_doc, opts('Hover Doc'))
+vim.keymap.set('n', '<Tab>', function() vim.cmd.Lspsaga('hover_doc') end, opts('Hover Doc'))
 
 -- Diagnostics
 lsp_keymaps[#lsp_keymaps + 1] = {

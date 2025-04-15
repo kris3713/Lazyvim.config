@@ -200,11 +200,13 @@ vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = '#c6a0f6' })
 vim.g.rainbow_delimiters = { highlight = delimiter_highlight }
 
 require('trim').setup {
+  -- harper:ignore
   -- if you want to ignore markdown file.
   -- you can specify filetypes.
   ft_blocklist = {
     'ruby', 'lua', 'fish', 'sh', 'bash', 'csharp'
   },
+  -- harper:ignore
   -- if you want to disable trim on write by default
   trim_on_write = false,
   -- highlight trailing spaces
@@ -233,7 +235,7 @@ local function fileformat() return line_ending() end
 require('lualine').setup {
   sections = {
     lualine_c = {
-      { 'diagnostics', on_click = function() vim.cmd('Trouble todo toggle') end },
+      { 'diagnostics', on_click = function() vim.cmd.Telescope('diagnostics') end },
       { 'lsp_status', on_click = function() require('snacks').picker.lsp_config() end }
     },
     lualine_x = { 'encoding', fileformat, 'filetype' },
