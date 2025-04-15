@@ -308,3 +308,12 @@ local function swap_fileformats()
 end
 
 vim.keymap.set('n', '<leader>fq', swap_fileformats, opts('Swap fileformats (unix, dos, mac)'))
+
+-- Telescope symbols
+local function telescope_symbols()
+  require('telescope.builtin').symbols = {
+    sources = { 'nerd', 'math', 'latex', 'kaomoji', 'julia', 'gitmoji', 'emoji' }
+  }
+end
+
+vim.keymap.set('n', '<leader>se', telescope_symbols, opts('Telescope symbols'))

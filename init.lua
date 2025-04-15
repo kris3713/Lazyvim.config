@@ -240,11 +240,12 @@ require('lualine').setup {
 }
 
 -- telescope extensions
+require('telescope').load_extension('ui-select')
 require('telescope').load_extension('undo')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('dap')
 
--- lspkind + nvim-cmp
+-- nvim-cmp
 local cmp = require('cmp')
 local cmp_config = cmp.get_config()
 

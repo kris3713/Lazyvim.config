@@ -86,13 +86,6 @@ return {
     end
   },
   {
-    'glepnir/nerdicons.nvim',
-    cmd = 'NerdIcons',
-    config = function()
-      require('nerdicons').setup {}
-    end
-  },
-  {
     'Wansmer/treesj',
     keys = { '<leader>m', '<leader>j' },
     config = function()
@@ -106,16 +99,6 @@ return {
         symbol_in_winbar = { enable = false }
       }
     end
-  },
-  {
-    'rmagatti/auto-session',
-    lazy = false,
-    ---@module 'auto-session'
-    ---@type AutoSession.Config
-    opts = {
-      lazy_support = true,
-      suppressed_dirs = { vim.uv.os_homedir(), '/' }
-    }
   },
   {
     'm-demare/hlargs.nvim',
@@ -301,6 +284,58 @@ return {
       }
     end,
     deactivate = function() vim.cmd('NvimTreeClose') end
+  },
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+    ---@module 'auto-session'
+    ---@type AutoSession.Config
+    opts = {
+      session_lens = {
+        load_on_setup = true
+      },
+      lazy_support = true,
+      suppressed_dirs = { vim.uv.os_homedir(), '/' },
+      cwd_change_handling = true,
+      pre_restore_cmds = {
+        function()
+          ---@param name string
+          local function create_augroup(name)
+            return vim.api.nvim_create_augroup(name, { clear = true })
+          end
+
+          -- Enforce Unix-style line endings for all files
+          vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
+            group = create_augroup('change_line_ending'),
+            desc = 'Ensure that all files have Unix-style line endings',
+            pattern = '*',
+            callback = function()
+              local is_true = (vim.bo.filetype ~= 'help') or (vim.bo.filetype ~= 'man') or (vim.bo.filetype ~= 'gitcommit')
+              if is_true and vim.bo.modifiable then
+                vim.o.fileformat = 'unix'
+                vim.o.fileformats = 'unix,dos,mac'
+              end
+            end
+          })
+
+          -- Ensure all docker compose files are set as `yaml.docker-compose`
+          vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
+            group = create_augroup('set_docker_compose_filetype'),
+            desc = 'Set docker-compose filetype to `yaml.docker-compose`',
+            callback = function()
+              local names = { 'docker-compose.yaml', 'docker-compose.yml', 'compose.yaml', 'compose.yml' }
+
+              for _, name in ipairs(names) do
+                if (vim.fn.expand('%:t') == name) and (vim.bo.filetype ~= 'yaml.docker-compose') then
+                  vim.o.filetype = 'yaml.docker-compose'
+                  -- vim.cmd.setfiletype('yaml.docker-compose')
+                end
+              end
+            end
+          })
+        end
+      }
+    }
   }
   -- harper:ignore
   --- Might use again if needed.
