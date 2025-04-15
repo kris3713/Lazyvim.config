@@ -232,9 +232,12 @@ local function fileformat() return line_ending() end
 
 require('lualine').setup {
   sections = {
-    lualine_c = { 'diagnostics', 'lsp_status' },
+    lualine_c = {
+      { 'diagnostics', on_click = function() vim.cmd('Trouble todo toggle') end },
+      { 'lsp_status', on_click = function() require('snacks').picker.lsp_config() end }
+    },
     lualine_x = { 'encoding', fileformat, 'filetype' },
-    lualine_y = { 'selectioncount', 'progress' },
+    lualine_y = { 'searchcount', 'selectioncount', 'progress' },
     lualine_z = { 'location' }
   }
 }

@@ -1,6 +1,10 @@
 return {
   -- Plugins with configs go here
   {
+    'nanotee/zoxide.vim',
+    init = function() vim.g.zoxide_use_select = 1 end
+  },
+  {
     'fei6409/log-highlight.nvim',
     config = true
   },

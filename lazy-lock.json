@@ -50,7 +50,6 @@
   "neotest": { "branch": "master", "commit": "747775fc22dfeb6102bdde6559ccb5126dac0ff8" },
   "neotest-dotnet": { "branch": "main", "commit": "5a2fa35c3c6a72cfd3fc6a28b3d1af6e68e6c3a8" },
   "neotest-rspec": { "branch": "main", "commit": "281c0ed0e55d623e8028796e1c4dc27b7e421fd0" },
-  "nerdicons.nvim": { "branch": "main", "commit": "2d257ff9b00b7d1510704e0a565a6a7ede76b79a" },
   "noice.nvim": { "branch": "main", "commit": "0427460c2d7f673ad60eb02b35f5e9926cf67c59" },
   "none-ls-extras.nvim": { "branch": "main", "commit": "1214d729e3408470a7b7a428415a395e5389c13c" },
   "none-ls.nvim": { "branch": "main", "commit": "1280b7965b6ed17787ffab1d4e3d9795ecdd0f51" },

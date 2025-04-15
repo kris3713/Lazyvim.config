@@ -7,7 +7,6 @@ return {
   'Tastyep/structlog.nvim',
   'nvim-telescope/telescope-symbols.nvim',
   'debugloop/telescope-undo.nvim',
-  'jvgrootveld/telescope-zoxide',
   'nvim-telescope/telescope-ui-select.nvim',
   'nvim-telescope/telescope-frecency.nvim',
   'nvim-telescope/telescope-dap.nvim',
