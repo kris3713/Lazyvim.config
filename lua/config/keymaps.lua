@@ -140,7 +140,7 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  'n', '<leader>qD', function() ses.DeleteSession(cwd) end, opts('Delete Session based on cwd')
+  'n', '<leader>qD', function() vim.cmd.Autosession('delete') end, opts('Delete Session based on cwd')
 )
 
 vim.keymap.set(

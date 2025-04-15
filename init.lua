@@ -239,8 +239,10 @@ require('lualine').setup {
   }
 }
 
--- telescope-undo
+-- telescope extensions
 require('telescope').load_extension('undo')
+require('telescope').load_extension('frecency')
+require('telescope').load_extension('dap')
 
 -- lspkind + nvim-cmp
 local cmp = require('cmp')

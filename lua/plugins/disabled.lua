@@ -9,10 +9,6 @@ return {
     enabled = false
   },
   {
-    'mfussenegger/nvim-lint',
-    enabled = false
-  },
-  {
     'mini.pairs',
     enabled = false
   },

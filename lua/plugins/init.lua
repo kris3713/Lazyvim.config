@@ -113,6 +113,7 @@ return {
     ---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
+      lazy_support = true,
       suppressed_dirs = { vim.uv.os_homedir(), '/' }
     }
   },
@@ -163,18 +164,6 @@ return {
         provider_selector = function(_, _, _)
           return { 'treesitter', 'indent' }
         end
-      }
-    end
-  },
-  {
-    'dense-analysis/ale',
-    config = function()
-      require('ale').setup {}
-
-      vim.g.ale_use_neovim_diagnostics_api = true
-      vim.g.ale_linters = {
-        txt = { 'textlint' },
-        markdown = { 'textlint' }
       }
     end
   },

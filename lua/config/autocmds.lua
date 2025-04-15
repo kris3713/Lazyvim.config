@@ -72,16 +72,36 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end
 })
 
--- Enforce Unix-style line endings for all files
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'WinEnter' }, {
-  group = create_augroup('change_line_ending'),
-  desc = 'Ensure that all files have Unix-style line endings',
-  pattern = '*',
-  callback = function()
-    local is_true = (vim.bo.filetype ~= 'help') or (vim.bo.filetype ~= 'man') or (vim.bo.filetype ~= 'gitcommit')
-    if is_true and vim.bo.modifiable then
-      vim.o.fileformat = 'unix'
-      vim.o.fileformats = 'unix,dos,mac'
-    end
+require('auto-session.config').pre_restore_cmds = {
+  function()
+    -- Enforce Unix-style line endings for all files
+    vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'WinEnter' }, {
+      group = create_augroup('change_line_ending'),
+      desc = 'Ensure that all files have Unix-style line endings',
+      pattern = '*',
+      callback = function()
+        local is_true = (vim.bo.filetype ~= 'help') or (vim.bo.filetype ~= 'man') or (vim.bo.filetype ~= 'gitcommit')
+        if is_true and vim.bo.modifiable then
+          vim.o.fileformat = 'unix'
+          vim.o.fileformats = 'unix,dos,mac'
+        end
+      end
+    })
+
+    -- Ensure all docker compose files are set as `yaml.docker-compose`
+    vim.api.nvim_create_autocmd('BufEnter', {
+      group = create_augroup('set_docker_compose_filetype'),
+      desc = 'Set docker-compose filetype to `yaml.docker-compose`',
+      pattern = '*',
+      callback = function()
+        local names = { 'docker-compose.yaml', 'docker-compose.yml', 'compose.yaml', 'compose.yml' }
+
+        for _, name in ipairs(names) do
+          if (vim.fn.expand('%:t') == name) and (vim.bo.filetype ~= 'yaml.docker-compose') then
+            vim.o.filetype = 'yaml.docker-compose'
+          end
+        end
+      end
+    })
   end
-})
+}

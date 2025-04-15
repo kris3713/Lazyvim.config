@@ -5,6 +5,9 @@
 -- Remove annoying autoformat
 vim.g.autoformat = false
 
+-- Improved sessionoptions
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+
 -- Set font family and font size (For Neovide and Neovim-Qt)
 vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
 
