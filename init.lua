@@ -116,9 +116,7 @@ null_ls.setup {
   sources = {
     -- Only add sources that are not natively
     -- supported by the built-in lsp.
-    null_ls.builtins.code_actions.refactoring.with {
-      filetypes = {}
-    },
+    null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.code_actions.textlint,
     null_ls.builtins.completion.nvim_snippets,
     null_ls.builtins.completion.tags,
@@ -133,17 +131,17 @@ null_ls.setup {
     null_ls.builtins.diagnostics.todo_comments,
     null_ls.builtins.formatting.fish_indent,
     null_ls.builtins.formatting.markdownlint,
-    -- null_ls.builtins.formatting.nixfmt,
-    -- null_ls.builtins.formatting.nix_flake_fmt,
-    null_ls.builtins.formatting.prettier.with {
-      disabled_filetypes = { 'css', 'scss', 'less', 'html', 'json', 'jsonc', 'yaml' }
-    },
-    null_ls.builtins.formatting.rubocop,
-    -- null_ls.builtins.formatting.rubyfmt,
     null_ls.builtins.formatting.shfmt,
-    null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.yamlfmt,
     null_ls.builtins.hover.printenv
+  }
+}
+
+-- conform.nvim
+require('conform').setup {
+  formatters_by_ft = {
+    javascript = { 'prettier', 'prettierd', stop_after_first = true },
+    typescript = { 'prettier', 'prettierd', stop_after_first = true }
   }
 }
 
