@@ -312,7 +312,7 @@ return {
             callback = function()
               local is_true = (vim.bo.filetype ~= 'help') or (vim.bo.filetype ~= 'man') or (vim.bo.filetype ~= 'gitcommit')
               if is_true and vim.bo.modifiable then
-                vim.o.fileformat = 'unix'
+                vim.bo.fileformat = 'unix'
                 vim.o.fileformats = 'unix,dos,mac'
               end
             end
@@ -320,15 +320,33 @@ return {
 
           -- Ensure all docker compose files are set as `yaml.docker-compose`
           vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
-            group = create_augroup('set_docker_compose_filetype'),
-            desc = 'Set docker-compose filetype to `yaml.docker-compose`',
+            group = create_augroup('enforce_filetype_for_certain_files'),
+            desc = 'Enforce certain files to be a certain filetype',
             callback = function()
-              local names = { 'docker-compose.yaml', 'docker-compose.yml', 'compose.yaml', 'compose.yml' }
+              -- -- For docker compose files
+              -- local compose_names = { 'docker-compose.yaml', 'docker-compose.yml', 'compose.yaml', 'compose.yml' }
+              --
+              -- for _, name in ipairs(compose_names) do
+              --   if (vim.fn.expand('%:t') == name) and (vim.bo.filetype ~= 'yaml.docker-compose') then
+              --     vim.o.filetype = 'yaml.docker-compose'
+              --     -- vim.cmd.setfiletype('yaml.docker-compose')
+              --   end
+              -- end
 
-              for _, name in ipairs(names) do
-                if (vim.fn.expand('%:t') == name) and (vim.bo.filetype ~= 'yaml.docker-compose') then
-                  vim.o.filetype = 'yaml.docker-compose'
-                  -- vim.cmd.setfiletype('yaml.docker-compose')
+              -- For VSCode config files and TypeScript config files
+              local vscode__and__ts_names = {
+                'settings.json',
+                'launch.json',
+                'tasks.json',
+                'launch.json',
+                'tsconfig.json',
+                'jsconfig.json'
+              }
+
+              for _, name in ipairs(vscode__and__ts_names) do
+                if (vim.fn.expand('%:t') == name) and (vim.bo.filetype ~= 'jsonc') then
+                  vim.bo.filetype = 'jsonc'
+                  -- vim.cmd.setfiletype('json')
                 end
               end
             end

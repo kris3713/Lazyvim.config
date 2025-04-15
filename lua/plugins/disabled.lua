@@ -5,7 +5,7 @@ return {
     enabled = false
   },
   {
-    'stevearc/conform.nvim',
+    'mfussenegger/nvim-lint',
     enabled = false
   },
   {

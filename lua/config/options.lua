@@ -32,7 +32,8 @@ vim.g.lualine_laststatus = 2
 -- Set lazyvim completion engine
 vim.g.lazyvim_cmp = 'nvim-cmp'
 
--- .NET development
+--- Custom filetypes
+-- `msbuild`
 vim.filetype.add {
   extension = {
     props = 'msbuild',
@@ -41,6 +42,18 @@ vim.filetype.add {
   },
   pattern = { [ [[.*\..*proj]] ] = 'msbuild' }
 }
+
+-- `yaml.docker-compose`
+vim.filetype.add {
+  filename = {
+    ['docker-compose.yaml'] = 'yaml.docker-compose',
+    ['docker-compose.yml'] = 'yaml.docker-compose',
+    ['compose.yaml'] = 'yaml.docker-compose',
+    ['compose.yml'] = 'yaml.docker-compose'
+  },
+  pattern = { [ [[.*\..*compose.*]] ] = 'yaml.docker-compose' }
+}
+--- Custom filetypes
 
 vim.treesitter.language.register('xml', { 'msbuild' })
 

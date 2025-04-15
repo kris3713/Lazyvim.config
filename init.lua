@@ -124,9 +124,7 @@ null_ls.setup {
     null_ls.builtins.diagnostics.dotenv_linter,
     null_ls.builtins.diagnostics.editorconfig_checker,
     null_ls.builtins.diagnostics.fish,
-    null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.markdownlint,
-    null_ls.builtins.diagnostics.markdownlint_cli2,
     null_ls.builtins.diagnostics.rpmspec,
     null_ls.builtins.diagnostics.todo_comments,
     null_ls.builtins.formatting.fish_indent,
@@ -138,12 +136,12 @@ null_ls.setup {
 }
 
 -- conform.nvim
-require('conform').setup {
-  formatters_by_ft = {
-    javascript = { 'prettier', 'prettierd', stop_after_first = true },
-    typescript = { 'prettier', 'prettierd', stop_after_first = true }
-  }
-}
+-- require('conform').setup {
+--   formatters_by_ft = {
+--     javascript = { 'prettier', 'prettierd', stop_after_first = true },
+--     typescript = { 'prettier', 'prettierd', stop_after_first = true }
+--   }
+-- }
 
 -- rainbow-delimiters and
 -- indent-blankline
