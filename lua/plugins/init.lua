@@ -22,46 +22,50 @@ return {
   },
   {
     'nvzone/volt',
-    lazy = true
+    lazy = true,
+    config = true
   },
   {
     'nvzone/minty',
+    config = true,
     cmd = { 'Shades', 'Heufy' }
   },
   {
     'jmbuhr/otter.nvim',
-    opts = {}
+    config = true
   },
   {
     'mtoohey31/cmp-fish',
-    ft = 'fish'
+    ft = 'fish',
+    config = true
   },
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
-    opts = {}
+    config = function()
+      -- Has potential for a complex configuration
+      require('nvim-autopairs').setup {}
+    end
   },
   {
     'kevinhwang91/nvim-hlslens',
-    config = function()
-      require('hlslens').setup {}
-    end
+    config = true
   },
   {
     'lewis6991/satellite.nvim',
-    config = function()
-      require('satellite').setup {}
-    end
+    config = true
   },
   {
     'nacro90/numb.nvim',
     config = function()
+      -- Has potential for a complex configuration
       require('numb').setup {}
     end
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
     config = function()
+      -- Has potential for a complex configuration
       require('ts_context_commentstring').setup { enable_autocmd = false }
     end
   },
@@ -69,7 +73,7 @@ return {
     'luckasRanarison/tailwind-tools.nvim',
     name = 'tailwind-tools',
     build = ':UpdateRemotePlugins',
-    opts = {} -- your configuration
+    config = true
   },
   {
     'zeioth/garbage-day.nvim',
@@ -81,32 +85,34 @@ return {
   },
   {
     'windwp/nvim-ts-autotag',
-    config = function ()
-      require('nvim-ts-autotag').setup {}
+    config = function()
+      -- Has potential for a complex configuration
+      require('nvim-ts-autotag').setup {
+        opts = { enable_close_on_slash = true }
+      }
     end
   },
   {
     'Wansmer/treesj',
     keys = { '<leader>m', '<leader>j' },
     config = function()
+      -- Has potential for a complex configuration
       require('treesj').setup {}
     end
   },
   {
     'nvimdev/lspsaga.nvim',
-    config = function()
-      require('lspsaga').setup {
-        symbol_in_winbar = { enable = false }
-      }
-    end
+    ---@module 'lspsaga'
+    ---@type LspsagaConfig
+    opts = {
+      symbol_in_winbar = { enable = false }
+    }
   },
   {
     'm-demare/hlargs.nvim',
-    config = function()
-      require('hlargs').setup {
-        color = '#ed8796'
-      }
-    end
+    opts = {
+      color = '#ed8796'
+    }
   },
   {
     'mikavilpas/yazi.nvim',
@@ -120,6 +126,7 @@ return {
   {
     'numToStr/Comment.nvim',
     config = function()
+      -- Has potential for a complex configuration
       local c = require('ts_context_commentstring.integrations.comment_nvim')
       require('Comment').setup {
         pre_hook = c.create_pre_hook()
@@ -129,20 +136,19 @@ return {
   {
     'zbirenbaum/neodim',
     event = 'LspAttach',
-    config = function()
-      require('neodim').setup {
-        hide = {
-          underline = true,
-          virtual_text = false,
-          signs = true
-        }
+    opts = {
+      hide = {
+        underline = true,
+        virtual_text = false,
+        signs = true
       }
-    end
+    }
   },
   {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
-    config = function ()
+    config = function()
+      -- Has potential for a complex configuration
       require('ufo').setup {
         provider_selector = function(_, _, _)
           return { 'treesitter', 'indent' }
@@ -152,9 +158,7 @@ return {
   },
   {
     'mcauley-penney/visual-whitespace.nvim',
-    config = true,
     event = 'ModeChanged *:[vV\22]',
-    ---@module 'visual-whitespace'
     opts = {
       space_char = '·',
       tab_char = '󰌒 '
@@ -162,39 +166,38 @@ return {
   },
   {
     'Bekaboo/dropbar.nvim',
-    config = function()
-      require('dropbar').setup {
-        menu = {
-          win_configs = { border = 'rounded' }
-        }
+    ---@module 'dropbar'
+    ---@type dropbar_configs_t
+    opts = {
+      menu = {
+        win_configs = { border = 'rounded' }
       }
-    end
+    }
   },
   {
     'kylechui/nvim-surround',
     event = 'VeryLazy',
-    config = function ()
-      require('nvim-surround').setup {
-        keymaps = {
-          insert = '<Nop>',
-          insert_line = '<Nop>',
-          normal = 'gss',
-          normal_cur = 'gss',
-          normal_line = 'gsS',
-          normal_cur_line = 'gsSs',
-          visual = 'gss',
-          visual_line = 'gsS',
-          delete = 'gsd',
-          change = 'gsc',
-          change_line = 'gsC'
-        }
+    opts = {
+      keymaps = {
+        insert = '<Nop>',
+        insert_line = '<Nop>',
+        normal = 'gss',
+        normal_cur = 'gss',
+        normal_line = 'gsS',
+        normal_cur_line = 'gsSs',
+        visual = 'gss',
+        visual_line = 'gsS',
+        delete = 'gsd',
+        change = 'gsc',
+        change_line = 'gsC'
       }
-    end
+    }
   },
   {
     'aznhe21/actions-preview.nvim',
     config = function()
-      require('actions-preview').setup({
+      -- Has potential for a more complex configuration
+      require('actions-preview').setup {
         backend = 'telescope',
         telescope = {
           sorting_strategy = 'ascending',
@@ -213,7 +216,7 @@ return {
         highlight_command = {
           require('actions-preview.highlight').delta()
         }
-      })
+      }
     end
   },
   {
@@ -221,6 +224,7 @@ return {
     dependencies = 'antosha417/nvim-lsp-file-operations',
     lazy = false,
     config = function()
+      -- Has potential for a more complex configuration
       require('nvim-tree').setup {
         filters = { enable = false },
         ---@param bufnr number
@@ -346,7 +350,7 @@ return {
               for _, name in ipairs(vscode__and__ts_names) do
                 if (vim.fn.expand('%:t') == name) and (vim.bo.filetype ~= 'jsonc') then
                   vim.bo.filetype = 'jsonc'
-                  -- vim.cmd.setfiletype('json')
+                  -- vim.cmd.setfiletype('jsonc')
                 end
               end
             end
@@ -360,7 +364,8 @@ return {
   -- {
   --   'ray-x/navigator.lua',
   --   dependencies = { 'ray-x/guihua.lua' },
-  --   config = function ()
+  --   config = function()
+  --     -- Has potential for a complex configuration
   --     require('navigator').setup()
   --   end
   -- },
