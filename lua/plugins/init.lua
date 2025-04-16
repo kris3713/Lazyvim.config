@@ -13,8 +13,16 @@ return {
     opts = { snippetDir = vim.uv.os_homedir() .. '/MEGA' }
   },
   {
-    'akinsho/toggleterm.nvim',
+    'mtoohey31/cmp-fish',
+    ft = 'fish',
     config = true
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    config = function()
+      -- Has potential for a complex configuration
+      require('toggleterm').setup {}
+    end
   },
   {
     'AckslD/muren.nvim',
@@ -32,12 +40,10 @@ return {
   },
   {
     'jmbuhr/otter.nvim',
-    config = true
-  },
-  {
-    'mtoohey31/cmp-fish',
-    ft = 'fish',
-    config = true
+    config = function()
+      -- Has potential for a complex configuration
+      require('otter').setup {}
+    end
   },
   {
     'windwp/nvim-autopairs',
@@ -136,6 +142,8 @@ return {
   {
     'zbirenbaum/neodim',
     event = 'LspAttach',
+    ---@module 'neodim'
+    ---@type neodim.Options
     opts = {
       hide = {
         underline = true,
@@ -327,17 +335,7 @@ return {
             group = create_augroup('enforce_filetype_for_certain_files'),
             desc = 'Enforce certain files to be a certain filetype',
             callback = function()
-              -- -- For docker compose files
-              -- local compose_names = { 'docker-compose.yaml', 'docker-compose.yml', 'compose.yaml', 'compose.yml' }
-              --
-              -- for _, name in ipairs(compose_names) do
-              --   if (vim.fn.expand('%:t') == name) and (vim.bo.filetype ~= 'yaml.docker-compose') then
-              --     vim.o.filetype = 'yaml.docker-compose'
-              --     -- vim.cmd.setfiletype('yaml.docker-compose')
-              --   end
-              -- end
-
-              -- For VSCode config files and TypeScript config files
+              -- VSCode config files and TypeScript config files
               local vscode__and__ts_names = {
                 'settings.json',
                 'launch.json',
