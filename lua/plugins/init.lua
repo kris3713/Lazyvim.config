@@ -14,8 +14,7 @@ return {
   },
   {
     'mtoohey31/cmp-fish',
-    ft = 'fish',
-    config = true
+    ft = 'fish'
   },
   {
     'akinsho/toggleterm.nvim',
