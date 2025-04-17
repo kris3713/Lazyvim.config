@@ -20,6 +20,15 @@ vim.api.nvim_create_autocmd('VimLeave', {
   command = 'set guicursor=a:ver20'
 })
 
+-- Make sure all lsp servers close when quiting Neovim
+vim.api.nvim_create_autocmd('VimLeave', {
+  group = create_augroup('close_all_lsp_servers_on_quit'),
+  desc = 'Close all lsp servers on qutting Neovim',
+  callback = function()
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+  end
+})
+
 -- Enable semantic highlighting
 vim.api.nvim_create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
@@ -33,9 +42,7 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
     vim.api.nvim_set_hl(0, '@lsp.type.method', { fg = '#8aadf4' })
     vim.api.nvim_set_hl(0, '@lsp.typemod.variable.global', { fg = '#8bd5ca' })
     vim.api.nvim_set_hl(0, '@lsp.type.event', { fg = '#40a02b' })
-    vim.api.nvim_set_hl(0, '@lsp.typemod.variable.defaultLibrary', {
-      fg = '#f5a97f', italic = true
-    })
+    vim.api.nvim_set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
     vim.api.nvim_set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
     vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
   end
