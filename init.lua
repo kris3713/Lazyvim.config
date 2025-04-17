@@ -7,16 +7,48 @@ vim.cmd.colorscheme('catppuccin-macchiato')
 --- LSP configs
 local lspconfig = require('lspconfig')
 
--- For Ruby development
+-- Lua
+---@type lspconfig.options.lua_ls
+local lua_ls__setup = {
+  settings = {
+     Lua = {
+        completion = {
+          callSnippet = 'Replace',
+          showWord = 'Enable',
+          workspaceWord = true
+        },
+        doc = {
+          privateName = { '^_' }
+        },
+        hint = {
+          enable = true,
+          setType = false,
+          paramType = true,
+          paramName = 'Disable',
+          semicolon = 'Disable',
+          arrayIndex = 'Disable'
+        }
+     }
+  }
+}
+
+lspconfig.lua_ls.setup(lua_ls__setup)
+
+-- Ruby
 lspconfig.solargraph.setup {}
 
 -- CSS
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+local cssls_capabilities = vim.lsp.protocol.make_client_capabilities()
+cssls_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+---@type lspconfig.options.cssls
+local cssls_setup = {
+  capabilities = cssls_capabilities
+}
 
 lspconfig.css_variables.setup {}
 lspconfig.cssmodules_ls.setup {}
-lspconfig.cssls.setup { capabilities = capabilities }
+lspconfig.cssls.setup(cssls_setup)
 
 -- GitHub Actions
 lspconfig.gh_actions_ls.setup {}
@@ -43,9 +75,10 @@ lspconfig.marksman.setup {
 }
 
 -- .NET development
-local omni = require('omnisharp_extended')
+local omni_ext = require('omnisharp_extended')
 
-lspconfig.omnisharp.setup {
+---@type lspconfig.options.omnisharp
+local omnisharp_setup = {
   FormattingOptions = {
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from `.editorconfig`
@@ -78,19 +111,71 @@ lspconfig.omnisharp.setup {
     AnalyzeOpenDocumentsOnly = nil
   },
   handlers = {
-    ["textDocument/definition"] = omni.definition_handler,
-    ["textDocument/typeDefinition"] = omni.type_definition_handler,
-    ["textDocument/references"] = omni.references_handler,
-    ["textDocument/implementation"] = omni.implementation_handler
+    ['textDocument/definition'] = omni_ext.definition_handler,
+    ['textDocument/typeDefinition'] = omni_ext.type_definition_handler,
+    ['textDocument/references'] = omni_ext.references_handler,
+    ['textDocument/implementation'] = omni_ext.implementation_handler
   }
 }
 
+lspconfig.omnisharp.setup(omnisharp_setup)
+
+-- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
 if (msbuild ~= '' and msbuild ~= nil) then
   lspconfig.msbuild_project_tools_server.setup {
     cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
   }
 end
+
+-- Typescript/Javascript (vtsls)
+---@module 'lspconfig'
+---@type lspconfig.options.vtsls
+local vtsls_setup = {
+  settings = {
+    vtsls = {
+      experimental = { enableProjectDiagnostics = true },
+    },
+    typescript = {
+      updateImportsOnFileMove = { enabled = 'always' },
+      suggest = { completeFunctionCalls = true },
+      inlayHints = {
+        enumMemberValues = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        parameterNames = { enabled = 'literals' },
+        parameterTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        variableTypes = { enabled = false },
+      },
+      preferences = {
+        quoteStyle = 'single',
+        importModuleSpecifier = 'shortest',
+        renameMatchingJsxTags = true,
+        jsxAttributeCompletionStyle = 'auto'
+      }
+    },
+    javascript = {
+      updateImportsOnFileMove = { enabled = 'always' },
+      suggest = { completeFunctionCalls = true },
+      inlayHints = {
+        enumMemberValues = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        parameterNames = { enabled = 'literals' },
+        parameterTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        variableTypes = { enabled = false }
+      },
+      preferences = {
+        quoteStyle = 'single',
+        importModuleSpecifier = 'shortest',
+        renameMatchingJsxTags = true,
+        jsxAttributeCompletionStyle = 'auto'
+      }
+    }
+  }
+}
+
+lspconfig.vtsls.setup(vtsls_setup)
 
 -- Spelling and Grammar checking
 lspconfig.harper_ls.setup {
