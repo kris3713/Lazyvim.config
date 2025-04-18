@@ -29,8 +29,7 @@ return {
   },
   {
     'nvzone/volt',
-    lazy = true,
-    config = true
+    lazy = true
   },
   {
     'nvzone/minty',

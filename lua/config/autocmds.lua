@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd('VimLeave', {
   group = create_augroup('close_all_lsp_servers_on_quit'),
   desc = 'Close all lsp servers on qutting Neovim',
   callback = function()
-    vim.lsp.stop_client(vim.lsp.get_active_clients())
+    vim.lsp.stop_client(vim.lsp.get_clients())
   end
 })
 
@@ -35,9 +35,8 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
   desc = 'Set semantic highlighting for LSP tokens',
   callback = function()
     vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = '#eed49f' })
-    -- vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = '#ed8796' })
     vim.api.nvim_set_hl(0, '@lsp.type.typeParameter', {
-      fg = '#ed8796', italic = true
+      fg = '#d43a1f', italic = true
     })
     vim.api.nvim_set_hl(0, '@lsp.type.method', { fg = '#8aadf4' })
     vim.api.nvim_set_hl(0, '@lsp.typemod.variable.global', { fg = '#8bd5ca' })
