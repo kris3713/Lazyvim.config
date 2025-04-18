@@ -387,23 +387,33 @@ local cmp_setup = {
 cmp.setup(cmp_setup)
 
 -- mouse menu
--- if vim.fn.exists('menu PopUp.Configure\\ Diagnostics') ~= 0 then
--- end
-
-vim.cmd('silent aunmenu PopUp.Configure\\ Diagnostics')
 vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
 
 for _, i in ipairs({'n', 'x'}) do
   -- Modified built-in entries
-  vim.cmd(string.format([[ %smenu PopUp.Go\ to\ definition gd ]], i))
-  vim.cmd(string.format([[ %smenu PopUp.Show\ Diagnostics <leader>cd ]], i))
-  vim.cmd(string.format([[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]], i))
+  vim.cmd(string.format(
+    [[ %smenu PopUp.Go\ to\ definition gd ]], i
+  ))
+  vim.cmd(string.format(
+    [[ %smenu PopUp.Show\ Diagnostics <leader>cd ]], i
+  ))
+  vim.cmd(string.format(
+    [[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]], i
+  ))
 
   -- Implement a code actions entry
-  vim.cmd(string.format([[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]], i))
+  vim.cmd(string.format(
+    [[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]], i
+  ))
 
   -- Implement all go-to definitions
-  vim.cmd(string.format([[ %smenu PopUp.Show\ References gr ]], i))
-  vim.cmd(string.format([[ %smenu PopUp.Show\ Implementation gI ]], i))
-  vim.cmd(string.format([[ %smenu PopUp.Show\ Type\ Definition gy ]], i))
+  vim.cmd(string.format(
+    [[ %smenu PopUp.Show\ References gr ]], i
+  ))
+  vim.cmd(string.format(
+    [[ %smenu PopUp.Show\ Implementation gI ]], i
+  ))
+  vim.cmd(string.format(
+    [[ %smenu PopUp.Show\ Type\ Definition gy ]], i
+  ))
 end
