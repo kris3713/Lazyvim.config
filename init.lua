@@ -325,8 +325,19 @@ local function fileformat() return line_ending() end
 require('lualine').setup {
   sections = {
     lualine_c = {
-      { 'diagnostics', on_click = function() vim.cmd.Telescope('diagnostics') end },
-      { 'lsp_status', on_click = function() require('snacks').picker.lsp_config() end }
+      {
+        'diagnostics',
+        on_click = function()
+          require('trouble').toggle({
+            mode = 'diagnostics',
+            filter = { buf = vim.api.nvim_get_current_buf() }
+          })
+        end
+      },
+      {
+        'lsp_status',
+        on_click = function() require('snacks').picker.lsp_config() end
+      }
     },
     lualine_x = { 'encoding', fileformat, 'filetype' },
     lualine_y = { 'searchcount', 'selectioncount', 'progress' },
@@ -376,15 +387,23 @@ local cmp_setup = {
 cmp.setup(cmp_setup)
 
 -- mouse menu
-vim.cmd.iunmenu('PopUp.How-to\\ disable\\ mouse')
-vim.cmd([[
-  unmenu PopUp.How-to\ disable\ mouse
-  " Add diagnostics
-  menu PopUp.Diagnostics <leader>cd
-  " Add code actions
-  menu PopUp.Code\ Actions <leader>ca
-  " Implement all goto definitions
-  menu PopUp.References gr
-  menu PopUp.Implementation gI
-  menu PopUp.Type\ Definition gy
-]])
+-- if vim.fn.exists('menu PopUp.Configure\\ Diagnostics') ~= 0 then
+-- end
+
+vim.cmd('silent aunmenu PopUp.Configure\\ Diagnostics')
+vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
+
+for _, i in ipairs({'n', 'x'}) do
+  -- Modified built-in entries
+  vim.cmd(string.format([[ %smenu PopUp.Go\ to\ definition gd ]], i))
+  vim.cmd(string.format([[ %smenu PopUp.Show\ Diagnostics <leader>cd ]], i))
+  vim.cmd(string.format([[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]], i))
+
+  -- Implement a code actions entry
+  vim.cmd(string.format([[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]], i))
+
+  -- Implement all go-to definitions
+  vim.cmd(string.format([[ %smenu PopUp.Show\ References gr ]], i))
+  vim.cmd(string.format([[ %smenu PopUp.Show\ Implementation gI ]], i))
+  vim.cmd(string.format([[ %smenu PopUp.Show\ Type\ Definition gy ]], i))
+end

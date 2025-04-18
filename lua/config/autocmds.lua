@@ -20,14 +20,14 @@ vim.api.nvim_create_autocmd('VimLeave', {
   command = 'set guicursor=a:ver20'
 })
 
--- -- Make sure all lsp servers close when quiting Neovim
--- vim.api.nvim_create_autocmd('VimLeave', {
---   group = create_augroup('close_all_lsp_servers_on_quit'),
---   desc = 'Close all lsp servers on qutting Neovim',
---   callback = function()
---     vim.lsp.stop_client(vim.lsp.get_clients())
---   end
--- })
+-- Make sure all lsp servers close when quiting Neovim
+vim.api.nvim_create_autocmd('VimLeave', {
+  group = create_augroup('close_all_lsp_servers_on_quit'),
+  desc = 'Close all lsp servers on qutting Neovim',
+  callback = function()
+    vim.lsp.stop_client(vim.lsp.get_clients())
+  end
+})
 
 -- Enable semantic highlighting
 vim.api.nvim_create_autocmd('LspTokenUpdate', {

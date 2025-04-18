@@ -228,9 +228,7 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 --- lspsaga
 
 -- omnisharp
-local f_type = vim.bo.filetype
-
-if (f_type == 'cs' or f_type == 'vb') then
+if (vim.bo.filetype == 'cs') or (vim.bo.filetype == 'vb') then
   local omni = require('omnisharp_extended')
 
   lsp_keymaps[#lsp_keymaps + 1] = {
