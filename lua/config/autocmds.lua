@@ -36,11 +36,11 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
   callback = function()
     vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = '#eed49f' })
     vim.api.nvim_set_hl(0, '@lsp.type.typeParameter', {
-      fg = '#d43a1f', italic = true
+      fg = '#ed9687', italic = true
     })
     vim.api.nvim_set_hl(0, '@lsp.type.method', { fg = '#8aadf4' })
     vim.api.nvim_set_hl(0, '@lsp.typemod.variable.global', { fg = '#8bd5ca' })
-    vim.api.nvim_set_hl(0, '@lsp.type.event', { fg = '#40a02b' })
+    vim.api.nvim_set_hl(0, '@lsp.type.event', { fg = '#72d35d' })
     vim.api.nvim_set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
     vim.api.nvim_set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
     vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
