@@ -253,11 +253,11 @@ local hooks = require('ibl.hooks')
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-  vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#ed8796' })
-  vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#f5a97f' })
-  vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#eed49f' })
+  vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#ed6e6d' })
+  vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#ef7734' })
+  vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#e2b65e' })
   vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#72d35d' })
-  vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#8aadf4' })
+  vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#3f78ec' })
   vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#7dc4e4' })
   vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#c6a0f6' })
 end)
@@ -279,11 +279,11 @@ local delimiter_highlight = {
   'RainbowDelimiterViolet'
 }
 
-vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = '#ed8796' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = '#f5a97f' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#eed49f' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = '#ed6e6d' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = '#ef7734' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#e2b65e' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#72d35d' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = '#8aadf4' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = '#3f78ec' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = '#7dc4e4' })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = '#c6a0f6' })
 
