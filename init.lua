@@ -359,10 +359,6 @@ local cmp_config = cmp.get_config()
 local new_sources = {
   { name = 'nvim_lsp_signature_help' },
   { name = 'dap' },
-  {
-    name = 'fish',
-    option = { fish_path = '/usr/bin/fish' }
-  },
   { name = 'render-markdown' }
 }
 

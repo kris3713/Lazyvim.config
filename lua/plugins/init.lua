@@ -13,10 +13,6 @@ return {
     opts = { snippetDir = vim.uv.os_homedir() .. '/MEGA' }
   },
   {
-    'mtoohey31/cmp-fish',
-    ft = 'fish'
-  },
-  {
     'akinsho/toggleterm.nvim',
     config = function()
       -- Has potential for a complex configuration
