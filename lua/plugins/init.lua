@@ -159,6 +159,18 @@ return {
     end
   },
   {
+    'ray-x/lsp_signature.nvim',
+    event = 'InsertEnter',
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = 'rounded'
+      },
+      hint_prefix = '❔ ',
+      transparency = 90
+    }
+  },
+  {
     'mcauley-penney/visual-whitespace.nvim',
     event = 'ModeChanged *:[vV\22]',
     opts = {
