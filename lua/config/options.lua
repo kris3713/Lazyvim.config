@@ -74,7 +74,7 @@ vim.o.encoding = 'utf-8'
 
 -- Mouse support
 vim.o.mousemoveevent = true
-vim.o.mousem = 'popup'
+vim.opt.mouse = 'a'
 
 -- nvim-ufo
 vim.o.foldcolumn = '1' -- '0' is not bad

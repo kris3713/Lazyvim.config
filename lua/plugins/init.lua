@@ -56,6 +56,12 @@ return {
     config = true
   },
   {
+    'm-demare/hlargs.nvim',
+    opts = {
+      color = '#ed8796'
+    }
+  },
+  {
     'nacro90/numb.nvim',
     config = function()
       -- Has potential for a complex configuration
@@ -106,12 +112,6 @@ return {
     ---@type LspsagaConfig
     opts = {
       symbol_in_winbar = { enable = false }
-    }
-  },
-  {
-    'm-demare/hlargs.nvim',
-    opts = {
-      color = '#ed8796'
     }
   },
   {
@@ -166,8 +166,7 @@ return {
       handler_opts = {
         border = 'rounded'
       },
-      hint_prefix = '❔ ',
-      transparency = 90
+      hint_prefix = '❔ '
     }
   },
   {
