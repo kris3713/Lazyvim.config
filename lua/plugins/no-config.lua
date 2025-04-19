@@ -16,5 +16,6 @@ return {
   'petertriho/cmp-git',
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
-  'rcarriga/cmp-dap'
+  'rcarriga/cmp-dap',
+  'tamago324/nlsp-settings.nvim'
 }
