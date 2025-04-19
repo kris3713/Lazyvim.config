@@ -3,7 +3,7 @@
 -- Add any additional keymaps here
 
 -- current directory
-local cwd = vim.fn.getcwd()
+local cwd = vim.uv.cwd()
 -- root directory
 local root = LazyVim.root()
 
