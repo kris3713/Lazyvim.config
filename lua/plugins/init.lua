@@ -159,17 +159,6 @@ return {
     end
   },
   {
-    'ray-x/lsp_signature.nvim',
-    event = 'InsertEnter',
-    opts = {
-      bind = true,
-      handler_opts = {
-        border = 'rounded'
-      },
-      hint_prefix = '❔ '
-    }
-  },
-  {
     'mcauley-penney/visual-whitespace.nvim',
     event = 'ModeChanged *:[vV\22]',
     opts = {
@@ -364,6 +353,17 @@ return {
   }
   -- harper:ignore
   --- Might use again if needed.
+  -- {
+  --   'ray-x/lsp_signature.nvim',
+  --   event = 'InsertEnter',
+  --   opts = {
+  --     bind = true,
+  --     handler_opts = {
+  --       border = 'rounded'
+  --     },
+  --     hint_prefix = '❔ '
+  --   }
+  -- },
   -- {
   --   'ray-x/navigator.lua',
   --   dependencies = { 'ray-x/guihua.lua' },
