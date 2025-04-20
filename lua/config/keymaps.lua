@@ -2,11 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- current directory
-local cwd = vim.uv.cwd()
--- root directory
-local root = LazyVim.root()
-
 -- lsp keymaps
 local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
 
@@ -49,8 +44,8 @@ end
 
 -- nvim-tree
 local ntree_api = require('nvim-tree.api').tree
-local function open_at_root() ntree_api.toggle({ path = root }) end
-local function open_at_cwd() ntree_api.toggle({ path = cwd }) end
+local function open_at_root() ntree_api.toggle({ path = LazyVim.root() }) end
+local function open_at_cwd() ntree_api.toggle({ path = vim.uv.cwd() }) end
 
 vim.keymap.set('n', '<leader>e', open_at_root, opts('Explorer nvim-tree (root)'))
 
@@ -122,11 +117,11 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  'n', '<leader>qS', function() ses.SaveSession(cwd) end, opts('Save session based on cwd')
+  'n', '<leader>qS', function() ses.SaveSession(vim.uv.cwd()) end, opts('Save session based on cwd')
 )
 
 vim.keymap.set(
-  'n', '<leader>qs', function() ses.RestoreSession(cwd) end, opts('Restore last session based on cwd')
+  'n', '<leader>qs', function() ses.RestoreSession(vim.uv.cwd()) end, opts('Restore last session based on cwd')
 )
 
 vim.keymap.set(
@@ -145,13 +140,13 @@ local tt = require('toggleterm')
 
 local function open_terminal()
   local terminals = require('toggleterm.terminal').get_all()
-  if #terminals == 0 then tt.new(nil, root, 'horizontal')
+  if #terminals == 0 then tt.new(nil, LazyVim.root(), 'horizontal')
   else tt.toggle_all() end
 end
 
 local function create_terminal()
   local terminals = require('toggleterm.terminal').get_all()
-  if #terminals ~= 0 then tt.new(nil, root, 'horizontal') end
+  if #terminals ~= 0 then tt.new(nil, LazyVim.root(), 'horizontal') end
 end
 
 vim.keymap.set('n', '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
@@ -164,11 +159,11 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  'n', '<leader>ft', function() tt.new(nil, root, 'horizontal') end, opts('Open a Terminal (Root Dir)')
+  'n', '<leader>ft', function() tt.new(nil, LazyVim.root(), 'horizontal') end, opts('Open a Terminal (Root Dir)')
 )
 
 vim.keymap.set(
-  'n', '<leader>fT', function() tt.new(nil, cwd, 'horizontal') end, opts('Open a Terminal (cwd)')
+  'n', '<leader>fT', function() tt.new(nil, vim.uv.cwd(), 'horizontal') end, opts('Open a Terminal (cwd)')
 )
 
 -- grug-far
@@ -193,7 +188,7 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  'n', '<leader>cw', function() yz.yazi(yz.config, cwd, nil) end, opts('Open yazi in the cwd', true)
+  'n', '<leader>cw', function() yz.yazi(yz.config, vim.uv.cwd(), nil) end, opts('Open yazi in the cwd', true)
 )
 
 vim.keymap.set(
