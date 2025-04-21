@@ -38,7 +38,9 @@ lspconfig.lua_ls.setup(lua_ls__setup)
 lspconfig.solargraph.setup {}
 
 -- rpmspec
-lspconfig.rpmspec.setup {}
+lspconfig.rpmspec.setup {
+  cmd = { 'rpm_lsp_server', '--stdio' }
+}
 
 -- CSS
 local cssls_capabilities = vim.lsp.protocol.make_client_capabilities()
