@@ -39,7 +39,7 @@ lspconfig.solargraph.setup {}
 
 -- rpmspec
 lspconfig.rpmspec.setup {
-  cmd = { 'rpm_spec_language_server', '--stdio' }
+  cmd = { 'rpm_lsp_server', '--stdio' }
 }
 
 -- CSS
