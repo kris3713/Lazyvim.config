@@ -37,6 +37,9 @@ lspconfig.lua_ls.setup(lua_ls__setup)
 -- Ruby
 lspconfig.solargraph.setup {}
 
+-- rpmspec
+lspconfig.rpmspec.setup {}
+
 -- CSS
 local cssls_capabilities = vim.lsp.protocol.make_client_capabilities()
 cssls_capabilities.textDocument.completion.completionItem.snippetSupport = true
