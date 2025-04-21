@@ -324,15 +324,6 @@ require('snippets').setup {
 }
 
 -- lualine.nvim
-local function line_ending()
-  if vim.bo.fileformat == 'unix' then return 'LF (unix)'
-  elseif vim.bo.fileformat == 'dos' then return 'CRLF (dos)'
-  elseif vim.bo.fileformat == 'mac' then return 'CR (mac)'
-  else return vim.bo.fileformat end
-end
-
-local function fileformat() return line_ending() end
-
 require('lualine').setup {
   sections = {
     lualine_c = {
@@ -347,10 +338,32 @@ require('lualine').setup {
       },
       {
         'lsp_status',
-        on_click = function() require('snacks').picker.lsp_config() end
+        on_click = function() require('snacks').picker.lsp_config() end,
       }
     },
-    lualine_x = { 'encoding', fileformat, 'filetype' },
+    lualine_x = {
+      { 'encoding', show_bomb = true },
+      {
+        name = 'fileformat',
+        function()
+          if vim.bo.fileformat == 'unix' then return 'LF (unix)'
+          elseif vim.bo.fileformat == 'dos' then return 'CRLF (dos)'
+          elseif vim.bo.fileformat == 'mac' then return 'CR (mac)'
+          else return vim.bo.fileformat end
+        end,
+        on_click = function()
+          if vim.bo.fileformat == 'unix' then vim.bo.fileformat = 'dos'
+          elseif vim.bo.fileformat == 'dos' then vim.bo.fileformat = 'mac'
+          elseif vim.bo.fileformat == 'mac' then vim.bo.fileformat = 'unix' end
+        end
+      },
+      {
+        'filetype',
+        on_click = function ()
+          require('telescope.builtin').filetypes()
+        end
+      }
+    },
     lualine_y = { 'searchcount', 'selectioncount', 'progress' },
     lualine_z = { 'location' }
   }
