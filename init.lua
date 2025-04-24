@@ -9,7 +9,7 @@ local lspconfig = require('lspconfig')
 
 -- Lua
 ---@type lspconfig.options.lua_ls
-local lua_ls__setup = {
+local luals_setup = {
   settings = {
      Lua = {
         completion = {
@@ -32,12 +32,13 @@ local lua_ls__setup = {
   }
 }
 
-lspconfig.lua_ls.setup(lua_ls__setup)
+lspconfig.lua_ls.setup(luals_setup)
 
 -- Ruby
 lspconfig.solargraph.setup {}
 
--- golangci_lint_ls
+-- Golang
+lspconfig.gopls.setup {}
 lspconfig.golangci_lint_ls.setup {}
 
 -- rpmspec
@@ -225,11 +226,11 @@ null_ls.setup {
     null_ls.builtins.diagnostics.dotenv_linter,
     null_ls.builtins.diagnostics.editorconfig_checker,
     null_ls.builtins.diagnostics.fish,
-    null_ls.builtins.diagnostics.golangci_lint,
     null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.diagnostics.rpmspec,
     null_ls.builtins.diagnostics.todo_comments,
     null_ls.builtins.formatting.fish_indent,
+    null_ls.builtins.formatting.gofumpt.with {},
     null_ls.builtins.formatting.markdownlint,
     null_ls.builtins.formatting.shfmt,
     null_ls.builtins.formatting.yamlfmt,
@@ -282,7 +283,12 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 end)
 
 require('ibl').setup {
-  indent = { highlight = highlight },
+  indent = {
+    smart_indent_cap = true,
+    char = '│',
+    highlight = highlight,
+    tab_char = '│'
+  },
   scope = { show_start = true, show_end = true }
 }
 
@@ -417,31 +423,34 @@ cmp.setup(cmp_setup)
 -- mouse menu
 vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
 
-for _, i in ipairs({'n', 'x'}) do
+for _, mode in ipairs({'n', 'x'}) do
   -- Modified built-in entries
   vim.cmd(string.format(
-    [[ %smenu PopUp.Go\ to\ definition gd ]], i
+    [[ %smenu PopUp.Go\ to\ definition gd ]], mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ Diagnostics <leader>cd ]], i
+    [[ %smenu PopUp.Show\ Diagnostics <leader>cd ]], mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]], i
+    [[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]], mode
   ))
+  -- vim.cmd(string.format(
+  --   [[ %sunmenu PopUp.Configure\ Diagnostics ]], mode
+  -- ))
 
   -- Implement a code actions entry
   vim.cmd(string.format(
-    [[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]], i
+    [[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]], mode
   ))
 
   -- Implement all go-to definitions
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ References gr ]], i
+    [[ %smenu PopUp.Show\ References gr ]], mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ Implementation gI ]], i
+    [[ %smenu PopUp.Show\ Implementation gI ]], mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ Type\ Definition gy ]], i
+    [[ %smenu PopUp.Show\ Type\ Definition gy ]], mode
   ))
 end
