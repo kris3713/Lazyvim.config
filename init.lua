@@ -37,6 +37,9 @@ lspconfig.lua_ls.setup(lua_ls__setup)
 -- Ruby
 lspconfig.solargraph.setup {}
 
+-- golangci_lint_ls
+lspconfig.golangci_lint_ls.setup {}
+
 -- rpmspec
 lspconfig.rpmspec.setup {
   cmd = { 'rpm_lsp_server', '--stdio' }
@@ -216,7 +219,6 @@ null_ls.setup {
     -- Only add sources that are not natively
     -- supported by the built-in lsp.
     null_ls.builtins.code_actions.refactoring,
-    null_ls.builtins.code_actions.textlint,
     null_ls.builtins.completion.nvim_snippets,
     null_ls.builtins.completion.tags,
     null_ls.builtins.diagnostics.actionlint,
