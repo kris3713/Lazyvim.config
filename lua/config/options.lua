@@ -14,8 +14,10 @@ vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
 -- Set softwrapping to always be true
 vim.opt.wrap = true
 
--- Set expandtab
+-- Ensure all indents are spaces and have a width of 2
 vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
 
 -- -- Set leader key
 -- vim.g.mapleader = ","
