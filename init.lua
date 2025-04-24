@@ -225,6 +225,7 @@ null_ls.setup {
     null_ls.builtins.diagnostics.dotenv_linter,
     null_ls.builtins.diagnostics.editorconfig_checker,
     null_ls.builtins.diagnostics.fish,
+    null_ls.builtins.diagnostics.golangci_lint,
     null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.diagnostics.rpmspec,
     null_ls.builtins.diagnostics.todo_comments,
