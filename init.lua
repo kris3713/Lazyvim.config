@@ -68,17 +68,22 @@ lspconfig.marksman.setup {
   ---@param bufnr number
   autostart = function(bufnr)
     local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
+
     if (vim.bo[bufnr].modifiable) and is_md then
       return true -- Return true to allow autostart
     end
+
     return false -- Otherwise, return false to prevent autostart
   end,
   ---@param bufnr number
   enable = function(bufnr)
-    local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
+    local is_md = (vim.bo[bufnr].filetype == 'markdown') or
+      (vim.bo[bufnr].filetype == 'markdown.mdx')
+
     if (vim.bo[bufnr].modifiable) and is_md then
       return true -- Return true to allow autostart
     end
+
     return false -- Otherwise, return false to prevent autostart
   end
 }
