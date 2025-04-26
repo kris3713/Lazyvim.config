@@ -402,7 +402,7 @@ local cmp_config = cmp.get_config()
 local new_sources = {
   { name = 'nvim_lsp_signature_help' },
   { name = 'dap' },
-  { name = 'render-markdown' },
+  { name = 'render-markdown' }
 }
 
 for _, i in ipairs(new_sources) do

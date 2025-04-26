@@ -40,16 +40,6 @@ return {
     end
   },
   {
-    'ray-x/go.nvim',
-    dependencies = { 'ray-x/guihua.lua' },
-    config = function ()
-      require('go').setup {}
-    end,
-    event = 'CmdlineEnter',
-    ft = { 'go', 'gomod' },
-    build = function() require('go.install').update_all_sync() end
-  },
-  {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = function()
@@ -365,6 +355,16 @@ return {
   }
   -- harper:ignore
   --- Might use again if needed.
+  -- {
+  --   'ray-x/go.nvim',
+  --   dependencies = { 'ray-x/guihua.lua' },
+  --   config = function ()
+  --     require('go').setup {}
+  --   end,
+  --   event = 'CmdlineEnter',
+  --   ft = { 'go', 'gomod' },
+  --   build = function() require('go.install').update_all_sync() end
+  -- },
   -- {
   --   'ray-x/lsp_signature.nvim',
   --   event = 'InsertEnter',
