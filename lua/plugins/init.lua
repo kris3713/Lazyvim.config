@@ -40,6 +40,16 @@ return {
     end
   },
   {
+    'ray-x/go.nvim',
+    dependencies = { 'ray-x/guihua.lua' },
+    config = function ()
+      require('go').setup {}
+    end,
+    event = 'CmdlineEnter',
+    ft = { 'go', 'gomod' },
+    build = function() require('go.install').update_all_sync() end
+  },
+  {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = function()
@@ -78,7 +88,7 @@ return {
   {
     'luckasRanarison/tailwind-tools.nvim',
     name = 'tailwind-tools',
-    build = ':UpdateRemotePlugins',
+    build = function() vim.cmd('UpdateRemotePlugins') end,
     config = true
   },
   {
