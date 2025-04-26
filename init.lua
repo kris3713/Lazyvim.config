@@ -389,10 +389,13 @@ require('lualine').setup {
 }
 
 -- telescope extensions
-require('telescope').load_extension('ui-select')
-require('telescope').load_extension('undo')
-require('telescope').load_extension('frecency')
-require('telescope').load_extension('dap')
+local telescope = require('telescope')
+
+telescope.load_extension('ui-select')
+telescope.load_extension('undo')
+telescope.load_extension('frecency')
+telescope.load_extension('dap')
+telescope.load_extension('scope')
 
 -- nvim-cmp
 local cmp = require('cmp')

@@ -1,5 +1,5 @@
 return {
-  -- Configuration for plugins already installed by LazyExtras
+  -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
   {
     'folke/snacks.nvim',
     ---@module 'snacks'
@@ -42,6 +42,21 @@ return {
     opts = {
       -- Disable inlay hints
       inlay_hints = { enabled = false }
+    }
+  },
+  {
+    'akinsho/bufferline.nvim',
+    ---@module 'bufferline'
+    ---@type bufferline.Config
+    opts = {
+      options = {
+        separator_style = 'thick',
+        hover = {
+          enabled = true,
+          delay = 120,
+          reveal = { 'close' }
+        }
+      }
     }
   }
 }

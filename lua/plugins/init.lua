@@ -62,6 +62,12 @@ return {
     }
   },
   {
+    'tiagovla/scope.nvim',
+    config = function()
+      require('scope').setup {}
+    end
+  },
+  {
     'nacro90/numb.nvim',
     config = function()
       -- Has potential for a complex configuration
