@@ -403,7 +403,6 @@ local new_sources = {
   { name = 'nvim_lsp_signature_help' },
   { name = 'dap' },
   { name = 'render-markdown' },
-  { name = 'treesitter' }
 }
 
 for _, i in ipairs(new_sources) do

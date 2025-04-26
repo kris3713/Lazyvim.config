@@ -17,6 +17,5 @@ return {
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'rcarriga/cmp-dap',
-  'ray-x/cmp-treesitter',
   'tamago324/nlsp-settings.nvim'
 }
