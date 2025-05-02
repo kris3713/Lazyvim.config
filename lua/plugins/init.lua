@@ -192,10 +192,7 @@ return {
         require('hover.providers.man')
         require('hover.providers.dap')
       end,
-      preview_opts = {
-        border = 'rounded'
-      },
-      title = false
+      preview_opts = { border = 'rounded' }
     }
   },
   {
