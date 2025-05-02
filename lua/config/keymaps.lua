@@ -211,10 +211,10 @@ vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end
 
 -- Hover Doc
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'K', function() vim.cmd.Lspsaga('hover_doc') end, desc = 'Hover Doc', noremap = true
+  'K', require("pretty_hover").hover, desc = 'Hover Doc', noremap = true
 }
 
-vim.keymap.set('n', '<Tab>', function() vim.cmd.Lspsaga('hover_doc') end, opts('Hover Doc'))
+vim.keymap.set('n', '<Tab>', require("pretty_hover").hover, opts('Hover Doc'))
 
 -- Diagnostics
 lsp_keymaps[#lsp_keymaps + 1] = {

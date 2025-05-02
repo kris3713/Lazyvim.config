@@ -56,6 +56,11 @@ return {
     config = true
   },
   {
+    'Fildo7525/pretty_hover',
+    event = 'LspAttach',
+    opts = {}
+  },
+  {
     'm-demare/hlargs.nvim',
     opts = {
       color = '#ed8796'
