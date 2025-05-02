@@ -56,11 +56,6 @@ return {
     config = true
   },
   {
-    'Fildo7525/pretty_hover',
-    event = 'LspAttach',
-    opts = {}
-  },
-  {
     'm-demare/hlargs.nvim',
     opts = {
       color = '#ed8796'
@@ -184,6 +179,21 @@ return {
     opts = {
       menu = {
         win_configs = { border = 'rounded' }
+      }
+    }
+  },
+  {
+    'lewis6991/hover.nvim',
+    ---@module 'hover'
+    ---@type Hover.Config
+    opts = {
+      init = function ()
+        require('hover.providers.lsp')
+        require('hover.providers.man')
+        require('hover.providers.dap')
+      end,
+      preview_opts = {
+        border = 'rounded'
       }
     }
   },
