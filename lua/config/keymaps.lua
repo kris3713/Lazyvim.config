@@ -210,17 +210,17 @@ vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, opt
 vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, opts('Peek type definition'))
 
 -- hover.nvim
-local hover = require('hover')
+local h_nvim = require('hover')
 
 -- Hover Doc
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'K', hover.hover, desc = 'Hover Doc', noremap = true
+  'K', h_nvim.hover, desc = 'Hover Doc', noremap = true
 }
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'gK', hover.hover_select, desc = 'Hover Doc Select', noremap = true
+  'gK', h_nvim.hover_select, desc = 'Hover Doc Select', noremap = true
 }
 
-vim.keymap.set('n', '<Tab>', require('hover').hover, opts('Hover Doc'))
+vim.keymap.set('n', '<Tab>', h_nvim.hover, opts('Hover Doc'))
 
 -- Diagnostics
 lsp_keymaps[#lsp_keymaps + 1] = {
@@ -229,8 +229,8 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 
 --- lspsaga
 
-vim.keymap.set('n', '<C-p>', function() hover.hover_switch('previous', {}) end, opts('hover.nvim (Previous source)'))
-vim.keymap.set('n', '<C-n>', function() hover.hover_switch('next', {}) end, opts('hover.nvim (Next source)'))
+vim.keymap.set('n', '<C-p>', function() h_nvim.hover_switch('previous', {}) end, opts('hover.nvim (Previous source)'))
+vim.keymap.set('n', '<C-n>', function() h_nvim.hover_switch('next', {}) end, opts('hover.nvim (Next source)'))
 
 -- omnisharp
 if (vim.bo.filetype == 'cs') or (vim.bo.filetype == 'vb') then

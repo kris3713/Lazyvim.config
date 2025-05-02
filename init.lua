@@ -462,3 +462,9 @@ for _, mode in ipairs({'n', 'x'}) do
     [[ %smenu PopUp.Show\ Type\ Definition gy ]], mode
   ))
 end
+
+-- User commands
+
+vim.api.nvim_create_user_command('M', 'MurenToggle', {
+  desc = 'Toggle Muren', bang = true, register = true, range = 0
+})

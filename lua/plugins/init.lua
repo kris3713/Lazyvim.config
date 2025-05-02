@@ -194,7 +194,8 @@ return {
       end,
       preview_opts = {
         border = 'rounded'
-      }
+      },
+      title = false
     }
   },
   {
