@@ -287,11 +287,11 @@ local function b_line_sort_by_dir() b_line.sort_by('directory') end
 local function b_line_sort_by_rel_dir() b_line.sort_by('relative_directory') end
 local function b_line_sort_by_tabs() b_line.sort_by('tabs') end
 
-vim.keymap.set('n', '<leader>bf', b_line.pick, opts('Bufferline pick'))
-vim.keymap.set('n', '<leader>bF', b_line.close_with_pick, opts('Bufferline close with pick'))
-vim.keymap.set('n', '<leader>bL', function() vim.cmd('BufferLineMovePrev') end, opts('Bufferline move previous'))
-vim.keymap.set('n', '<leader>bH', function() vim.cmd('BufferLineMoveNext') end, opts('Bufferline move next'))
-vim.keymap.set('n', '<leader>bqe', b_line_sort_by_ext, opts('Bufferline Sort by extension'))
-vim.keymap.set('n', '<leader>bqd', b_line_sort_by_dir, opts('Bufferline Sort by directory'))
-vim.keymap.set('n', '<leader>bqr', b_line_sort_by_rel_dir, opts('Bufferline Sort by relative directory'))
-vim.keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by tabs'))
+vim.keymap.set('n', '<leader>bf', b_line.pick, opts('Bufferline Pick'))
+vim.keymap.set('n', '<leader>bF', b_line.close_with_pick, opts('Bufferline Close with Pick'))
+vim.keymap.set('n', '<leader>bL', function() vim.cmd('BufferLineMovePrev') end, opts('Bufferline Move previous'))
+vim.keymap.set('n', '<leader>bH', function() vim.cmd('BufferLineMoveNext') end, opts('Bufferline Move next'))
+vim.keymap.set('n', '<leader>bqe', b_line_sort_by_ext, opts('Bufferline Sort by Extension'))
+vim.keymap.set('n', '<leader>bqd', b_line_sort_by_dir, opts('Bufferline Sort by Directory'))
+vim.keymap.set('n', '<leader>bqr', b_line_sort_by_rel_dir, opts('Bufferline Sort by Relative Directory'))
+vim.keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by Tabs'))
