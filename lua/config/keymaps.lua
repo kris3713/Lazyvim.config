@@ -82,9 +82,7 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 }
 
 -- neogen
-vim.keymap.set('n', '<leader>N', function()
-  require('neogen').generate()
-end, opts('Generate annotations', true))
+vim.keymap.set('n', '<leader>N', require('neogen').generate, opts('Generate annotations', true))
 
 -- Set softwrap to Alt + Z
 vim.keymap.set('n', '<A-z>', function()
@@ -97,32 +95,16 @@ vim.keymap.set('n', '<leader>L', function()
 end, opts('Open LazyExtras'))
 
 -- Make it easier to open Mason
-vim.keymap.set('n', '<leader>M', function()
-  vim.cmd('Mason')
-end, opts('Open Mason'))
+vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mason'))
 
 -- auto-session
-local auto_ses = require('auto-session')
+local auto = require('auto-session')
 
-vim.keymap.set('n', '<leader>qf', function()
-  vim.cmd('SessionSearch')
-end, opts('Select a session to load'))
-
-vim.keymap.set('n', '<leader>qS', function()
-  auto_ses.SaveSession(vim.uv.cwd())
-end, opts('Save session based on cwd'))
-
-vim.keymap.set('n', '<leader>qs', function()
-  auto_ses.RestoreSession(vim.uv.cwd())
-end, opts('Restore last session based on cwd'))
-
-vim.keymap.set('n', '<leader>qD', function()
-  vim.cmd.Autosession('delete')
-end, opts('Delete Session based on cwd'))
-
-vim.keymap.set('n', '<leader>qd', function()
-  vim.cmd('SessionToggleAutoSave')
-end, opts('Toggle autosave'))
+vim.keymap.set('n', '<leader>qf', function() vim.cmd('SessionSearch') end, opts('Select a session to load'))
+vim.keymap.set('n', '<leader>qS', function() auto.SaveSession(vim.uv.cwd()) end, opts('Save session based on cwd'))
+vim.keymap.set('n', '<leader>qs', function() auto.RestoreSession(vim.uv.cwd()) end, opts('Restore last session based on cwd'))
+vim.keymap.set('n', '<leader>qD', function() vim.cmd.Autosession('delete') end, opts('Delete Session based on cwd'))
+vim.keymap.set('n', '<leader>qd', function() vim.cmd('SessionToggleAutoSave') end, opts('Toggle autosave'))
 
 -- Map the backwards indent to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
@@ -146,17 +128,9 @@ vim.keymap.set('n', '<C-/>', open_terminal, opts('Open a Terminal (if one is not
 vim.keymap.set('n', '<C-\\>', create_terminal, opts('Create a new Terminal (if one is active)'))
 
 -- NOTE: "?" is short for "Ctrl + Shift + /"
-vim.keymap.set(
-  'n', '<C-?>', function() tt.toggle_all() end, opts('Toggles all Terminal instances')
-)
-
-vim.keymap.set(
-  'n', '<leader>ft', function() tt.new(nil, LazyVim.root(), 'horizontal') end, opts('Open a Terminal (Root Dir)')
-)
-
-vim.keymap.set(
-  'n', '<leader>fT', function() tt.new(nil, vim.uv.cwd(), 'horizontal') end, opts('Open a Terminal (cwd)')
-)
+vim.keymap.set('n', '<C-?>', function() tt.toggle_all() end, opts('Toggles all Terminal instances'))
+vim.keymap.set('n', '<leader>ft', function() tt.new(nil, LazyVim.root(), 'horizontal') end, opts('Open a Terminal (Root Dir)'))
+vim.keymap.set('n', '<leader>fT', function() tt.new(nil, vim.uv.cwd(), 'horizontal') end, opts('Open a Terminal (cwd)'))
 
 -- grug-far
 local grug = require('grug-far')
@@ -170,7 +144,7 @@ end
 vim.keymap.set('v', '<leader>s/', grug_with_v_selection, opts('Search and Replace in current file'))
 
 -- Keymap for built-in renaming
-vim.keymap.set('n', '<leader>cr', function() vim.lsp.buf.rename() end, opts('Rename'))
+vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts('Rename'))
 
 -- Yazi keymaps
 local yz = require('yazi')
@@ -212,14 +186,13 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 }
 
 vim.keymap.set('n', '<Tab>', h_nvim.hover, opts('Hover Doc'))
+vim.keymap.set('n', '<C-p>', function() h_nvim.hover_switch('previous', {}) end, opts('hover.nvim (Previous source)'))
+vim.keymap.set('n', '<C-n>', function() h_nvim.hover_switch('next', {}) end, opts('hover.nvim (Next source)'))
 
 -- Diagnostics
 lsp_keymaps[#lsp_keymaps + 1] = {
   '<leader>cd', function() vim.cmd.Lspsaga('show_line_diagnostics') end, desc = 'Line Diagnostics', noremap = true
 }
-
-vim.keymap.set('n', '<C-p>', function() h_nvim.hover_switch('previous', {}) end, opts('hover.nvim (Previous source)'))
-vim.keymap.set('n', '<C-n>', function() h_nvim.hover_switch('next', {}) end, opts('hover.nvim (Next source)'))
 --- lspsaga
 
 -- omnisharp
@@ -261,8 +234,8 @@ vim.keymap.set('x', '<leader>rx', function() vim.cmd.Refactor('extract_var') end
 -- treesj
 local treesj = require('treesj')
 
-vim.keymap.set('n', '<leader>i', function() treesj.split() end, opts('Split code block'))
-vim.keymap.set('n', '<leader>j', function() treesj.join() end, opts('Join code block'))
+vim.keymap.set('n', '<leader>i', treesj.split, opts('Split code block'))
+vim.keymap.set('n', '<leader>j', treesj.join, opts('Join code block'))
 
 -- Swap between fileformats
 local function swap_fileformats()
