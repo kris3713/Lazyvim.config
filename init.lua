@@ -365,20 +365,29 @@ require('lualine').setup {
       {
         name = 'fileformat',
         function()
-          if vim.bo.fileformat == 'unix' then return 'LF (unix)'
-          elseif vim.bo.fileformat == 'dos' then return 'CRLF (dos)'
-          elseif vim.bo.fileformat == 'mac' then return 'CR (mac)'
-          else return vim.bo.fileformat end
+          if vim.bo.fileformat == 'unix' then
+            return 'LF (unix)'
+          elseif vim.bo.fileformat == 'dos' then
+            return 'CRLF (dos)'
+          elseif vim.bo.fileformat == 'mac' then
+            return 'CR (mac)'
+          else
+            return vim.bo.fileformat
+          end
         end,
         on_click = function()
-          if vim.bo.fileformat == 'unix' then vim.bo.fileformat = 'dos'
-          elseif vim.bo.fileformat == 'dos' then vim.bo.fileformat = 'mac'
-          elseif vim.bo.fileformat == 'mac' then vim.bo.fileformat = 'unix' end
+          if vim.bo.fileformat == 'unix' then
+            vim.bo.fileformat = 'dos'
+          elseif vim.bo.fileformat == 'dos' then
+            vim.bo.fileformat = 'mac'
+          elseif vim.bo.fileformat == 'mac' then
+            vim.bo.fileformat = 'unix'
+          end
         end
       },
       {
         'filetype',
-        on_click = function ()
+        on_click = function()
           require('telescope.builtin').filetypes()
         end
       }
