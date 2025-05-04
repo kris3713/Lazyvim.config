@@ -106,7 +106,6 @@ return {
   },
   {
     'Wansmer/treesj',
-    keys = { '<leader>m', '<leader>j' },
     config = function()
       -- Has potential for a complex configuration
       require('treesj').setup {}
@@ -151,6 +150,13 @@ return {
         signs = true
       }
     }
+  },
+  {
+    'smoka7/multicursors.nvim',
+    event = 'VeryLazy',
+    dependencies = 'nvimtools/hydra.nvim',
+    opts = {},
+    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' }
   },
   {
     'kevinhwang91/nvim-ufo',

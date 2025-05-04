@@ -7,9 +7,7 @@ local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
 
 --- which-key.nvim
 require('which-key').add {
-  { '<leader>j', desc = 'Join code block' },
-  { '<leader>m', desc = 'Split or Join code block with autodetect' },
-  { '<leader>bq', desc = 'Sort by' },
+  { '<leader>bq', desc = 'Sort by' }
 }
 
 -- harper:ignore
@@ -261,7 +259,10 @@ vim.keymap.set('x', '<leader>rF', function() vim.cmd.Refactor('extract_function_
 vim.keymap.set('x', '<leader>rx', function() vim.cmd.Refactor('extract_var') end, opts('Extract Variable'))
 
 -- treesj
-vim.keymap.set('n', '<leader>i', function() require('treesj').split() end, opts('Split code block'))
+local treesj = require('treesj')
+
+vim.keymap.set('n', '<leader>i', function() treesj.split() end, opts('Split code block'))
+vim.keymap.set('n', '<leader>j', function() treesj.join() end, opts('Join code block'))
 
 -- Swap between fileformats
 local function swap_fileformats()
@@ -295,3 +296,8 @@ vim.keymap.set('n', '<leader>bqe', b_line_sort_by_ext, opts('Bufferline Sort by 
 vim.keymap.set('n', '<leader>bqd', b_line_sort_by_dir, opts('Bufferline Sort by Directory'))
 vim.keymap.set('n', '<leader>bqr', b_line_sort_by_rel_dir, opts('Bufferline Sort by Relative Directory'))
 vim.keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by Tabs'))
+
+-- multicursors
+local mc = require('multicursors')
+
+vim.keymap.set({ 'n', 'v' }, '<leader>m', mc.start, opts('Create a selection for selected text or word under the cursor'))
