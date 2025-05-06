@@ -11,24 +11,24 @@ local lspconfig = require('lspconfig')
 ---@type lspconfig.options.lua_ls
 local luals_setup = {
   settings = {
-     Lua = {
-        completion = {
-          callSnippet = 'Replace',
-          showWord = 'Enable',
-          workspaceWord = true
-        },
-        doc = {
-          privateName = { '^_' }
-        },
-        hint = {
-          enable = true,
-          setType = false,
-          paramType = true,
-          paramName = 'Disable',
-          semicolon = 'Disable',
-          arrayIndex = 'Disable'
-        }
-     }
+    Lua = {
+      completion = {
+        callSnippet = 'Replace',
+        showWord = 'Enable',
+        workspaceWord = true
+      },
+      doc = {
+        privateName = { '^_' }
+      },
+      hint = {
+        enable = true,
+        setType = false,
+        paramType = true,
+        paramName = 'Disable',
+        semicolon = 'Disable',
+        arrayIndex = 'Disable'
+      }
+    }
   }
 }
 
@@ -247,11 +247,11 @@ null_ls.setup {
 local nlspsettings = require('nlspsettings')
 
 nlspsettings.setup({
-    config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
-    local_settings_dir = '.nlsp-settings',
-    local_settings_root_markers_fallback = { '.git' },
-    append_default_schemas = true,
-    loader = 'json'
+  config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+  local_settings_dir = '.nlsp-settings',
+  local_settings_root_markers_fallback = { '.git' },
+  append_default_schemas = true,
+  loader = 'json'
 })
 
 -- conform.nvim
@@ -374,6 +374,22 @@ require('lualine').setup {
             return 'Spaces'
           else
             return 'Tabs'
+          end
+        end
+      },
+      {
+        -- shiftwidth/tabstop
+        function()
+          if vim.bo.expandtab then
+            return ('Indent Size: ' .. vim.bo.shiftwidth)
+          else
+            return ('Tab Width: ' .. vim.bo.tabstop)
+          end
+        end,
+        ---@param clicks any
+        on_click = function(clicks, _, _)
+          if clicks == 2 then
+            require('functions.set_shiftwidth_prompt').set_shiftwidth_prompt()
           end
         end
       },
