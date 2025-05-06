@@ -28,6 +28,7 @@ if vim.g.neovide then
   local other_opts = { nowait = false, noremap = false }
 
   -- Set zoom function for Neovide
+  ---@param delta number
   local function zoom(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end

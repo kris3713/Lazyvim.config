@@ -348,22 +348,37 @@ require('lualine').setup {
     lualine_c = {
       {
         'diagnostics',
-        on_click = function()
-          require('trouble').toggle({
-            mode = 'diagnostics',
-            filter = { buf = vim.api.nvim_get_current_buf() }
-          })
+        on_click = function(clicks, _, _)
+          if clicks == 2 then
+            require('trouble').toggle {
+              mode = 'diagnostics',
+              filter = { buf = vim.api.nvim_get_current_buf() }
+            }
+          end
         end
       },
       {
         'lsp_status',
-        on_click = function() require('snacks').picker.lsp_config() end,
+        ---@param clicks number
+        on_click = function(clicks, _, _)
+          if clicks == 2 then require('snacks').picker.lsp_config() end
+        end,
       }
     },
     lualine_x = {
       { 'encoding', show_bomb = true },
       {
-        name = 'fileformat',
+        -- indent_style
+        function()
+          if vim.bo.expandtab then
+            return 'Spaces'
+          else
+            return 'Tabs'
+          end
+        end
+      },
+      {
+        -- fileformat
         function()
           if vim.bo.fileformat == 'unix' then
             return 'LF (unix)'
@@ -375,20 +390,23 @@ require('lualine').setup {
             return vim.bo.fileformat
           end
         end,
-        on_click = function()
-          if vim.bo.fileformat == 'unix' then
-            vim.bo.fileformat = 'dos'
-          elseif vim.bo.fileformat == 'dos' then
-            vim.bo.fileformat = 'mac'
-          elseif vim.bo.fileformat == 'mac' then
-            vim.bo.fileformat = 'unix'
+        ---@param clicks number
+        on_click = function(clicks, _, _)
+          if clicks == 2 then
+            if vim.bo.fileformat == 'unix' then
+              vim.bo.fileformat = 'dos'
+            elseif vim.bo.fileformat == 'dos' then
+              vim.bo.fileformat = 'mac'
+            elseif vim.bo.fileformat == 'mac' then
+              vim.bo.fileformat = 'unix'
+            end
           end
         end
       },
       {
         'filetype',
-        on_click = function()
-          require('telescope.builtin').filetypes()
+        on_click = function(clicks, _, _)
+          if clicks == 2 then require('telescope.builtin').filetypes() end
         end
       }
     },
