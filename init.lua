@@ -222,7 +222,7 @@ vim.lsp.enable('stylelint_lsp')
 
 -- Powershell
 local powershell_es = {
-  bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services/PowerShellEditorServices'
+  bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services'
 }
 
 vim.lsp.config('powershell_es', powershell_es)
