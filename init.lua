@@ -5,8 +5,6 @@ require('config.lazy')
 vim.cmd.colorscheme('catppuccin-macchiato')
 
 --- LSP configs
-local lspconfig = require('lspconfig')
-
 -- Lua
 ---@module 'lspconfig'
 ---@type lspconfig.options.lua_ls
@@ -49,6 +47,7 @@ vim.lsp.enable('rpmspec')
 local cssls_capabilities = vim.lsp.protocol.make_client_capabilities()
 cssls_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+---@module 'lspconfig'
 ---@type lspconfig.options.cssls
 local cssls_setup = {
   capabilities = cssls_capabilities
