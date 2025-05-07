@@ -213,8 +213,21 @@ vim.lsp.enable('fish_lsp')
 -- BASH
 vim.lsp.enable('bashls')
 
--- XML language server
+-- XML
 vim.lsp.enable('lemminx')
+
+-- YAML
+vim.lsp.enable('yamlls')
+
+-- JSON
+local jsonls_capabilities = vim.lsp.protocol.make_client_capabilities()
+jsonls_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+vim.lsp.config('jsonls', {
+  capabilities = jsonls_capabilities
+})
+
+vim.lsp.enable('jsonls')
 
 -- Stylelint
 vim.lsp.enable('stylelint_lsp')
