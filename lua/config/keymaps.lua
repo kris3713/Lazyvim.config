@@ -74,7 +74,10 @@ vim.keymap.set('n', '<C-v>', '"+p', opts('', false))
 vim.keymap.set('n', '<S-Insert>', '"+p', opts('', false))
 
 -- retab
-vim.keymap.set('n', '<leader>\\', function() vim.cmd('retab') end, opts('Retab'))
+vim.keymap.set('n', '<leader>\\', function()
+  vim.cmd('retab')
+  print('Replaced all tabs with spaces')
+end, opts('Retab'))
 
 -- actions-preview.nvim
 local ap = require('actions-preview')
