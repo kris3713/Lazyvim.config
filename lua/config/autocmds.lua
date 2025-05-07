@@ -45,11 +45,9 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
     vim.api.nvim_set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
     vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
 
-    -- -- Javascript/Typescript
-    -- vim.api.nvim_set_hl(0, '@lsp.typemod.method.defaultLibrary.typescriptreact', { link = '@lsp.type.method' })
-    -- vim.api.nvim_set_hl(0, '@lsp.typemod.method.defaultLibrary.javascriptreact', { link = '@lsp.type.method' })
-    -- vim.api.nvim_set_hl(0, '@lsp.typemod.method.defaultLibrary.typescript', { link = '@lsp.type.method' })
-    -- vim.api.nvim_set_hl(0, '@lsp.typemod.method.defaultLibrary.javascript', { link = '@lsp.type.method' })
+    -- Golang
+    vim.api.nvim_set_hl(0, '@lsp.mod.format.go', { link = '@character.printf' })
+    -- vim.api.nvim_set_hl(0, '@string.escape.go', { fg = 'pink' })
   end
 })
 
