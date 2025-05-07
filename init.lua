@@ -6,8 +6,7 @@ vim.cmd.colorscheme('catppuccin-macchiato')
 
 --- LSP configs
 -- Lua
----@type vim.lsp.config
-local lua_ls = {
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
       completion = {
@@ -28,15 +27,50 @@ local lua_ls = {
       }
     }
   }
-}
-
-vim.lsp.config('lua_ls', lua_ls)
+})
 vim.lsp.enable('lua_ls')
 
 -- Ruby
 vim.lsp.enable('solargraph')
 
 -- Golang
+vim.lsp.config('gopls', {
+  settings = {
+    gopls = {
+      gofumpt = true,
+      codelenses = {
+        gc_details = false,
+        generate = true,
+        regenerate_cgo = true,
+        run_govulncheck = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true
+      },
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true
+      },
+      analyses = {
+        nilness = true,
+        unusedparams = true,
+        unusedwrite = true,
+        useany = true
+      },
+      usePlaceholders = true,
+      completeUnimported = true,
+      staticcheck = true,
+      directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+      semanticTokens = true
+    }
+  }
+})
 vim.lsp.enable({ 'gopls', 'golangci_lint_ls' })
 
 -- rpmspec
@@ -46,16 +80,14 @@ vim.lsp.enable('rpmspec')
 local cssls_capabilities = vim.lsp.protocol.make_client_capabilities()
 cssls_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local cssls = { capabilities = cssls_capabilities }
-
-vim.lsp.config('cssls', cssls)
+vim.lsp.config('cssls', { capabilities = cssls_capabilities })
 vim.lsp.enable({ 'cssls', 'cssmodules_ls', 'css_variables' })
 
 -- GitHub Actions
 vim.lsp.enable('gh_actions_ls')
 
 -- Markdown
-local marksman = {
+vim.lsp.config('marksman', {
   -- This solves the problem of Marksman exiting when a new hover doc buffer (from Lspsaga) is created
   ---@param bufnr number
   autostart = function(bufnr)
@@ -78,15 +110,13 @@ local marksman = {
 
     return false -- Otherwise, return false to prevent autostart
   end
-}
-
-vim.lsp.config('marksman', marksman)
+})
 vim.lsp.enable('marksman')
 
 -- .NET development
 local omni_ext = require('omnisharp_extended')
 
-local omnisharp_setup = {
+vim.lsp.config('omnisharp', {
   FormattingOptions = {
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from `.editorconfig`
@@ -124,9 +154,7 @@ local omnisharp_setup = {
     ['textDocument/references'] = omni_ext.references_handler,
     ['textDocument/implementation'] = omni_ext.implementation_handler
   }
-}
-
-vim.lsp.config('omnisharp', omnisharp_setup)
+})
 vim.lsp.enable('omnisharp')
 
 -- MSBuild
@@ -245,11 +273,9 @@ vim.lsp.enable('jsonls')
 vim.lsp.enable('stylelint_lsp')
 
 -- PowerShell
-local powershell_es = {
+vim.lsp.config('powershell_es', {
   bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services'
-}
-
-vim.lsp.config('powershell_es', powershell_es)
+})
 vim.lsp.enable('powershell_es')
 
 --- none-ls.nvim
