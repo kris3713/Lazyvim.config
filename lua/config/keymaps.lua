@@ -73,6 +73,9 @@ vim.keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', opts('', false))
 vim.keymap.set('n', '<C-v>', '"+p', opts('', false))
 vim.keymap.set('n', '<S-Insert>', '"+p', opts('', false))
 
+-- retab
+vim.keymap.set('n', '<leader>cr', function() vim.cmd('retab') end, opts('Retab'))
+
 -- actions-preview.nvim
 local ap = require('actions-preview')
 
