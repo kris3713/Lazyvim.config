@@ -8,6 +8,7 @@ vim.cmd.colorscheme('catppuccin-macchiato')
 local lspconfig = require('lspconfig')
 
 -- Lua
+---@module 'lspconfig'
 ---@type lspconfig.options.lua_ls
 local luals_setup = {
   settings = {
@@ -32,19 +33,17 @@ local luals_setup = {
   }
 }
 
-lspconfig.lua_ls.setup(luals_setup)
+vim.lsp.config('lua_ls', luals_setup)
+vim.lsp.enable('lua_ls')
 
 -- Ruby
-lspconfig.solargraph.setup {}
+vim.lsp.enable('solargraph')
 
 -- Golang
-lspconfig.gopls.setup {}
-lspconfig.golangci_lint_ls.setup {}
+vim.lsp.enable({ 'gopls', 'golangci_lint_ls' })
 
 -- rpmspec
-lspconfig.rpmspec.setup {
-  cmd = { 'rpm_lsp_server', '--stdio' }
-}
+vim.lsp.enable('rpmspec')
 
 -- CSS
 local cssls_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -55,15 +54,14 @@ local cssls_setup = {
   capabilities = cssls_capabilities
 }
 
-lspconfig.css_variables.setup {}
-lspconfig.cssmodules_ls.setup {}
-lspconfig.cssls.setup(cssls_setup)
+vim.lsp.config('cssls', cssls_setup)
+vim.lsp.enable({ 'cssls', 'cssmodules_ls', 'css_variables' })
 
 -- GitHub Actions
-lspconfig.gh_actions_ls.setup {}
+vim.lsp.enable('gh_actions_ls')
 
 -- Markdown
-lspconfig.marksman.setup {
+vim.lsp.config('marksman', {
   -- This solves the problem of Marksman exiting when a new hover doc buffer (from Lspsaga) is created
   ---@param bufnr number
   autostart = function(bufnr)
@@ -78,7 +76,7 @@ lspconfig.marksman.setup {
   ---@param bufnr number
   enable = function(bufnr)
     local is_md = (vim.bo[bufnr].filetype == 'markdown') or
-      (vim.bo[bufnr].filetype == 'markdown.mdx')
+    (vim.bo[bufnr].filetype == 'markdown.mdx')
 
     if (vim.bo[bufnr].modifiable) and is_md then
       return true -- Return true to allow autostart
@@ -86,11 +84,13 @@ lspconfig.marksman.setup {
 
     return false -- Otherwise, return false to prevent autostart
   end
-}
+})
+vim.lsp.enable('marksman')
 
 -- .NET development
 local omni_ext = require('omnisharp_extended')
 
+---@module 'lspconfig'
 ---@type lspconfig.options.omnisharp
 local omnisharp_setup = {
   FormattingOptions = {
@@ -132,14 +132,16 @@ local omnisharp_setup = {
   }
 }
 
-lspconfig.omnisharp.setup(omnisharp_setup)
+vim.lsp.config('omnisharp', omnisharp_setup)
+vim.lsp.enable('omnisharp')
 
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
 if (msbuild ~= '' and msbuild ~= nil) then
-  lspconfig.msbuild_project_tools_server.setup {
+  vim.lsp.config('msbuild_project_tools_server', {
     cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
-  }
+  })
+  vim.lsp.enable('msbuild_project_tools_server')
 end
 
 -- Typescript/Javascript (vtsls)
@@ -189,33 +191,42 @@ local vtsls_setup = {
   }
 }
 
-lspconfig.vtsls.setup(vtsls_setup)
+vim.lsp.config('vtsls', vtsls_setup)
+vim.lsp.enable('vtsls')
 
 -- Spelling and Grammar checking
-lspconfig.harper_ls.setup {
+vim.lsp.config('harper_ls', {
   settings = {
     ['harper-ls'] = {
       userDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt',
       fileDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt'
     }
   }
-}
+})
+vim.lsp.enable('harper_ls')
 
 -- Containers
-lspconfig.dockerls.setup {}
-lspconfig.docker_compose_language_service.setup {}
+vim.lsp.enable({ 'dockerls', 'docker_compose_language_service' })
 
 -- FISH
-lspconfig.fish_lsp.setup {}
+vim.lsp.enable('fish_lsp')
 
 -- BASH
-lspconfig.bashls.setup{}
+vim.lsp.enable('bashls')
 
 -- XML language server
-lspconfig.lemminx.setup {}
+vim.lsp.enable('lemminx')
 
 -- Stylelint
-lspconfig.stylelint_lsp.setup {}
+vim.lsp.enable('stylelint_lsp')
+
+-- Powershell
+local powershell_es = {
+  bundle_path = vim.fn.stdpath('data') .. '/PowerShellEditorServices',
+}
+
+vim.lsp.config('powershell_es', powershell_es)
+vim.lsp.enable('powershell_es')
 
 --- none-ls.nvim
 local null_ls = require('null-ls')
