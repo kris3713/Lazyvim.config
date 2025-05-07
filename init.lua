@@ -6,9 +6,8 @@ vim.cmd.colorscheme('catppuccin-macchiato')
 
 --- LSP configs
 -- Lua
----@module 'lspconfig'
----@type lspconfig.options.lua_ls
-local luals_setup = {
+---@type vim.lsp.config
+local lua_ls = {
   settings = {
     Lua = {
       completion = {
@@ -31,7 +30,7 @@ local luals_setup = {
   }
 }
 
-vim.lsp.config('lua_ls', luals_setup)
+vim.lsp.config('lua_ls', lua_ls)
 vim.lsp.enable('lua_ls')
 
 -- Ruby
@@ -47,20 +46,16 @@ vim.lsp.enable('rpmspec')
 local cssls_capabilities = vim.lsp.protocol.make_client_capabilities()
 cssls_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
----@module 'lspconfig'
----@type lspconfig.options.cssls
-local cssls_setup = {
-  capabilities = cssls_capabilities
-}
+local cssls = { capabilities = cssls_capabilities }
 
-vim.lsp.config('cssls', cssls_setup)
+vim.lsp.config('cssls', cssls)
 vim.lsp.enable({ 'cssls', 'cssmodules_ls', 'css_variables' })
 
 -- GitHub Actions
 vim.lsp.enable('gh_actions_ls')
 
 -- Markdown
-vim.lsp.config('marksman', {
+local marksman = {
   -- This solves the problem of Marksman exiting when a new hover doc buffer (from Lspsaga) is created
   ---@param bufnr number
   autostart = function(bufnr)
@@ -83,14 +78,14 @@ vim.lsp.config('marksman', {
 
     return false -- Otherwise, return false to prevent autostart
   end
-})
+}
+
+vim.lsp.config('marksman', marksman)
 vim.lsp.enable('marksman')
 
 -- .NET development
 local omni_ext = require('omnisharp_extended')
 
----@module 'lspconfig'
----@type lspconfig.options.omnisharp
 local omnisharp_setup = {
   FormattingOptions = {
     -- Enables support for reading code style, naming convention and analyzer
@@ -144,9 +139,7 @@ if (msbuild ~= '' and msbuild ~= nil) then
 end
 
 -- Typescript/Javascript (vtsls)
----@module 'lspconfig'
----@type lspconfig.options.vtsls
-local vtsls_setup = {
+local vtsls = {
   settings = {
     vtsls = {
       experimental = { enableProjectDiagnostics = true },
@@ -190,7 +183,7 @@ local vtsls_setup = {
   }
 }
 
-vim.lsp.config('vtsls', vtsls_setup)
+vim.lsp.config('vtsls', vtsls)
 vim.lsp.enable('vtsls')
 
 -- Spelling and Grammar checking
@@ -217,6 +210,20 @@ vim.lsp.enable('bashls')
 vim.lsp.enable('lemminx')
 
 -- YAML
+vim.lsp.config('yamlls', {
+  settings = {
+    yaml = {
+      schemaStore = {
+        -- You must disable built-in schemaStore support if you want to use
+        -- this plugin and its advanced options like `ignore`.
+        enable = false,
+        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        url = ''
+      },
+      schemas = require('schemastore').yaml.schemas()
+    }
+  }
+})
 vim.lsp.enable('yamlls')
 
 -- JSON
@@ -224,15 +231,20 @@ local jsonls_capabilities = vim.lsp.protocol.make_client_capabilities()
 jsonls_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 vim.lsp.config('jsonls', {
-  capabilities = jsonls_capabilities
+  capabilities = jsonls_capabilities,
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true }
+    }
+  }
 })
-
 vim.lsp.enable('jsonls')
 
 -- Stylelint
 vim.lsp.enable('stylelint_lsp')
 
--- Powershell
+-- PowerShell
 local powershell_es = {
   bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services'
 }
