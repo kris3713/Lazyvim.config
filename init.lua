@@ -39,7 +39,7 @@ vim.lsp.enable('ruby_lsp')
 vim.lsp.enable('rubocop')
 
 -- Python
-vim.lsp.enable('pyright')
+-- vim.lsp.enable('pyright')
 vim.lsp.enable('basedpyright')
 vim.lsp.enable('ruff')
 vim.lsp.enable('ruff_lsp')
