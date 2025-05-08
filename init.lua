@@ -5,6 +5,9 @@ require('config.lazy')
 vim.cmd.colorscheme('catppuccin-macchiato')
 
 --- LSP configs
+-- astro
+vim.lsp.enable('astro')
+
 -- Lua
 vim.lsp.config('lua_ls', {
   settings = {
@@ -32,6 +35,14 @@ vim.lsp.enable('lua_ls')
 
 -- Ruby
 vim.lsp.enable('solargraph')
+vim.lsp.enable('ruby_lsp')
+vim.lsp.enable('rubocop')
+
+-- Python
+vim.lsp.enable('pyright')
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('ruff')
+vim.lsp.enable('ruff_lsp')
 
 -- Golang
 vim.lsp.config('gopls', {
@@ -295,6 +306,7 @@ null_ls.setup {
     null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.diagnostics.rpmspec,
     null_ls.builtins.diagnostics.todo_comments,
+    null_ls.builtins.diagnostics.pydoclint,
     null_ls.builtins.formatting.fish_indent,
     null_ls.builtins.formatting.gofumpt.with {},
     null_ls.builtins.formatting.markdownlint,
