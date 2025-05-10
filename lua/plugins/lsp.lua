@@ -4,6 +4,12 @@ local omni_ext = require('omnisharp_extended')
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
 
+local function capabilities()
+  local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+  client_capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return client_capabilities
+end
+
 return {
   'neovim/nvim-lspconfig',
   opts = {
@@ -29,11 +35,7 @@ return {
       -- cssls
       cssls = {
         mason = false,
-        capabilities = function()
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities.textDocument.completion.completionItem.snippetSupport = true
-          return capabilities
-        end
+        capabilities = capabilities()
       },
       -- powershell_es
       powershell_es = {
@@ -44,11 +46,7 @@ return {
       -- html
       html = {
         mason = false,
-        capabilities = function()
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities.textDocument.completion.completionItem.snippetSupport = true
-          return capabilities
-        end
+        capabilities = capabilities()
       },
       -- MSBuild
       msbuild_project_tools_server = {
@@ -69,11 +67,7 @@ return {
       -- jsonls
       jsonls = {
         mason = false,
-        capabilities = function()
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities.textDocument.completion.completionItem.snippetSupport = true
-          return capabilities
-        end,
+        capabilities = capabilities(),
         ---@param new_config vim.lsp.config
         on_new_config = function(new_config)
           new_config.settings.json.schemas = new_config.settings.json.schemas or {}
