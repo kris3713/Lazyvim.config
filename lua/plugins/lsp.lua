@@ -12,8 +12,6 @@ return {
       bashls = { mason = false },
       -- biome
       biome = { mason = false },
-      -- css_variables
-      css_variables = { mason = false },
       -- cssmodules_ls
       cssmodules_ls = { mason = false },
       -- dockerls
