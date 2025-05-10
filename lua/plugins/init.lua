@@ -1,6 +1,11 @@
 return {
   -- Plugins with configs go here
   {
+    'LazyVim/LazyVim',
+    url = 'https://github.com/dpetka2001/LazyVim',
+    branch = 'fix/mason-v2'
+  },
+  {
     'nanotee/zoxide.vim',
     init = function() vim.g.zoxide_use_select = 1 end
   },

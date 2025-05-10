@@ -1,6 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
-  "LazyVim": { "branch": "main", "commit": "3f034d0a7f58031123300309f2efd3bb0356ee21" },
+  "LazyVim": { "branch": "fix/mason-v2", "commit": "040be9b87a779a6411b7b28c85f56a6827115029" },
   "SchemaStore.nvim": { "branch": "main", "commit": "c6dfb3dd0f63c1dcd1407714465f81a93f0d9ab6" },
   "actions-preview.nvim": { "branch": "master", "commit": "36513ad213855d497b7dd3391a24d1d75d58e36f" },
   "aerial.nvim": { "branch": "master", "commit": "2e00d1d4248f08dddfceacb8d2996e51e13e00f6" },
@@ -71,7 +71,7 @@
   "nvim-hlslens": { "branch": "main", "commit": "1e650c136f9f9d5fefe34947ad27c80010d3321f" },
   "nvim-lint": { "branch": "master", "commit": "3615c26c4922ae5f7366f0c1943a0e7cece04325" },
   "nvim-lsp-file-operations": { "branch": "master", "commit": "9744b738183a5adca0f916527922078a965515ed" },
-  "nvim-lspconfig": { "branch": "master", "commit": "f817582301b2c188c1cff7c956971ce3f85631ff" },
+  "nvim-lspconfig": { "branch": "master", "commit": "af4a9f5ce58763365999bfc558ddecd20d41f2b7" },
   "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
   "nvim-scissors": { "branch": "main", "commit": "9b0dad5e0a98cc5775077094b0161a21257da5da" },
   "nvim-snippets": { "branch": "main", "commit": "56b4052f71220144689caaa2e5b66222ba5661eb" },
