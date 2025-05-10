@@ -47,6 +47,15 @@ nlspsettings.setup({
   loader = 'json'
 })
 
+-- neoconf
+require('neoconf').setup {
+  plugins = {
+    yamlls = {
+      enabled = true
+    }
+  }
+}
+
 -- conform.nvim
 -- require('conform').setup {
 --   formatters_by_ft = {
