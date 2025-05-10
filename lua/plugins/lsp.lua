@@ -4,6 +4,7 @@ local omni_ext = require('omnisharp_extended')
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
 
+-- capabilities
 local function capabilities()
   local client_capabilities = vim.lsp.protocol.make_client_capabilities()
   client_capabilities.textDocument.completion.completionItem.snippetSupport = true
