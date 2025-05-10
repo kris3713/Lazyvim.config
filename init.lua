@@ -43,7 +43,9 @@ vim.lsp.enable('rubocop')
 
 -- Python
 vim.lsp.config('pyright', {
-  enable = false
+  settings = {
+    enable = false
+  }
 })
 vim.g.lazyvim_python_lsp = 'basedpyright'
 vim.lsp.enable('basedpyright')
