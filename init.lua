@@ -8,6 +8,9 @@ vim.cmd.colorscheme('catppuccin-macchiato')
 -- astro
 vim.lsp.enable('astro')
 
+-- angular
+vim.lsp.enable('angularls')
+
 -- Lua
 vim.lsp.config('lua_ls', {
   settings = {
@@ -177,7 +180,7 @@ if (msbuild ~= '' and msbuild ~= nil) then
 end
 
 -- Typescript/Javascript (vtsls)
-local vtsls = {
+vim.lsp.config('vtsls', {
   settings = {
     vtsls = {
       experimental = { enableProjectDiagnostics = true },
@@ -219,12 +222,13 @@ local vtsls = {
       }
     }
   }
-}
-
-vim.lsp.config('vtsls', vtsls)
+})
 vim.lsp.enable('vtsls')
 
--- Spelling and Grammar checking
+-- Biome
+vim.lsp.enable('biome')
+
+-- Harper
 vim.lsp.config('harper_ls', {
   settings = {
     ['harper-ls'] = {
@@ -235,8 +239,17 @@ vim.lsp.config('harper_ls', {
 })
 vim.lsp.enable('harper_ls')
 
+-- Vue
+vim.lsp.enable('volar')
+
+-- Prisma
+vim.lsp.enable('prismals')
+
 -- Containers
 vim.lsp.enable({ 'dockerls', 'docker_compose_language_service' })
+
+-- Nushell
+vim.lsp.enable('nushell')
 
 -- FISH
 vim.lsp.enable('fish_lsp')
@@ -293,8 +306,6 @@ local null_ls = require('null-ls')
 
 null_ls.setup {
   sources = {
-    -- Only add sources that are not natively
-    -- supported by the built-in lsp.
     null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.completion.nvim_snippets,
     null_ls.builtins.completion.tags,
@@ -305,11 +316,18 @@ null_ls.setup {
     null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.diagnostics.rpmspec,
     null_ls.builtins.diagnostics.todo_comments,
+    null_ls.builtins.diagnostics.sqlfluff.with {
+      extra_args = { "--dialect", "postgres" }
+    },
     null_ls.builtins.diagnostics.pydoclint,
+    null_ls.builtins.diagnostics.yamllint,
     null_ls.builtins.formatting.fish_indent,
-    null_ls.builtins.formatting.gofumpt.with {},
+    null_ls.builtins.formatting.gofumpt,
     null_ls.builtins.formatting.markdownlint,
     null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.sqlfluff.with {
+      extra_args = { "--dialect", "postgres" }
+    },
     null_ls.builtins.formatting.yamlfmt,
     null_ls.builtins.hover.printenv
   }
