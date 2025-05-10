@@ -58,7 +58,6 @@ vim.filetype.add {
   },
   pattern = { [ [[.*\..*compose.*]] ] = 'yaml.docker-compose' }
 }
---- Custom filetypes
 
 vim.treesitter.language.register('xml', { 'msbuild' })
 
@@ -99,3 +98,89 @@ vim.o.undofile = true
 
 -- Ensure the relative line number is always shown
 vim.o.relativenumber = false
+
+--- LSP configs
+-- Astro
+vim.lsp.enable('astro')
+
+-- Angular
+vim.lsp.enable('angularls')
+
+-- Lua
+vim.lsp.enable('lua_ls')
+
+-- Ruby
+vim.lsp.enable('solargraph')
+vim.lsp.config('ruby_lsp', {})
+vim.lsp.enable('ruby_lsp')
+vim.lsp.enable('rubocop')
+
+-- Python
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('ruff')
+
+-- Golang
+vim.lsp.enable({ 'gopls', 'golangci_lint_ls' })
+
+-- rpmspec
+vim.lsp.enable('rpmspec')
+
+-- CSS
+vim.lsp.enable({ 'cssls', 'cssmodules_ls', 'css_variables' })
+
+-- GitHub Actions
+vim.lsp.enable('gh_actions_ls')
+
+-- Markdown
+vim.lsp.enable('marksman')
+
+-- Omnisharp
+vim.lsp.enable('omnisharp')
+
+-- MSBuild
+local msbuild = os.getenv('MSBUILD_LSP')
+if (msbuild ~= '' and msbuild ~= nil) then
+  vim.lsp.enable('msbuild_project_tools_server')
+end
+
+-- Typescript/Javascript (vtsls)
+vim.lsp.enable('vtsls')
+
+-- Biome
+vim.lsp.enable('biome')
+
+-- Harper
+vim.lsp.enable('harper_ls')
+
+-- Vue
+vim.lsp.enable('volar')
+
+-- Prisma
+vim.lsp.enable('prismals')
+
+-- Containers
+vim.lsp.enable({ 'dockerls', 'docker_compose_language_service' })
+
+-- Nushell
+vim.lsp.enable('nushell')
+
+-- FISH
+vim.lsp.enable('fish_lsp')
+
+-- BASH
+vim.lsp.enable('bashls')
+
+-- XML
+vim.lsp.enable('lemminx')
+
+-- YAML
+vim.lsp.enable('yamlls')
+
+-- JSON
+vim.lsp.enable('jsonls')
+
+-- Stylelint
+vim.lsp.enable('stylelint_lsp')
+
+-- PowerShell
+vim.lsp.enable('powershell_es')
