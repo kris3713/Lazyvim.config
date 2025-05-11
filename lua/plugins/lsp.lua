@@ -25,6 +25,8 @@ return {
       dockerls = { mason = false },
       -- docker_compose_language_service
       docker_compose_language_service = { mason = false },
+      -- eslint
+      eslint = { mason = false },
       -- prismals
       prismals = { mason = false },
       -- pyright

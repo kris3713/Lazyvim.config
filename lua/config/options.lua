@@ -184,3 +184,6 @@ vim.lsp.enable('stylelint_lsp')
 
 -- PowerShell
 vim.lsp.enable('powershell_es')
+
+-- Eslint
+vim.lsp.enable('eslint')
