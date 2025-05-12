@@ -103,9 +103,6 @@ vim.o.relativenumber = false
 -- Astro
 vim.lsp.enable('astro')
 
--- Angular
-vim.lsp.enable('angularls')
-
 -- Lua
 vim.lsp.enable('lua_ls')
 
