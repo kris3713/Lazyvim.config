@@ -19,8 +19,6 @@ return {
       bashls = { mason = false },
       -- biome
       biome = { mason = false },
-      -- cssmodules_ls
-      cssmodules_ls = { mason = false },
       -- dockerls
       dockerls = { mason = false },
       -- docker_compose_language_service
@@ -65,6 +63,19 @@ return {
             userDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt',
             fileDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt'
           }
+        }
+      },
+      -- cssmodules_ls
+      cssmodules_ls = {
+        mason = false,
+        filetypes = {
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
+          'astro',
+          'vue',
+          'svelte'
         }
       },
       -- jsonls
