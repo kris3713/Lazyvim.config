@@ -2,8 +2,8 @@ return {
   -- Plugins with configs go here
   {
     'LazyVim/LazyVim',
-    url = 'https://github.com/dpetka2001/LazyVim',
-    branch = 'fix/mason-v2'
+    url = 'https://github.com/LazyVim/LazyVim',
+    branch = 'main'
   },
   {
     'nanotee/zoxide.vim',
