@@ -100,11 +100,11 @@ vim.o.undofile = true
 vim.o.relativenumber = false
 
 --- LSP configs
--- Astro
-vim.lsp.enable('astro')
+-- -- Astro
+-- vim.lsp.enable('astro')
 
--- Lua
-vim.lsp.enable('lua_ls')
+-- -- Lua
+-- vim.lsp.enable('lua_ls')
 
 -- Ruby
 vim.lsp.enable('solargraph')
@@ -140,17 +140,17 @@ if (msbuild ~= '' and msbuild ~= nil) then
   vim.lsp.enable('msbuild_project_tools_server')
 end
 
--- TypeScript/JavaScript (vtsls)
-vim.lsp.enable('vtsls')
+-- -- TypeScript/JavaScript (vtsls)
+-- vim.lsp.enable('vtsls')
 
--- Biome
-vim.lsp.enable('biome')
+-- -- Biome
+-- vim.lsp.enable('biome')
 
--- Harper
-vim.lsp.enable('harper_ls')
+-- -- Harper
+-- vim.lsp.enable('harper_ls')
 
--- Vue
-vim.lsp.enable('volar')
+-- -- Vue
+-- vim.lsp.enable('volar')
 
 -- Prisma
 vim.lsp.enable('prismals')
@@ -158,8 +158,8 @@ vim.lsp.enable('prismals')
 -- Containers
 vim.lsp.enable({ 'dockerls', 'docker_compose_language_service' })
 
--- Nushell
-vim.lsp.enable('nushell')
+-- -- Nushell
+-- vim.lsp.enable('nushell')
 
 -- FISH
 vim.lsp.enable('fish_lsp')
@@ -170,11 +170,11 @@ vim.lsp.enable('bashls')
 -- XML
 vim.lsp.enable('lemminx')
 
--- YAML
-vim.lsp.enable('yamlls')
+-- -- YAML
+-- vim.lsp.enable('yamlls')
 
--- JSON
-vim.lsp.enable('jsonls')
+-- -- JSON
+-- vim.lsp.enable('jsonls')
 
 -- Stylelint
 vim.lsp.enable('stylelint_lsp')
@@ -182,5 +182,5 @@ vim.lsp.enable('stylelint_lsp')
 -- PowerShell
 vim.lsp.enable('powershell_es')
 
--- Eslint
-vim.lsp.enable('eslint')
+-- -- Eslint
+-- vim.lsp.enable('eslint')
