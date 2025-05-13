@@ -140,7 +140,7 @@ if (msbuild ~= '' and msbuild ~= nil) then
   vim.lsp.enable('msbuild_project_tools_server')
 end
 
--- Typescript/Javascript (vtsls)
+-- TypeScript/JavaScript (vtsls)
 vim.lsp.enable('vtsls')
 
 -- Biome
