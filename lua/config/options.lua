@@ -152,8 +152,8 @@ end
 -- -- Vue
 -- vim.lsp.enable('volar')
 
--- Prisma
-vim.lsp.enable('prismals')
+-- -- Prisma
+-- vim.lsp.enable('prismals')
 
 -- Containers
 vim.lsp.enable({ 'dockerls', 'docker_compose_language_service' })
