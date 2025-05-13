@@ -117,7 +117,7 @@ vim.lsp.enable('basedpyright')
 vim.lsp.enable('ruff')
 
 -- Golang
-vim.lsp.enable({ 'gopls', 'golangci_lint_ls' })
+vim.lsp.enable('golangci_lint_ls')
 
 -- rpmspec
 vim.lsp.enable('rpmspec')
@@ -128,15 +128,15 @@ vim.lsp.enable({ 'cssls', 'cssmodules_ls', 'css_variables' })
 -- GitHub Actions
 vim.lsp.enable('gh_actions_ls')
 
--- Markdown
-vim.lsp.enable('marksman')
+-- -- Markdown
+-- vim.lsp.enable('marksman')
 
--- Omnisharp
-vim.lsp.enable('omnisharp')
+-- -- Omnisharp
+-- vim.lsp.enable('omnisharp')
 
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
-if (msbuild ~= '' and msbuild ~= nil) then
+if (msbuild ~= '') and (msbuild ~= nil) then
   vim.lsp.enable('msbuild_project_tools_server')
 end
 
