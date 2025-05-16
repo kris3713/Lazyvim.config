@@ -164,8 +164,8 @@ vim.lsp.enable({ 'dockerls', 'docker_compose_language_service' })
 -- FISH
 vim.lsp.enable('fish_lsp')
 
--- BASH
-vim.lsp.enable('bashls')
+-- -- BASH
+-- vim.lsp.enable('bashls')
 
 -- XML
 vim.lsp.enable('lemminx')
