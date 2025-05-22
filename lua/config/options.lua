@@ -122,6 +122,9 @@ vim.lsp.enable('golangci_lint_ls')
 -- -- Java
 -- vim.lsp.enable('jdtls')
 
+-- Gradle
+vim.lsp.enable('gradle_ls')
+
 -- rpmspec
 vim.lsp.enable('rpmspec')
 
