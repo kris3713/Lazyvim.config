@@ -119,8 +119,8 @@ vim.lsp.enable('ruff')
 -- Golang
 vim.lsp.enable('golangci_lint_ls')
 
--- Java
-vim.lsp.enable('jdtls')
+-- -- Java
+-- vim.lsp.enable('jdtls')
 
 -- rpmspec
 vim.lsp.enable('rpmspec')

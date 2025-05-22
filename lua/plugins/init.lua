@@ -10,6 +10,10 @@ return {
     init = function() vim.g.zoxide_use_select = 1 end
   },
   {
+    'Mgenuit/nvim-dap-kotlin',
+    config = true
+  },
+  {
     'fei6409/log-highlight.nvim',
     config = true
   },
