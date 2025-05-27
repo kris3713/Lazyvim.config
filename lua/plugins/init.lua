@@ -77,6 +77,13 @@ return {
     end
   },
   {
+    'seblyng/roslyn.nvim',
+    ft = { 'cs' },
+    ---@module 'roslyn.config'
+    ---@type RoslynNvimConfig
+    opts = {}
+  },
+  {
     'nacro90/numb.nvim',
     config = function()
       -- Has potential for a complex configuration

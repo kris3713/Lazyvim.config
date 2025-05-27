@@ -58,5 +58,16 @@ return {
         }
       }
     }
+  },
+  {
+    'mason-org/mason.nvim',
+    ---@module 'mason',
+    ---@type MasonSettings
+    opts = {
+      registries = {
+        'github:mason-org/mason-registry',
+        'github:Crashdummyy/mason-registry'
+      }
+    }
   }
 }

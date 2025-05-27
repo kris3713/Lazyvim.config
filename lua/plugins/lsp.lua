@@ -52,8 +52,29 @@ return {
       -- MSBuild
       msbuild_project_tools_server = {
         enabled = msbuild ~= nil and msbuild ~= '',
-        enable = msbuild ~= nil and msbuild ~= '',
+        -- enable = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
+      },
+      -- roslyn_ls
+      roslyn_ls = {
+        cmd = {
+          'Microsoft.CodeAnalysis.LanguageServer',
+          '--logLevel=Information',
+          '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
+          '--stdio'
+        }
+      },
+      omnisharp = {
+        cmd = {
+          'OmniSharp',
+          '-z',
+          '--hostPID',
+          '12345',
+          'DotNet:enablePackageRestore=false',
+          '--encoding',
+          'utf-8',
+          '--languageserver'
+        }
       },
       -- Harper
       harper_ls = {
@@ -112,7 +133,7 @@ return {
           new_config.settings.yaml.schemas = vim.tbl_deep_extend(
             'force',
             new_config.settings.yaml.schemas or {},
-            require("schemastore").yaml.schemas()
+            require('schemastore').yaml.schemas()
           )
         end,
         settings = {
