@@ -81,7 +81,9 @@ return {
     ft = { 'cs' },
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
-    opts = {}
+    opts = {
+      filewatching = 'roslyn'
+    }
   },
   {
     'nacro90/numb.nvim',
