@@ -188,9 +188,9 @@ return {
         cmd = {
           'OmniSharp',
           '-z',
-          '--hostPID',
-          '32145',
           'DotNet:enablePackageRestore=false',
+          '--encoding',
+          'utf-8',
           '--languageserver'
         },
         settings = {
