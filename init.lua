@@ -13,6 +13,9 @@ null_ls.setup {
     null_ls.builtins.completion.nvim_snippets,
     null_ls.builtins.completion.tags,
     null_ls.builtins.diagnostics.actionlint,
+    null_ls.builtins.diagnostics.checkstyle.with {
+      extra_args = { '-c', vim.uv.os_homedir() .. '/MEGA/checkstyle.xml' }
+    },
     null_ls.builtins.diagnostics.dotenv_linter,
     null_ls.builtins.diagnostics.editorconfig_checker,
     null_ls.builtins.diagnostics.fish,
