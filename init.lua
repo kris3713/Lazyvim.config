@@ -31,6 +31,7 @@ null_ls.setup {
     null_ls.builtins.formatting.sqlfluff.with {
       extra_args = { '--dialect', 'postgres' }
     },
+    null_ls.builtins.formatting.uncrustify,
     null_ls.builtins.formatting.yamlfmt,
     null_ls.builtins.hover.printenv
   }
