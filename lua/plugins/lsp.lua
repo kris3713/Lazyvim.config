@@ -55,27 +55,15 @@ return {
         -- enable = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
       },
-      -- roslyn_ls
-      roslyn_ls = {
-        cmd = {
-          'Microsoft.CodeAnalysis.LanguageServer',
-          '--logLevel=Information',
-          '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-          '--stdio'
-        }
-      },
-      omnisharp = {
-        cmd = {
-          'OmniSharp',
-          '-z',
-          '--hostPID',
-          '12345',
-          'DotNet:enablePackageRestore=false',
-          '--encoding',
-          'utf-8',
-          '--languageserver'
-        }
-      },
+      -- -- roslyn_ls
+      -- roslyn_ls = {
+      --   cmd = {
+      --     'Microsoft.CodeAnalysis.LanguageServer',
+      --     '--logLevel=Information',
+      --     '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
+      --     '--stdio'
+      --   }
+      -- },
       -- Harper
       harper_ls = {
         mason = false,
@@ -197,42 +185,54 @@ return {
         }
       },
       omnisharp = {
-        FormattingOptions = {
-          -- Enables support for reading code style, naming convention and analyzer
-          -- settings from `.editorconfig`
-          EnableEditorConfigSupport = true,
-          -- Specifies whether 'using' directives should be grouped and sorted during
-          -- document formatting.
-          OrganizeImports = true
+        cmd = {
+          'OmniSharp',
+          '-z',
+          '--hostPID',
+          '32145',
+          'DotNet:enablePackageRestore=false',
+          '--encoding',
+          'utf-8',
+          '--languageserver'
         },
-        MsBuild = {
-          -- If true, MSBuild project system will only load projects for files that
-          -- were opened in the editor. This setting is useful for big C# codebases
-          -- and allows for faster initialization of code navigation features only
-          -- for projects that are relevant to code that is being edited. With this
-          -- setting enabled OmniSharp may load fewer projects and may thus display
-          -- incomplete reference lists for symbols.
-          LoadProjectsOnDemand = true
-        },
-        RoslynExtensionsOptions = {
-          -- Enables support for roslyn analyzers, code fixes and rulesets.
-          EnableAnalyzersSupport = true,
-          -- Enables support for showing unimported types and unimported extension
-          -- methods in completion lists. When committed, the appropriate using
-          -- directive will be added at the top of the current file. This option can
-          -- have a negative impact on initial completion responsiveness,
-          -- particularly for the first few completion sessions after opening a
-          -- solution.
-          EnableImportCompletion = true,
-          -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
-          -- true
-          AnalyzeOpenDocumentsOnly = nil
-        },
-        handlers = {
-          ['textDocument/definition'] = omni_ext.definition_handler,
-          ['textDocument/typeDefinition'] = omni_ext.type_definition_handler,
-          ['textDocument/references'] = omni_ext.references_handler,
-          ['textDocument/implementation'] = omni_ext.implementation_handler
+        settings = {
+          FormattingOptions = {
+            -- Enables support for reading code style, naming convention and analyzer
+            -- settings from `.editorconfig`
+            EnableEditorConfigSupport = true,
+            -- Specifies whether 'using' directives should be grouped and sorted during
+            -- document formatting.
+            OrganizeImports = true
+          },
+          MsBuild = {
+            -- If true, MSBuild project system will only load projects for files that
+            -- were opened in the editor. This setting is useful for big C# codebases
+            -- and allows for faster initialization of code navigation features only
+            -- for projects that are relevant to code that is being edited. With this
+            -- setting enabled OmniSharp may load fewer projects and may thus display
+            -- incomplete reference lists for symbols.
+            LoadProjectsOnDemand = true
+          },
+          RoslynExtensionsOptions = {
+            -- Enables support for roslyn analyzers, code fixes and rulesets.
+            EnableAnalyzersSupport = true,
+            -- Enables support for showing unimported types and unimported extension
+            -- methods in completion lists. When committed, the appropriate using
+            -- directive will be added at the top of the current file. This option can
+            -- have a negative impact on initial completion responsiveness,
+            -- particularly for the first few completion sessions after opening a
+            -- solution.
+            EnableImportCompletion = true,
+            -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
+            -- true
+            AnalyzeOpenDocumentsOnly = nil
+          },
+          handlers = {
+            ['textDocument/definition'] = omni_ext.definition_handler,
+            ['textDocument/typeDefinition'] = omni_ext.type_definition_handler,
+            ['textDocument/references'] = omni_ext.references_handler,
+            ['textDocument/implementation'] = omni_ext.implementation_handler
+          }
         }
       },
       gopls = {

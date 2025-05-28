@@ -140,8 +140,8 @@ vim.lsp.enable('gh_actions_ls')
 -- -- Omnisharp
 -- vim.lsp.enable('omnisharp')
 
--- Roslyn ls
-vim.lsp.enable('roslyn_ls')
+-- -- Roslyn ls
+-- vim.lsp.enable('roslyn_ls')
 
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
