@@ -52,6 +52,12 @@ return {
         -- enable = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
       },
+      -- csharp_ls
+      csharp_ls = {
+        settings = {
+          AutomaticWorkspaceInit = true
+        }
+      },
       -- Harper
       harper_ls = {
         mason = false,
