@@ -100,12 +100,6 @@ vim.o.undofile = true
 vim.o.relativenumber = false
 
 --- LSP configs
--- -- Astro
--- vim.lsp.enable('astro')
-
--- -- Lua
--- vim.lsp.enable('lua_ls')
-
 -- Ruby
 vim.lsp.enable('solargraph')
 vim.lsp.config('ruby_lsp', {})
@@ -134,24 +128,6 @@ vim.lsp.enable({ 'cssls', 'cssmodules_ls', 'css_variables' })
 -- GitHub Actions
 vim.lsp.enable('gh_actions_ls')
 
--- -- Markdown
--- vim.lsp.enable('marksman')
-
--- -- Omnisharp
--- vim.lsp.enable('omnisharp')
-
--- -- Roslyn ls
--- vim.lsp.enable('roslyn_ls')
-
--- MSBuild
-local msbuild = os.getenv('MSBUILD_LSP')
-if (msbuild ~= '') and (msbuild ~= nil) then
-  vim.lsp.enable('msbuild_project_tools_server')
-end
-
--- -- TypeScript/JavaScript (vtsls)
--- vim.lsp.enable('vtsls')
-
 -- -- Biome
 -- vim.lsp.enable('biome')
 
@@ -167,9 +143,6 @@ end
 -- Containers
 vim.lsp.enable({ 'dockerls', 'docker_compose_language_service' })
 
--- -- Nushell
--- vim.lsp.enable('nushell')
-
 -- FISH
 vim.lsp.enable('fish_lsp')
 
@@ -179,17 +152,8 @@ vim.lsp.enable('fish_lsp')
 -- XML
 vim.lsp.enable('lemminx')
 
--- -- YAML
--- vim.lsp.enable('yamlls')
-
--- -- JSON
--- vim.lsp.enable('jsonls')
-
 -- Stylelint
 vim.lsp.enable('stylelint_lsp')
 
 -- PowerShell
 vim.lsp.enable('powershell_es')
-
--- -- Eslint
--- vim.lsp.enable('eslint')
