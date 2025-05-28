@@ -202,6 +202,23 @@ lsp_keymaps[#lsp_keymaps + 1] = {
 }
 --- lspsaga
 
+-- omnisharp
+if (vim.bo.filetype == 'cs') or (vim.bo.filetype == 'vb') then
+  local omni = require('omnisharp_extended')
+
+  lsp_keymaps[#lsp_keymaps + 1] = {
+    'gy', omni.telescope_lsp_type_definition, desc = 'Goto T[y]pe Definition (omnisharp)', noremap = true
+  }
+
+  lsp_keymaps[#lsp_keymaps + 1] = {
+    'gr', omni.telescope_lsp_references, desc = 'References (omnisharp)', noremap = true
+  }
+
+  lsp_keymaps[#lsp_keymaps + 1] = {
+    'gI', omni.telescope_lsp_implementation, desc = 'Implementation (omnisharp)', noremap = true
+  }
+end
+
 -- Aerial
 vim.keymap.set('n', '<leader>O', function() require('aerial').toggle() end, opts('Outline'))
 
