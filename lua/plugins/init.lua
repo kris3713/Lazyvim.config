@@ -353,21 +353,21 @@ return {
             return vim.api.nvim_create_augroup(name, { clear = true })
           end
 
-          -- -- Enforce Unix-style line endings for all files
-          -- vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
-          --   group = create_augroup('change_line_ending'),
-          --   desc = 'Ensure that all files have Unix-style line endings',
-          --   pattern = '*',
-          --   callback = function()
-          --     local is_true = (vim.bo.filetype ~= 'help') or
-          --       (vim.bo.filetype ~= 'man') or
-          --       (vim.bo.filetype ~= 'gitcommit')
-          --
-          --     if is_true and vim.bo.modifiable then
-          --       vim.o.fileformats = 'unix,dos,mac'
-          --     end
-          --   end
-          -- })
+          -- Enforce Unix-style line endings for all files
+          vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
+            group = create_augroup('change_line_ending'),
+            desc = 'Ensure that all files have Unix-style line endings',
+            pattern = '*',
+            callback = function()
+              local is_true = (vim.bo.filetype ~= 'help') or
+                (vim.bo.filetype ~= 'man') or
+                (vim.bo.filetype ~= 'gitcommit')
+
+              if is_true and vim.bo.modifiable then
+                vim.o.fileformats = 'unix,dos,mac'
+              end
+            end
+          })
 
           -- Ensure all docker compose files are set as `yaml.docker-compose`
           vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
