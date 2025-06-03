@@ -8,7 +8,7 @@ vim.g.autoformat = false
 -- Improved sessionoptions
 vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
--- Set font family and font size (For Neovide and Neovim-Qt)
+-- Set font family and font size (For Neovide)
 vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h16' }
 
 -- Set softwrapping to always be true
@@ -16,8 +16,14 @@ vim.opt.wrap = true
 
 -- Ensure all indents are spaces and have a width of 2
 vim.o.expandtab = true
-vim.o.shiftwidth = 2
-vim.o.tabstop = 2
+
+if vim.bo.shiftwidth >= 4 or vim.bo.tabstop >= 4 then
+  vim.o.shiftwidth = 4
+  vim.o.tabstop = 4
+else
+  vim.o.shiftwidth = 2
+  vim.o.tabstop = 2
+end
 
 -- -- Set leader key
 -- vim.g.mapleader = ","
