@@ -77,6 +77,15 @@ return {
     end
   },
   {
+    'DaikyXendo/nvim-material-icon',
+    config = function ()
+      require('nvim-web-devicons').setup {
+        color_icons = true,
+        default = true
+      }
+    end
+  },
+  {
     'seblyng/roslyn.nvim',
     ft = { 'cs' },
     ---@module 'roslyn.config'
