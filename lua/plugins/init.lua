@@ -7,20 +7,34 @@ return {
   },
   {
     'LunarVim/bigfile.nvim',
-    opts = {
-      filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
-      pattern = { '*' }, -- autocmd pattern or function see <### Overriding the detection of big files>
-      features = { -- features to disable
-        'indent_blankline',
-        'illuminate',
-        'lsp',
-        'treesitter',
-        'syntax',
-        'matchparen',
-        'vimopts',
-        'filetype'
+    config = function()
+      local supermaven = {
+        name = 'supermaven',
+        opts = {
+          defer = false
+        },
+        disable = function()
+          vim.cmd('SupermavenStop')
+        end
       }
-    }
+
+      require('bigfile').setup {
+        filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
+        pattern = { '*' }, -- autocmd pattern or function see <### Overriding the detection of big files>
+        features = { -- features to disable
+          'indent_blankline',
+          'illuminate',
+          'lsp',
+          'treesitter',
+          'syntax',
+          ---@diagnostic disable-next-line: assign-type-mismatch
+          supermaven,
+          'matchparen',
+          'vimopts',
+          'filetype'
+        }
+      }
+    end
   },
   {
     'nanotee/zoxide.vim',
