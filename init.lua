@@ -154,13 +154,13 @@ require('lualine').setup {
           end
         end
       },
-      {
-        'lsp_status',
-        ---@param clicks number
-        on_click = function(clicks, _, _)
-          if clicks == 2 then require('snacks').picker.lsp_config() end
-        end,
-      }
+      -- {
+      --   'lsp_status',
+      --   ---@param clicks number
+      --   on_click = function(clicks, _, _)
+      --     if clicks == 2 then require('snacks').picker.lsp_config() end
+      --   end,
+      -- }
     },
     lualine_x = {
       { 'encoding', show_bomb = true },
