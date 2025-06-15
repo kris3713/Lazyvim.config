@@ -117,11 +117,19 @@ end, opts('Open LazyExtras'))
 vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mason'))
 
 -- auto-session
-local auto = require('auto-session')
+local function save_session()
+  local auto = require('auto-session')
+  auto.SaveSession(vim.uv.cwd())
+end
+
+local function restore_session()
+  local auto = require('auto-session')
+  auto.RestoreSession(vim.uv.cwd())
+end
 
 vim.keymap.set('n', '<leader>qf', function() vim.cmd('SessionSearch') end, opts('Select a session to load'))
-vim.keymap.set('n', '<leader>qS', function() auto.SaveSession(vim.uv.cwd()) end, opts('Save session based on cwd'))
-vim.keymap.set('n', '<leader>qs', function() auto.RestoreSession(vim.uv.cwd()) end, opts('Restore last session based on cwd'))
+vim.keymap.set('n', '<leader>qS', save_session, opts('Save session based on cwd'))
+vim.keymap.set('n', '<leader>qs', restore_session, opts('Restore last session based on cwd'))
 vim.keymap.set('n', '<leader>qD', function() vim.cmd.Autosession('delete') end, opts('Delete Session based on cwd'))
 vim.keymap.set('n', '<leader>qd', function() vim.cmd('SessionToggleAutoSave') end, opts('Toggle autosave'))
 
@@ -129,17 +137,32 @@ vim.keymap.set('n', '<leader>qd', function() vim.cmd('SessionToggleAutoSave') en
 vim.keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
 
 -- toggleterm.nvim
-local tt = require('toggleterm')
-
 local function open_terminal()
+  local tt = require('toggleterm')
   local terminals = require('toggleterm.terminal').get_all()
   if #terminals == 0 then tt.new(nil, LazyVim.root(), 'horizontal')
   else tt.toggle_all() end
 end
 
 local function create_terminal()
+  local tt = require('toggleterm')
   local terminals = require('toggleterm.terminal').get_all()
   if #terminals ~= 0 then tt.new(nil, LazyVim.root(), 'horizontal') end
+end
+
+local function toggle_all_terminals()
+  local tt = require('toggleterm')
+  tt.toggle_all()
+end
+
+local function open_terminal_in_root()
+  local tt = require('toggleterm')
+  tt.new(nil, LazyVim.root(), 'horizontal')
+end
+
+local function open_terminal_in_cwd()
+  local tt = require('toggleterm')
+  tt.new(nil, vim.uv.cwd(), 'horizontal')
 end
 
 vim.keymap.set('n', '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
@@ -147,9 +170,9 @@ vim.keymap.set('n', '<C-/>', open_terminal, opts('Open a Terminal (if one is not
 vim.keymap.set('n', '<C-\\>', create_terminal, opts('Create a new Terminal (if one is active)'))
 
 -- NOTE: "?" is short for "Ctrl + Shift + /"
-vim.keymap.set('n', '<C-?>', function() tt.toggle_all() end, opts('Toggles all Terminal instances'))
-vim.keymap.set('n', '<leader>ft', function() tt.new(nil, LazyVim.root(), 'horizontal') end, opts('Open a Terminal (Root Dir)'))
-vim.keymap.set('n', '<leader>fT', function() tt.new(nil, vim.uv.cwd(), 'horizontal') end, opts('Open a Terminal (cwd)'))
+vim.keymap.set('n', '<C-?>', toggle_all_terminals, opts('Toggles all Terminal instances'))
+vim.keymap.set('n', '<leader>ft', open_terminal_in_root, opts('Open a Terminal (Root Dir)'))
+vim.keymap.set('n', '<leader>fT', open_terminal_in_cwd, opts('Open a Terminal (cwd)'))
 
 -- grug-far
 local grug = require('grug-far')
@@ -193,20 +216,20 @@ vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, opt
 vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, opts('Peek type definition'))
 
 -- hover.nvim
-local h_nvim = require('hover')
+local hover = require('hover')
 
 -- Hover Doc
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'K', h_nvim.hover, desc = 'Hover Doc', noremap = true
+  'K', hover.hover, desc = 'Hover Doc', noremap = true
 }
 
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'gK', h_nvim.hover_select, desc = 'Hover Doc Select', noremap = true
+  'gK', hover.hover_select, desc = 'Hover Doc Select', noremap = true
 }
 
-vim.keymap.set('n', '<Tab>', h_nvim.hover, opts('Hover Doc'))
-vim.keymap.set('n', '<C-p>', function() h_nvim.hover_switch('previous', {}) end, opts('hover.nvim (Previous source)'))
-vim.keymap.set('n', '<C-n>', function() h_nvim.hover_switch('next', {}) end, opts('hover.nvim (Next source)'))
+vim.keymap.set('n', '<Tab>', hover.hover, opts('Hover Doc'))
+vim.keymap.set('n', '<C-p>', function() hover.hover_switch('previous', {}) end, opts('hover.nvim (Previous source)'))
+vim.keymap.set('n', '<C-n>', function() hover.hover_switch('next', {}) end, opts('hover.nvim (Next source)'))
 
 -- Diagnostics
 lsp_keymaps[#lsp_keymaps + 1] = {
