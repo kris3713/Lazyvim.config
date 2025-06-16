@@ -1,18 +1,3 @@
--- nvim-cmp
-local cmp = require('cmp')
-local cmp_config = cmp.get_config()
-
----@type cmp.SourceConfig
-local new_sources = {
-  { name = 'nvim_lsp_signature_help' },
-  { name = 'dap' },
-  { name = 'render-markdown' }
-}
-
-for _, i in ipairs(new_sources) do
-  table.insert(cmp_config.sources, i)
-end
-
 return {
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
   {
@@ -128,25 +113,8 @@ return {
       adapters = {
         ['neotest-dotnet'] = {
           -- Here we can set options for neotest-dotnet
-        }
-      }
-    }
-  },
-  {
-    'hrsh7th/nvim-cmp',
-    ---@module 'cmp'
-    ---@type cmp.ConfigSchema
-    opts = {
-      window = {
-        completion = {
-          border = 'rounded'
         },
-        documentation = {
-          border = 'rounded'
-        },
-        formatting = { format = require('lspkind').cmp_format {} },
-        sources = cmp_config.sources
-      }
-    }
+      },
+    },
   }
 }
