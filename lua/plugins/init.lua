@@ -22,6 +22,12 @@ return {
     opts = { snippetDir = vim.uv.os_homedir() .. '/MEGA' }
   },
   {
+    'doxnit/cmp-luasnip-choice',
+    opts = {
+      auto_open = true -- Automatically open nvim-cmp on choice node (default: true)
+    }
+  },
+  {
     'akinsho/toggleterm.nvim',
     config = function()
       -- Has potential for a complex configuration
