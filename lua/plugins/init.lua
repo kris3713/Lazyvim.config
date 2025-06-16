@@ -28,6 +28,13 @@ return {
     }
   },
   {
+    'nvim-zh/colorful-winsep.nvim',
+    config = function()
+      require('colorful-winsep').setup {}
+    end,
+    event = { 'WinLeave' }
+  },
+  {
     'akinsho/toggleterm.nvim',
     config = function()
       -- Has potential for a complex configuration
