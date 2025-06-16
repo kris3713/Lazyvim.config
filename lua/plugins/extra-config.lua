@@ -81,8 +81,8 @@ return {
           command = vim.fn.exepath('netcoredbg'),
           args = { '--interpreter=vscode' },
           options = {
-            detached = false,
-          },
+            detached = false
+          }
         }
       end
       for _, lang in ipairs({ 'cs', 'fsharp', 'vb' }) do
@@ -96,25 +96,25 @@ return {
               program = function()
                 return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/', 'file')
               end,
-              cwd = '${workspaceFolder}',
-            },
+              cwd = '${workspaceFolder}'
+            }
           }
         end
       end
-    end,
+    end
   },
   {
     'nvim-neotest/neotest',
     optional = true,
     dependencies = {
-      'Issafalcon/neotest-dotnet',
+      'Issafalcon/neotest-dotnet'
     },
     opts = {
       adapters = {
         ['neotest-dotnet'] = {
           -- Here we can set options for neotest-dotnet
-        },
-      },
-    },
+        }
+      }
+    }
   }
 }

@@ -134,9 +134,14 @@ require('trim').setup {
 local mini_ani_exists, mod = pcall(require, 'mini.animate')
 if mini_ani_exists then mod.config.cursor.enable = false end
 
--- nvim-snippets
-require('snippets').setup {
-  search_paths = { vim.uv.os_homedir() .. '/MEGA' }
+-- -- nvim-snippets
+-- require('snippets').setup {
+--   search_paths = { vim.uv.os_homedir() .. '/MEGA' }
+-- }
+
+-- LuaSnip
+require('luasnip.loaders.from_vscode').lazy_load {
+	paths = { vim.uv.os_homedir() .. '/MEGA' }
 }
 
 -- lualine.nvim
