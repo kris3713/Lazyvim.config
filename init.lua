@@ -134,9 +134,14 @@ require('trim').setup {
 local mini_ani_exists, mod = pcall(require, 'mini.animate')
 if mini_ani_exists then mod.config.cursor.enable = false end
 
--- nvim-snippets
-require('snippets').setup {
-  search_paths = { vim.uv.os_homedir() .. '/MEGA' }
+-- -- nvim-snippets
+-- require('snippets').setup {
+--   search_paths = { vim.uv.os_homedir() .. '/MEGA' }
+-- }
+
+-- LuaSnip
+require('luasnip.loaders.from_vscode').lazy_load {
+	paths = { vim.uv.os_homedir() .. '/MEGA' }
 }
 
 -- lualine.nvim
@@ -236,37 +241,6 @@ telescope.load_extension('undo')
 telescope.load_extension('frecency')
 telescope.load_extension('dap')
 telescope.load_extension('scope')
-
--- nvim-cmp
-local cmp = require('cmp')
-local cmp_config = cmp.get_config()
-
----@type cmp.SourceConfig
-local new_sources = {
-  { name = 'nvim_lsp_signature_help' },
-  { name = 'dap' },
-  { name = 'render-markdown' }
-}
-
-for _, i in ipairs(new_sources) do
-  table.insert(cmp_config.sources, i)
-end
-
----@type cmp.ConfigSchema
-local cmp_setup = {
-  window = {
-    completion = {
-      border = 'rounded'
-    },
-    documentation = {
-      border = 'rounded'
-    }
-  },
-  formatting = { format = require('lspkind').cmp_format {} },
-  sources = cmp_config.sources
-}
-
-cmp.setup(cmp_setup)
 
 -- mouse menu
 vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
