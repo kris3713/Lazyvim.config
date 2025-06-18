@@ -312,3 +312,7 @@ end
 vim.api.nvim_create_user_command('M', 'MurenToggle', {
   desc = 'Toggle Muren', bang = true, register = true, range = 0
 })
+
+vim.api.nvim_create_user_command('LspInfo', function() require('snacks').picker.lsp_config() end, {
+  desc = 'Show lsp info', bang = true, register = true, range = 0
+})
