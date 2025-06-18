@@ -31,6 +31,7 @@
   "hlargs.nvim": { "branch": "main", "commit": "ce8d705866dae44513ff48613d5e37e4da524d70" },
   "hover.nvim": { "branch": "main", "commit": "07c7269c3a88751f2f36ed0563dc6e7b8b84f7f7" },
   "hydra.nvim": { "branch": "main", "commit": "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc" },
+  "image.nvim": { "branch": "master", "commit": "4c51d6202628b3b51e368152c053c3fb5c5f76f2" },
   "indent-blankline.nvim": { "branch": "master", "commit": "005b56001b2cb30bfa61b7986bc50657816ba4ba" },
   "kotlin-vim": { "branch": "master", "commit": "53fe045906df8eeb07cb77b078fc93acda6c90b8" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
