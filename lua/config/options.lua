@@ -61,8 +61,14 @@ vim.filetype.add {
     ['docker-compose.yml'] = 'yaml.docker-compose',
     ['compose.yaml'] = 'yaml.docker-compose',
     ['compose.yml'] = 'yaml.docker-compose'
-  },
-  pattern = { [ [[.*\..*compose.*]] ] = 'yaml.docker-compose' }
+  }
+}
+
+-- `composer.lock`
+vim.filetype.add {
+  filename = {
+    ['composer.lock'] = 'json'
+  }
 }
 
 vim.treesitter.language.register('xml', { 'msbuild' })
