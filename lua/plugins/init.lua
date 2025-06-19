@@ -404,9 +404,10 @@ return {
         load_on_setup = true
       },
       lazy_support = true,
+      lsp_stop_on_restore = true,
       suppressed_dirs = { vim.uv.os_homedir(), '/' },
       continue_restore_on_error = false,
-      cwd_change_handling = true,
+      cwd_change_handling = false,
       pre_restore_cmds = {
         function()
           ---@param name string
