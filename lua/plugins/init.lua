@@ -405,6 +405,7 @@ return {
       },
       lazy_support = true,
       suppressed_dirs = { vim.uv.os_homedir(), '/' },
+      continue_restore_on_error = false,
       cwd_change_handling = true,
       pre_restore_cmds = {
         function()
@@ -425,30 +426,6 @@ return {
 
               if is_true and vim.bo.modifiable then
                 vim.o.fileformats = 'unix,dos,mac'
-              end
-            end
-          })
-
-          -- Ensure all docker compose files are set as `yaml.docker-compose`
-          vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
-            group = create_augroup('enforce_filetype_for_certain_files'),
-            desc = 'Enforce certain files to be a certain filetype',
-            callback = function()
-              -- VSCode config files and TypeScript config files
-              local vscode__and__ts_names = {
-                'settings.json',
-                'launch.json',
-                'tasks.json',
-                'launch.json',
-                'tsconfig.json',
-                'jsconfig.json'
-              }
-
-              for _, name in ipairs(vscode__and__ts_names) do
-                if (vim.fn.expand('%:t') == name) and (vim.bo.filetype ~= 'jsonc') then
-                  vim.bo.filetype = 'jsonc'
-                  -- vim.cmd.setfiletype('jsonc')
-                end
               end
             end
           })
