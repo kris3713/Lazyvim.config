@@ -10,7 +10,7 @@ return {
         previewers = {
           diff = {
             builtin = false,
-            cmd = { 'delta' }
+            cmd = { 'difft' }
           },
           git = {
             builtin = false
