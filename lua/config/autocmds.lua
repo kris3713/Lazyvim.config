@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
   desc = 'nvim-tree workaround for auto-session',
   pattern = 'NvimTree*',
   callback = function()
-    if not require('nvim-tree.view').is_visible then
+    if not require('nvim-tree.explorer.view').is_visible then
       require('nvim-tree.api').tree.open()
     end
   end
