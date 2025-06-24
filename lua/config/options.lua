@@ -131,7 +131,8 @@ local lsps = {
   'lemminx',
   'stylelint_lsp',
   'powershell_es',
-  'intelephense'
+  'intelephense',
+  'phan'
 }
 
 for _, name in ipairs(lsps) do
