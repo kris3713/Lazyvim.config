@@ -111,61 +111,32 @@ vim.o.undofile = true
 -- Ensure the relative line number is always shown
 vim.o.relativenumber = false
 
---- LSP configs
+-- LSP configs
+local lsps = {
+  'solargraph',
+  'ruby_lsp',
+  'rubocop',
+  'basedpyright',
+  'ruff',
+  'golangci_lint_ls',
+  'gradle_ls',
+  'rpmspec',
+  'cssls',
+  'cssmodules_ls',
+  'css_variables',
+  'gh_actions_ls',
+  'dockerls',
+  'docker_compose_language_service',
+  'fish_lsp',
+  'lemminx',
+  'stylelint_lsp',
+  'powershell_es',
+  'intelephense'
+}
+
+for _, name in ipairs(lsps) do
+  vim.lsp.enable(name)
+end
+
 -- Ruby
-vim.lsp.enable('solargraph')
 vim.lsp.config('ruby_lsp', {})
-vim.lsp.enable('ruby_lsp')
-vim.lsp.enable('rubocop')
-
--- Python
-vim.lsp.enable('basedpyright')
-vim.lsp.enable('ruff')
-
--- Golang
-vim.lsp.enable('golangci_lint_ls')
-
--- -- Java
--- vim.lsp.enable('jdtls')
-
--- Gradle
-vim.lsp.enable('gradle_ls')
-
--- rpmspec
-vim.lsp.enable('rpmspec')
-
--- CSS
-vim.lsp.enable({ 'cssls', 'cssmodules_ls', 'css_variables' })
-
--- GitHub Actions
-vim.lsp.enable('gh_actions_ls')
-
--- -- Biome
--- vim.lsp.enable('biome')
-
--- -- Harper
--- vim.lsp.enable('harper_ls')
-
--- -- Vue
--- vim.lsp.enable('volar')
-
--- -- Prisma
--- vim.lsp.enable('prismals')
-
--- Containers
-vim.lsp.enable({ 'dockerls', 'docker_compose_language_service' })
-
--- FISH
-vim.lsp.enable('fish_lsp')
-
--- -- BASH
--- vim.lsp.enable('bashls')
-
--- XML
-vim.lsp.enable('lemminx')
-
--- Stylelint
-vim.lsp.enable('stylelint_lsp')
-
--- PowerShell
-vim.lsp.enable('powershell_es')
