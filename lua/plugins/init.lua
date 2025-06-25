@@ -206,6 +206,16 @@ return {
     cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' }
   },
   {
+    'gbprod/phpactor.nvim',
+    ft = 'php',
+    opts = {
+      install = {
+        path = vim.fn.stdpath('data') .. '/mason/bin',
+        bin = vim.fn.stdpath('data') .. '/mason/bin/phpactor'
+      }
+    }
+  },
+  {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
     config = function()
