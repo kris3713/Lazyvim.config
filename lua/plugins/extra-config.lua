@@ -10,7 +10,7 @@ return {
         previewers = {
           diff = {
             builtin = false,
-            cmd = { 'difft' }
+            cmd = { 'diff-so-fancy' }
           },
           git = {
             builtin = false
