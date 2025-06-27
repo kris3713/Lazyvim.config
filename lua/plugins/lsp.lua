@@ -30,6 +30,8 @@ return {
       tailwindcss = { mason = false },
       -- vimls
       vimls = { mason = false },
+      -- ruff
+      ruff = { mason = false },
       -- cssls
       cssls = {
         mason = false,
