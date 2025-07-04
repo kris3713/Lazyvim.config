@@ -345,6 +345,29 @@ return {
     end
   },
   {
+    -- support for image pasting
+    'HakonHarnes/img-clip.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- recommended settings
+      default = {
+        embed_image_as_base64 = false,
+        prompt_for_file_name = false,
+        drag_and_drop = {
+          insert_mode = true
+        },
+        -- required for Windows users
+        use_absolute_path = function()
+          if vim.fn.has('win32') == 1 then
+            return true
+          end
+          -- Otherwise return false
+          return false
+        end
+      }
+    }
+  },
+  {
     'nvim-tree/nvim-tree.lua',
     dependencies = 'antosha417/nvim-lsp-file-operations',
     lazy = false,
