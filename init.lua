@@ -252,7 +252,11 @@ local cmp_config = cmp.get_config()
 local new_sources = {
   { name = 'nvim_lsp_signature_help' },
   { name = 'dap' },
-  { name = 'render-markdown' }
+  { name = 'render-markdown' },
+  { name = 'minuet' },
+  { name = 'avante_commands' },
+  { name = 'avante_mentions' },
+  { name = 'avante_prompt_mentions' }
 }
 
 for _, i in ipairs(new_sources) do
@@ -270,7 +274,10 @@ local cmp_setup = {
     }
   },
   formatting = { format = require('lspkind').cmp_format {} },
-  sources = cmp_config.sources
+  sources = cmp_config.sources,
+  performance = {
+    fetching_timeout = 2000
+  }
 }
 
 cmp.setup(cmp_setup)

@@ -53,6 +53,7 @@
   "mini.move": { "branch": "main", "commit": "f471ecb98395781827ef1dffee61afe1af0ace29" },
   "mini.pairs": { "branch": "main", "commit": "69864a2efb36c030877421634487fd90db1e4298" },
   "minty": { "branch": "main", "commit": "aafc9e8e0afe6bf57580858a2849578d8d8db9e0" },
+  "minuet-ai.nvim": { "branch": "main", "commit": "a7337d07bb4f50cd6c92dd62c15c85d6b141b8ad" },
   "multicursors.nvim": { "branch": "main", "commit": "72225ea9e4443c3f4b9df91d0193e07c4ee8d382" },
   "muren.nvim": { "branch": "main", "commit": "fa18f2df80a52afd201da062d1af0e80c8d1988e" },
   "neoconf.nvim": { "branch": "main", "commit": "d0a2652eb8e9fc4e6f531a622c8f32eb78b44a98" },
