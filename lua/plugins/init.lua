@@ -81,7 +81,8 @@ return {
     'dgagn/diagflow.nvim',
     event = 'LspAttach',
     opts = {
-      padding_right = 3
+      padding_right = 3,
+      padding_top = 7
     }
   },
   {
