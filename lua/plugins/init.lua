@@ -80,7 +80,9 @@ return {
   {
     'dgagn/diagflow.nvim',
     event = 'LspAttach',
-    opts = {}
+    opts = {
+      padding_right = 3
+    }
   },
   {
     'm-demare/hlargs.nvim',
