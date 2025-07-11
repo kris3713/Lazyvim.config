@@ -132,7 +132,8 @@ local lsps = {
   'stylelint_lsp',
   'powershell_es',
   'intelephense',
-  'phan'
+  'phan',
+  'kotlin_lsp'
 }
 
 for _, name in ipairs(lsps) do

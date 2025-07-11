@@ -78,6 +78,11 @@ return {
     config = true
   },
   {
+    'dgagn/diagflow.nvim',
+    event = 'LspAttach',
+    opts = {}
+  },
+  {
     'm-demare/hlargs.nvim',
     opts = {
       color = '#ed8796'
