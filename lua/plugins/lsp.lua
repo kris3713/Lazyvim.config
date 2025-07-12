@@ -38,6 +38,8 @@ return {
       golangci_lint_ls = { enabled = true },
       -- jdtls
       jdtls = { enabled = true },
+      -- css_variables
+      css_variables = { enabled = true },
       -- bashls
       bashls = {
         mason = false,
