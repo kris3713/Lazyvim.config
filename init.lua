@@ -296,9 +296,9 @@ for _, mode in ipairs({'n', 'x'}) do
   vim.cmd(string.format(
     [[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]], mode
   ))
-  -- vim.cmd(string.format(
-  --   [[ %sunmenu PopUp.Configure\ Diagnostics ]], mode
-  -- ))
+  vim.cmd(string.format(
+    [[ %smenu PopUp.Configure\ Diagnostics <Nop> ]], mode
+  ))
 
   -- Implement a code actions entry
   vim.cmd(string.format(

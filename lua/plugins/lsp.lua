@@ -25,7 +25,10 @@ return {
       -- prismals
       prismals = { mason = false },
       -- pyright
-      pyright = { mason = false },
+      pyright = {
+        mason = false,
+        enabled = false
+      },
       -- tailwindcss
       tailwindcss = { mason = false },
       -- vimls
