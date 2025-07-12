@@ -10,38 +10,108 @@ end
 
 return {
   'neovim/nvim-lspconfig',
+  ---@module 'lspconfig'
+  ---@type lspconfig.options
   opts = {
     servers = {
+      -- solargraph
+      solargraph = { enabled = true },
+      -- ruby_lsp
+      ruby_lsp = { enabled = true },
+      -- rubocop
+      rubocop = { enabled = true },
+      -- fish_lsp
+      fish_lsp = { enabled = true },
+      -- lemminx
+      lemminx = { enabled = true },
+      -- phan
+      phan = { enabled = true },
+      -- stylelint_lsp
+      stylelint_lsp = { enabled = true },
+      -- gh_actions_ls
+      gh_actions_ls = { enabled = true },
+      -- rpmspec
+      rpmspec = { enabled = true },
+      -- gradle_ls
+      gradle_ls = { enabled = true },
+      -- golangci_lint_ls
+      golangci_lint_ls = { enabled = true },
+      -- jdtls
+      jdtls = { enabled = true },
       -- bashls
-      bashls = { mason = false },
+      bashls = {
+        mason = false,
+        enabled = true
+      },
+      -- basedpyright
+      basedpyright = {
+        mason = false,
+        enabled = true
+      },
       -- biome
-      biome = { mason = false },
+      biome = {
+        mason = false,
+        enabled = true
+      },
       -- dockerls
-      dockerls = { mason = false },
+      dockerls = {
+        mason = false,
+        enabled = true
+      },
       -- docker_compose_language_service
-      docker_compose_language_service = { mason = false },
+      docker_compose_language_service = {
+        mason = false,
+        enabled = true
+      },
+      -- dprint
+      dprint = {
+        mason = false,
+        enabled = true
+      },
       -- eslint
-      eslint = { mason = false },
+      eslint = {
+        mason = false,
+        enabled = true
+      },
       -- prismals
-      prismals = { mason = false },
+      prismals = {
+        mason = false,
+        enabled = true
+      },
       -- pyright
       pyright = {
         mason = false,
         enabled = false
       },
       -- tailwindcss
-      tailwindcss = { mason = false },
+      tailwindcss = {
+        mason = false,
+        enabled = true
+      },
       -- vimls
-      vimls = { mason = false },
+      vimls = {
+        mason = false,
+        enabled = true
+      },
       -- ruff
-      ruff = { mason = false },
+      ruff = {
+        mason = false,
+        enabled = true
+      },
+      -- intelephense
+      intelephense = {
+        mason = false,
+        enabled = true
+      },
       -- cssls
       cssls = {
         mason = false,
+        enabled = true,
         capabilities = capabilities()
       },
       -- powershell_es
       powershell_es = {
+        enabled = true,
         settings = {
           bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services'
         }
@@ -49,16 +119,17 @@ return {
       -- html
       html = {
         mason = false,
+        enabled = true,
         capabilities = capabilities()
       },
       -- MSBuild
       msbuild_project_tools_server = {
         enabled = msbuild ~= nil and msbuild ~= '',
-        -- enable = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
       },
       -- csharp_ls
       csharp_ls = {
+        enabled = true,
         settings = {
           AutomaticWorkspaceInit = true
         }
@@ -66,6 +137,7 @@ return {
       -- Harper
       harper_ls = {
         mason = false,
+        enabled = true,
         settings = {
           ['harper-ls'] = {
             userDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt',
@@ -75,6 +147,7 @@ return {
       },
       -- cssmodules_ls
       cssmodules_ls = {
+        enabled = true,
         mason = false,
         filetypes = {
           'javascript',
@@ -88,6 +161,7 @@ return {
       },
       -- jsonls
       jsonls = {
+        enabled = true,
         mason = false,
         capabilities = capabilities(),
         ---@param new_config vim.lsp.config
@@ -105,7 +179,9 @@ return {
           }
         },
       },
+      -- yamlls
       yamlls = {
+        enabled = true,
         mason = false,
         capabilities = {
           textDocument = {
@@ -135,7 +211,9 @@ return {
           }
         }
       },
+      -- lua_ls
       lua_ls = {
+        enabled = true,
         settings = {
           Lua = {
             completion = {
@@ -157,7 +235,9 @@ return {
           }
         }
       },
+      -- marksman
       marksman = {
+        enabled = true,
         settings = {
           -- This solves the problem of Marksman exiting when a new hover doc buffer (from Lspsaga) is created
           ---@param bufnr number
@@ -183,7 +263,9 @@ return {
           end
         }
       },
+      -- gopls
       gopls = {
+        enabled = true,
         settings = {
           gopls = {
             gofumpt = true,
@@ -225,6 +307,7 @@ return {
       -- vtsls
       vtsls = {
         mason = false,
+        enabled = true,
         settings = {
           vtsls = {
             experimental = { enableProjectDiagnostics = true },

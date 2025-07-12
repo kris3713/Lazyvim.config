@@ -111,34 +111,11 @@ vim.o.undofile = true
 -- Ensure the relative line number is always shown
 vim.o.relativenumber = false
 
--- LSP configs
+-- LSP configs (That can't be manually enabled in lsp.lua)
 local lsps = {
-  'solargraph',
-  'ruby_lsp',
-  'rubocop',
-  'basedpyright',
-  'ruff',
-  'golangci_lint_ls',
-  'gradle_ls',
-  'rpmspec',
-  'cssls',
-  'cssmodules_ls',
-  'css_variables',
-  'gh_actions_ls',
-  'dockerls',
-  'docker_compose_language_service',
-  'fish_lsp',
-  'lemminx',
-  'stylelint_lsp',
-  'powershell_es',
-  'intelephense',
-  'phan',
   'kotlin_lsp'
 }
 
 for _, name in ipairs(lsps) do
   vim.lsp.enable(name)
 end
-
--- Ruby
-vim.lsp.config('ruby_lsp', {})
