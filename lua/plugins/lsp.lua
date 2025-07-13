@@ -132,6 +132,11 @@ return {
         enabled = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
       },
+      -- markdown_oxide
+      markdown_oxide = {
+        mason = false,
+        enabled = true
+      },
       -- csharp_ls
       csharp_ls = {
         enabled = true,
@@ -242,23 +247,21 @@ return {
       },
       -- marksman
       marksman = {
-        enabled = true,
+        ---@param bufnr number
+        enabled = function(bufnr)
+          local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
+
+          if (vim.bo[bufnr].modifiable) and is_md then
+            return true -- Return true to allow autostart
+          end
+
+          return false -- Otherwise, return false to not enable
+        end,
         settings = {
           -- This solves the problem of Marksman exiting when a new hover doc buffer (from Lspsaga) is created
           ---@param bufnr number
           autostart = function(bufnr)
             local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
-
-            if (vim.bo[bufnr].modifiable) and is_md then
-              return true -- Return true to allow autostart
-            end
-
-            return false -- Otherwise, return false to prevent autostart
-          end,
-          ---@param bufnr number
-          enable = function(bufnr)
-            local is_md = (vim.bo[bufnr].filetype == 'markdown') or
-            (vim.bo[bufnr].filetype == 'markdown.mdx')
 
             if (vim.bo[bufnr].modifiable) and is_md then
               return true -- Return true to allow autostart
