@@ -42,13 +42,13 @@ end
 -- Open nvim-tree at root
 local function open_at_root()
   local api = require('nvim-tree.api')
-  api.tree.toggle({ path = LazyVim.root() })
+  api.tree.toggle { path = LazyVim.root() }
 end
 
 -- Open nvim-tree at CWD
 local function open_at_cwd()
   local api = require('nvim-tree.api')
-  api.tree.toggle({ path = vim.uv.cwd() })
+  api.tree.toggle { path = vim.uv.cwd() }
 end
 
 -- Change root to CWD for nvim-tree
@@ -58,10 +58,10 @@ local function change_root_to_global_cwd()
   api.tree.change_root(global_cwd)
 end
 
--- Focus on (or find) opened file in nvim-tree
+-- Focus on currently opened file in nvim-tree
 local function find_opened_file()
   local api = require('nvim-tree.api')
-  api.tree.find_file { open = true, focus = true }
+  api.tree.find_file { update_root = false, open = true, focus = true }
 end
 
 vim.keymap.set('n', '<leader>e', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
@@ -69,7 +69,7 @@ vim.keymap.set('n', '<leader>E', open_at_cwd, opts('nvim-tree: Explorer nvim-tre
 vim.keymap.set('n', '<leader>fe', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
 vim.keymap.set('n', '<leader>fE', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
 vim.keymap.set('n', '<leader>fC', change_root_to_global_cwd, opts('nvim-tree: Change root to global cwd (nvim-tree)'))
-vim.keymap.set('n', '<leader>fd', find_opened_file, opts('nvim-tree: Focus on (or find) opened file'))
+vim.keymap.set('n', '<leader>fd', find_opened_file, opts('nvim-tree: Focus on currently opened file'))
 
 -- Map Ctrl-z to do nothing
 vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', opts('', true))
