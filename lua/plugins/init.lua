@@ -491,9 +491,6 @@ return {
           vim.keymap.set('n', 'L', vsplit_preview, opts('Vsplit Preview'))
           vim.keymap.set('n', 'h', api.tree.close, opts('Close'))
           vim.keymap.set('n', 'H', api.tree.collapse_all, opts('Collapse'))
-
-          -- Automatically focus already-opened file by Enter (<CR>)
-          vim.keymap.set('n', '<CR>', api.node.open.tab_drop, opts('Tab drop'))
         end,
         renderer = {
           icons = {
