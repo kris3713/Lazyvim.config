@@ -19,7 +19,7 @@ return {
   },
   {
     'chrisgrieser/nvim-scissors',
-    opts = { snippetDir = vim.uv.os_homedir() .. '/MEGA' }
+    opts = { snippetDir =  ({ vim.uv.os_homedir() })[1] .. '/MEGA' }
   },
   {
     'doxnit/cmp-luasnip-choice',
@@ -441,6 +441,14 @@ return {
     dependencies = 'antosha417/nvim-lsp-file-operations',
     lazy = false,
     config = function()
+      ---@param path string
+      local function label(path)
+        path = path:gsub(({ vim.uv.os_homedir() })[1], '~', 1)
+        local a = path:gsub('([a-zA-Z])[a-z0-9]+', '%1')
+        local b = tostring(path:match '[a-zA-Z]([a-z0-9]*)$' or '')
+        return a .. b
+      end
+
       -- Has potential for a more complex configuration
       require('nvim-tree').setup {
         filters = { enable = false },
@@ -500,7 +508,9 @@ return {
                 staged = '󰱒'
               }
             }
-          }
+          },
+          root_folder_label = label,
+          group_empty = label
         }
       }
     end,
@@ -517,7 +527,7 @@ return {
       },
       lazy_support = true,
       lsp_stop_on_restore = true,
-      suppressed_dirs = { vim.uv.os_homedir(), '/' },
+      suppressed_dirs = { ({ vim.uv.os_homedir() })[1], '/' },
       continue_restore_on_error = false,
       cwd_change_handling = true,
       pre_restore_cmds = {
