@@ -251,12 +251,28 @@ local cmp_config = cmp.get_config()
 ---@type cmp.SourceConfig
 local new_sources = {
   { name = 'nvim_lsp_signature_help' },
+  { name = 'nvim_lua' },
   { name = 'dap' },
   { name = 'render-markdown' },
-  -- { name = 'minuet' },
   { name = 'avante_commands' },
   { name = 'avante_mentions' },
-  { name = 'avante_prompt_mentions' }
+  { name = 'avante_prompt_mentions' },
+  { name = 'cmp_yanky' },
+  { name = 'diag-codes' },
+  { name = 'luasnip_choice' },
+  { name = 'treesitter' },
+  { name = 'sql' },
+  { name = 'npm' },
+  { name = 'pypi' },
+  { name = 'go_pkgs' },
+  {
+    name = 'go_deep',
+    keyword_length = 3,
+    max_item_count = 5,
+    ---@module 'cmp_go_deep'
+    ---@type cmp_go_deep.Options
+    option = {}
+  }
 }
 
 for _, i in ipairs(new_sources) do

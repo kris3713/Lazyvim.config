@@ -18,5 +18,13 @@ return {
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'rcarriga/cmp-dap',
   'tamago324/nlsp-settings.nvim',
-  'udalov/kotlin-vim'
+  'udalov/kotlin-vim',
+  'hrsh7th/cmp-nvim-lua',
+  'chrisgrieser/cmp_yanky',
+  'JMarkin/cmp-diag-codes',
+  'David-Kunz/cmp-npm',
+  'Snikimonkd/cmp-go-pkgs',
+  'vrslev/cmp-pypi',
+  'ray-x/cmp-treesitter',
+  'ray-x/cmp-sql'
 }
