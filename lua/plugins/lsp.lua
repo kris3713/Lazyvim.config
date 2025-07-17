@@ -137,11 +137,6 @@ return {
         enabled = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
       },
-      -- markdown_oxide
-      markdown_oxide = {
-        mason = false,
-        enabled = true
-      },
       -- csharp_ls
       csharp_ls = {
         enabled = true,
@@ -250,6 +245,32 @@ return {
           }
         }
       },
+      -- markdown_oxide
+      markdown_oxide = {
+        mason = false,
+        ---@param bufnr number
+        enabled = function(bufnr)
+          local is_md = vim.bo[bufnr].filetype == 'markdown'
+
+          if (vim.bo[bufnr].modifiable) and is_md then
+            return true -- Return true to enable
+          end
+
+          return false
+        end,
+        settings = {
+          ---@param bufnr number
+          autostart = function(bufnr)
+            local is_md = vim.bo[bufnr].filetype == 'markdown'
+
+            if (vim.bo[bufnr].modifiable) and is_md then
+              return true -- return true to allow autostart
+            end
+
+            return false
+          end
+        }
+      },
       -- marksman
       marksman = {
         ---@param bufnr number
@@ -257,7 +278,7 @@ return {
           local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
 
           if (vim.bo[bufnr].modifiable) and is_md then
-            return true -- Return true to allow autostart
+            return true -- Return true to enable
           end
 
           return false -- Otherwise, return false to not enable
