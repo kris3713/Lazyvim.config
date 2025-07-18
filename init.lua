@@ -244,12 +244,12 @@ telescope.load_extension('frecency')
 telescope.load_extension('dap')
 telescope.load_extension('scope')
 
--- nvim-cmp
+--- nvim-cmp
 local cmp = require('cmp')
 local cmp_config = cmp.get_config()
 
 ---@type cmp.SourceConfig
-local new_sources = {
+local cmp_sources = {
   { name = 'nvim_lsp_signature_help' },
   { name = 'nvim_lua' },
   { name = 'dap' },
@@ -257,25 +257,13 @@ local new_sources = {
   { name = 'avante_commands' },
   { name = 'avante_mentions' },
   { name = 'avante_prompt_mentions' },
-  { name = 'cmp_yanky' },
   { name = 'diag-codes' },
   { name = 'luasnip_choice' },
-  { name = 'treesitter' },
-  { name = 'sql' },
   { name = 'npm' },
-  { name = 'pypi' },
-  { name = 'go_pkgs' },
-  {
-    name = 'go_deep',
-    keyword_length = 3,
-    max_item_count = 5,
-    ---@module 'cmp_go_deep'
-    ---@type cmp_go_deep.Options
-    option = {}
-  }
+  { name = 'pypi' }
 }
 
-for _, i in ipairs(new_sources) do
+for _, i in ipairs(cmp_sources) do
   table.insert(cmp_config.sources, i)
 end
 
@@ -297,6 +285,26 @@ local cmp_setup = {
 }
 
 cmp.setup(cmp_setup)
+
+-- only for sql
+cmp.setup.filetype('sql', {
+  sources = {
+    { name = 'sql' }
+  }
+})
+
+-- only for golang
+cmp.setup.filetype('go', {
+  { name = 'go_pkgs' },
+  {
+    name = 'go_deep',
+    keyword_length = 3,
+    max_item_count = 5,
+    ---@module 'cmp_go_deep'
+    ---@type cmp_go_deep.Options
+    option = {}
+  }
+})
 
 -- mouse menu
 vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
