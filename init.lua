@@ -14,7 +14,7 @@ null_ls.setup {
     null_ls.builtins.completion.tags,
     null_ls.builtins.diagnostics.actionlint,
     null_ls.builtins.diagnostics.checkstyle.with {
-      extra_args = { '-c', ({ vim.uv.os_homedir() })[1] .. '/MEGA/checkstyle.xml' }
+      extra_args = { '-c', os.getenv('HOME') .. '/MEGA/checkstyle.xml' }
     },
     null_ls.builtins.diagnostics.dotenv_linter,
     null_ls.builtins.diagnostics.editorconfig_checker,
@@ -138,12 +138,12 @@ if mini_ani_exists then mod.config.cursor.enable = false end
 
 -- -- nvim-snippets
 -- require('snippets').setup {
---   search_paths = {  ({ vim.uv.os_homedir() })[1] .. '/MEGA' }
+--   search_paths = {  os.getenv('HOME') .. '/MEGA' }
 -- }
 
 -- LuaSnip
 require('luasnip.loaders.from_vscode').lazy_load {
-	paths = { ({ vim.uv.os_homedir() })[1] .. '/MEGA' }
+	paths = { os.getenv('HOME') .. '/MEGA' }
 }
 
 -- lualine.nvim
@@ -309,7 +309,7 @@ cmp.setup.filetype('go', {
 -- mouse menu
 vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
 
-for _, mode in ipairs({'n', 'x'}) do
+for _, mode in ipairs { 'n', 'x' } do
   -- Modified built-in entries
   vim.cmd(string.format(
     [[ %smenu PopUp.Go\ to\ definition gd ]], mode

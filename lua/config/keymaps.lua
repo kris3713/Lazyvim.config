@@ -48,7 +48,7 @@ end
 -- Open nvim-tree at CWD
 local function open_at_cwd()
   local api = require('nvim-tree.api')
-  api.tree.toggle { path = vim.uv.cwd() }
+  api.tree.toggle { path = vim.fn.getcwd() }
 end
 
 -- Change root to CWD for nvim-tree
@@ -130,12 +130,12 @@ vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mas
 -- auto-session
 local function save_session()
   local auto = require('auto-session')
-  auto.SaveSession(vim.uv.cwd())
+  auto.SaveSession(vim.fn.getcwd())
 end
 
 local function restore_session()
   local auto = require('auto-session')
-  auto.RestoreSession(vim.uv.cwd())
+  auto.RestoreSession(vim.fn.getcwd())
 end
 
 vim.keymap.set('n', '<leader>qf', function() vim.cmd('SessionSearch') end, opts('Select a session to load'))
@@ -173,7 +173,7 @@ end
 
 local function open_terminal_in_cwd()
   local tt = require('toggleterm')
-  tt.new(nil, vim.uv.cwd(), 'horizontal')
+  tt.new(nil, vim.fn.getcwd(), 'horizontal')
 end
 
 vim.keymap.set('n', '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
@@ -207,7 +207,7 @@ vim.keymap.set('n', '<leader>Y', function()
 end, opts('Open yazi at the current file', true))
 
 vim.keymap.set('n', '<leader>cw', function()
-  yz.yazi(yz.config, vim.uv.cwd(), nil)
+  yz.yazi(yz.config, vim.fn.getcwd(), nil)
 end, opts('Open yazi in the cwd', true))
 
 vim.keymap.set('n', '<leader><up>', function()

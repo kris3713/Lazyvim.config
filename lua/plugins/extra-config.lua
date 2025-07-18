@@ -86,7 +86,7 @@ return {
           }
         }
       end
-      for _, lang in ipairs({ 'cs', 'fsharp', 'vb' }) do
+      for _, lang in ipairs { 'cs', 'fsharp', 'vb' } do
         if not dap.configurations[lang] then
           dap.configurations[lang] = {
             {
