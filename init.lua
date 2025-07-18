@@ -152,6 +152,7 @@ require('lualine').setup {
     lualine_c = {
       {
         'diagnostics',
+        ---@param clicks number
         on_click = function(clicks, _, _)
           if clicks == 2 then
             require('trouble').toggle {
@@ -160,14 +161,7 @@ require('lualine').setup {
             }
           end
         end
-      },
-      -- {
-      --   'lsp_status',
-      --   ---@param clicks number
-      --   on_click = function(clicks, _, _)
-      --     if clicks == 2 then require('snacks').picker.lsp_config() end
-      --   end,
-      -- }
+      }
     },
     lualine_x = {
       { 'encoding', show_bomb = true },
@@ -190,7 +184,7 @@ require('lualine').setup {
             return ('Tab Width: ' .. vim.bo.tabstop)
           end
         end,
-        ---@param clicks any
+        ---@param clicks number
         on_click = function(clicks, _, _)
           if clicks == 2 then
             require('functions.set_shiftwidth_prompt').set_shiftwidth_prompt()
@@ -225,8 +219,11 @@ require('lualine').setup {
       },
       {
         'filetype',
+        ---@param clicks number
         on_click = function(clicks, _, _)
-          if clicks == 2 then require('telescope.builtin').filetypes() end
+          if clicks == 2 then
+            require('telescope.builtin').filetypes()
+          end
         end
       }
     },
