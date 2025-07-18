@@ -113,13 +113,6 @@ return {
         mason = false,
         enabled = true
       },
-      -- lsp-ai
-      lsp_ai = {
-        enabled = true,
-        -- settings = {
-        --   init_options =
-        -- }
-      },
       -- cssls
       cssls = {
         mason = false,
