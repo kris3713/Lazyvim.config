@@ -23,13 +23,15 @@ end
 
 -- Neovide options
 if vim.g.neovide then
+  ---@type integer
   vim.g.neovide_scale_factor = 1.0
 
   local other_opts = { nowait = false, noremap = false }
 
-  -- Set zoom function for Neovide
+  --- Set zoom function for Neovide
   ---@param delta integer
   local function zoom(delta)
+    ---@type integer
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
 
@@ -37,8 +39,7 @@ if vim.g.neovide then
   vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() zoom(1/1.25) end, other_opts)
 end
 
--- nvim-tree
-
+--- nvim-tree
 -- Open nvim-tree at root
 local function open_at_root()
   local api = require('nvim-tree.api')
