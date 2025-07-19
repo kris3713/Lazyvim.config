@@ -294,10 +294,20 @@ vim.keymap.set('n', '<leader>se', function() vim.cmd.Telescope('symbols') end, o
 -- bufferline
 local b_line = require('bufferline')
 
-local function b_line_sort_by_ext() b_line.sort_by('extension') end
-local function b_line_sort_by_dir() b_line.sort_by('directory') end
-local function b_line_sort_by_rel_dir() b_line.sort_by('relative_directory') end
-local function b_line_sort_by_tabs() b_line.sort_by('tabs') end
+local function b_line_sort_by_ext()
+  b_line.sort_by('extension')
+end
+
+local function b_line_sort_by_dir()
+  b_line.sort_by('directory')
+end
+
+local function b_line_sort_by_rel_dir()
+  b_line.sort_by('relative_directory')
+end
+local function b_line_sort_by_tabs()
+  b_line.sort_by('tabs')
+end
 
 vim.keymap.set('n', '<leader>bf', b_line.pick, opts('Bufferline Pick'))
 vim.keymap.set('n', '<leader>bF', b_line.close_with_pick, opts('Bufferline Close with Pick'))
@@ -312,3 +322,6 @@ vim.keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by
 local mc = require('multicursors')
 
 vim.keymap.set({ 'n', 'v' }, '<leader>m', mc.start, opts('Create a selection for selected text or word under the cursor'))
+
+-- trim.nvim
+vim.keymap.set({ 'n', 'x' }, '<leader>T', function() vim.cmd('Trim') end, opts('Trim all trailing whitespaces and lines'))
