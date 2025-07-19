@@ -272,7 +272,7 @@ local cmp_sources = {
   { name = 'luasnip_choice' },
   { name = 'npm' },
   { name = 'pypi' },
-  { name = 'minuet' }
+  -- { name = 'minuet' }
 }
 
 for _, i in ipairs(cmp_sources) do
