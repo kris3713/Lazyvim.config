@@ -123,7 +123,7 @@ require('trim').setup {
   -- if you want to ignore markdown file.
   -- you can specify filetypes.
   ft_blocklist = {
-    'ruby', 'lua', 'fish', 'sh', 'bash', 'csharp'
+    'ruby', 'lua', 'fish', 'sh', 'bash', 'csharp', 'snacks_dashboard', 'snacks_terminal'
   },
   -- harper:ignore
   -- if you want to disable trim on write by default
@@ -149,6 +149,18 @@ require('luasnip.loaders.from_vscode').lazy_load {
 -- lualine.nvim
 require('lualine').setup {
   sections = {
+    lualine_b = {
+      {
+        'branch',
+        ---@param clicks number
+        on_click = function(clicks, _, _)
+          if clicks == 2 then
+            require('snacks.lazygit').open()
+          end
+        end
+      },
+      'gitstatus'
+    },
     lualine_c = {
       {
         'diagnostics',
@@ -169,9 +181,9 @@ require('lualine').setup {
         -- indent_style
         function()
           if vim.bo.expandtab then
-            return 'Spaces'
+            return 'Indent Style: Spaces'
           else
-            return 'Tabs'
+            return 'Indent Style: Tabs'
           end
         end
       },
@@ -179,7 +191,7 @@ require('lualine').setup {
         -- shiftwidth/tabstop
         function()
           if vim.bo.expandtab then
-            return ('Indent Size: ' .. vim.bo.shiftwidth)
+            return ('Space Size: ' .. vim.bo.shiftwidth)
           else
             return ('Tab Width: ' .. vim.bo.tabstop)
           end
@@ -235,11 +247,9 @@ require('lualine').setup {
 -- telescope extensions
 local telescope = require('telescope')
 
-telescope.load_extension('ui-select')
-telescope.load_extension('undo')
-telescope.load_extension('frecency')
-telescope.load_extension('dap')
-telescope.load_extension('scope')
+for _, i in ipairs { 'ui-select','undo', 'frecency', 'dap', 'scope' } do
+  telescope.load_extension(i)
+end
 
 --- nvim-cmp
 local cmp = require('cmp')
@@ -257,7 +267,8 @@ local cmp_sources = {
   { name = 'diag-codes' },
   { name = 'luasnip_choice' },
   { name = 'npm' },
-  { name = 'pypi' }
+  { name = 'pypi' },
+  { name = 'minuet' }
 }
 
 for _, i in ipairs(cmp_sources) do
@@ -292,14 +303,16 @@ cmp.setup.filetype('sql', {
 
 -- only for golang
 cmp.setup.filetype('go', {
-  { name = 'go_pkgs' },
-  {
-    name = 'go_deep',
-    keyword_length = 3,
-    max_item_count = 5,
-    ---@module 'cmp_go_deep'
-    ---@type cmp_go_deep.Options
-    option = {}
+  sources = {
+    { name = 'go_pkgs' },
+    {
+      name = 'go_deep',
+      keyword_length = 3,
+      max_item_count = 5,
+      ---@module 'cmp_go_deep'
+      ---@type cmp_go_deep.Options
+      option = {}
+    }
   }
 })
 
@@ -309,32 +322,40 @@ vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
 for _, mode in ipairs { 'n', 'x' } do
   -- Modified built-in entries
   vim.cmd(string.format(
-    [[ %smenu PopUp.Go\ to\ definition gd ]], mode
+    [[ %smenu PopUp.Go\ to\ definition gd ]],
+    mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ Diagnostics <leader>cd ]], mode
+    [[ %smenu PopUp.Show\ Diagnostics <leader>cd ]],
+    mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]], mode
+    [[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]],
+    mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Configure\ Diagnostics <Nop> ]], mode
+    [[ %smenu PopUp.Configure\ Diagnostics <Nop> ]],
+    mode
   ))
 
   -- Implement a code actions entry
   vim.cmd(string.format(
-    [[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]], mode
+    [[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]],
+    mode
   ))
 
   -- Implement all go-to definitions
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ References gr ]], mode
+    [[ %smenu PopUp.Show\ References gr ]],
+    mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ Implementation gI ]], mode
+    [[ %smenu PopUp.Show\ Implementation gI ]],
+    mode
   ))
   vim.cmd(string.format(
-    [[ %smenu PopUp.Show\ Type\ Definition gy ]], mode
+    [[ %smenu PopUp.Show\ Type\ Definition gy ]],
+    mode
   ))
 end
 
@@ -343,6 +364,6 @@ vim.api.nvim_create_user_command('M', 'MurenToggle', {
   desc = 'Toggle Muren', bang = true, register = true, range = 0
 })
 
-vim.api.nvim_create_user_command('LspInfo', function() require('snacks').picker.lsp_config() end, {
+vim.api.nvim_create_user_command('LspInfo', require('snacks').picker.lsp_config, {
   desc = 'Show lsp info', bang = true, register = true, range = 0
 })

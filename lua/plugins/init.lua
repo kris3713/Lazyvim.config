@@ -59,6 +59,11 @@ return {
     cmd = { 'Shades', 'Heufy' }
   },
   {
+    'abccsss/nvim-gitstatus',
+    event = 'VeryLazy',
+    config = true
+  },
+  {
     'jmbuhr/otter.nvim',
     config = function()
       -- Has potential for a complex configuration
@@ -328,6 +333,7 @@ return {
   {
     'milanglacier/minuet-ai.nvim',
     opts = {
+      notify = 'verbose',
       provider = 'gemini',
       provider_options = {
         gemini = {
@@ -444,7 +450,7 @@ return {
     config = function()
       ---@param path string
       local function label(path)
-        path = path:gsub(os.getenv('HOME'), '~', 1)
+        path = path:gsub(tostring(os.getenv('HOME')), '~', 1)
         local a = path:gsub('([a-zA-Z])[a-z0-9]+', '%1')
         local b = tostring(path:match '[a-zA-Z]([a-z0-9]*)$' or '')
         return a .. b

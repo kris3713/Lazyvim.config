@@ -16,7 +16,7 @@ local function set_shiftwidth_prompt()
     {
       prompt_title = (function()
         if vim.bo.expandtab then
-          return 'Set the Indent Size'
+          return 'Set the Space Size'
         else
           return 'Set the Tab Width'
         end
