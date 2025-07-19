@@ -324,4 +324,4 @@ local mc = require('multicursors')
 vim.keymap.set({ 'n', 'v' }, '<leader>m', mc.start, opts('Create a selection for selected text or word under the cursor'))
 
 -- trim.nvim
-vim.keymap.set({ 'n', 'x' }, '<leader>T', function() vim.cmd('Trim') end, opts('Trim all trailing whitespaces and lines'))
+vim.keymap.set('n', '<leader>T', function() vim.cmd('Trim') end, opts('Trim all trailing whitespaces and lines'))
