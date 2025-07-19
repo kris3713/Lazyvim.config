@@ -318,7 +318,7 @@ return {
             -- height = 0.9,
             prompt_position = 'top',
             preview_cutoff = 25,
-            ---@param max_lines number
+            ---@param max_lines integer
             preview_height = function(_, _, max_lines)
               return max_lines - 20
             end
@@ -437,7 +437,7 @@ return {
           if vim.fn.has('win32') == 1 then
             return true
           end
-          -- Otherwise return false
+          -- Otherwise, return false
           return false
         end
       }
@@ -459,7 +459,7 @@ return {
       -- Has potential for a more complex configuration
       require('nvim-tree').setup {
         filters = { enable = false },
-        ---@param bufnr number
+        ---@param bufnr integer
         on_attach = function(bufnr)
           local api = require('nvim-tree.api')
 

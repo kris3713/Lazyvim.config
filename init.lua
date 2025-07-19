@@ -152,7 +152,7 @@ require('lualine').setup {
     lualine_b = {
       {
         'branch',
-        ---@param clicks number
+        ---@param clicks integer
         on_click = function(clicks, _, _)
           if clicks == 2 then
             require('snacks.lazygit').open()
@@ -164,7 +164,7 @@ require('lualine').setup {
     lualine_c = {
       {
         'diagnostics',
-        ---@param clicks number
+        ---@param clicks integer
         on_click = function(clicks, _, _)
           if clicks == 2 then
             require('trouble').toggle {
@@ -180,7 +180,8 @@ require('lualine').setup {
       {
         -- indent_style
         function()
-          if vim.bo.expandtab then
+          local bufnr = vim.api.nvim_get_current_buf()
+          if vim.bo[bufnr].expandtab then
             return 'Indent Style: Spaces'
           else
             return 'Indent Style: Tabs'
@@ -190,13 +191,14 @@ require('lualine').setup {
       {
         -- shiftwidth/tabstop
         function()
-          if vim.bo.expandtab then
-            return ('Space Size: ' .. vim.bo.shiftwidth)
+          local bufnr = vim.api.nvim_get_current_buf()
+          if vim.bo[bufnr].expandtab then
+            return ('Space Size: ' .. vim.bo[bufnr].shiftwidth)
           else
-            return ('Tab Width: ' .. vim.bo.tabstop)
+            return ('Tab Width: ' .. vim.bo[bufnr].tabstop)
           end
         end,
-        ---@param clicks number
+        ---@param clicks integer
         on_click = function(clicks, _, _)
           if clicks == 2 then
             require('functions.set_shiftwidth_prompt').set_shiftwidth_prompt()
@@ -206,32 +208,34 @@ require('lualine').setup {
       {
         -- fileformat
         function()
-          if vim.bo.fileformat == 'unix' then
+          local bufnr = vim.api.nvim_get_current_buf()
+          if vim.bo[bufnr].fileformat == 'unix' then
             return 'LF (unix)'
-          elseif vim.bo.fileformat == 'dos' then
+          elseif vim.bo[bufnr].fileformat == 'dos' then
             return 'CRLF (dos)'
-          elseif vim.bo.fileformat == 'mac' then
+          elseif vim.bo[bufnr].fileformat == 'mac' then
             return 'CR (mac)'
           else
-            return vim.bo.fileformat
+            return vim.bo[bufnr].fileformat
           end
         end,
-        ---@param clicks number
+        ---@param clicks integer
         on_click = function(clicks, _, _)
+          local bufnr = vim.api.nvim_get_current_buf()
           if clicks == 2 then
-            if vim.bo.fileformat == 'unix' then
-              vim.bo.fileformat = 'dos'
-            elseif vim.bo.fileformat == 'dos' then
-              vim.bo.fileformat = 'mac'
-            elseif vim.bo.fileformat == 'mac' then
-              vim.bo.fileformat = 'unix'
+            if vim.bo[bufnr].fileformat == 'unix' then
+              vim.bo[bufnr].fileformat = 'dos'
+            elseif vim.bo[bufnr].fileformat == 'dos' then
+              vim.bo[bufnr].fileformat = 'mac'
+            elseif vim.bo[bufnr].fileformat == 'mac' then
+              vim.bo[bufnr].fileformat = 'unix'
             end
           end
         end
       },
       {
         'filetype',
-        ---@param clicks number
+        ---@param clicks integer
         on_click = function(clicks, _, _)
           if clicks == 2 then
             require('telescope.builtin').filetypes()

@@ -248,7 +248,7 @@ return {
       -- markdown_oxide
       markdown_oxide = {
         mason = false,
-        ---@param bufnr number
+        ---@param bufnr integer
         enabled = function(bufnr)
           local is_md = vim.bo[bufnr].filetype == 'markdown'
 
@@ -259,7 +259,7 @@ return {
           return false
         end,
         settings = {
-          ---@param bufnr number
+          ---@param bufnr integer
           autostart = function(bufnr)
             local is_md = vim.bo[bufnr].filetype == 'markdown'
 
@@ -273,7 +273,7 @@ return {
       },
       -- marksman
       marksman = {
-        ---@param bufnr number
+        ---@param bufnr integer
         enabled = function(bufnr)
           local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
 
@@ -285,7 +285,7 @@ return {
         end,
         settings = {
           -- This solves the problem of Marksman exiting when a new hover doc buffer (from Lspsaga) is created
-          ---@param bufnr number
+          ---@param bufnr integer
           autostart = function(bufnr)
             local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
 

@@ -5,7 +5,7 @@ local finders = require('telescope.finders')
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 
--- Define the custom picker function
+--- Allows for setting a function to pick a value for shiftwidth or tabstop
 local function set_shiftwidth_prompt()
   pickers.new(
     {
@@ -25,7 +25,8 @@ local function set_shiftwidth_prompt()
       -- sorter = conf.generic_sorter {}, -- Use a generic sorter
 
       -- Define custom actions
-      attach_mappings = function(prompt_bufnr, map)
+      ---@param prompt_bufnr integer
+      attach_mappings = function(prompt_bufnr, _)
         -- Default action ( pressing Enter )
         actions.select_default:replace(function()
           local current_picker = action_state.get_current_picker(prompt_bufnr)
@@ -37,11 +38,12 @@ local function set_shiftwidth_prompt()
           local value = tonumber(input)
 
           if value and value >= 0 then
+            local bufnr = vim.api.nvim_get_current_buf()
             -- Set the shiftwidth and tabstop options
-            if vim.bo.expandtab then
-              vim.opt.shiftwidth = value
+            if vim.bo[bufnr].expandtab then
+              vim.bo[bufnr].shiftwidth = value
             else
-              vim.opt.tabstop = value
+              vim.bo[bufnr].tabstop = value
             end
           else
             print('Invalid input: Please enter a non-negative number')

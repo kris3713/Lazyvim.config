@@ -28,7 +28,7 @@ if vim.g.neovide then
   local other_opts = { nowait = false, noremap = false }
 
   -- Set zoom function for Neovide
-  ---@param delta number
+  ---@param delta integer
   local function zoom(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
@@ -275,12 +275,13 @@ vim.keymap.set('n', '<leader>j', treesj.join, opts('Join code block'))
 
 -- Swap between fileformats
 local function swap_fileformats()
-  if vim.bo.fileformat == 'unix' then
-    vim.o.fileformat = 'dos'
-  elseif vim.bo.fileformat == 'dos' then
-    vim.o.fileformat = 'mac'
-  elseif vim.bo.fileformat == 'mac' then
-    vim.o.fileformat = 'unix'
+  local bufnr = vim.api.nvim_get_current_buf()
+  if vim.bo[bufnr].fileformat == 'unix' then
+    vim.bo[bufnr].fileformat = 'dos'
+  elseif vim.bo[bufnr].fileformat == 'dos' then
+    vim.bo[bufnr].fileformat = 'mac'
+  elseif vim.bo[bufnr].fileformat == 'mac' then
+    vim.bo[bufnr].fileformat = 'unix'
   end
 end
 
