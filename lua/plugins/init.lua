@@ -333,7 +333,7 @@ return {
   {
     'milanglacier/minuet-ai.nvim',
     opts = {
-      notify = 'verbose',
+      -- notify = 'verbose',
       provider = 'gemini',
       provider_options = {
         gemini = {
