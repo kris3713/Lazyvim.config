@@ -6,7 +6,7 @@ local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 
 --- Allows for setting a function to pick a value for shiftwidth or tabstop
-local function set_shiftwidth_prompt()
+local function set_indent_size()
   pickers.new(
     {
       layout_config = {
@@ -59,4 +59,4 @@ local function set_shiftwidth_prompt()
 end
 
 -- Return the function so it can be required and mapped
-return { set_shiftwidth_prompt = set_shiftwidth_prompt }
+return { set_indent_size = set_indent_size }

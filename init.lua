@@ -155,7 +155,7 @@ require('lualine').setup {
         ---@param clicks integer
         on_click = function(clicks, _, _)
           if clicks == 2 then
-            require('snacks.lazygit').open()
+            require('snacks.lazygit').open { auto_insert = true }
           end
         end
       },
@@ -166,10 +166,11 @@ require('lualine').setup {
         'diagnostics',
         ---@param clicks integer
         on_click = function(clicks, _, _)
+          local bufnr = vim.api.nvim_get_current_buf()
           if clicks == 2 then
             require('trouble').toggle {
               mode = 'diagnostics',
-              filter = { buf = vim.api.nvim_get_current_buf() }
+              filter = { buf = bufnr }
             }
           end
         end
@@ -201,7 +202,7 @@ require('lualine').setup {
         ---@param clicks integer
         on_click = function(clicks, _, _)
           if clicks == 2 then
-            require('functions.set_shiftwidth_prompt').set_shiftwidth_prompt()
+            require('functions.set_indent_size_prompt').set_indent_size()
           end
         end
       },
@@ -271,8 +272,7 @@ local cmp_sources = {
   { name = 'diag-codes' },
   { name = 'luasnip_choice' },
   { name = 'npm' },
-  { name = 'pypi' },
-  -- { name = 'minuet' }
+  { name = 'pypi' }
 }
 
 for _, i in ipairs(cmp_sources) do
@@ -291,6 +291,9 @@ local cmp_setup = {
   },
   formatting = { format = require('lspkind').cmp_format {} },
   sources = cmp_config.sources,
+  mapping = cmp.mapping.preset.insert {
+    ['<a-y>'] = require('minuet').make_cmp_map()
+  },
   performance = {
     fetching_timeout = 2000
   }
