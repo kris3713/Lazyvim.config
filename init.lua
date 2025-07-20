@@ -146,109 +146,6 @@ require('luasnip.loaders.from_vscode').lazy_load {
 	paths = { os.getenv('HOME') .. '/MEGA' }
 }
 
--- lualine.nvim
-require('lualine').setup {
-  sections = {
-    lualine_b = {
-      {
-        'branch',
-        ---@param clicks integer
-        on_click = function(clicks, _, _)
-          if clicks == 2 then
-            require('snacks.lazygit').open { auto_insert = true }
-          end
-        end
-      },
-      'gitstatus'
-    },
-    lualine_c = {
-      {
-        'diagnostics',
-        ---@param clicks integer
-        on_click = function(clicks, _, _)
-          local bufnr = vim.api.nvim_get_current_buf()
-          if clicks == 2 then
-            require('trouble').toggle {
-              mode = 'diagnostics',
-              filter = { buf = bufnr }
-            }
-          end
-        end
-      }
-    },
-    lualine_x = {
-      { 'encoding', show_bomb = true },
-      {
-        -- indent_style
-        function()
-          local bufnr = vim.api.nvim_get_current_buf()
-          if vim.bo[bufnr].expandtab then
-            return 'Indent Style: Spaces'
-          else
-            return 'Indent Style: Tabs'
-          end
-        end
-      },
-      {
-        -- shiftwidth/tabstop
-        function()
-          local bufnr = vim.api.nvim_get_current_buf()
-          if vim.bo[bufnr].expandtab then
-            return ('Space Size: ' .. vim.bo[bufnr].shiftwidth)
-          else
-            return ('Tab Width: ' .. vim.bo[bufnr].tabstop)
-          end
-        end,
-        ---@param clicks integer
-        on_click = function(clicks, _, _)
-          if clicks == 2 then
-            require('functions.set_indent_size_prompt').set_indent_size()
-          end
-        end
-      },
-      {
-        -- fileformat
-        function()
-          local bufnr = vim.api.nvim_get_current_buf()
-          if vim.bo[bufnr].fileformat == 'unix' then
-            return 'LF (unix)'
-          elseif vim.bo[bufnr].fileformat == 'dos' then
-            return 'CRLF (dos)'
-          elseif vim.bo[bufnr].fileformat == 'mac' then
-            return 'CR (mac)'
-          else
-            return vim.bo[bufnr].fileformat
-          end
-        end,
-        ---@param clicks integer
-        on_click = function(clicks, _, _)
-          local bufnr = vim.api.nvim_get_current_buf()
-          if clicks == 2 then
-            if vim.bo[bufnr].fileformat == 'unix' then
-              vim.bo[bufnr].fileformat = 'dos'
-            elseif vim.bo[bufnr].fileformat == 'dos' then
-              vim.bo[bufnr].fileformat = 'mac'
-            elseif vim.bo[bufnr].fileformat == 'mac' then
-              vim.bo[bufnr].fileformat = 'unix'
-            end
-          end
-        end
-      },
-      {
-        'filetype',
-        ---@param clicks integer
-        on_click = function(clicks, _, _)
-          if clicks == 2 then
-            require('telescope.builtin').filetypes()
-          end
-        end
-      }
-    },
-    lualine_y = { 'searchcount', 'selectioncount', 'progress' },
-    lualine_z = { 'location' }
-  }
-}
-
 -- telescope extensions
 local telescope = require('telescope')
 
@@ -371,6 +268,6 @@ vim.api.nvim_create_user_command('M', 'MurenToggle', {
   desc = 'Toggle Muren', bang = true, register = true, range = 0
 })
 
-vim.api.nvim_create_user_command('LspInfo', require('snacks').picker.lsp_config, {
+vim.api.nvim_create_user_command('LspInfo', Snacks.picker.lsp_config, {
   desc = 'Show lsp info', bang = true, register = true, range = 0
 })
