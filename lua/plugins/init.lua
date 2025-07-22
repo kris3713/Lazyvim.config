@@ -451,9 +451,9 @@ return {
       ---@param path string
       local function label(path)
         path = path:gsub(tostring(os.getenv('HOME')), '~', 1)
-        local a = path:gsub('([a-zA-Z])[a-z0-9]+', '%1')
-        local b = tostring(path:match '[a-zA-Z]([a-z0-9]*)$' or '')
-        return a .. b
+        -- local a = path:gsub('([a-zA-Z])[a-z0-9]+', '%1')
+        -- local b = tostring(path:match '[a-zA-Z]([a-z0-9]*)$' or '')
+        return path
       end
 
       -- Has potential for a more complex configuration
