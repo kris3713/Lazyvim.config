@@ -27,7 +27,7 @@ null_ls.setup {
     },
     null_ls.builtins.diagnostics.pydoclint,
     null_ls.builtins.diagnostics.yamllint,
-    null_ls.builtins.formatting.black,
+    require('none-ls.formatting.ruff'),
     null_ls.builtins.formatting.biome,
     null_ls.builtins.formatting.fish_indent,
     null_ls.builtins.formatting.gofumpt,
