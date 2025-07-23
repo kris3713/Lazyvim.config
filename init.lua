@@ -7,39 +7,45 @@ vim.cmd.colorscheme('catppuccin-macchiato')
 --- none-ls.nvim
 local null_ls = require('null-ls')
 
+local new_null_ls_sources = {
+  null_ls.builtins.code_actions.gitsigns,
+  null_ls.builtins.code_actions.refactoring,
+  -- null_ls.builtins.completion.nvim_snippets,
+  null_ls.builtins.completion.luasnip,
+  null_ls.builtins.completion.tags,
+  null_ls.builtins.completion.spell,
+  null_ls.builtins.diagnostics.actionlint,
+  null_ls.builtins.diagnostics.checkstyle.with {
+    extra_args = { '-c', os.getenv('HOME') .. '/MEGA/checkstyle.xml' }
+  },
+  null_ls.builtins.diagnostics.dotenv_linter,
+  null_ls.builtins.diagnostics.editorconfig_checker,
+  null_ls.builtins.diagnostics.fish,
+  null_ls.builtins.diagnostics.ktlint,
+  null_ls.builtins.diagnostics.markdownlint,
+  null_ls.builtins.diagnostics.markdownlint_cli2,
+  null_ls.builtins.diagnostics.rpmspec,
+  null_ls.builtins.diagnostics.todo_comments,
+  null_ls.builtins.diagnostics.trail_space,
+  null_ls.builtins.diagnostics.pydoclint,
+  null_ls.builtins.diagnostics.yamllint,
+  require('none-ls.formatting.ruff'),
+  null_ls.builtins.formatting.biome,
+  null_ls.builtins.formatting.fish_indent,
+  null_ls.builtins.formatting.gofumpt,
+  null_ls.builtins.formatting.markdownlint,
+  null_ls.builtins.formatting.shfmt,
+  null_ls.builtins.formatting.uncrustify,
+  null_ls.builtins.formatting.yamlfmt,
+  null_ls.builtins.hover.printenv
+}
+
+for _, value in ipairs(new_null_ls_sources) do
+  table.insert(null_ls.get_sources(), value)
+end
+
 null_ls.setup {
-  sources = {
-    null_ls.builtins.code_actions.gitsigns,
-    null_ls.builtins.code_actions.refactoring,
-    -- null_ls.builtins.completion.nvim_snippets,
-    null_ls.builtins.completion.luasnip,
-    null_ls.builtins.completion.tags,
-    null_ls.builtins.completion.spell,
-    null_ls.builtins.diagnostics.actionlint,
-    null_ls.builtins.diagnostics.checkstyle.with {
-      extra_args = { '-c', os.getenv('HOME') .. '/MEGA/checkstyle.xml' }
-    },
-    null_ls.builtins.diagnostics.dotenv_linter,
-    null_ls.builtins.diagnostics.editorconfig_checker,
-    null_ls.builtins.diagnostics.fish,
-    null_ls.builtins.diagnostics.ktlint,
-    null_ls.builtins.diagnostics.markdownlint,
-    null_ls.builtins.diagnostics.markdownlint_cli2,
-    null_ls.builtins.diagnostics.rpmspec,
-    null_ls.builtins.diagnostics.todo_comments,
-    null_ls.builtins.diagnostics.trail_space,
-    null_ls.builtins.diagnostics.pydoclint,
-    null_ls.builtins.diagnostics.yamllint,
-    require('none-ls.formatting.ruff'),
-    null_ls.builtins.formatting.biome,
-    null_ls.builtins.formatting.fish_indent,
-    null_ls.builtins.formatting.gofumpt,
-    null_ls.builtins.formatting.markdownlint,
-    null_ls.builtins.formatting.shfmt,
-    null_ls.builtins.formatting.uncrustify,
-    null_ls.builtins.formatting.yamlfmt,
-    null_ls.builtins.hover.printenv
-  }
+  sources = null_ls.get_sources()
 }
 
 -- nlsp-settings.nvim
