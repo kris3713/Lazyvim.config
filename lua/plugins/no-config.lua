@@ -24,5 +24,6 @@ return {
   'David-Kunz/cmp-npm',
   'Snikimonkd/cmp-go-pkgs',
   'vrslev/cmp-pypi',
-  'ray-x/cmp-sql'
+  'ray-x/cmp-sql',
+  'sbdchd/neoformat'
 }
