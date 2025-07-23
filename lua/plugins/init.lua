@@ -32,20 +32,6 @@ return {
     }
   },
   {
-    'nvim-zh/colorful-winsep.nvim',
-    config = function()
-      require('colorful-winsep').setup {}
-    end,
-    event = { 'WinLeave' }
-  },
-  {
-    'akinsho/toggleterm.nvim',
-    config = function()
-      -- Has potential for a complex configuration
-      require('toggleterm').setup {}
-    end
-  },
-  {
     'AckslD/muren.nvim',
     config = true
   },
@@ -112,6 +98,28 @@ return {
     opts = {
       processor = 'magick_cli'
     }
+  },
+  {
+    'GCBallesteros/jupytext.nvim',
+    config = function()
+      require('jupytext').setup {
+        style = 'hydrogen'
+      }
+    end
+  },
+  {
+    'nvim-zh/colorful-winsep.nvim',
+    config = function()
+      require('colorful-winsep').setup {}
+    end,
+    event = { 'WinLeave' }
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    config = function()
+      -- Has potential for a complex configuration
+      require('toggleterm').setup {}
+    end
   },
   {
     'DaikyXendo/nvim-material-icon',
