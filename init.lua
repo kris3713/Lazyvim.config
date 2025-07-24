@@ -6,6 +6,7 @@ vim.cmd.colorscheme('catppuccin-macchiato')
 
 --- none-ls.nvim
 local null_ls = require('null-ls')
+local null_ls_sources = null_ls.get_sources()
 
 local new_null_ls_sources = {
   null_ls.builtins.code_actions.gitsigns,
@@ -41,11 +42,11 @@ local new_null_ls_sources = {
 }
 
 for _, value in ipairs(new_null_ls_sources) do
-  table.insert(null_ls.get_sources(), value)
+  table.insert(null_ls_sources, value)
 end
 
 null_ls.setup {
-  sources = null_ls.get_sources()
+  sources = null_ls_sources
 }
 
 -- nlsp-settings.nvim
