@@ -26,18 +26,20 @@ return {
     dependencies = 'kkharji/sqlite.lua'
   },
   {
-    'L3MON4D3/cmp-luasnip-choice',
-    opts = {
-      auto_open = true -- Automatically open nvim-cmp on choice node (default: true)
-    }
-  },
-  {
     'AckslD/muren.nvim',
     config = true
   },
   {
     'nvzone/volt',
     lazy = true
+  },
+  {
+    'kevinhwang91/nvim-hlslens',
+    config = true
+  },
+  {
+    'lewis6991/satellite.nvim',
+    config = true
   },
   {
     'nvzone/minty',
@@ -48,6 +50,18 @@ return {
     'abccsss/nvim-gitstatus',
     event = 'VeryLazy',
     config = true
+  },
+  {
+    'm-demare/hlargs.nvim',
+    opts = {
+      color = '#ed8796'
+    }
+  },
+  {
+    'L3MON4D3/cmp-luasnip-choice',
+    opts = {
+      auto_open = true -- Automatically open nvim-cmp on choice node (default: true)
+    }
   },
   {
     'jmbuhr/otter.nvim',
@@ -65,25 +79,11 @@ return {
     end
   },
   {
-    'kevinhwang91/nvim-hlslens',
-    config = true
-  },
-  {
-    'lewis6991/satellite.nvim',
-    config = true
-  },
-  {
     'dgagn/diagflow.nvim',
     event = 'LspAttach',
     opts = {
       padding_right = 3,
       padding_top = 7
-    }
-  },
-  {
-    'm-demare/hlargs.nvim',
-    opts = {
-      color = '#ed8796'
     }
   },
   {
@@ -98,6 +98,14 @@ return {
     opts = {
       processor = 'magick_cli'
     }
+  },
+  {
+    'xzbdmw/colorful-menu.nvim',
+    config = function ()
+      require('colorful-menu').setup {
+        max_width = 60
+      }
+    end
   },
   {
     'GCBallesteros/jupytext.nvim',
