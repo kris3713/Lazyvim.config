@@ -196,7 +196,9 @@ local cmp_setup = {
   formatting = {
     fields = { 'abbr', 'kind', 'menu' },
     format = function(entry, vim_item)
-      local kind = (require('lspkind').cmp_format { mode = 'symbol_text' })(entry, vim.deepcopy(vim_item))
+      local kind = (require('lspkind').cmp_format {
+        mode = 'symbol_text'
+      })(entry, vim.deepcopy(vim_item))
       local highlights_info = require('colorful-menu').cmp_highlights(entry)
 
       -- highlight_info is nil means we are missing the ts parser, it's
