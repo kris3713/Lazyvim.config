@@ -103,7 +103,7 @@ return {
         previewers = {
           diff = {
             builtin = false,
-            cmd = { 'diff-so-fancy' }
+            cmd = { 'delta' }
           },
           git = {
             builtin = false
