@@ -32,6 +32,15 @@ return {
               else
                 return 'Indent Style: Tabs'
               end
+            end,
+            ---@param clicks integer
+            on_click = function(clicks, _, _)
+              local bufnr = vim.api.nvim_get_current_buf()
+              if clicks == 2 then
+                require('functions.switch_indent_style').switch_indent_style(bufnr)
+                -- Force Lualine to refresh to reflect the change immediately
+                require('lualine').refresh()
+              end
             end
           },
           {

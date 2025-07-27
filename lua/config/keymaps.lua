@@ -97,11 +97,13 @@ vim.keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', opts('', false))
 vim.keymap.set('n', '<C-v>', '"+p', opts('', false))
 vim.keymap.set('n', '<S-Insert>', '"+p', opts('', false))
 
--- retab
-vim.keymap.set('n', '<leader>\\', function()
-  vim.cmd('retab')
-  print('Replaced all tabs with spaces')
-end, opts('Retab'))
+-- Switch between Tabs or Spaces
+local function switch_indent_style()
+  local bufnr = vim.api.nvim_get_current_buf()
+  require('functions.switch_indent_style').switch_indent_style(bufnr)
+end
+
+vim.keymap.set('n', '<leader>\\', switch_indent_style, opts('Switch between Tabs or Spaces'))
 
 -- actions-preview.nvim
 local ap = require('actions-preview')

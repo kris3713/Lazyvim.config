@@ -594,8 +594,10 @@ return {
     },
     post_restore_cmds = {
       function()
-        vim.cmd('doautocmd BufReadPost')
-        vim.cmd('GuessIndent')
+        vim.cmd([[
+          doautocmd BufReadPost
+          GuessIndent
+        ]])
       end
     }
   }
