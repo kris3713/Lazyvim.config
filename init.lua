@@ -50,9 +50,7 @@ null_ls.setup {
 }
 
 -- nlsp-settings.nvim
-local nlspsettings = require('nlspsettings')
-
-nlspsettings.setup({
+require('nlspsettings').setup({
   config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
   local_settings_dir = '.nlsp-settings',
   local_settings_root_markers_fallback = { '.git' },
@@ -84,13 +82,13 @@ local hooks = require('ibl.hooks')
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-  vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#ed6e6d' })
-  vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#ef7734' })
-  vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#e2b65e' })
-  vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#72d35d' })
-  vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#3f78ec' })
-  vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#7dc4e4' })
-  vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#9c5aef' })
+  vim.api.nvim_set_hl(0, highlight[1], { fg = '#ed6e6d' })
+  vim.api.nvim_set_hl(0, highlight[2], { fg = '#ef7734' })
+  vim.api.nvim_set_hl(0, highlight[3], { fg = '#e2b65e' })
+  vim.api.nvim_set_hl(0, highlight[4], { fg = '#72d35d' })
+  vim.api.nvim_set_hl(0, highlight[5], { fg = '#3f78ec' })
+  vim.api.nvim_set_hl(0, highlight[6], { fg = '#7dc4e4' })
+  vim.api.nvim_set_hl(0, highlight[7], { fg = '#9c5aef' })
 end)
 
 require('ibl').setup {
@@ -115,13 +113,13 @@ local delimiter_highlight = {
   'RainbowDelimiterViolet'
 }
 
-vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = '#ed6e6d' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = '#ef7734' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#e2b65e' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#72d35d' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = '#3f78ec' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = '#7dc4e4' })
-vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = '#9c5aef' })
+vim.api.nvim_set_hl(0, delimiter_highlight[1], { fg = '#ed6e6d' })
+vim.api.nvim_set_hl(0, delimiter_highlight[2], { fg = '#ef7734' })
+vim.api.nvim_set_hl(0, delimiter_highlight[3], { fg = '#e2b65e' })
+vim.api.nvim_set_hl(0, delimiter_highlight[4], { fg = '#72d35d' })
+vim.api.nvim_set_hl(0, delimiter_highlight[5], { fg = '#3f78ec' })
+vim.api.nvim_set_hl(0, delimiter_highlight[6], { fg = '#7dc4e4' })
+vim.api.nvim_set_hl(0, delimiter_highlight[7], { fg = '#9c5aef' })
 
 vim.g.rainbow_delimiters = { highlight = delimiter_highlight }
 
