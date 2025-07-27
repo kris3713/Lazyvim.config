@@ -26,8 +26,8 @@ return {
             -- indent_style
             function()
               local bufnr = vim.api.nvim_get_current_buf()
-              local indentation = require('guess-indent').guess_from_buffer(bufnr)
-              if indentation ~= 'tabs' then
+              local indent_style = require('guess-indent').guess_from_buffer(bufnr)
+              if indent_style ~= 'tabs' then
                 return 'Indent Style: Spaces'
               else
                 return 'Indent Style: Tabs'
