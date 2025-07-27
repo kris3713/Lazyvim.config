@@ -12,8 +12,10 @@ local function create_augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
+local create_autocmd = vim.api.nvim_create_autocmd
+
 -- Get rid of Neovim's stupid cursor change
-vim.api.nvim_create_autocmd('VimLeave', {
+create_autocmd('VimLeave', {
   group = create_augroup('restore_cursor_shape_on_exit'),
   desc = 'Restore the cursor shape on exit of neovim',
   once = true,
@@ -21,7 +23,7 @@ vim.api.nvim_create_autocmd('VimLeave', {
 })
 
 -- Make sure all lsp servers close when quiting Neovim
-vim.api.nvim_create_autocmd('VimLeave', {
+create_autocmd('VimLeave', {
   group = create_augroup('close_all_lsp_servers_on_quit'),
   desc = 'Close all lsp servers on qutting Neovim',
   callback = function()
@@ -30,7 +32,7 @@ vim.api.nvim_create_autocmd('VimLeave', {
 })
 
 -- Enable semantic highlighting
-vim.api.nvim_create_autocmd('LspTokenUpdate', {
+create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
   desc = 'Set semantic highlighting for LSP tokens',
   callback = function()
@@ -52,7 +54,7 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
 })
 
 -- Auto-start for nvim-tree
-vim.api.nvim_create_autocmd('VimEnter', {
+create_autocmd('VimEnter', {
   group = create_augroup('autostart_nvim_tree'),
   desc = 'Auto-start nvim-tree with directory',
   once = true,
@@ -71,7 +73,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 -- nvim-tree workaround when using rmagatti/auto-session
-vim.api.nvim_create_autocmd('BufEnter', {
+create_autocmd('BufEnter', {
   group = create_augroup('auto_session_workaround'),
   desc = 'nvim-tree workaround for auto-session',
   pattern = 'NvimTree*',
@@ -79,5 +81,16 @@ vim.api.nvim_create_autocmd('BufEnter', {
     if not require('nvim-tree.explorer.view').is_visible then
       require('nvim-tree.api').tree.open()
     end
+  end
+})
+
+-- GuessIndent
+create_autocmd('BufReadPost', {
+  group = create_augroup('guess-indent'),
+  desc = 'Activates the cmd "GuessIndent" on BufReadPost event',
+  pattern = '*',
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    require('guess-indent').set_from_buffer(bufnr, true, true)
   end
 })

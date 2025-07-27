@@ -56,8 +56,9 @@ return {
             end,
             ---@param clicks integer
             on_click = function(clicks, _, _)
+              local bufnr = vim.api.nvim_get_current_buf()
               if clicks == 2 then
-                require('functions.set_indent_size_prompt').set_indent_size()
+                require('functions.set_indent_size_prompt').set_indent_size(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
                 require('lualine').refresh()
               end

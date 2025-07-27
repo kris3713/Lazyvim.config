@@ -6,7 +6,8 @@ local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 
 --- Allows for setting a function to pick a value for shiftwidth or tabstop
-local function set_indent_size()
+---@param bufnr integer
+local function set_indent_size(bufnr)
   pickers.new(
     {
       layout_config = {
@@ -14,13 +15,7 @@ local function set_indent_size()
       }
     },
     {
-      prompt_title = (function()
-        if vim.bo.expandtab then
-          return 'Set the Space Size'
-        else
-          return 'Set the Tab Width'
-        end
-      end)(),
+      prompt_title = 'Set the Indent Size',
       finder = finders._new {}, -- Use a static finder with no results
       -- sorter = conf.generic_sorter {}, -- Use a generic sorter
 
@@ -38,7 +33,6 @@ local function set_indent_size()
           local value = tonumber(input)
 
           if value and value >= 0 then
-            local bufnr = vim.api.nvim_get_current_buf()
             -- Set the shiftwidth and tabstop options
             if vim.bo[bufnr].expandtab then
               vim.bo[bufnr].shiftwidth = value

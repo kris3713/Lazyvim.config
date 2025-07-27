@@ -574,31 +574,26 @@ return {
             return vim.api.nvim_create_augroup(name, { clear = true })
           end
 
+          local create_autocmd = vim.api.nvim_create_autocmd
+
           -- Enforce Unix-style line endings for all files
-          vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
+          create_autocmd({ 'BufEnter', 'BufRead', 'WinEnter' }, {
             group = create_augroup('change_line_ending'),
             desc = 'Ensure that all files have Unix-style line endings',
             pattern = '*',
             callback = function()
-              local is_true = (vim.bo.filetype ~= 'help') or
-                (vim.bo.filetype ~= 'man') or
-                (vim.bo.filetype ~= 'gitcommit')
+              local bufnr = vim.api.nvim_get_current_buf()
+              local is_true = (vim.bo[bufnr].filetype ~= 'help') or
+                (vim.bo[bufnr].filetype ~= 'man') or
+                (vim.bo[bufnr].filetype ~= 'gitcommit')
 
-              if is_true and vim.bo.modifiable then
+              if is_true and vim.bo[bufnr].modifiable then
                 vim.o.fileformats = 'unix,dos,mac'
               end
             end
           })
         end
       }
-    },
-    post_restore_cmds = {
-      function()
-        vim.cmd([[
-          doautocmd BufReadPost
-          GuessIndent
-        ]])
-      end
     }
   }
   -- harper:ignore
