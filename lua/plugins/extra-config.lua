@@ -35,11 +35,11 @@ return {
             end
           },
           {
-            -- shiftwidth/tabstop
+            -- indent_size
             function()
               local bufnr = vim.api.nvim_get_current_buf()
-              local indentation = require('guess-indent').guess_from_buffer(bufnr)
-              if indentation ~= 'tabs' then
+              local indent_style = require('guess-indent').guess_from_buffer(bufnr)
+              if indent_style ~= 'tabs' then
                 return ('Indent Size: ' .. vim.bo[bufnr].shiftwidth)
               else
                 return ('Indent Size: ' .. vim.bo[bufnr].tabstop)
@@ -49,6 +49,8 @@ return {
             on_click = function(clicks, _, _)
               if clicks == 2 then
                 require('functions.set_indent_size_prompt').set_indent_size()
+                -- Force Lualine to refresh to reflect the change immediately
+                require('lualine').refresh()
               end
             end
           },
@@ -77,6 +79,7 @@ return {
                 elseif vim.bo[bufnr].fileformat == 'mac' then
                   vim.bo[bufnr].fileformat = 'unix'
                 end
+                require('lualine').refresh()
               end
             end
           },
