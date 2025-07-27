@@ -108,20 +108,6 @@ return {
     end
   },
   {
-    'GCBallesteros/jupytext.nvim',
-    config = function()
-      require('jupytext').setup {
-        custom_language_formatting = {
-          python = {
-            extension = 'md',
-            style = 'markdown',
-            force_ft = 'markdown' -- you can set whatever filetype you want here
-          }
-        }
-      }
-    end
-  },
-  {
     'nvim-zh/colorful-winsep.nvim',
     config = function()
       require('colorful-winsep').setup {}
@@ -198,6 +184,29 @@ return {
     end
   },
   {
+    'NMAC427/guess-indent.nvim',
+    config = function()
+      require('guess-indent').setup {
+        filetype_exclude = { 'netrw', 'tutor', 'snacks_dashboard', 'snacks_terminal' }
+      }
+    end
+  },
+  {
+    'mcauley-penney/visual-whitespace.nvim',
+    event = 'ModeChanged *:[vV\22]',
+    opts = {
+      space_char = '·',
+      tab_char = '󰌒 '
+    }
+  },
+  {
+    'smoka7/multicursors.nvim',
+    event = 'VeryLazy',
+    dependencies = 'nvimtools/hydra.nvim',
+    opts = {},
+    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' }
+  },
+  {
     'nvimdev/lspsaga.nvim',
     ---@module 'lspsaga'
     ---@type LspsagaConfig
@@ -238,13 +247,6 @@ return {
     }
   },
   {
-    'smoka7/multicursors.nvim',
-    event = 'VeryLazy',
-    dependencies = 'nvimtools/hydra.nvim',
-    opts = {},
-    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' }
-  },
-  {
     'gbprod/phpactor.nvim',
     ft = 'php',
     opts = {
@@ -277,14 +279,6 @@ return {
     end
   },
   {
-    'mcauley-penney/visual-whitespace.nvim',
-    event = 'ModeChanged *:[vV\22]',
-    opts = {
-      space_char = '·',
-      tab_char = '󰌒 '
-    }
-  },
-  {
     'Bekaboo/dropbar.nvim',
     ---@module 'dropbar'
     ---@type dropbar_configs_t
@@ -306,6 +300,20 @@ return {
       end,
       preview_opts = { border = 'rounded' }
     }
+  },
+  {
+    'GCBallesteros/jupytext.nvim',
+    config = function()
+      require('jupytext').setup {
+        custom_language_formatting = {
+          python = {
+            extension = 'md',
+            style = 'markdown',
+            force_ft = 'markdown' -- you can set whatever filetype you want here
+          }
+        }
+      }
+    end
   },
   {
     'kylechui/nvim-surround',
@@ -583,6 +591,12 @@ return {
           })
         end
       }
+    },
+    post_restore_cmds = {
+      function()
+        vim.cmd('doautocmd BufReadPost')
+        vim.cmd('GuessIndent')
+      end
     }
   }
   -- harper:ignore

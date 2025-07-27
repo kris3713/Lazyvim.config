@@ -26,7 +26,8 @@ return {
             -- indent_style
             function()
               local bufnr = vim.api.nvim_get_current_buf()
-              if vim.bo[bufnr].expandtab then
+              local indentation = require('guess-indent').guess_from_buffer(bufnr)
+              if indentation ~= 'tabs' then
                 return 'Indent Style: Spaces'
               else
                 return 'Indent Style: Tabs'
@@ -37,10 +38,11 @@ return {
             -- shiftwidth/tabstop
             function()
               local bufnr = vim.api.nvim_get_current_buf()
-              if vim.bo[bufnr].expandtab then
-                return ('Space Size: ' .. vim.bo[bufnr].shiftwidth)
+              local indentation = require('guess-indent').guess_from_buffer(bufnr)
+              if indentation ~= 'tabs' then
+                return ('Indent Size: ' .. vim.bo[bufnr].shiftwidth)
               else
-                return ('Tab Width: ' .. vim.bo[bufnr].tabstop)
+                return ('Indent Size: ' .. vim.bo[bufnr].tabstop)
               end
             end,
             ---@param clicks integer
