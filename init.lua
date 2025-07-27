@@ -150,7 +150,7 @@ if mini_ani_exists then mod.config.cursor.enable = false end
 
 -- LuaSnip
 require('luasnip.loaders.from_vscode').lazy_load {
-	paths = { os.getenv('HOME') .. '/MEGA' }
+  paths = { os.getenv('HOME') .. '/MEGA' }
 }
 
 -- telescope extensions
