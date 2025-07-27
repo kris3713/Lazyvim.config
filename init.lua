@@ -32,6 +32,7 @@ local new_null_ls_sources = {
   null_ls.builtins.diagnostics.yamllint,
   require('none-ls.formatting.ruff'),
   null_ls.builtins.formatting.biome,
+  null_ls.builtins.formatting.prettier,
   null_ls.builtins.formatting.fish_indent,
   null_ls.builtins.formatting.gofumpt,
   null_ls.builtins.formatting.markdownlint,
