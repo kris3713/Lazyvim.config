@@ -216,9 +216,9 @@ local cmp_setup = {
     end
   },
   sources = cmp_config.sources,
-  mapping = cmp.mapping.preset.insert {
-    ['<a-y>'] = require('minuet').make_cmp_map()
-  },
+  -- mapping = cmp.mapping.preset.insert {
+  --   ['<a-y>'] = require('minuet').make_cmp_map()
+  -- },
   performance = {
     fetching_timeout = 2000
   }
