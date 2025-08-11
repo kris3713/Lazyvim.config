@@ -25,5 +25,6 @@ return {
   'Snikimonkd/cmp-go-pkgs',
   'vrslev/cmp-pypi',
   'ray-x/cmp-sql',
-  'sbdchd/neoformat'
+  'sbdchd/neoformat',
+  'direnv/direnv.vim'
 }
