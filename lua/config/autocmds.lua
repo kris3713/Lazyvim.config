@@ -73,16 +73,16 @@ create_autocmd('VimEnter', {
 })
 
 -- nvim-tree workaround when using rmagatti/auto-session
-create_autocmd('BufEnter', {
-  group = create_augroup('auto_session_workaround'),
-  desc = 'nvim-tree workaround for auto-session',
-  pattern = 'NvimTree*',
-  callback = function()
-    if not require('nvim-tree.explorer.view').is_visible then
-      require('nvim-tree.api').tree.open()
-    end
-  end
-})
+-- create_autocmd('BufEnter', {
+--   group = create_augroup('auto_session_workaround'),
+--   desc = 'nvim-tree workaround for auto-session',
+--   pattern = 'NvimTree*',
+--   callback = function()
+--     if not require('nvim-tree.explorer.view').is_visible then
+--       require('nvim-tree.api').tree.open()
+--     end
+--   end
+-- })
 
 -- GuessIndent
 create_autocmd('BufReadPost', {
