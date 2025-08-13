@@ -354,29 +354,31 @@ return {
     end
   },
   {
-    'yetone/avante.nvim',
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    -- ⚠️ must add this setting! ! !
-    build = (function()
-      -- conditionally use the correct build system for the current OS
-      if vim.fn.has('win32') == 1 then
-        return 'powershell -ExecutionPolicy Bypass -File ./Build.ps1 -BuildFromSource false'
-      else
-        return 'make'
-      end
-    end)(),
-    event = 'VeryLazy',
-    version = false, -- Never set this value to "*"! Never!
-    ---@module 'avante'
-    ---@type avante.Config
+    'GeorgesAlkhouri/nvim-aider',
+    cmd = 'Aider',
+    -- Example key mappings for common actions:
+    keys = {
+      { '<leader>a/', '<cmd>Aider toggle<cr>', desc = 'Toggle Aider' },
+      { '<leader>as', '<cmd>Aider send<cr>', desc = 'Send to Aider', mode = { 'n', 'v' } },
+      { '<leader>ac', '<cmd>Aider command<cr>', desc = 'Aider Commands' },
+      { '<leader>ab', '<cmd>Aider buffer<cr>', desc = 'Send Buffer' },
+      { '<leader>a+', '<cmd>Aider add<cr>', desc = 'Add File' },
+      { '<leader>a-', '<cmd>Aider drop<cr>', desc = 'Drop File' },
+      { '<leader>ar', '<cmd>Aider add readonly<cr>', desc = 'Add Read-Only' },
+      { '<leader>aR', '<cmd>Aider reset<cr>', desc = 'Reset Session' },
+      -- Example nvim-tree.lua integration if needed
+      { '<leader>a+', '<cmd>AiderTreeAddFile<cr>', desc = 'Add File from Tree to Aider', ft = 'NvimTree' },
+      { '<leader>a-', '<cmd>AiderTreeDropFile<cr>', desc = 'Drop File from Tree from Aider', ft = 'NvimTree' },
+    },
+    ---@module 'nvim_aider'
+    ---@type nvim_aider.Config
     opts = {
-      provider = 'gemini',
-      providers = {
-        gemini = {
-          model = 'gemini-2.0-flash',
-          temperature = 0,
-          max_tokens = 4096
-        }
+      args = {
+        '--model',
+        'gemini/gemini-2.5-flash',
+        '--no-auto-commits',
+        '--pretty',
+        '--stream'
       }
     }
   },
