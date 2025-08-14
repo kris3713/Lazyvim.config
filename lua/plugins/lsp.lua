@@ -71,7 +71,7 @@ return {
       -- dprint
       dprint = {
         mason = false,
-        enabled = true
+        enabled = false
       },
       -- eslint
       eslint = {
