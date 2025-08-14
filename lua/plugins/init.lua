@@ -367,8 +367,22 @@ return {
       { '<leader>ar', '<cmd>Aider add readonly<cr>', desc = 'Add Read-Only' },
       { '<leader>aR', '<cmd>Aider reset<cr>', desc = 'Reset Session' },
       -- Example nvim-tree.lua integration if needed
-      { '<leader>a+', '<cmd>AiderTreeAddFile<cr>', desc = 'Add File from Tree to Aider', ft = 'NvimTree' },
-      { '<leader>a-', '<cmd>AiderTreeDropFile<cr>', desc = 'Drop File from Tree from Aider', ft = 'NvimTree' },
+      {
+        '<leader>a+',
+        function()
+          require('nvim_aider.tree').add_file_from_tree()
+        end,
+        desc = 'Add File from Tree to Aider',
+        ft = 'NvimTree'
+      },
+      {
+        '<leader>a-',
+        function()
+          require('nvim_aider.tree').drop_file_from_tree()
+        end,
+        desc = 'Drop File from Tree from Aider',
+        ft = 'NvimTree'
+      },
     },
     ---@module 'nvim_aider'
     ---@type nvim_aider.Config
