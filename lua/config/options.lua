@@ -111,6 +111,10 @@ vim.o.undofile = true
 -- Ensure the relative line number is always shown
 vim.o.relativenumber = false
 
+-- Enable smartindent
+vim.o.smartindent = true
+-- vim.o.autoindent = true
+
 -- LSP configs (That can't be manually enabled in lsp.lua)
 local lsps = {
   'kotlin_lsp'

@@ -15,29 +15,57 @@ return {
   opts = {
     servers = {
       -- solargraph
-      solargraph = { enabled = true },
+      solargraph = {
+        enabled = true,
+      },
       -- ruby_lsp
-      ruby_lsp = { enabled = true },
+      ruby_lsp = {
+        enabled = true,
+      },
       -- rubocop
-      rubocop = { enabled = true },
+      rubocop = {
+        enabled = true,
+      },
       -- fish_lsp
-      fish_lsp = { enabled = true },
+      fish_lsp = {
+        enabled = true,
+      },
       -- lemminx
-      lemminx = { enabled = true },
+      lemminx = {
+        enabled = true,
+      },
       -- phan
-      phan = { enabled = true },
+      phan = {
+        enabled = true,
+      },
       -- stylelint_lsp
-      stylelint_lsp = { enabled = true },
+      stylelint_lsp = {
+        enabled = true,
+      },
       -- gh_actions_ls
-      gh_actions_ls = { enabled = true },
+      gh_actions_ls = {
+        enabled = true,
+      },
       -- rpmspec
-      rpmspec = { enabled = true },
+      rpmspec = {
+        enabled = true,
+      },
       -- gradle_ls
-      gradle_ls = { enabled = true },
+      gradle_ls = {
+        enabled = true,
+      },
       -- golangci_lint_ls
-      golangci_lint_ls = { enabled = true },
+      golangci_lint_ls = {
+        enabled = true,
+      },
       -- jdtls
-      jdtls = { enabled = true },
+      jdtls = {
+        enabled = true,
+      },
+      -- statix
+      statix = {
+        enabled = true
+      },
       -- bashls
       bashls = {
         mason = false,
@@ -113,6 +141,16 @@ return {
         mason = false,
         enabled = true
       },
+      -- MSBuild
+      msbuild_project_tools_server = {
+        enabled = msbuild ~= nil and msbuild ~= '',
+        cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
+      },
+      -- nil_ls
+      nil_ls = {
+        enabled = true,
+        mason = false
+      },
       -- cssls
       cssls = {
         mason = false,
@@ -131,11 +169,6 @@ return {
         mason = false,
         enabled = true,
         capabilities = capabilities()
-      },
-      -- MSBuild
-      msbuild_project_tools_server = {
-        enabled = msbuild ~= nil and msbuild ~= '',
-        cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
       },
       -- csharp_ls
       csharp_ls = {

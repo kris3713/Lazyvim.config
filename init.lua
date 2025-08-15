@@ -19,6 +19,7 @@ local new_null_ls_sources = {
   null_ls.builtins.diagnostics.checkstyle.with {
     extra_args = { '-c', os.getenv('HOME') .. '/MEGA/checkstyle.xml' }
   },
+  null_ls.builtins.diagnostics.deadnix,
   null_ls.builtins.diagnostics.dotenv_linter,
   null_ls.builtins.diagnostics.editorconfig_checker,
   null_ls.builtins.diagnostics.fish,
@@ -30,12 +31,13 @@ local new_null_ls_sources = {
   null_ls.builtins.diagnostics.trail_space,
   null_ls.builtins.diagnostics.pydoclint,
   null_ls.builtins.diagnostics.yamllint,
-  require('none-ls.formatting.ruff'),
+  null_ls.builtins.formatting.alejandra,
   null_ls.builtins.formatting.biome,
   null_ls.builtins.formatting.prettier,
   null_ls.builtins.formatting.fish_indent,
   null_ls.builtins.formatting.gofumpt,
   null_ls.builtins.formatting.markdownlint,
+  require('none-ls.formatting.ruff'),
   null_ls.builtins.formatting.shfmt,
   null_ls.builtins.formatting.uncrustify,
   null_ls.builtins.formatting.yamlfmt,
