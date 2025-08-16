@@ -16,51 +16,51 @@ return {
     servers = {
       -- solargraph
       solargraph = {
-        enabled = true,
+        enabled = true
       },
       -- ruby_lsp
       ruby_lsp = {
-        enabled = true,
+        enabled = true
       },
       -- rubocop
       rubocop = {
-        enabled = true,
+        enabled = true
       },
       -- fish_lsp
       fish_lsp = {
-        enabled = true,
+        enabled = true
       },
       -- lemminx
       lemminx = {
-        enabled = true,
+        enabled = true
       },
       -- phan
       phan = {
-        enabled = true,
+        enabled = true
       },
       -- stylelint_lsp
       stylelint_lsp = {
-        enabled = true,
+        enabled = true
       },
       -- gh_actions_ls
       gh_actions_ls = {
-        enabled = true,
+        enabled = true
       },
       -- rpmspec
       rpmspec = {
-        enabled = true,
+        enabled = true
       },
       -- gradle_ls
       gradle_ls = {
-        enabled = true,
+        enabled = true
       },
       -- golangci_lint_ls
       golangci_lint_ls = {
-        enabled = true,
+        enabled = true
       },
       -- jdtls
       jdtls = {
-        enabled = true,
+        enabled = true
       },
       -- statix
       statix = {
