@@ -187,15 +187,21 @@ return {
       cssmodules_ls = {
         enabled = true,
         mason = false,
-        filetypes = {
-          'javascript',
-          'javascriptreact',
-          'typescript',
-          'typescriptreact',
-          'astro',
-          'vue',
-          'svelte'
-        }
+        filetypes = (function()
+          local filetypes = require('lspconfig.configs.cssmodules_ls').default_config.filetypes
+
+          local new_filetypes = {
+            'astro',
+            'vue',
+            'svelte'
+          }
+
+          for _, filetype in ipairs(new_filetypes) do
+            table.insert(filetypes, filetype)
+          end
+
+          return filetypes
+        end)()
       },
       -- jsonls
       jsonls = {
@@ -212,8 +218,12 @@ return {
         end,
         settings = {
           json = {
-            format = { enable = true },
-            validate = { enable = true }
+            format = {
+              enable = true
+            },
+            validate = {
+              enable = true
+            }
           }
         },
       },
@@ -280,7 +290,7 @@ return {
         enabled = function(bufnr)
           local is_md = vim.bo[bufnr].filetype == 'markdown'
 
-          if (vim.bo[bufnr].modifiable) and is_md then
+          if vim.bo[bufnr].modifiable and is_md then
             return true -- Return true to enable
           end
 
@@ -291,7 +301,7 @@ return {
           autostart = function(bufnr)
             local is_md = vim.bo[bufnr].filetype == 'markdown'
 
-            if (vim.bo[bufnr].modifiable) and is_md then
+            if vim.bo[bufnr].modifiable and is_md then
               return true -- return true to allow autostart
             end
 
@@ -305,7 +315,7 @@ return {
         enabled = function(bufnr)
           local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
 
-          if (vim.bo[bufnr].modifiable) and is_md then
+          if vim.bo[bufnr].modifiable and is_md then
             return true -- Return true to enable
           end
 
@@ -317,7 +327,7 @@ return {
           autostart = function(bufnr)
             local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
 
-            if (vim.bo[bufnr].modifiable) and is_md then
+            if vim.bo[bufnr].modifiable and is_md then
               return true -- Return true to allow autostart
             end
 
@@ -367,51 +377,58 @@ return {
         }
       },
       -- vtsls
-      vtsls = {
-        mason = false,
-        enabled = true,
-        settings = {
-          vtsls = {
-            experimental = { enableProjectDiagnostics = true },
+      vtsls = (function()
+        ---@type _.lspconfig.settings.vtsls.Typescript
+        local options = {
+          updateImportsOnFileMove = {
+            enabled = 'always'
           },
-          typescript = {
-            updateImportsOnFileMove = { enabled = 'always' },
-            suggest = { completeFunctionCalls = true },
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
-              parameterNames = { enabled = 'literals' },
-              parameterTypes = { enabled = true },
-              propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = false },
+          suggest = {
+            completeFunctionCalls = true
+          },
+          inlayHints = {
+            enumMemberValues = {
+              enabled = true
             },
-            preferences = {
-              quoteStyle = 'single',
-              importModuleSpecifier = 'shortest',
-              renameMatchingJsxTags = true,
-              jsxAttributeCompletionStyle = 'auto'
+            functionLikeReturnTypes = {
+              enabled = true
+            },
+            parameterNames = {
+              enabled = 'literals'
+            },
+            parameterTypes = {
+              enabled = true
+            },
+            propertyDeclarationTypes = {
+              enabled = true
+            },
+            variableTypes = {
+              enabled = false
             }
           },
-          javascript = {
-            updateImportsOnFileMove = { enabled = 'always' },
-            suggest = { completeFunctionCalls = true },
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
-              parameterNames = { enabled = 'literals' },
-              parameterTypes = { enabled = true },
-              propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = false }
-            },
-            preferences = {
-              quoteStyle = 'single',
-              importModuleSpecifier = 'shortest',
-              renameMatchingJsxTags = true,
-              jsxAttributeCompletionStyle = 'auto'
-            }
+          preferences = {
+            quoteStyle = 'single',
+            importModuleSpecifier = 'shortest',
+            renameMatchingJsxTags = true,
+            jsxAttributeCompletionStyle = 'auto'
           }
         }
-      }
+
+
+        ---@type lspconfig.options.vtsls
+        return {
+          mason = false,
+          enabled = true,
+          settings = {
+            vtsls = {
+              experimental = { enableProjectDiagnostics = true }
+            },
+            typescript = options,
+            ---@diagnostic disable-next-line: assign-type-mismatch
+            javascript = options
+          }
+        }
+      end)()
     }
   }
 }

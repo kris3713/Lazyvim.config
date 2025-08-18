@@ -1,10 +1,10 @@
 return {
   -- Plugins with configs go here
-  {
-    'LazyVim/LazyVim',
-    url = 'https://github.com/LazyVim/LazyVim',
-    branch = 'main'
-  },
+  -- {
+  --   'LazyVim/LazyVim',
+  --   url = 'https://github.com/LazyVim/LazyVim',
+  --   branch = 'main'
+  -- },
   {
     'nanotee/zoxide.vim',
     init = function() vim.g.zoxide_use_select = 1 end
@@ -16,10 +16,6 @@ return {
   {
     'fei6409/log-highlight.nvim',
     config = true
-  },
-  {
-    'chrisgrieser/nvim-scissors',
-    opts = { snippetDir =  os.getenv('HOME') .. '/MEGA' }
   },
   {
     'samiulsami/cmp-go-deep',
@@ -50,6 +46,12 @@ return {
     'abccsss/nvim-gitstatus',
     event = 'VeryLazy',
     config = true
+  },
+  {
+    'chrisgrieser/nvim-scissors',
+    opts = {
+      snippetDir =  os.getenv('HOME') .. '/MEGA',
+    }
   },
   {
     'm-demare/hlargs.nvim',
@@ -93,23 +95,10 @@ return {
     end
   },
   {
-    '3rd/image.nvim',
-    enabled = function()
-      if vim.g.neovide then
-        return false
-      end
-      return true
-    end,
-    build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
-    opts = {
-      processor = 'magick_cli'
-    }
-  },
-  {
     'xzbdmw/colorful-menu.nvim',
     config = function ()
       require('colorful-menu').setup {
-        max_width = 60
+        max_width = 80
       }
     end
   },
@@ -224,8 +213,8 @@ return {
   },
   {
     'numToStr/Comment.nvim',
+    -- Has potential for a complex configuration
     config = function()
-      -- Has potential for a complex configuration
       local c = require('ts_context_commentstring.integrations.comment_nvim')
       require('Comment').setup {
         pre_hook = c.create_pre_hook()
@@ -258,8 +247,8 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
+    -- Has potential for a complex configuration
     config = function()
-      -- Has potential for a complex configuration
       require('ufo').setup {
         provider_selector = function(_, _, _)
           return { 'treesitter', 'indent' }
@@ -313,6 +302,37 @@ return {
         }
       }
     end
+  },
+  {
+    '3rd/image.nvim',
+    enabled = function()
+      if vim.g.neovide then
+        return false
+      end
+      return true
+    end,
+    -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
+    build = false,
+    opts = {
+      processor = 'magick_cli'
+    }
+  },
+  {
+    -- support for image pasting
+    'HakonHarnes/img-clip.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- recommended settings
+      default = {
+        embed_image_as_base64 = false,
+        prompt_for_file_name = false,
+        drag_and_drop = {
+          insert_mode = true
+        },
+        -- required for Windows users
+        use_absolute_path = vim.fn.has('win32') and true or false
+      }
+    }
   },
   {
     'kylechui/nvim-surround',
@@ -423,38 +443,15 @@ return {
           'illuminate',
           'lsp',
           'treesitter',
-          'syntax',
           ---@diagnostic disable-next-line: assign-type-mismatch
           supermaven,
+          'syntax',
           'matchparen',
           'vimopts',
           'filetype'
         }
       }
     end
-  },
-  {
-    -- support for image pasting
-    'HakonHarnes/img-clip.nvim',
-    event = 'VeryLazy',
-    opts = {
-      -- recommended settings
-      default = {
-        embed_image_as_base64 = false,
-        prompt_for_file_name = false,
-        drag_and_drop = {
-          insert_mode = true
-        },
-        -- required for Windows users
-        use_absolute_path = function()
-          if vim.fn.has('win32') == 1 then
-            return true
-          end
-          -- Otherwise, return false
-          return false
-        end
-      }
-    }
   },
   {
     'nvim-tree/nvim-tree.lua',
