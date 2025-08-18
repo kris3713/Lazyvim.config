@@ -74,7 +74,7 @@ return {
       -- basedpyright
       basedpyright = {
         mason = false,
-        enabled = false
+        enabled = true
       },
       -- biome
       biome = {
@@ -109,7 +109,7 @@ return {
       -- jedi_language_server
       jedi_language_server = {
         mason = false,
-        enabled = true
+        enabled = false
       },
       -- pyright
       pyright = {
