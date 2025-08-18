@@ -11,7 +11,8 @@ local function set_indent_size(bufnr)
   pickers.new(
     {
       layout_config = {
-        height = 5
+        height = 5,
+        width = 60
       }
     },
     {
@@ -49,7 +50,8 @@ local function set_indent_size(bufnr)
 
         return true
       end
-    }):find()
+    }
+  ):find()
 end
 
 -- Return the function so it can be required and mapped

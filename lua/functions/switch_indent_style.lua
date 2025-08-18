@@ -9,6 +9,7 @@ local function switch_indent_style(bufnr)
     vim.bo[bufnr].tabstop = 2
     vim.bo[bufnr].shiftwidth = 2
     vim.cmd('retab')
+    ---@diagnostic disable-next-line: param-type-mismatch
     require('guess-indent').set_from_buffer(bufnr, true, true)
     print('Switched Indent Style to Spaces')
   else
@@ -17,6 +18,7 @@ local function switch_indent_style(bufnr)
     vim.bo[bufnr].shiftwidth = 4
     vim.bo[bufnr].tabstop = 4
     vim.cmd('retab')
+    ---@diagnostic disable-next-line: param-type-mismatch
     require('guess-indent').set_from_buffer(bufnr, true, true)
     print('Switched Indent Style to Tabs')
   end
