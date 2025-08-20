@@ -1,6 +1,103 @@
 return {
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
   {
+    'MeanderingProgrammer/render-markdown.nvim',
+    opts = {
+      file_types = { 'markdown' }
+    },
+    ft = { 'markdown' }
+  },
+  {
+    'mason-org/mason.nvim',
+    ---@module 'mason',
+    ---@type MasonSettings
+    opts = {
+      registries = {
+        'github:mason-org/mason-registry',
+        'github:Crashdummyy/mason-registry'
+      }
+    }
+  },
+  {
+    'folke/noice.nvim',
+    ---@module 'noice'
+    ---@type NoiceConfig
+    opts = {
+      lsp = {
+        hover = { silent = true },
+        message = { silent = true }
+      }
+    }
+  },
+  {
+    'neovim/nvim-lspconfig',
+    ---@module 'lspconfig'
+    ---@type lspconfig.Config
+    opts = {
+      -- Disable inlay hints
+      inlay_hints = { enabled = false }
+    }
+  },
+  {
+    'nvim-neotest/neotest',
+    optional = true,
+    dependencies = {
+      'Issafalcon/neotest-dotnet'
+    },
+    opts = {
+      adapters = {
+        -- Here we can set options for neotest-dotnet
+        ['neotest-dotnet'] = {}
+      }
+    }
+  },
+  {
+    'akinsho/bufferline.nvim',
+    init = function()
+      local bufline = require('catppuccin.groups.integrations.bufferline')
+      function bufline.get()
+        return (bufline.get_theme())
+      end
+    end,
+    ---@module 'bufferline'
+    ---@type bufferline.Config
+    opts = {
+      options = {
+        always_show_bufferline = true,
+        separator_style = 'thick',
+        hover = {
+          enabled = true,
+          delay = 120,
+          reveal = { 'close' }
+        }
+      }
+    }
+  },
+  {
+    'folke/snacks.nvim',
+    ---@module 'snacks'
+    ---@type snacks.Config
+    opts = {
+      explorer = { enabled = false },
+      picker = {
+        previewers = {
+          diff = {
+            builtin = false,
+            cmd = { 'delta' }
+          },
+          git = {
+            builtin = false
+          },
+          man_pager = 'nvim +Man!'
+        }
+      },
+      win = { border = 'rounded' }
+    },
+    keys = {
+      { '<leader>S', false }
+    }
+  },
+  {
     'nvim-lualine/lualine.nvim',
     opts = {
       sections = {
@@ -116,77 +213,6 @@ return {
     }
   },
   {
-    'folke/snacks.nvim',
-    ---@module 'snacks'
-    ---@type snacks.Config
-    opts = {
-      explorer = { enabled = false },
-      picker = {
-        previewers = {
-          diff = {
-            builtin = false,
-            cmd = { 'delta' }
-          },
-          git = {
-            builtin = false
-          },
-          man_pager = 'nvim +Man!'
-        }
-      },
-      win = { border = 'rounded' }
-    },
-    keys = {
-      { '<leader>S', false }
-    }
-  },
-  {
-    'folke/noice.nvim',
-    ---@module 'noice'
-    ---@type NoiceConfig
-    opts = {
-      lsp = {
-        hover = { silent = true },
-        message = { silent = true }
-      }
-    }
-  },
-  {
-    'neovim/nvim-lspconfig',
-    ---@module 'lspconfig'
-    ---@type lspconfig.Config
-    opts = {
-      -- Disable inlay hints
-      inlay_hints = { enabled = false }
-    }
-  },
-  {
-    'akinsho/bufferline.nvim',
-    ---@module 'bufferline'
-    ---@type bufferline.Config
-    opts = {
-      options = {
-        always_show_bufferline = true,
-        separator_style = 'thick',
-        hover = {
-          enabled = true,
-          delay = 120,
-          reveal = { 'close' }
-        }
-      }
-    }
-  },
-  {
-    'mason-org/mason.nvim',
-    ---@module 'mason',
-    ---@type MasonSettings
-    opts = {
-      registries = {
-        'github:mason-org/mason-registry',
-        'github:Crashdummyy/mason-registry'
-      }
-    }
-  },
-  {
     'mfussenegger/nvim-dap',
     optional = true,
     opts = function()
@@ -220,25 +246,5 @@ return {
         end
       end
     end
-  },
-  {
-    'nvim-neotest/neotest',
-    optional = true,
-    dependencies = {
-      'Issafalcon/neotest-dotnet'
-    },
-    opts = {
-      adapters = {
-        -- Here we can set options for neotest-dotnet
-        ['neotest-dotnet'] = {}
-      }
-    }
-  },
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    opts = {
-      file_types = { 'markdown' }
-    },
-    ft = { 'markdown' }
   }
 }
