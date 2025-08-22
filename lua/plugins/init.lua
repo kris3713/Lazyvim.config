@@ -156,15 +156,6 @@ return {
     }
   },
   {
-    'windwp/nvim-ts-autotag',
-    config = function()
-      -- Has potential for a complex configuration
-      require('nvim-ts-autotag').setup {
-        opts = { enable_close_on_slash = true }
-      }
-    end
-  },
-  {
     'Wansmer/treesj',
     config = function()
       -- Has potential for a complex configuration
@@ -212,12 +203,45 @@ return {
     }
   },
   {
+    'Bekaboo/dropbar.nvim',
+    ---@module 'dropbar'
+    ---@type dropbar_configs_t
+    opts = {
+      menu = {
+        win_configs = { border = 'rounded' }
+      }
+    }
+  },
+  {
     'numToStr/Comment.nvim',
     -- Has potential for a complex configuration
     config = function()
       local c = require('ts_context_commentstring.integrations.comment_nvim')
       require('Comment').setup {
         pre_hook = c.create_pre_hook()
+      }
+    end
+  },
+  {
+    'gbprod/phpactor.nvim',
+    ft = 'php',
+    opts = {
+      install = {
+        path = vim.fn.stdpath('data') .. '/mason/bin',
+        bin = vim.fn.stdpath('data') .. '/mason/bin/phpactor'
+      }
+    }
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    config = function()
+      -- Has potential for a complex configuration
+      require('nvim-ts-autotag').setup {
+        opts = {
+          enable_close = true,
+          enable_close_on_slash = true,
+          enable_rename = true
+        }
       }
     end
   },
@@ -231,16 +255,6 @@ return {
         underline = true,
         virtual_text = false,
         signs = true
-      }
-    }
-  },
-  {
-    'gbprod/phpactor.nvim',
-    ft = 'php',
-    opts = {
-      install = {
-        path = vim.fn.stdpath('data') .. '/mason/bin',
-        bin = vim.fn.stdpath('data') .. '/mason/bin/phpactor'
       }
     }
   },
@@ -265,16 +279,6 @@ return {
     config = function()
       require('sniprun').setup {}
     end
-  },
-  {
-    'Bekaboo/dropbar.nvim',
-    ---@module 'dropbar'
-    ---@type dropbar_configs_t
-    opts = {
-      menu = {
-        win_configs = { border = 'rounded' }
-      }
-    }
   },
   {
     'lewis6991/hover.nvim',
