@@ -149,9 +149,9 @@ return {
               local indent_style = require('guess-indent').guess_from_buffer(bufnr)
 
               if indent_style ~= 'tabs' then
-                return ('Indent Size: ' .. vim.bo[bufnr].shiftwidth)
+                return 'Indent Size: ' .. vim.bo[bufnr].shiftwidth
               else
-                return ('Indent Size: ' .. vim.bo[bufnr].tabstop)
+                return 'Indent Size: ' .. vim.bo[bufnr].tabstop
               end
             end,
             ---@param clicks integer
