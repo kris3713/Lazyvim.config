@@ -19,7 +19,9 @@ vim.opt.wrap = true
 -- Ensure all indents are spaces and have a width of 2
 vim.o.expandtab = true
 
-if vim.bo.shiftwidth >= 4 or vim.bo.tabstop >= 4 then
+local bufnr = vim.api.nvim_get_current_buf()
+
+if vim.bo[bufnr].shiftwidth >= 4 or vim.bo[bufnr].tabstop >= 4 then
   vim.o.shiftwidth = 4
   vim.o.tabstop = 4
 else
