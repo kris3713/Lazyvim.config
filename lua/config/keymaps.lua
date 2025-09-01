@@ -141,11 +141,10 @@ local function restore_session()
   auto.RestoreSession(vim.fn.getcwd())
 end
 
-vim.keymap.set('n', '<leader>qf', function() vim.cmd('SessionSearch') end, opts('Select a session to load'))
+vim.keymap.set('n', '<leader>qf', function() vim.cmd.AutoSession('search') end, opts('Select a session to load/delete'))
 vim.keymap.set('n', '<leader>qS', save_session, opts('Save session based on cwd'))
 vim.keymap.set('n', '<leader>qs', restore_session, opts('Restore last session based on cwd'))
-vim.keymap.set('n', '<leader>qD', function() vim.cmd.Autosession('delete') end, opts('Delete Session based on cwd'))
-vim.keymap.set('n', '<leader>qd', function() vim.cmd('SessionToggleAutoSave') end, opts('Toggle autosave'))
+vim.keymap.set('n', '<leader>qd', function() vim.cmd.AutoSession('toggle') end, opts('Toggle autosave'))
 
 -- Map the backwards indent to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
