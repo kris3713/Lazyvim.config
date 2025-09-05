@@ -308,20 +308,6 @@ return {
     end
   },
   {
-    '3rd/image.nvim',
-    enabled = function()
-      if vim.g.neovide then
-        return false
-      end
-      return true
-    end,
-    -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
-    build = false,
-    opts = {
-      processor = 'magick_cli'
-    }
-  },
-  {
     -- support for image pasting
     'HakonHarnes/img-clip.nvim',
     event = 'VeryLazy',
