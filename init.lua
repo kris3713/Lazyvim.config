@@ -42,7 +42,6 @@ local new_null_ls_sources = {
   require('none-ls.formatting.tex_fmt'),
   null_ls.builtins.formatting.uncrustify,
   null_ls.builtins.formatting.yamlfmt,
-  null_ls.builtins.hover.dictionary,
   null_ls.builtins.hover.printenv
 }
 
@@ -71,7 +70,6 @@ require('nlspsettings').setup({
 --   }
 -- }
 
--- rainbow-delimiters and
 -- indent-blankline
 local indent_highlight = {
   'RainbowRed',

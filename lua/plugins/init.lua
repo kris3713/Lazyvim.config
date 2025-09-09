@@ -285,11 +285,11 @@ return {
     ---@module 'hover'
     ---@type Hover.Config
     opts = {
-      init = function ()
-        require('hover.providers.lsp')
-        require('hover.providers.man')
-        require('hover.providers.dap')
-      end,
+      providers = {
+        'hover.providers.lsp',
+        'hover.providers.man',
+        'hover.providers.dap'
+      },
       preview_opts = { border = 'rounded' }
     }
   },
