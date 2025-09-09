@@ -313,10 +313,10 @@ return {
     -- lazy-loading will disable inverse search
     lazy = false,
     config = function()
+      -- Disables `K` as it conflicts with LSP hover
       vim.g.vimtex_mappings_disable = {
         ['n'] = { 'K' }
       }
-      -- Disables `K` as it conflicts with LSP hover
       vim.g.vimtex_quickfix_method = vim.fn.executable('pplatex') == 1 and 'pplatex' or 'latexlog'
     end,
     keys = {
