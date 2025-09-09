@@ -62,6 +62,10 @@ return {
       jdtls = {
         enabled = true
       },
+      -- texlab
+      texlab = {
+        enabled = true
+      },
       -- statix
       statix = {
         enabled = true
