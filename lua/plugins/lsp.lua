@@ -176,17 +176,6 @@ return {
           AutomaticWorkspaceInit = true
         }
       },
-      -- Harper
-      harper_ls = {
-        mason = false,
-        enabled = true,
-        settings = {
-          ['harper-ls'] = {
-            userDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt',
-            fileDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt'
-          }
-        }
-      },
       -- cssmodules_ls
       cssmodules_ls = {
         enabled = true,
@@ -286,6 +275,38 @@ return {
             }
           }
         }
+      },
+      -- Harper
+      harper_ls = {
+        mason = false,
+        enabled = true,
+        settings = {
+          ['harper-ls'] = {
+            userDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt',
+            fileDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt'
+          }
+        },
+        filetypes = (function()
+          local filetypes = require('lspconfig.configs.harper_ls').default_config.filetypes
+
+          local new_filetypes = {
+            'astro',
+            'vue',
+            'svelte',
+            'tex',
+            'bib',
+            'fish',
+            'bash',
+            'zsh',
+            'sh'
+          }
+
+          for _, filetype in ipairs(new_filetypes) do
+            table.insert(filetypes, filetype)
+          end
+
+          return filetypes
+        end)()
       },
       -- markdown_oxide
       markdown_oxide = {

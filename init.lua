@@ -39,8 +39,10 @@ local new_null_ls_sources = {
   null_ls.builtins.formatting.markdownlint,
   require('none-ls.formatting.ruff'),
   null_ls.builtins.formatting.shfmt,
+  require('none-ls.formatting.tex_fmt'),
   null_ls.builtins.formatting.uncrustify,
   null_ls.builtins.formatting.yamlfmt,
+  null_ls.builtins.hover.dictionary,
   null_ls.builtins.hover.printenv
 }
 
