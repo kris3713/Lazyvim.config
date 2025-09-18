@@ -1,7 +1,7 @@
 return {
   -- Disabled plugins go here
   {
-    'echasnovski/mini.ai',
+    'nvim-mini/mini.ai',
     enabled = false
   },
   {
