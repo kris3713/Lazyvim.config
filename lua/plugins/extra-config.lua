@@ -1,6 +1,6 @@
 return {
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
-  {
+  { -- Comment this out when PR #6505 is merged   https://github.com/LazyVim/LazyVim/pull/6505
     'LazyVim/LazyVim',
     url = 'https://github.com/comfysage/LazyVim.git',
     branch = 'fix/catppuccin/bufferline-api-change',
