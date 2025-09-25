@@ -1,10 +1,5 @@
 return {
   -- Plugins with configs go here
-  -- {
-  --   'LazyVim/LazyVim',
-  --   url = 'https://github.com/LazyVim/LazyVim',
-  --   branch = 'main'
-  -- },
   {
     'nanotee/zoxide.vim',
     init = function() vim.g.zoxide_use_select = 1 end

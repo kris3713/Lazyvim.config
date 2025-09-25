@@ -1,6 +1,12 @@
 return {
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
   {
+    'LazyVim/LazyVim',
+    url = 'https://github.com/comfysage/LazyVim.git',
+    branch = 'fix/catppuccin/bufferline-api-change',
+    version = false
+  },
+  {
     'MeanderingProgrammer/render-markdown.nvim',
     opts = {
       file_types = { 'markdown' }
