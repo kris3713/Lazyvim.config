@@ -11,7 +11,7 @@ end
 return {
   'neovim/nvim-lspconfig',
   ---@module 'lspconfig'
-  ---@type lspconfig.options
+  ---@type lspconfig.Config
   opts = {
     servers = {
       -- solargraph
@@ -26,16 +26,13 @@ return {
       rubocop = {
         enabled = true
       },
-      -- fish_lsp
-      fish_lsp = {
-        enabled = true
-      },
       -- lemminx
       lemminx = {
         enabled = true
       },
       -- phan
       phan = {
+        mason = false,
         enabled = true
       },
       -- stylelint_lsp
@@ -46,8 +43,19 @@ return {
       gh_actions_ls = {
         enabled = true
       },
+      -- fish_lsp
+      fish_lsp = {
+        mason = false,
+        enabled = true
+      },
       -- rpmspec
       rpmspec = {
+        mason = false,
+        enabled = true
+      },
+      -- hadolint
+      hadolint = {
+        mason = false,
         enabled = true
       },
       -- gradle_ls
