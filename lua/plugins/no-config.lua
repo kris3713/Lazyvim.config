@@ -1,6 +1,6 @@
 return {
     -- No config plugins go here
-  'https://gitlab.com/HiPhish/rainbow-delimiters.nvim',
+  'hiphish/rainbow-delimiters.nvim',
   -- 'nvim-tree/nvim-web-devicons',
   'nvimtools/none-ls-extras.nvim',
   'cappyzawa/trim.nvim',
