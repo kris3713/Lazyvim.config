@@ -3,6 +3,7 @@
 -- Add any additional keymaps here
 
 -- lsp keymaps
+-- TODO: Migrate this to the new keymaps system for lsp servers
 local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
 
 --- which-key.nvim
@@ -233,16 +234,16 @@ local hover = require('hover')
 
 -- Hover Doc
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'K', hover.hover, desc = 'Hover Doc', noremap = true
+  'K', hover.open, desc = 'Hover Doc', noremap = true
 }
 
 lsp_keymaps[#lsp_keymaps + 1] = {
-  'gK', hover.hover_select, desc = 'Hover Doc Select', noremap = true
+  'gK', hover.select, desc = 'Hover Doc Select', noremap = true
 }
 
-vim.keymap.set('n', '<Tab>', hover.hover, opts('Hover Doc'))
-vim.keymap.set('n', '<C-p>', function() hover.hover_switch('previous', {}) end, opts('hover.nvim (Previous source)'))
-vim.keymap.set('n', '<C-n>', function() hover.hover_switch('next', {}) end, opts('hover.nvim (Next source)'))
+vim.keymap.set('n', '<Tab>', hover.open, opts('Hover Doc'))
+vim.keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
+vim.keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
 
 -- Diagnostics
 lsp_keymaps[#lsp_keymaps + 1] = {
