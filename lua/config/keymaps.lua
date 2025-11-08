@@ -2,10 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- lsp keymaps
--- TODO: Migrate this to the new keymaps system for lsp servers
-local lsp_keymaps = require('lazyvim.plugins.lsp.keymaps').get()
-
 --- which-key.nvim
 require('which-key').add {
   { '<leader>bq', desc = 'Sort by' }
@@ -110,10 +106,6 @@ vim.keymap.set('n', '<leader>\\', switch_indent_style, opts('Switch between Tabs
 local ap = require('actions-preview')
 
 vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, opts('Open Code Actions'))
-
-lsp_keymaps[#lsp_keymaps + 1] = {
-  '<leader>ca', ap.code_actions, desc = 'Open Code Actions', noremap = true
-}
 
 -- neogen
 vim.keymap.set('n', '<leader>N', require('neogen').generate, opts('Generate annotations', true))
@@ -232,23 +224,10 @@ vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end
 -- hover.nvim
 local hover = require('hover')
 
--- Hover Doc
-lsp_keymaps[#lsp_keymaps + 1] = {
-  'K', hover.open, desc = 'Hover Doc', noremap = true
-}
-
-lsp_keymaps[#lsp_keymaps + 1] = {
-  'gK', hover.select, desc = 'Hover Doc Select', noremap = true
-}
-
 vim.keymap.set('n', '<Tab>', hover.open, opts('Hover Doc'))
 vim.keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
 vim.keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
 
--- Diagnostics
-lsp_keymaps[#lsp_keymaps + 1] = {
-  '<leader>cd', function() vim.cmd.Lspsaga('show_line_diagnostics') end, desc = 'Line Diagnostics', noremap = true
-}
 --- lspsaga
 
 -- Aerial

@@ -8,12 +8,44 @@ local function capabilities()
   return client_capabilities
 end
 
+local ap = require('actions-preview')
+local hover = require('hover')
+
 return {
   'neovim/nvim-lspconfig',
   ---@module 'lspconfig'
   ---@type lspconfig.Config
   opts = {
     servers = {
+      -- All servers
+      ['*'] = {
+        keys = {
+          { -- Code Actions
+            '<leader>ca',
+            ap.code_actions,
+            desc = 'Open Code Actions',
+            noremap = true
+          },
+          { -- Hover Doc
+            'K',
+            hover.open,
+            desc = 'Hover Doc',
+            noremap = true
+          },
+          { -- Hover Doc Select
+            'gK',
+            hover.select,
+            desc = 'Hover Doc Select',
+            noremap = true
+          },
+          { -- Line Diagnostics
+            '<leader>cd',
+            function() vim.cmd.Lspsaga('show_line_diagnostics') end,
+            desc = 'Line Diagnostics',
+            noremap = true
+          }
+        }
+      },
       -- solargraph
       solargraph = {
         enabled = true
