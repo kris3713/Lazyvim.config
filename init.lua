@@ -16,9 +16,6 @@ local new_null_ls_sources = {
   null_ls.builtins.completion.tags,
   null_ls.builtins.completion.spell,
   null_ls.builtins.diagnostics.actionlint,
-  null_ls.builtins.diagnostics.checkstyle.with {
-    extra_args = { '-c', os.getenv('HOME') .. '/MEGA/checkstyle.xml' }
-  },
   null_ls.builtins.diagnostics.deadnix,
   null_ls.builtins.diagnostics.dotenv_linter,
   null_ls.builtins.diagnostics.editorconfig_checker,
