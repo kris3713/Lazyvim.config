@@ -78,7 +78,9 @@ return {
     ---@module 'snacks'
     ---@type snacks.Config
     opts = {
-      explorer = { enabled = false },
+      explorer = {
+        enabled = false
+      },
       picker = {
         previewers = {
           diff = {
@@ -91,7 +93,12 @@ return {
           man_pager = 'nvim +Man!'
         }
       },
-      win = { border = 'rounded' }
+      win = {
+        border = 'rounded'
+      },
+      notifier = {
+        style = 'fancy'
+      }
     },
     keys = {
       { '<leader>S', false }
