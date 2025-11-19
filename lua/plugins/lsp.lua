@@ -85,6 +85,10 @@ return {
         mason = false,
         enabled = true
       },
+      taplo = {
+        mason = false,
+        enabled = true
+      },
       -- hadolint
       hadolint = {
         mason = false,
