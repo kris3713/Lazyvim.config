@@ -75,11 +75,6 @@ return {
       gh_actions_ls = {
         enabled = true
       },
-      -- fish_lsp
-      fish_lsp = {
-        mason = false,
-        enabled = true
-      },
       -- rpmspec
       rpmspec = {
         mason = false,
@@ -112,6 +107,11 @@ return {
       },
       -- statix
       statix = {
+        enabled = true
+      },
+      -- fish_lsp
+      fish_lsp = {
+        mason = false,
         enabled = true
       },
       -- bashls
@@ -188,6 +188,10 @@ return {
       msbuild_project_tools_server = {
         enabled = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
+      },
+      -- nixd
+      nixd = {
+        enabled = true
       },
       -- nil_ls
       nil_ls = {
