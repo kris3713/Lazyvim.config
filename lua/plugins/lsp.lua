@@ -189,10 +189,10 @@ return {
         enabled = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
       },
-      -- nixd
-      nixd = {
-        enabled = true
-      },
+      -- -- nixd
+      -- nixd = {
+      --   enabled = true
+      -- },
       -- nil_ls
       nil_ls = {
         enabled = true,
