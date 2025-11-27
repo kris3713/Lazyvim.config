@@ -228,8 +228,6 @@ vim.keymap.set('n', '<Tab>', hover.open, opts('Hover Doc'))
 vim.keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
 vim.keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
 
---- lspsaga
-
 -- Aerial
 vim.keymap.set('n', '<leader>O', function() require('aerial').toggle() end, opts('Outline'))
 
