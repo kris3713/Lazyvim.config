@@ -4,7 +4,18 @@
 
 --- which-key.nvim
 require('which-key').add {
-  { '<leader>bq', desc = 'Sort by' }
+  { '<leader>bq', desc = 'Sort by' },
+  ---@return wk.Mapping
+  (function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    if vim.bo[bufnr].filetype == 'man' then
+      ---@type wk.Mapping
+      return { 'gO', desc = 'Open table of contents' }
+    end
+
+    ---@type wk.Mapping
+    return { 'gO', desc = 'Open document symbols' }
+  end)()
 }
 
 --- Sets options for keymaps
