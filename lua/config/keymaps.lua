@@ -7,8 +7,6 @@ require('which-key').add {
   { '<leader>bq', desc = 'Sort by' }
 }
 
--- harper:ignore
-
 --- Sets options for keymaps
 ---@param desc string
 ---@param silent? boolean
