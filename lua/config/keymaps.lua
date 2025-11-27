@@ -41,8 +41,10 @@ if vim.g.neovide then
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
 
-  vim.keymap.set({ 'n', 'x', 'i' }, '<C-=>', function() zoom(1.25) end, other_opts)
-  vim.keymap.set({ 'n', 'x', 'i' }, '<C-->', function() zoom(1/1.25) end, other_opts)
+  -- Using a font with ligatures can make the text appear confusing to some people, like myself.
+  -- That is why I am using the concatenation operator (..) to make the keymaps more readable.
+  vim.keymap.set({ 'n', 'x', 'i' }, '<C-' .. '=' .. '>', function() zoom(1.25) end, other_opts)
+  vim.keymap.set({ 'n', 'x', 'i' }, '<C-' .. '-' .. '>', function() zoom(1/1.25) end, other_opts)
 end
 
 --- nvim-tree
@@ -84,6 +86,9 @@ vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', opts('', true))
 -- Map q to do nothing
 vim.keymap.set('n', 'q', '<Nop>', opts('', true))
 vim.keymap.set('x', 'q', '<Nop>', opts('', true))
+
+-- -- Map m to do nothing
+-- vim.keymap.set('n', 'm', '<Nop>', opts('', true))
 
 -- Map quit command to Ctrl-q
 vim.keymap.set('n', '<C-q>', function() vim.cmd('q') end, opts('Quit Neovim', true))
