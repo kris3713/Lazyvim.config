@@ -346,7 +346,8 @@ return {
             'fish',
             'bash',
             'zsh',
-            'sh'
+            'sh',
+            'spec'
           }
 
           for _, filetype in ipairs(new_filetypes) do
