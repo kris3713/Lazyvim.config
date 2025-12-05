@@ -80,7 +80,13 @@ return {
         mason = false,
         enabled = true
       },
-      taplo = {
+      -- -- taplo
+      -- taplo = {
+      --   mason = false,
+      --   enabled = true
+      -- },
+      -- tombi
+      tombi = {
         mason = false,
         enabled = true
       },
@@ -302,6 +308,7 @@ return {
       },
       -- lua_ls
       lua_ls = {
+        mason = false,
         enabled = true,
         settings = {
           Lua = {
