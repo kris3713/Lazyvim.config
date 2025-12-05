@@ -46,12 +46,8 @@ return {
           }
         }
       },
-      -- solargraph
-      solargraph = {
-        enabled = true
-      },
-      -- ruby_lsp
-      ruby_lsp = {
+      -- typeprof
+      typeprof = {
         enabled = true
       },
       -- rubocop
@@ -511,7 +507,17 @@ return {
             javascript = options
           }
         }
-      end)()
+      end)(),
+      -- solargraph
+      solargraph = {
+        mason = false,
+        enabled = false
+      },
+      -- ruby_lsp
+      ruby_lsp = {
+        mason = false,
+        enabled = false
+      }
     }
   }
 }
