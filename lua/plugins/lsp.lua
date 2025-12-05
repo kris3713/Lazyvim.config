@@ -1,7 +1,7 @@
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
 
--- capabilities
+-- Adds important capabilities to the LSP client
 local function capabilities()
   local client_capabilities = vim.lsp.protocol.make_client_capabilities()
   client_capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -45,10 +45,6 @@ return {
             noremap = true
           }
         }
-      },
-      -- typeprof
-      typeprof = {
-        enabled = true
       },
       -- rubocop
       rubocop = {
@@ -414,47 +410,6 @@ return {
         --   end
         -- }
       },
-      -- gopls
-      gopls = {
-        enabled = true,
-        settings = {
-          gopls = {
-            gofumpt = true,
-            codelenses = {
-              gc_details = false,
-              generate = true,
-              regenerate_cgo = true,
-              run_govulncheck = true,
-              test = true,
-              tidy = true,
-              upgrade_dependency = true,
-              vendor = true
-            },
-            hints = {
-              assignVariableTypes = true,
-              compositeLiteralFields = true,
-              compositeLiteralTypes = true,
-              constantValues = true,
-              functionTypeParameters = true,
-              parameterNames = true,
-              rangeVariableTypes = true
-            },
-            analyses = {
-              nilness = true,
-              unusedparams = true,
-              unusedwrite = true,
-              useany = true
-            },
-            usePlaceholders = true,
-            completeUnimported = true,
-            staticcheck = true,
-            directoryFilters = {
-              '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules'
-            },
-            semanticTokens = true
-          }
-        }
-      },
       -- vtsls
       vtsls = (function()
         ---@type _.lspconfig.settings.vtsls.Typescript
@@ -508,15 +463,46 @@ return {
           }
         }
       end)(),
-      -- solargraph
-      solargraph = {
-        mason = false,
-        enabled = false
-      },
-      -- ruby_lsp
-      ruby_lsp = {
-        mason = false,
-        enabled = false
+      -- gopls
+      gopls = {
+        enabled = true,
+        settings = {
+          gopls = {
+            gofumpt = true,
+            codelenses = {
+              gc_details = false,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true
+            },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true
+            },
+            analyses = {
+              nilness = true,
+              unusedparams = true,
+              unusedwrite = true,
+              useany = true
+            },
+            usePlaceholders = true,
+            completeUnimported = true,
+            staticcheck = true,
+            directoryFilters = {
+              '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules'
+            },
+            semanticTokens = true
+          }
+        }
       }
     }
   }
