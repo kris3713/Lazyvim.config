@@ -1,3 +1,5 @@
+--- @diagnostic disable: missing-fields, type-not-found
+
 return {
   -- Plugins with configs go here
   {
@@ -200,19 +202,32 @@ return {
   },
   {
     'Bekaboo/dropbar.nvim',
-    ---@module 'dropbar'
-    ---@type dropbar_configs_t
-    opts = {
-      menu = {
-        win_configs = { border = 'rounded' }
+    event = 'VeryLazy',
+    config = function()
+      --- @diagnostic disable-next-line: param-type-mismatch
+      require('dropbar').setup {
+        ---@type dropbar_menu_t
+        menu = {
+          win_configs = {
+            border = 'rounded'
+          }
+        },
+        -- sources = {
+        --   lsp = {
+        --     valid_symbols = {
+        --       -- TODO: Fix error that causes comments to be interpreted as a symbol
+        --     }
+        --   }
+        -- }
       }
-    }
+    end
   },
   {
     'numToStr/Comment.nvim',
     -- Has potential for a complex configuration
     config = function()
       local c = require('ts_context_commentstring.integrations.comment_nvim')
+      --- @diagnostic disable-next-line: param-type-mismatch
       require('Comment').setup {
         pre_hook = c.create_pre_hook()
       }
@@ -231,6 +246,7 @@ return {
   {
     'windwp/nvim-ts-autotag',
     config = function()
+      --- @diagnostic disable-next-line: param-type-mismatch
       -- Has potential for a complex configuration
       require('nvim-ts-autotag').setup {
         opts = {

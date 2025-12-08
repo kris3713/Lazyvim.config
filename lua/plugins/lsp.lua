@@ -7,11 +7,12 @@ local ap = require('actions-preview')
 -- hover.nvim
 local hover = require('hover')
 -- harper dictionary path
-local harperDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt'
+local harperDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt'
 
 -- Adds important capabilities to the LSP client
 local function capabilities()
   local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+  ---@diagnostic disable-next-line: need-check-nil
   client_capabilities.textDocument.completion.completionItem.snippetSupport = true
   return client_capabilities
 end
@@ -214,21 +215,11 @@ return {
       cssmodules_ls = {
         enabled = true,
         mason = false,
-        filetypes = (function() -- TODO: Replace this with filetypes_include
-          local filetypes = require('lspconfig.configs.cssmodules_ls').default_config.filetypes
-
-          local new_filetypes = {
-            'astro',
-            'vue',
-            'svelte'
-          }
-
-          for _, filetype in ipairs(new_filetypes) do
-            table.insert(filetypes, filetype)
-          end
-
-          return filetypes
-        end)()
+        filetypes_include = {
+          'astro',
+          'vue',
+          'svelte'
+        }
       },
       -- jsonls
       jsonls = {
@@ -237,8 +228,10 @@ return {
         capabilities = capabilities(),
         ---@param new_config vim.lsp.config
         on_new_config = function(new_config)
+          ---@diagnostic disable-next-line: undefined-field
           new_config.settings.json.schemas = new_config.settings.json.schemas or {}
           vim.list_extend(
+            ---@diagnostic disable-next-line: undefined-field
             new_config.settings.json.schemas,
             require('schemastore').json.schemas()
           )
@@ -289,14 +282,47 @@ return {
       -- emmylua_ls
       emmylua_ls = {
         mason = false,
-        enabled = false,
+        enabled = true,
+        ---@param client vim.lsp.Client
+        ---@param _ lsp.InitializeResult
+        on_init = function(client, _)
+          if client.workspace_folders then
+            --- @diagnostic disable-next-line: need-check-nil
+            local path = client.workspace_folders[1].name
+            if
+              path ~= vim.fn.stdpath('config')
+              --- @diagnostic disable-next-line: undefined-field
+              and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+            then
+              return
+            end
+          end
+
+          --- @diagnostic disable-next-line: need-check-nil, param-type-mismatch, generic-constraint-mismatch
+          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+              library = {
+                '${3rd}/luv/library',
+                '${3rd}/busted/library'
+              }
+              -- Or pull in all of 'runtimepath'.
+              -- NOTE: this is a lot slower and will cause issues when working on
+              -- your own configuration.
+              -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+              -- library = {
+              --   vim.api.nvim_get_runtime_file('', true),
+              -- }
+            }
+          })
+        end,
         settings = {
           Lua = {
             completion = {
               callSnippet = true
             },
             runtime = {
-              version = 'LuaJIT',
+              version = 'LuaJIT', -- Needed because Neovim using LuaJIT as it's Lua interpreter
               requirePattern = {
                 '?.lua',
                 '?/init.lua',
@@ -310,28 +336,39 @@ return {
                 'after/?/?.lua',
                 'spec/?.lua',
               },
-              frameworkVersions = { 'luv' }
+              frameworkVersions = { 'luv' } -- Also needed because Neovim is using luv in addition to LuaJIT
             },
             diagnostics = {
-              globals = {
-                -- This prevents diagnostics from mistaking the global variable `vim` as an unknown
-                'vim'
+              -- This prevents diagnostics from mistaking the global variable `vim` as an unknown
+              globals = { 'vim' },
+
+              disable = {
+                'unnecessary-if'
+              },
+              enables = {
+                'iter-variable-reassign',
+                'non-literal-expressions-in-assert',
+                'incomplete-signature-doc'
               }
             },
-            strict = {
-              requirePath = false
+            codeAction = {
+              insertSpace = true
             },
-            -- workspace = (function()
-            --   local settings = require('lspconfig.configs')
-            -- end)()
-            -- We don't need to worry about workspace since that is taken care of by LazyDev
+            signature = {
+              detailSignatureHelper = true
+            },
+            strict = {
+              typeCall = true,
+              arrayIndex = true,
+              requirePath = false
+            }
           }
         }
       },
       -- lua_ls
       lua_ls = {
         mason = false,
-        enabled = true,
+        enabled = false,
         settings = {
           Lua = {
             completion = {
@@ -363,28 +400,18 @@ return {
             fileDictPath = harperDictPath
           }
         },
-        filetypes = (function() -- TODO: Replace this with filetypes_include
-          local filetypes = require('lspconfig.configs.harper_ls').default_config.filetypes
-
-          local new_filetypes = {
-            'astro',
-            'vue',
-            'svelte',
-            'tex',
-            'bib',
-            'fish',
-            'bash',
-            'zsh',
-            'sh',
-            'spec'
-          }
-
-          for _, filetype in ipairs(new_filetypes) do
-            table.insert(filetypes, filetype)
-          end
-
-          return filetypes
-        end)(),
+        filetypes_include = {
+          'astro',
+          'vue',
+          'svelte',
+          'tex',
+          'bib',
+          'fish',
+          'bash',
+          'zsh',
+          'sh',
+          'spec'
+        },
         capabilities = {
           textDocument = {
             completion = {
@@ -450,7 +477,7 @@ return {
         -- }
       },
       -- vtsls
-      vtsls = (function()
+      vtsls = (function() -- TODO: simplify this using `on_init` instead of defining as a function
         ---@type lsp.LSPArray
         local options = {
           updateImportsOnFileMove = {
