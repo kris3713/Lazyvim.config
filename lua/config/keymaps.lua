@@ -147,7 +147,11 @@ end
 
 
 -- neogen
-vim.keymap.set('n', '<leader>N', require('neogen').generate, opts('Generate annotations', true))
+do
+  local neogen = require('neogen')
+
+  vim.keymap.set('n', '<leader>N', neogen.generate, opts('Generate annotations', true))
+end
 
 
 -- Set softwrap to Alt + Z
