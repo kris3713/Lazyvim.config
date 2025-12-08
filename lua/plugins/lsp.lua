@@ -290,7 +290,7 @@ return {
           'selene.toml',
           'selene.yml',
           '.emmyrc.json',
-          '.git',
+          '.git'
         },
         ---@param client vim.lsp.Client
         ---@param _ lsp.InitializeResult
@@ -343,7 +343,7 @@ return {
                 'ftplugin/?.lua',
                 'after/?.lua',
                 'after/?/?.lua',
-                'spec/?.lua',
+                'spec/?.lua'
               },
               frameworkVersions = { 'luv' } -- Also needed because Neovim is using luv in addition to LuaJIT
             },
