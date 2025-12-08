@@ -351,7 +351,8 @@ return {
               -- This prevents diagnostics from mistaking the global variable `vim` as an unknown
               globals = {
                 'vim',
-                'LazyVim'
+                'LazyVim',
+                'Snacks'
               },
 
               disable = {
