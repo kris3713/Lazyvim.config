@@ -22,7 +22,8 @@ create_autocmd('VimLeave', {
   command = 'set guicursor=a:ver20'
 })
 
--- Make sure all lsp servers close when quiting Neovim
+
+-- Make sure all LSP servers close when quitting Neovim
 create_autocmd('VimLeave', {
   group = create_augroup('close_all_lsp_servers_on_quit'),
   desc = 'Close all lsp servers on qutting Neovim',
@@ -30,6 +31,7 @@ create_autocmd('VimLeave', {
     vim.lsp.stop_client(vim.lsp.get_clients())
   end
 })
+
 
 -- Enable semantic highlighting
 create_autocmd('LspTokenUpdate', {
@@ -53,6 +55,7 @@ create_autocmd('LspTokenUpdate', {
   end
 })
 
+
 -- Auto-start for nvim-tree
 create_autocmd('VimEnter', {
   group = create_augroup('autostart_nvim_tree'),
@@ -72,6 +75,7 @@ create_autocmd('VimEnter', {
   end
 })
 
+
 -- nvim-tree workaround when using rmagatti/auto-session
 -- create_autocmd('BufEnter', {
 --   group = create_augroup('auto_session_workaround'),
@@ -84,6 +88,7 @@ create_autocmd('VimEnter', {
 --   end
 -- })
 
+
 -- GuessIndent
 create_autocmd('BufReadPost', {
   group = create_augroup('guess-indent'),
@@ -91,6 +96,7 @@ create_autocmd('BufReadPost', {
   pattern = '*',
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
+    ---@diagnostic disable-next-line: param-type-mismatch
     require('guess-indent').set_from_buffer(bufnr, true, true)
   end
 })

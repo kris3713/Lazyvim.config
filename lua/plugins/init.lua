@@ -64,7 +64,8 @@ return {
     'jmbuhr/otter.nvim',
     config = function()
       -- Has potential for a complex configuration
-      require('otter').setup {}
+      local otter = require('otter')
+      otter.setup()
     end
   },
   {

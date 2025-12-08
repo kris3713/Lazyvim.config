@@ -36,15 +36,6 @@ return {
     }
   },
   {
-    'neovim/nvim-lspconfig',
-    ---@module 'lspconfig'
-    ---@type lspconfig.Config
-    opts = {
-      -- Disable inlay hints
-      inlay_hints = { enabled = false }
-    }
-  },
-  {
     'nvim-neotest/neotest',
     optional = true,
     dependencies = {
@@ -61,6 +52,7 @@ return {
     'akinsho/bufferline.nvim',
     ---@module 'bufferline'
     ---@type bufferline.Config
+    ---@diagnostic disable-next-line: missing-fields
     opts = {
       options = {
         always_show_bufferline = true,
@@ -101,7 +93,8 @@ return {
       }
     },
     keys = {
-      { '<leader>S', false }
+      { '<leader>S', false }, -- Disables Scratchpad keymap
+      { '<c-/>', false, mode = 'i' } -- Disables Snacks terminal keymap
     }
   },
   {
@@ -117,6 +110,7 @@ return {
               local bufnr = vim.api.nvim_get_current_buf()
 
               if clicks == 2 then
+                ---@diagnostic disable-next-line: missing-fields
                 require('trouble').toggle {
                   mode = 'diagnostics',
                   filter = { buf = bufnr }

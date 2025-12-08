@@ -2,10 +2,10 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
---- which-key.nvim
+---@diagnostic disable: missing-fields
+-- which-key.nvim
 require('which-key').add {
   { '<leader>bq', desc = 'Sort by' },
-  ---@return wk.Mapping
   (function()
     local bufnr = vim.api.nvim_get_current_buf()
     if vim.bo[bufnr].filetype == 'man' then
@@ -17,15 +17,20 @@ require('which-key').add {
     return { 'gO', desc = 'Open document symbols' }
   end)()
 }
+---@diagnostic enable: missing-fields
 
 --- Sets options for keymaps
 ---@param desc string
----@param silent? boolean
----@return table
+---@param silent boolean?
+---@return vim.keymap.set.Opts
 local function opts(desc, silent)
   silent = silent or false
+  ---@type vim.keymap.set.Opts
   return { desc = desc, silent = silent, noremap = true }
 end
+
+-- All modes (except TERMINAL 't')
+local all_modes = { 'n', 'x', 'i' }
 
 -- Neovide options
 if vim.g.neovide then
@@ -43,42 +48,45 @@ if vim.g.neovide then
 
   -- Using a font with ligatures can make the text appear confusing to some people, like myself.
   -- That is why I am using the concatenation operator (..) to make the keymaps more readable.
-  vim.keymap.set({ 'n', 'x', 'i' }, '<C-' .. '=' .. '>', function() zoom(1.25) end, other_opts)
-  vim.keymap.set({ 'n', 'x', 'i' }, '<C-' .. '-' .. '>', function() zoom(1/1.25) end, other_opts)
+  vim.keymap.set(all_modes, '<C-=' .. '>', function() zoom(1.25) end, other_opts)
+  vim.keymap.set(all_modes, '<C--' .. '>', function() zoom(1/1.25) end, other_opts)
 end
 
---- nvim-tree
--- Open nvim-tree at root
-local function open_at_root()
-  local api = require('nvim-tree.api')
-  api.tree.toggle { path = LazyVim.root() }
+-- nvim-tree
+do
+  -- Open nvim-tree at root
+  local function open_at_root()
+    local api = require('nvim-tree.api')
+    api.tree.toggle { path = LazyVim.root() }
+  end
+
+  -- Open nvim-tree at CWD
+  local function open_at_cwd()
+    local api = require('nvim-tree.api')
+    api.tree.toggle { path = vim.fn.getcwd() }
+  end
+
+  -- Change root to CWD for nvim-tree
+  local function change_root_to_global_cwd()
+    local api = require('nvim-tree.api')
+    local global_cwd = vim.fn.getcwd(-1, -1)
+    api.tree.change_root(global_cwd)
+  end
+
+  -- Focus on currently opened file in nvim-tree
+  local function find_opened_file()
+    local api = require('nvim-tree.api')
+    api.tree.find_file { update_root = false, open = true, focus = true }
+  end
+
+  vim.keymap.set('n', '<leader>e', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
+  vim.keymap.set('n', '<leader>E', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
+  vim.keymap.set('n', '<leader>fe', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
+  vim.keymap.set('n', '<leader>fE', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
+  vim.keymap.set('n', '<leader>fC', change_root_to_global_cwd, opts('nvim-tree: Change root to global cwd (nvim-tree)'))
+  vim.keymap.set('n', '<leader>fd', find_opened_file, opts('nvim-tree: Focus on currently opened file'))
 end
 
--- Open nvim-tree at CWD
-local function open_at_cwd()
-  local api = require('nvim-tree.api')
-  api.tree.toggle { path = vim.fn.getcwd() }
-end
-
--- Change root to CWD for nvim-tree
-local function change_root_to_global_cwd()
-  local api = require('nvim-tree.api')
-  local global_cwd = vim.fn.getcwd(-1, -1)
-  api.tree.change_root(global_cwd)
-end
-
--- Focus on currently opened file in nvim-tree
-local function find_opened_file()
-  local api = require('nvim-tree.api')
-  api.tree.find_file { update_root = false, open = true, focus = true }
-end
-
-vim.keymap.set('n', '<leader>e', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
-vim.keymap.set('n', '<leader>E', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
-vim.keymap.set('n', '<leader>fe', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
-vim.keymap.set('n', '<leader>fE', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
-vim.keymap.set('n', '<leader>fC', change_root_to_global_cwd, opts('nvim-tree: Change root to global cwd (nvim-tree)'))
-vim.keymap.set('n', '<leader>fd', find_opened_file, opts('nvim-tree: Focus on currently opened file'))
 
 -- Map Ctrl-z to do nothing
 vim.keymap.set({ 'n', 'x', 'i' }, '<C-z>', '<Nop>', opts('', true))
@@ -117,9 +125,11 @@ end
 vim.keymap.set('n', '<leader>\\', switch_indent_style, opts('Switch between Tabs or Spaces'))
 
 -- actions-preview.nvim
-local ap = require('actions-preview')
+do
+  local ap = require('actions-preview')
 
-vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, opts('Open Code Actions'))
+  vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, opts('Open Code Actions'))
+end
 
 -- neogen
 vim.keymap.set('n', '<leader>N', require('neogen').generate, opts('Generate annotations', true))
@@ -138,61 +148,63 @@ end, opts('Open LazyExtras'))
 vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mason'))
 
 -- auto-session
-local function save_session()
-  local auto = require('auto-session')
-  auto.SaveSession(vim.fn.getcwd())
-end
+do
+  local function save_session()
+    local auto = require('auto-session')
+    auto.SaveSession(vim.fn.getcwd())
+  end
 
-local function restore_session()
-  local auto = require('auto-session')
-  auto.RestoreSession(vim.fn.getcwd())
-end
+  local function restore_session()
+    local auto = require('auto-session')
+    auto.RestoreSession(vim.fn.getcwd())
+  end
 
-vim.keymap.set('n', '<leader>qf', function() vim.cmd.AutoSession('search') end, opts('Select a session to load/delete'))
-vim.keymap.set('n', '<leader>qS', save_session, opts('Save session based on cwd'))
-vim.keymap.set('n', '<leader>qs', restore_session, opts('Restore last session based on cwd'))
-vim.keymap.set('n', '<leader>qd', function() vim.cmd.AutoSession('toggle') end, opts('Toggle autosave'))
+  vim.keymap.set('n', '<leader>qf', function() vim.cmd.AutoSession('search') end, opts('Select a session to load/delete'))
+  vim.keymap.set('n', '<leader>qS', save_session, opts('Save session based on cwd'))
+  vim.keymap.set('n', '<leader>qs', restore_session, opts('Restore last session based on cwd'))
+  vim.keymap.set('n', '<leader>qd', function() vim.cmd.AutoSession('toggle') end, opts('Toggle autosave'))
+end
 
 -- Map the backwards indent to Shift + Tab
 vim.keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
 
 -- toggleterm.nvim
-local function open_terminal()
-  local tt = require('toggleterm')
-  local terminals = require('toggleterm.terminal').get_all()
-  if #terminals == 0 then tt.new(nil, LazyVim.root(), 'horizontal')
-  else tt.toggle_all() end
+do
+  local function open_terminal()
+    local tt = require('toggleterm')
+    local terminals = require('toggleterm.terminal').get_all()
+    if #terminals == 0 then tt.new(nil, LazyVim.root(), 'horizontal')
+    else tt.toggle_all() end
+  end
+
+  local function create_terminal()
+    local tt = require('toggleterm')
+    local terminals = require('toggleterm.terminal').get_all()
+    if #terminals ~= 0 then tt.new(nil, LazyVim.root(), 'horizontal') end
+  end
+
+  local function toggle_all_terminals()
+    local tt = require('toggleterm')
+    tt.toggle_all()
+  end
+
+  local function open_terminal_in_root()
+    local tt = require('toggleterm')
+    tt.new(nil, LazyVim.root(), 'horizontal')
+  end
+
+  local function open_terminal_in_cwd()
+    local tt = require('toggleterm')
+    tt.new(nil, vim.fn.getcwd(), 'horizontal')
+  end
+
+  vim.keymap.set({ 'n', 't' }, '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
+  vim.keymap.set('n', '<C-\\>', create_terminal, opts('Create a new Terminal (if one is active)'))
+  -- NOTE: "?" is short for "Ctrl + Shift + /"
+  vim.keymap.set('n', '<C-?>', toggle_all_terminals, opts('Toggles all Terminal instances'))
+  vim.keymap.set('n', '<leader>ft', open_terminal_in_root, opts('Open a Terminal (Root Dir)'))
+  vim.keymap.set('n', '<leader>fT', open_terminal_in_cwd, opts('Open a Terminal (cwd)'))
 end
-
-local function create_terminal()
-  local tt = require('toggleterm')
-  local terminals = require('toggleterm.terminal').get_all()
-  if #terminals ~= 0 then tt.new(nil, LazyVim.root(), 'horizontal') end
-end
-
-local function toggle_all_terminals()
-  local tt = require('toggleterm')
-  tt.toggle_all()
-end
-
-local function open_terminal_in_root()
-  local tt = require('toggleterm')
-  tt.new(nil, LazyVim.root(), 'horizontal')
-end
-
-local function open_terminal_in_cwd()
-  local tt = require('toggleterm')
-  tt.new(nil, vim.fn.getcwd(), 'horizontal')
-end
-
-vim.keymap.set('n', '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
-
-vim.keymap.set('n', '<C-\\>', create_terminal, opts('Create a new Terminal (if one is active)'))
-
--- NOTE: "?" is short for "Ctrl + Shift + /"
-vim.keymap.set('n', '<C-?>', toggle_all_terminals, opts('Toggles all Terminal instances'))
-vim.keymap.set('n', '<leader>ft', open_terminal_in_root, opts('Open a Terminal (Root Dir)'))
-vim.keymap.set('n', '<leader>fT', open_terminal_in_cwd, opts('Open a Terminal (cwd)'))
 
 -- grug-far
 local grug = require('grug-far')

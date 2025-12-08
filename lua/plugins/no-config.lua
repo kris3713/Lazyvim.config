@@ -17,7 +17,6 @@ return {
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'rcarriga/cmp-dap',
-  'tamago324/nlsp-settings.nvim',
   'udalov/kotlin-vim',
   'hrsh7th/cmp-nvim-lua',
   'JMarkin/cmp-diag-codes',

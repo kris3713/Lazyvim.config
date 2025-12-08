@@ -1,5 +1,13 @@
+---@diagnostic disable: missing-fields
+
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
+-- actions-preview
+local ap = require('actions-preview')
+-- hover.nvim
+local hover = require('hover')
+-- harper dictionary path
+local harperDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt'
 
 -- Adds important capabilities to the LSP client
 local function capabilities()
@@ -8,14 +16,13 @@ local function capabilities()
   return client_capabilities
 end
 
-local ap = require('actions-preview')
-local hover = require('hover')
-
 return {
+  lazy = false, -- Ensure this plugins loads during startup
   'neovim/nvim-lspconfig',
-  ---@module 'lspconfig'
-  ---@type lspconfig.Config
+  ---@module 'annotations.lsp'
+  ---@type lspConfigOpts
   opts = {
+    inlay_hints = { enabled = false },
     servers = {
       -- All servers
       ['*'] = {
@@ -67,26 +74,6 @@ return {
       gh_actions_ls = {
         enabled = true
       },
-      -- rpmspec
-      rpmspec = {
-        mason = false,
-        enabled = true
-      },
-      -- -- taplo
-      -- taplo = {
-      --   mason = false,
-      --   enabled = true
-      -- },
-      -- tombi
-      tombi = {
-        mason = false,
-        enabled = true
-      },
-      -- hadolint
-      hadolint = {
-        mason = false,
-        enabled = true
-      },
       -- gradle_ls
       gradle_ls = {
         enabled = true
@@ -99,12 +86,19 @@ return {
       jdtls = {
         enabled = true
       },
-      -- texlab
-      texlab = {
+      -- rpmspec
+      rpmspec = {
+        mason = false,
         enabled = true
       },
-      -- statix
-      statix = {
+      -- tombi
+      tombi = {
+        mason = false,
+        enabled = true
+      },
+      -- hadolint
+      hadolint = {
+        mason = false,
         enabled = true
       },
       -- fish_lsp
@@ -182,19 +176,20 @@ return {
         mason = false,
         enabled = true
       },
+      -- nil_ls
+      nil_ls = {
+        enabled = true,
+        mason = false
+      },
       -- MSBuild
       msbuild_project_tools_server = {
         enabled = msbuild ~= nil and msbuild ~= '',
         cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
       },
-      -- -- nixd
-      -- nixd = {
-      --   enabled = true
-      -- },
-      -- nil_ls
-      nil_ls = {
+      -- csharp_ls
+      csharp_ls = {
         enabled = true,
-        mason = false
+        settings = { AutomaticWorkspaceInit = true }
       },
       -- cssls
       cssls = {
@@ -215,18 +210,11 @@ return {
         enabled = true,
         capabilities = capabilities()
       },
-      -- csharp_ls
-      csharp_ls = {
-        enabled = true,
-        settings = {
-          AutomaticWorkspaceInit = true
-        }
-      },
       -- cssmodules_ls
       cssmodules_ls = {
         enabled = true,
         mason = false,
-        filetypes = (function()
+        filetypes = (function() -- TODO: Replace this with filetypes_include
           local filetypes = require('lspconfig.configs.cssmodules_ls').default_config.filetypes
 
           local new_filetypes = {
@@ -268,8 +256,8 @@ return {
       },
       -- yamlls
       yamlls = {
-        enabled = true,
         mason = false,
+        enabled = true,
         capabilities = {
           textDocument = {
             foldingRange = {
@@ -295,6 +283,48 @@ return {
               -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
               url = ''
             }
+          }
+        }
+      },
+      -- emmylua_ls
+      emmylua_ls = {
+        mason = false,
+        enabled = false,
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = true
+            },
+            runtime = {
+              version = 'LuaJIT',
+              requirePattern = {
+                '?.lua',
+                '?/init.lua',
+                'lua/init.lua',
+                'lua/?.lua',
+                'lua/?/init.lua',
+                'lua/?/?.lua',
+                'plugin/?.lua',
+                'ftplugin/?.lua',
+                'after/?.lua',
+                'after/?/?.lua',
+                'spec/?.lua',
+              },
+              frameworkVersions = { 'luv' }
+            },
+            diagnostics = {
+              globals = {
+                -- This prevents diagnostics from mistaking the global variable `vim` as an unknown
+                'vim'
+              }
+            },
+            strict = {
+              requirePath = false
+            },
+            -- workspace = (function()
+            --   local settings = require('lspconfig.configs')
+            -- end)()
+            -- We don't need to worry about workspace since that is taken care of by LazyDev
           }
         }
       },
@@ -329,11 +359,11 @@ return {
         enabled = true,
         settings = {
           ['harper-ls'] = {
-            userDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt',
-            fileDictPath = vim.uv.os_homedir() .. '/MEGA/harperdict.txt'
+            userDictPath = harperDictPath,
+            fileDictPath = harperDictPath
           }
         },
-        filetypes = (function()
+        filetypes = (function() -- TODO: Replace this with filetypes_include
           local filetypes = require('lspconfig.configs.harper_ls').default_config.filetypes
 
           local new_filetypes = {
@@ -354,7 +384,16 @@ return {
           end
 
           return filetypes
-        end)()
+        end)(),
+        capabilities = {
+          textDocument = {
+            completion = {
+              completionItem = {
+                snippetSupport = false
+              }
+            }
+          }
+        }
       },
       -- markdown_oxide
       markdown_oxide = {
@@ -412,7 +451,7 @@ return {
       },
       -- vtsls
       vtsls = (function()
-        ---@type _.lspconfig.settings.vtsls.Typescript
+        ---@type lsp.LSPArray
         local options = {
           updateImportsOnFileMove = {
             enabled = 'always'
@@ -448,9 +487,9 @@ return {
           }
         }
 
-
-        ---@type lspconfig.options.vtsls
-        return {
+        ---@module 'annotations.lsp'
+        ---@type lspClientOpts
+        local config = {
           mason = false,
           enabled = true,
           settings = {
@@ -462,9 +501,12 @@ return {
             javascript = options
           }
         }
+
+        return config
       end)(),
       -- gopls
       gopls = {
+        mason = false,
         enabled = true,
         settings = {
           gopls = {
@@ -503,6 +545,23 @@ return {
             semanticTokens = true
           }
         }
+      },
+      -- Disabled
+
+      -- This is taken cared of by null-ls
+      -- stylua
+      stylua = {
+        mason = false,
+        enabled = false
+      },
+      -- texlab
+      texlab = {
+        enabled = false
+      },
+      -- This is taken cared of by null-ls
+      -- statix
+      statix = {
+        enabled = false
       }
     }
   }
