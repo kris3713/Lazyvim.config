@@ -1,7 +1,7 @@
 ---@diagnostic disable: missing-fields
 
----@module 'lspconfig'
----@class lspClientOpts : vim.lsp.Config | {mason?:boolean, enabled?:boolean, keys?:LazyKeysLspSpec[]}
+---Common LSP server/client configuration options.
+---@class lspClientOpts : vim.lsp.Config
 ---
 ---Allows for disabling or enabling mason.nvim integration
 ---for this LSP server. By default, this is set to `true`
@@ -18,14 +18,17 @@
 ---without changing the default filetypes.
 ---@field filetypes_exclude string[]?
 
+-- TODO: Add more fields for better diagnostics, hints, and completion.
+
 ---This type annotation tries to include all the required fields
----for any LSP server configuration. This is a WIP and may not
----feature all necessary fields.
+---for all LSP server configurations. This is a **WIP** and may not
+---feature all _necessary_ fields.
 ---@class lspConfigOpts
 ---
----Allows for disabling or enabling inlay hints.
+---Allows for configuring inlay hints for this LSP server.
 ---@field inlay_hints { enabled: boolean? }
 ---
+---Common LSP server/client configuration options.
 ---@field servers { [string]: lspClientOpts }
 
 ---@type lspConfigOpts

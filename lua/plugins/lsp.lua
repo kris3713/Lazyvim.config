@@ -1,4 +1,4 @@
----@diagnostic disable: missing-fields
+---@diagnostic disable: missing-fields, type-not-found
 
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
@@ -18,7 +18,6 @@ local function capabilities()
 end
 
 return {
-  lazy = false, -- Ensure this plugins loads during startup
   'neovim/nvim-lspconfig',
   ---@module 'annotations.lsp'
   ---@type lspConfigOpts
@@ -283,6 +282,16 @@ return {
       emmylua_ls = {
         mason = false,
         enabled = true,
+        root_markers = {
+          '.luarc.json',
+          '.luarc.jsonc',
+          '.stylua.toml',
+          'stylua.toml',
+          'selene.toml',
+          'selene.yml',
+          '.emmyrc.json',
+          '.git',
+        },
         ---@param client vim.lsp.Client
         ---@param _ lsp.InitializeResult
         on_init = function(client, _)
@@ -340,7 +349,10 @@ return {
             },
             diagnostics = {
               -- This prevents diagnostics from mistaking the global variable `vim` as an unknown
-              globals = { 'vim' },
+              globals = {
+                'vim',
+                'LazyVim'
+              },
 
               disable = {
                 'unnecessary-if'
@@ -394,6 +406,9 @@ return {
       harper_ls = {
         mason = false,
         enabled = true,
+        on_init = function()
+
+        end,
         settings = {
           ['harper-ls'] = {
             userDictPath = harperDictPath,
