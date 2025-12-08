@@ -202,7 +202,7 @@ return {
   },
   {
     'Bekaboo/dropbar.nvim',
-    event = 'VeryLazy',
+    lazy = false,
     config = function()
       --- @diagnostic disable-next-line: param-type-mismatch
       require('dropbar').setup {
@@ -211,7 +211,7 @@ return {
           win_configs = {
             border = 'rounded'
           }
-        },
+        }
         -- sources = {
         --   lsp = {
         --     valid_symbols = {
