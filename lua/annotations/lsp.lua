@@ -9,14 +9,6 @@
 ---
 ---Allows for setting custom keymaps for this LSP server.
 ---@field keys vim.keymap.set.Opts[]
----
----Include specific filetypes for this LSP server
----in addition to the default filetypes.
----@field filetypes_include string[]?
----
----Exclude specific filetypes from this LSP server
----without changing the default filetypes.
----@field filetypes_exclude string[]?
 
 -- TODO: Add more fields for better diagnostics, hints, and completion.
 
