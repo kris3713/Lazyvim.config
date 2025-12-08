@@ -337,6 +337,7 @@ do
     desc = 'Toggle Muren', bang = true, register = true, range = 0
   })
 
+  --- @diagnostic disable-next-line: param-type-mismatch
   vim.api.nvim_create_user_command('LspInfoPicker', Snacks.picker.lsp_config, {
     desc = 'Show lsp info', bang = true, register = true, range = 0, force = true
   })
