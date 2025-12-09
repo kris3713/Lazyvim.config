@@ -4,8 +4,8 @@
 local msbuild = os.getenv('MSBUILD_LSP')
 -- actions-preview
 local ap = require('actions-preview')
--- -- hover.nvim
--- local hover = require('hover')
+-- hover.nvim
+local hover = require('hover')
 -- harper dictionary path
 local harperDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt'
 
@@ -35,7 +35,7 @@ return {
           },
           { -- Hover Doc
             'K',
-            function() vim.cmd.Lspsaga('hover_doc') end,
+            hover.open,
             desc = 'Hover Doc',
             noremap = true
           },
@@ -219,12 +219,12 @@ return {
         enabled = true,
         mason = false,
         capabilities = capabilities(),
-        ---@param new_config vim.lsp.config
+        ---@param new_config vim.lsp.ClientConfig
         on_new_config = function(new_config)
-          ---@diagnostic disable-next-line: undefined-field
+          ---@diagnostic disable-next-line: undefined-field, need-check-nil
           new_config.settings.json.schemas = new_config.settings.json.schemas or {}
           vim.list_extend(
-            ---@diagnostic disable-next-line: undefined-field
+            ---@diagnostic disable-next-line: undefined-field, need-check-nil
             new_config.settings.json.schemas,
             require('schemastore').json.schemas()
           )
@@ -252,11 +252,14 @@ return {
             }
           }
         },
-        ---@param new_config vim.lsp.config
+        ---@param new_config vim.lsp.ClientConfig
         on_new_config = function(new_config)
+          --- @diagnostic disable-next-line: need-check-nil, assign-type-mismatch
           new_config.settings.yaml.schemas = vim.tbl_deep_extend(
             'force',
+            --- @diagnostic disable-next-line: need-check-nil, generic-constraint-mismatch
             new_config.settings.yaml.schemas or {},
+            --- @diagnostic disable-next-line: param-type-mismatch
             require('schemastore').yaml.schemas()
           )
         end,
@@ -407,6 +410,39 @@ return {
             fileDictPath = harperDictPath
           }
         },
+        -- filetypes = (function() -- TODO: Fix this later
+        --   local filetypes = {}
+        --
+        --   local new_filetypes = {
+        --     'astro',
+        --     'vue',
+        --     'svelte',
+        --     'tex',
+        --     'bib',
+        --     'fish',
+        --     'bash',
+        --     'zsh',
+        --     'sh',
+        --     'spec'
+        --   }
+        --
+        --   local clients = vim.lsp.get_clients({})
+        --
+        --   for _, cl in ipairs(clients) do
+        --     if cl.name == 'harper_ls' then
+        --       --- @diagnostic disable-next-line: undefined-field
+        --       for _, ft in ipairs(cl.config.filetypes) do
+        --         table.insert(filetypes, ft)
+        --       end
+        --     end
+        --   end
+        --
+        --   for _, ft in ipairs(new_filetypes) do
+        --     table.insert(filetypes, ft)
+        --   end
+        --
+        --   return filetypes
+        -- end)(),
         capabilities = {
           textDocument = {
             completion = {
@@ -585,30 +621,6 @@ return {
         mason = false,
         enabled = false
       }
-    },
-    setup = { -- NOTE: this is not working as intended.
-      harper_ls = function(_, client)
-      -- Initialize
-      client.filetypes = client.filetypes or {}
-
-      -- Inherit default filetypes
-      --- @diagnostic disable-next-line: undefined-field
-      vim.list_extend(client.filetypes, vim.lsp.config.harper_ls.filetypes)
-
-      -- Add additional filetypes
-      vim.list_extend(client.filetypes, {
-        'astro',
-        'vue',
-        'svelte',
-        'tex',
-        'bib',
-        'fish',
-        'bash',
-        'zsh',
-        'sh',
-        'spec'
-      })
-      end
     }
   }
 }

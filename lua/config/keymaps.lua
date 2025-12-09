@@ -276,19 +276,20 @@ end
 -- telescope-undo
 vim.keymap.set('n', '<leader>U', function() vim.cmd.Telescope('undo') end, opts('Telescope undo'))
 
+
 -- lspsaga
 vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, opts('Peek definition'))
 vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, opts('Peek type definition'))
-vim.keymap.set('n', '<Tab>', function() vim.cmd.Lspsaga('hover_doc') end, opts('Hover Doc'))
 
 
 -- hover.nvim
--- do
---   -- local hover = require('hover')
---
---   -- vim.keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
---   -- vim.keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
--- end
+do
+  local hover = require('hover')
+
+  vim.keymap.set('n', '<Tab>', hover.open, opts('Hover Doc'))
+  -- vim.keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
+  -- vim.keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
+end
 
 
 -- Aerial

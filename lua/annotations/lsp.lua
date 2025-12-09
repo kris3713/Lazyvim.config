@@ -1,7 +1,7 @@
----@diagnostic disable: missing-fields, type-not-found
+---@diagnostic disable: missing-fields
 
 ---Common LSP server/client configuration options.
----@class lspClientOpts : lspconfig.Config
+---@class lspClientOpts : vim.lsp.ClientConfig | vim.lsp.Client
 ---
 ---Allows for disabling or enabling mason.nvim integration
 ---for this LSP server. By default, this is set to `true`
