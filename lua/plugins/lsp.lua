@@ -583,7 +583,7 @@ return {
       -- statix
       statix = {
         mason = false,
-        enabled = true
+        enabled = false
       }
     },
     setup = { -- NOTE: this is not working as intended.
