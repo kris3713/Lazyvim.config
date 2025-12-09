@@ -39,7 +39,6 @@
   "guess-indent.nvim": { "branch": "main", "commit": "84a4987ff36798c2fc1169cbaff67960aed9776f" },
   "harpoon": { "branch": "harpoon2", "commit": "87b1a3506211538f460786c23f98ec63ad9af4e5" },
   "hlargs.nvim": { "branch": "main", "commit": "0b29317c944fb1f76503ce4540d6dceffbb5ccd2" },
-  "hover.nvim": { "branch": "main", "commit": "3b49066e09e03e63be6d6f43ae2b8bcd58301f63" },
   "hydra.nvim": { "branch": "main", "commit": "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc" },
   "img-clip.nvim": { "branch": "main", "commit": "93fcf50924108262caec66b900077987dfcb7c7f" },
   "indent-blankline.nvim": { "branch": "master", "commit": "005b56001b2cb30bfa61b7986bc50657816ba4ba" },

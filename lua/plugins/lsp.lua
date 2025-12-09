@@ -4,8 +4,8 @@
 local msbuild = os.getenv('MSBUILD_LSP')
 -- actions-preview
 local ap = require('actions-preview')
--- hover.nvim
-local hover = require('hover')
+-- -- hover.nvim
+-- local hover = require('hover')
 -- harper dictionary path
 local harperDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt'
 
@@ -35,14 +35,8 @@ return {
           },
           { -- Hover Doc
             'K',
-            hover.open,
+            function() vim.cmd.Lspsaga('hover_doc') end,
             desc = 'Hover Doc',
-            noremap = true
-          },
-          { -- Hover Doc Select
-            'gK',
-            hover.select,
-            desc = 'Hover Doc Select',
             noremap = true
           },
           { -- Line Diagnostics
@@ -367,9 +361,9 @@ return {
             codeAction = {
               insertSpace = true
             },
-            signature = {
-              detailSignatureHelper = true
-            },
+            -- signature = {
+            --   detailSignatureHelper = true
+            -- },
             strict = {
               typeCall = true,
               arrayIndex = true,
@@ -407,26 +401,11 @@ return {
       harper_ls = {
         mason = false,
         enabled = true,
-        on_init = function()
-
-        end,
         settings = {
           ['harper-ls'] = {
             userDictPath = harperDictPath,
             fileDictPath = harperDictPath
           }
-        },
-        filetypes_include = {
-          'astro',
-          'vue',
-          'svelte',
-          'tex',
-          'bib',
-          'fish',
-          'bash',
-          'zsh',
-          'sh',
-          'spec'
         },
         capabilities = {
           textDocument = {
@@ -441,29 +420,28 @@ return {
       -- markdown_oxide
       markdown_oxide = {
         mason = false,
-        enabled = true
-        -- ---@param bufnr integer
-        -- enabled = function(bufnr)
-        --   local is_md = vim.bo[bufnr].filetype == 'markdown'
-        --
-        --   if vim.bo[bufnr].modifiable and is_md then
-        --     return true -- Return true to enable
-        --   end
-        --
-        --   return false
-        -- end,
-        -- settings = {
-        --   ---@param bufnr integer
-        --   autostart = function(bufnr)
-        --     local is_md = vim.bo[bufnr].filetype == 'markdown'
-        --
-        --     if vim.bo[bufnr].modifiable and is_md then
-        --       return true -- return true to allow autostart
-        --     end
-        --
-        --     return false
-        --   end
-        -- }
+        ---@param bufnr integer
+        enabled = function(bufnr)
+          local is_md = vim.bo[bufnr].filetype == 'markdown'
+
+          if vim.bo[bufnr].modifiable and is_md then
+            return true -- Return true to enable
+          end
+
+          return false
+        end,
+        settings = {
+          ---@param bufnr integer
+          autostart = function(bufnr)
+            local is_md = vim.bo[bufnr].filetype == 'markdown'
+
+            if vim.bo[bufnr].modifiable and is_md then
+              return true -- return true to allow autostart
+            end
+
+            return false
+          end
+        }
       },
       -- marksman
       marksman = {
@@ -604,8 +582,33 @@ return {
       -- This is taken cared of by null-ls
       -- statix
       statix = {
-        enabled = false
+        mason = false,
+        enabled = true
       }
+    },
+    setup = { -- NOTE: this is not working as intended.
+      harper_ls = function(_, client)
+      -- Initialize
+      client.filetypes = client.filetypes or {}
+
+      -- Inherit default filetypes
+      --- @diagnostic disable-next-line: undefined-field
+      vim.list_extend(client.filetypes, vim.lsp.config.harper_ls.filetypes)
+
+      -- Add additional filetypes
+      vim.list_extend(client.filetypes, {
+        'astro',
+        'vue',
+        'svelte',
+        'tex',
+        'bib',
+        'fish',
+        'bash',
+        'zsh',
+        'sh',
+        'spec'
+      })
+      end
     }
   }
 }

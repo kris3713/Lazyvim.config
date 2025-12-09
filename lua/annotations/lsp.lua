@@ -1,14 +1,14 @@
----@diagnostic disable: missing-fields
+---@diagnostic disable: missing-fields, type-not-found
 
 ---Common LSP server/client configuration options.
----@class lspClientOpts : vim.lsp.Config
+---@class lspClientOpts : lspconfig.Config
 ---
 ---Allows for disabling or enabling mason.nvim integration
 ---for this LSP server. By default, this is set to `true`
 ---@field mason boolean?
 ---
 ---Allows for setting custom keymaps for this LSP server.
----@field keys vim.keymap.set.Opts[]
+---@field keys vim.api.keyset.keymap[]
 
 -- TODO: Add more fields for better diagnostics, hints, and completion.
 
@@ -22,6 +22,8 @@
 ---
 ---Common LSP server/client configuration options.
 ---@field servers { [string]: lspClientOpts }
+---
+---@field setup { [string]: fun(_: any, client: lspClientOpts) }
 
 ---@type lspConfigOpts
 local M = {}
