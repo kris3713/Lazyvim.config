@@ -207,12 +207,12 @@ return {
       -- cssmodules_ls
       cssmodules_ls = {
         enabled = true,
-        mason = false,
-        filetypes_include = {
-          'astro',
-          'vue',
-          'svelte'
-        }
+        mason = false
+        -- filetypes_include = { -- TODO: Fix this later by adding to autocmds.lua
+        --   'astro',
+        --   'vue',
+        --   'svelte'
+        -- }
       },
       -- jsonls
       jsonls = {
@@ -410,7 +410,7 @@ return {
             fileDictPath = harperDictPath
           }
         },
-        -- filetypes = (function() -- TODO: Fix this later
+        -- filetypes = (function() -- TODO: Fix this later by adding to autocmds.lua
         --   local filetypes = {}
         --
         --   local new_filetypes = {
