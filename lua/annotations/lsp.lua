@@ -22,8 +22,8 @@
 ---
 ---Common LSP server/client configuration options.
 ---@field servers { [string]: lspClientOpts }
----
----@field setup { [string]: fun(_: any, client: lspClientOpts) }
+--[[ ---
+---@field setup { [string]: fun(_: any, client: lspClientOpts) } ]]
 
 ---@type lspConfigOpts
 local M = {}
