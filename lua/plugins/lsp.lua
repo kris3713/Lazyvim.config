@@ -328,7 +328,7 @@ return {
               callSnippet = true
             },
             runtime = {
-              version = 'LuaJIT', -- Needed because Neovim using LuaJIT as it's Lua interpreter
+              version = 'LuaJIT', -- Needed because Neovim is using LuaJIT as it's Lua interpreter
               requirePattern = {
                 '?.lua',
                 '?/init.lua',
