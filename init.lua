@@ -147,12 +147,6 @@ require('trim').setup {
   -- if you want to ignore markdown file.
   -- you can specify filetypes.
   ft_blocklist = {
-    'ruby',
-    'lua',
-    'fish',
-    'sh',
-    'bash',
-    'csharp',
     'snacks_dashboard',
     'snacks_terminal'
   },
