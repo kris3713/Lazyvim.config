@@ -1,7 +1,10 @@
 ---@diagnostic disable: missing-fields
 
+--harper: ignore
+
 ---Common LSP server/client configuration options.
----@class lspClientOpts : vim.lsp.ClientConfig | vim.lsp.Client
+---This extends the `vim.lsp.ClientConfig`, `vim.lsp.Client`, and `vim.lsp.Config` types.
+---@class lspClientOpts : vim.lsp.ClientConfig | vim.lsp.Client | vim.lsp.Config
 ---
 ---Allows for disabling or enabling mason.nvim integration
 ---for this LSP server. By default, this is set to `true`
@@ -9,6 +12,9 @@
 ---
 ---Allows for setting custom keymaps for this LSP server.
 ---@field keys vim.api.keyset.keymap[]
+---
+---Callback invoked when a new configuration is created.
+---@field on_new_config fun(config: vim.lsp.ClientConfig, root_dir: string?)
 
 -- TODO: Add more fields for better diagnostics, hints, and completion.
 
@@ -22,8 +28,6 @@
 ---
 ---Common LSP server/client configuration options.
 ---@field servers { [string]: lspClientOpts }
---[[ ---
----@field setup { [string]: fun(_: any, client: lspClientOpts) } ]]
 
 ---@type lspConfigOpts
 local M = {}
