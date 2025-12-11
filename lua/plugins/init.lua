@@ -150,7 +150,7 @@ return {
     event = 'VeryLazy',
     opts = {
       -- Put misbehaving lsp clients here
-      excluded_lsp_clients = { 'marksman' }
+      excluded_lsp_clients = { 'marksman', 'markdown_oxide' }
     }
   },
   {
