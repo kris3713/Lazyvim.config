@@ -19,6 +19,11 @@ end
 
 -- TODO: Use vim.json.decode to read and decode ./.neoconf.json for enabling emmylua_ls or lua_ls
 -- vim.json.decode()
+--
+-- local file = io.open("config.json", "r")
+-- if not file then return end
+-- local content = file:read("*a") -- Read entire file
+-- file:close()
 
 return {
   'neovim/nvim-lspconfig',
