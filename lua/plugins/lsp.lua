@@ -207,12 +207,26 @@ return {
       -- cssmodules_ls
       cssmodules_ls = {
         enabled = true,
-        mason = false
+        mason = false,
         -- filetypes_include = { -- TODO: Fix this later by adding to autocmds.lua
         --   'astro',
         --   'vue',
         --   'svelte'
         -- }
+        ---@param client vim.lsp.Client
+        on_attach = function(client, _)
+          --- @diagnostic disable-next-line: inject-field, undefined-field
+          client.config.filetypes = vim.tbl_deep_extend('force', client.config.filetypes, {
+            'astro',
+            'vue',
+            'svelte'
+          })
+
+          local sort = table.sort
+
+          --- @diagnostic disable-next-line: undefined-field
+          sort(client.config.filetypes)
+        end
       },
       -- jsonls
       jsonls = {
@@ -290,7 +304,6 @@ return {
           '.git'
         },
         ---@param client vim.lsp.Client
-        ---@param _ lsp.InitializeResult
         on_init = function(client, _)
           if client.workspace_folders then
             --- @diagnostic disable-next-line: need-check-nil
@@ -410,39 +423,27 @@ return {
             fileDictPath = harperDictPath
           }
         },
-        -- filetypes = (function() -- TODO: Fix this later by adding to autocmds.lua
-        --   local filetypes = {}
-        --
-        --   local new_filetypes = {
-        --     'astro',
-        --     'vue',
-        --     'svelte',
-        --     'tex',
-        --     'bib',
-        --     'fish',
-        --     'bash',
-        --     'zsh',
-        --     'sh',
-        --     'spec'
-        --   }
-        --
-        --   local clients = vim.lsp.get_clients({})
-        --
-        --   for _, cl in ipairs(clients) do
-        --     if cl.name == 'harper_ls' then
-        --       --- @diagnostic disable-next-line: undefined-field
-        --       for _, ft in ipairs(cl.config.filetypes) do
-        --         table.insert(filetypes, ft)
-        --       end
-        --     end
-        --   end
-        --
-        --   for _, ft in ipairs(new_filetypes) do
-        --     table.insert(filetypes, ft)
-        --   end
-        --
-        --   return filetypes
-        -- end)(),
+        ---@param client vim.lsp.Client
+        on_attach = function(client, _)
+          --- @diagnostic disable-next-line: inject-field, undefined-field
+          client.config.filetypes = vim.tbl_deep_extend('force', client.config.filetypes, {
+            'astro',
+            'vue',
+            'svelte',
+            'tex',
+            'bib',
+            'fish',
+            'bash',
+            'zsh',
+            'sh',
+            'spec'
+          })
+
+          local sort = table.sort
+
+          --- @diagnostic disable-next-line: undefined-field
+          sort(client.config.filetypes)
+        end,
         capabilities = {
           textDocument = {
             completion = {
@@ -455,29 +456,29 @@ return {
       },
       -- markdown_oxide
       markdown_oxide = {
-        mason = false,
-        ---@param bufnr integer
-        enabled = function(bufnr)
-          local is_md = vim.bo[bufnr].filetype == 'markdown'
-
-          if vim.bo[bufnr].modifiable and is_md then
-            return true -- Return true to enable
-          end
-
-          return false
-        end,
-        settings = {
-          ---@param bufnr integer
-          autostart = function(bufnr)
-            local is_md = vim.bo[bufnr].filetype == 'markdown'
-
-            if vim.bo[bufnr].modifiable and is_md then
-              return true -- return true to allow autostart
-            end
-
-            return false
-          end
-        }
+        mason = false
+        -- ---@param bufnr integer
+        -- enabled = function(bufnr)
+        --   local is_md = vim.bo[bufnr].filetype == 'markdown'
+        --
+        --   if vim.bo[bufnr].modifiable and is_md then
+        --     return true -- Return true to enable
+        --   end
+        --
+        --   return false
+        -- end,
+        -- settings = {
+        --   ---@param bufnr integer
+        --   autostart = function(bufnr)
+        --     local is_md = vim.bo[bufnr].filetype == 'markdown'
+        --
+        --     if vim.bo[bufnr].modifiable and is_md then
+        --       return true -- return true to allow autostart
+        --     end
+        --
+        --     return false
+        --   end
+        -- }
       },
       -- marksman
       marksman = {
@@ -507,60 +508,59 @@ return {
         -- }
       },
       -- vtsls
-      vtsls = (function() -- TODO: simplify this using `on_init` instead of defining as a function
-        ---@type lsp.LSPArray
-        local options = {
-          updateImportsOnFileMove = {
-            enabled = 'always'
-          },
-          suggest = {
-            completeFunctionCalls = true
-          },
-          inlayHints = {
-            enumMemberValues = {
-              enabled = true
+      vtsls = {
+        mason = false,
+        enabled = true,
+        ---@param client vim.lsp.Client
+        on_init = function(client, _)
+          ---@type lsp.LSPArray
+          local options = {
+            updateImportsOnFileMove = {
+              enabled = 'always'
             },
-            functionLikeReturnTypes = {
-              enabled = true
+            suggest = {
+              completeFunctionCalls = true
             },
-            parameterNames = {
-              enabled = 'literals'
+            inlayHints = {
+              enumMemberValues = {
+                enabled = true
+              },
+              functionLikeReturnTypes = {
+                enabled = true
+              },
+              parameterNames = {
+                enabled = 'literals'
+              },
+              parameterTypes = {
+                enabled = true
+              },
+              propertyDeclarationTypes = {
+                enabled = true
+              },
+              variableTypes = {
+                enabled = false
+              }
             },
-            parameterTypes = {
-              enabled = true
-            },
-            propertyDeclarationTypes = {
-              enabled = true
-            },
-            variableTypes = {
-              enabled = false
+            preferences = {
+              quoteStyle = 'single',
+              importModuleSpecifier = 'shortest',
+              renameMatchingJsxTags = true,
+              jsxAttributeCompletionStyle = 'auto'
             }
-          },
-          preferences = {
-            quoteStyle = 'single',
-            importModuleSpecifier = 'shortest',
-            renameMatchingJsxTags = true,
-            jsxAttributeCompletionStyle = 'auto'
           }
-        }
 
-        ---@module 'annotations.lsp'
-        ---@type lspClientOpts
-        local config = {
-          mason = false,
-          enabled = true,
-          settings = {
-            vtsls = {
-              experimental = { enableProjectDiagnostics = true }
-            },
+          --- @diagnostic disable-next-line: param-type-mismatch, generic-constraint-mismatch
+          client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
             typescript = options,
-            ---@diagnostic disable-next-line: assign-type-mismatch
             javascript = options
+          })
+        end,
+        settings = {
+          vtsls = {
+            experimental = { enableProjectDiagnostics = true }
           }
         }
-
-        return config
-      end)(),
+      },
       -- gopls
       gopls = {
         mason = false,
