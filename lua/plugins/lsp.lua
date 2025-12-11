@@ -208,11 +208,6 @@ return {
       cssmodules_ls = {
         enabled = true,
         mason = false,
-        -- filetypes_include = { -- TODO: Fix this later by adding to autocmds.lua
-        --   'astro',
-        --   'vue',
-        --   'svelte'
-        -- }
         ---@param client vim.lsp.Client
         on_attach = function(client, _)
           --- @diagnostic disable-next-line: inject-field, undefined-field
