@@ -17,6 +17,9 @@ local function capabilities()
   return client_capabilities
 end
 
+-- TODO: Use vim.json.decode to read and decode ./.neoconf.json for enabling emmylua_ls or lua_ls
+-- vim.json.decode()
+
 return {
   'neovim/nvim-lspconfig',
   ---@module 'annotations.lsp'
@@ -287,7 +290,7 @@ return {
       -- emmylua_ls
       emmylua_ls = {
         mason = false,
-        enabled = true,
+        enabled = false,
         root_markers = {
           '.luarc.json',
           '.luarc.jsonc',
@@ -312,23 +315,25 @@ return {
             end
           end
 
-          --- @diagnostic disable-next-line: need-check-nil, param-type-mismatch, generic-constraint-mismatch
-          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-              library = {
-                '${3rd}/luv/library',
-                '${3rd}/busted/library'
+          if client.config.settings then
+            --- @diagnostic disable-next-line: param-type-mismatch, assign-type-mismatch, generic-constraint-mismatch
+            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+              -- Make the server aware of Neovim runtime files
+              workspace = {
+                library = {
+                  '${3rd}/luv/library',
+                  '${3rd}/busted/library'
+                }
+                -- Or pull in all of 'runtimepath'.
+                -- NOTE: this is a lot slower and will cause issues when working on
+                -- your own configuration.
+                -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+                -- library = {
+                --   vim.api.nvim_get_runtime_file('', true),
+                -- }
               }
-              -- Or pull in all of 'runtimepath'.
-              -- NOTE: this is a lot slower and will cause issues when working on
-              -- your own configuration.
-              -- See https://github.com/neovim/nvim-lspconfig/issues/3189
-              -- library = {
-              --   vim.api.nvim_get_runtime_file('', true),
-              -- }
-            }
-          })
+            })
+          end
         end,
         settings = {
           Lua = {
@@ -375,6 +380,7 @@ return {
             -- signature = {
             --   detailSignatureHelper = true
             -- },
+
             strict = {
               typeCall = true,
               arrayIndex = true,
@@ -386,7 +392,7 @@ return {
       -- lua_ls
       lua_ls = {
         mason = false,
-        enabled = false,
+        enabled = true,
         settings = {
           Lua = {
             completion = {
