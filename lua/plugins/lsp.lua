@@ -88,6 +88,10 @@ return {
       jdtls = {
         enabled = true
       },
+      -- statix
+      statix = {
+        enabled = true
+      },
       -- rpmspec
       rpmspec = {
         mason = false,
@@ -619,12 +623,6 @@ return {
       },
       -- texlab
       texlab = {
-        enabled = false
-      },
-      -- This is taken cared of by null-ls
-      -- statix
-      statix = {
-        mason = false,
         enabled = false
       }
     }
