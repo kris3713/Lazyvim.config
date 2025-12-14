@@ -32,23 +32,14 @@ return {
   --   build = function() require('go.install').update_all_sync() end
   -- },
   -- {
-  --   'ray-x/lsp_signature.nvim',
-  --   event = 'InsertEnter',
-  --   opts = {
-  --     bind = true,
-  --     handler_opts = {
-  --       border = 'rounded'
-  --     },
-  --     hint_prefix = '❔ '
-  --   }
-  -- },
-  -- {
   --   'ray-x/navigator.lua',
-  --   dependencies = { 'ray-x/guihua.lua' },
-  --   config = function()
-  --     -- Has potential for a complex configuration
-  --     require('navigator').setup()
-  --   end
+  --   dependencies = {
+  --     {
+  --       'ray-x/guihua.lua',
+  --       build = 'cd lua/fzy && make'
+  --     }
+  --   },
+  --   opts = {}
   -- },
   -- { -- Copied and modified from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/neo-tree.lua
   --   'nvim-neo-tree/neo-tree.nvim',

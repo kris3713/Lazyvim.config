@@ -1,3 +1,4 @@
+---@diagnostic disable-next-line: unknown-diag-code
 --- @diagnostic disable: missing-fields, type-not-found
 
 return {
@@ -127,23 +128,19 @@ return {
   },
   {
     'nacro90/numb.nvim',
-    config = function()
-      -- Has potential for a complex configuration
-      require('numb').setup {}
-    end
+    opts = {}
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    config = function()
-      -- Has potential for a complex configuration
-      require('ts_context_commentstring').setup { enable_autocmd = false }
-    end
+    opts = {
+      enable_autocmd = false
+    }
   },
   {
     'luckasRanarison/tailwind-tools.nvim',
     name = 'tailwind-tools',
     build = function() vim.cmd('UpdateRemotePlugins') end,
-    config = true
+    opts = {}
   },
   {
     'zeioth/garbage-day.nvim',
@@ -155,10 +152,7 @@ return {
   },
   {
     'Wansmer/treesj',
-    config = function()
-      -- Has potential for a complex configuration
-      require('treesj').setup {}
-    end
+    opts = {}
   },
   {
     'NMAC427/guess-indent.nvim',
@@ -198,6 +192,17 @@ return {
     ---@type YaziConfig
     opts = {
       open_for_directories = true
+    }
+  },
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'InsertEnter',
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = 'rounded'
+      },
+      hint_prefix = '❔ '
     }
   },
   {

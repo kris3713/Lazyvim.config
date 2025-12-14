@@ -155,7 +155,7 @@ end
 
 
 -- Set softwrap to Alt + Z
-vim.keymap.set('n', '<A-z>', function() vim.cmd.set('wrap!') end, opts('Toggle softwrap', true))
+vim.keymap.set('n', '<A-z>', function() vim.cmd('set wrap!') end, opts('Toggle softwrap', true))
 
 
 -- Make it easier to open LazyExtras
@@ -178,10 +178,10 @@ do
     auto.restore_session(vim.fn.getcwd())
   end
 
-  vim.keymap.set('n', '<leader>qf', function() vim.cmd.AutoSession('search') end, opts('Select a session to load/delete'))
+  vim.keymap.set('n', '<leader>qf', function() vim.cmd('AutoSession search') end, opts('Select a session to load/delete'))
   vim.keymap.set('n', '<leader>qS', save_session, opts('Save session based on cwd'))
   vim.keymap.set('n', '<leader>qs', restore_session, opts('Restore last session based on cwd'))
-  vim.keymap.set('n', '<leader>qd', function() vim.cmd.AutoSession('toggle') end, opts('Toggle autosave'))
+  vim.keymap.set('n', '<leader>qd', function() vim.cmd('AutoSession toggle') end, opts('Toggle autosave'))
 end
 
 
@@ -274,12 +274,12 @@ end
 
 
 -- telescope-undo
-vim.keymap.set('n', '<leader>U', function() vim.cmd.Telescope('undo') end, opts('Telescope undo'))
+vim.keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end, opts('Telescope undo'))
 
 
 -- lspsaga
-vim.keymap.set('n', 'gt', function() vim.cmd.Lspsaga('peek_definition') end, opts('Peek definition'))
-vim.keymap.set('n', 'gT', function() vim.cmd.Lspsaga('peek_type_definition') end, opts('Peek type definition'))
+vim.keymap.set('n', 'gt', function() vim.cmd('Lspsaga peek_definition') end, opts('Peek definition'))
+vim.keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end, opts('Peek type definition'))
 
 
 -- hover.nvim
@@ -307,13 +307,13 @@ end
 
 
 -- refactoring.nvim (Overriding their functions because they are not working as expected)
-vim.keymap.set({ 'n', 'x' }, '<leader>ri', function() vim.cmd.Refactor('inline_var') end, opts('Inline Variable'))
-vim.keymap.set('n', '<leader>rb', function() vim.cmd.Refactor('extract_block') end, opts('Extract Block'))
-vim.keymap.set('n', '<leader>rf', function() vim.cmd.Refactor('extract_block_to_file') end, opts('Extract Block To File'))
-vim.keymap.set('n', '<leader>rF', function() vim.cmd.Refactor('inline_func') end, opts('Inline Function'))
-vim.keymap.set('x', '<leader>rf', function() vim.cmd.Refactor('extract_function') end, opts('Extract Function'))
-vim.keymap.set('x', '<leader>rF', function() vim.cmd.Refactor('extract_function_to_file') end, opts('Extract Function To File'))
-vim.keymap.set('x', '<leader>rx', function() vim.cmd.Refactor('extract_var') end, opts('Extract Variable'))
+vim.keymap.set({ 'n', 'x' }, '<leader>ri', function() vim.cmd('Refactor inline_var') end, opts('Inline Variable'))
+vim.keymap.set('n', '<leader>rb', function() vim.cmd('Refactor extract_block') end, opts('Extract Block'))
+vim.keymap.set('n', '<leader>rf', function() vim.cmd('Refactor extract_block_to_file') end, opts('Extract Block To File'))
+vim.keymap.set('n', '<leader>rF', function() vim.cmd('Refactor inline_func') end, opts('Inline Function'))
+vim.keymap.set('x', '<leader>rf', function() vim.cmd('Refactor extract_function') end, opts('Extract Function'))
+vim.keymap.set('x', '<leader>rF', function() vim.cmd('Refactor extract_function_to_file') end, opts('Extract Function To File'))
+vim.keymap.set('x', '<leader>rx', function() vim.cmd('Refactor extract_var') end, opts('Extract Variable'))
 
 
 -- treesj
@@ -343,7 +343,7 @@ end
 
 
 -- Telescope symbols
-vim.keymap.set('n', '<leader>se', function() vim.cmd.Telescope('symbols') end, opts('Telescope symbols'))
+vim.keymap.set('n', '<leader>se', function() vim.cmd('Telescope symbols') end, opts('Telescope symbols'))
 
 
 -- bufferline

@@ -1,3 +1,4 @@
+---@diagnostic disable-next-line: unknown-diag-code
 ---@diagnostic disable: missing-fields, type-not-found
 
 -- MSBuild
@@ -16,14 +17,6 @@ local function capabilities()
   client_capabilities.textDocument.completion.completionItem.snippetSupport = true
   return client_capabilities
 end
-
--- TODO: Use vim.json.decode to read and decode ./.neoconf.json for enabling emmylua_ls or lua_ls
--- vim.json.decode()
---
--- local file = io.open("config.json", "r")
--- if not file then return end
--- local content = file:read("*a") -- Read entire file
--- file:close()
 
 return {
   'neovim/nvim-lspconfig',
@@ -49,7 +42,7 @@ return {
           },
           { -- Line Diagnostics
             '<leader>cd',
-            function() vim.cmd.Lspsaga('show_line_diagnostics') end,
+            function() vim.cmd('Lspsaga show_line_diagnostics') end,
             desc = 'Line Diagnostics',
             noremap = true
           }

@@ -3,7 +3,7 @@ require('config.lazy')
 
 
 -- Set the theme to Catpuccin Macchiato
-vim.cmd.colorscheme('catppuccin-macchiato')
+vim.cmd('colorscheme catppuccin-macchiato')
 
 
 --- none-ls.nvim
@@ -282,7 +282,7 @@ end
 
 
 -- mouse menu
-vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
+vim.cmd('aunmenu PopUp.How-to\\ disable\\ mouse')
 
 for _, mode in ipairs { 'n', 'x' } do
   -- Modified built-in entries
