@@ -8,10 +8,10 @@ return {
   -- },
   {
     'MeanderingProgrammer/render-markdown.nvim',
+    ft = { 'markdown' },
     opts = {
       file_types = { 'markdown' }
-    },
-    ft = { 'markdown' }
+    }
   },
   {
     'mason-org/mason.nvim',
@@ -31,7 +31,10 @@ return {
     opts = {
       lsp = {
         hover = { silent = true },
-        message = { silent = true }
+        message = { silent = true },
+        signature = {
+          auto_open = { enabled = false }
+        }
       }
     }
   },

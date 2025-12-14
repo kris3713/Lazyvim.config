@@ -21,7 +21,7 @@ return {
   },
   {
     'AckslD/muren.nvim',
-    config = true
+    opts = {}
   },
   {
     'nvzone/volt',
@@ -29,26 +29,30 @@ return {
   },
   {
     'kevinhwang91/nvim-hlslens',
-    config = true
+    opts = {}
   },
   {
     'lewis6991/satellite.nvim',
-    config = true
+    opts = {}
+  },
+  {
+    'rcarriga/nvim-notify',
+    opts = {}
   },
   {
     'nvzone/minty',
-    config = true,
+    opts = {},
     cmd = { 'Shades', 'Heufy' }
   },
   {
     'abccsss/nvim-gitstatus',
     event = 'VeryLazy',
-    config = true
+    opts = {}
   },
   {
     'chrisgrieser/nvim-scissors',
     opts = {
-      snippetDir =  os.getenv('HOME') .. '/MEGA',
+      snippetDir = os.getenv('HOME') .. '/MEGA'
     }
   },
   {
@@ -74,10 +78,7 @@ return {
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
-    config = function()
-      -- Has potential for a complex configuration
-      require('nvim-autopairs').setup {}
-    end
+    opts = {}
   },
   {
     'dgagn/diagflow.nvim',
@@ -103,19 +104,14 @@ return {
   },
   {
     'akinsho/toggleterm.nvim',
-    config = function()
-      -- Has potential for a complex configuration
-      require('toggleterm').setup {}
-    end
+    opts = {}
   },
   {
     'DaikyXendo/nvim-material-icon',
-    config = function ()
-      require('nvim-web-devicons').setup {
-        color_icons = true,
-        default = true
-      }
-    end
+    opts = {
+      color_icons = true,
+      default = true
+    }
   },
   {
     'seblyng/roslyn.nvim',
@@ -156,11 +152,9 @@ return {
   },
   {
     'NMAC427/guess-indent.nvim',
-    config = function()
-      require('guess-indent').setup {
-        filetype_exclude = { 'netrw', 'tutor', 'snacks_dashboard', 'snacks_terminal' }
-      }
-    end
+    opts = {
+      filetype_exclude = { 'netrw', 'tutor', 'snacks_dashboard', 'snacks_terminal' }
+    }
   },
   {
     'mcauley-penney/visual-whitespace.nvim',
@@ -293,9 +287,7 @@ return {
     build = 'sh ./install.sh',
     -- do 'sh install.sh 1' if you want to force compile locally
     -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
-    config = function()
-      require('sniprun').setup {}
-    end
+    opts = {}
   },
   {
     'lewis6991/hover.nvim',
@@ -334,6 +326,7 @@ return {
       vim.g.vimtex_mappings_disable = {
         ['n'] = { 'K' }
       }
+
       vim.g.vimtex_quickfix_method = vim.fn.executable('pplatex') == 1 and 'pplatex' or 'latexlog'
     end,
     keys = {
