@@ -2,6 +2,8 @@
 --- @diagnostic disable: missing-fields, type-not-found
 
 return {
+  -- TODO: Add https://github.com/meznaric/conmenu here and configure it.
+
   -- Plugins with configs go here
   {
     'nanotee/zoxide.vim',

@@ -279,7 +279,7 @@ do
   if mini_ani__exists then mod.config.cursor.enable = false end
 end
 
-
+-- TODO: Deprecate in favor of https://github.com/meznaric/conmenu
 -- mouse menu
 vim.cmd('aunmenu PopUp.How-to\\ disable\\ mouse')
 

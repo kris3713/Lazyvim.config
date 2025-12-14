@@ -22,14 +22,16 @@ vim.opt.wrap = true
 -- Ensure all indents are spaces and have a width of 2
 vim.o.expandtab = true
 
-local bufnr = vim.api.nvim_get_current_buf()
+do
+  local bufnr = vim.api.nvim_get_current_buf()
 
-if vim.bo[bufnr].shiftwidth >= 4 or vim.bo[bufnr].tabstop >= 4 then
-  vim.o.shiftwidth = 4
-  vim.o.tabstop = 4
-else
-  vim.o.shiftwidth = 2
-  vim.o.tabstop = 2
+  if vim.bo[bufnr].shiftwidth >= 4 or vim.bo[bufnr].tabstop >= 4 then
+    vim.o.shiftwidth = 4
+    vim.o.tabstop = 4
+  else
+    vim.o.shiftwidth = 2
+    vim.o.tabstop = 2
+  end
 end
 
 -- -- Set leader key
@@ -97,7 +99,8 @@ vim.o.encoding = 'utf-8'
 
 -- Mouse support
 vim.o.mousemoveevent = true
-vim.opt.mouse = 'a'
+vim.o.mouse = 'a'
+vim.o.mousemodel = 'popup'
 
 -- nvim-ufo
 vim.o.foldcolumn = '1' -- '0' is not bad
@@ -123,10 +126,12 @@ vim.o.smartindent = true
 -- vim.o.autoindent = true
 
 -- LSP configs (That can't be manually enabled in lsp.lua)
-local lsps = {
-  'kotlin_lsp'
-}
+do
+  local lsps = {
+    'kotlin_lsp'
+  }
 
-for _, name in ipairs(lsps) do
-  vim.lsp.enable(name)
+  for _, name in ipairs(lsps) do
+    vim.lsp.enable(name)
+  end
 end
