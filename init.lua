@@ -178,8 +178,7 @@ do
     'ui-select',
     'undo',
     'frecency',
-    'dap',
-    'scope'
+    'dap'
   }
 
   for _, plugin in ipairs(telescope_plugins) do

@@ -22,6 +22,10 @@ return {
   }
   -- harper:ignore
   -- {
+  --   'rcarriga/nvim-notify',
+  --   opts = {}
+  -- },
+  -- {
   --   'ray-x/go.nvim',
   --   dependencies = { 'ray-x/guihua.lua' },
   --   config = function ()

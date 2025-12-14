@@ -119,7 +119,6 @@
   "render-markdown.nvim": { "branch": "main", "commit": "26097a4eb95b391d0308c1b77cce89b28bbc9916" },
   "roslyn.nvim": { "branch": "main", "commit": "548d98036ac7f0a11f60e699aa020639fff1c57b" },
   "satellite.nvim": { "branch": "main", "commit": "7c2e5a4064abb0066a0bf157e7a137f1bcdeace2" },
-  "scope.nvim": { "branch": "main", "commit": "228aabdb1b9cc74f0c0ccec88e79873857236e49" },
   "smear-cursor.nvim": { "branch": "main", "commit": "c85bdbb25db096fbcf616bc4e1357bd61fe2c199" },
   "snacks.nvim": { "branch": "main", "commit": "fe7cfe9800a182274d0f868a74b7263b8c0c020b" },
   "sniprun": { "branch": "master", "commit": "94ca2a7ff33f9dbe9bef093a2efb2aa12ad64aeb" },
@@ -152,6 +151,6 @@
   "volt": { "branch": "main", "commit": "620de1321f275ec9d80028c68d1b88b409c0c8b1" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "yanky.nvim": { "branch": "main", "commit": "04fc42b94305d94948c9c197f679336668af3292" },
-  "yazi.nvim": { "branch": "main", "commit": "5c751e4700ba6f82e2ef89e4cf4be2946e110909" },
+  "yazi.nvim": { "branch": "main", "commit": "a43fb2e4a562376ef506156cc2e96ebba26a40da" },
   "zoxide.vim": { "branch": "master", "commit": "520d1abeb71ba42989a842251f8ba5c46be89aab" }
 }

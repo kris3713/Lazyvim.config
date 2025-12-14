@@ -36,10 +36,6 @@ return {
     opts = {}
   },
   {
-    'rcarriga/nvim-notify',
-    opts = {}
-  },
-  {
     'nvzone/minty',
     opts = {},
     cmd = { 'Shades', 'Heufy' }
@@ -87,12 +83,6 @@ return {
       padding_right = 3,
       padding_top = 7
     }
-  },
-  {
-    'tiagovla/scope.nvim',
-    config = function()
-      require('scope').setup {}
-    end
   },
   {
     'xzbdmw/colorful-menu.nvim',
