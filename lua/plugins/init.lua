@@ -40,12 +40,12 @@ return {
   {
     'nvzone/showkeys',
     cmd = 'ShowkeysToggle',
-    opts = {}
+    opts = { position = 'bottom-center' }
   },
   {
     'nvzone/minty',
-    opts = {},
-    cmd = { 'Shades', 'Heufy' }
+    cmd = { 'Shades', 'Heufy' },
+    opts = {}
   },
   {
     'abccsss/nvim-gitstatus',
