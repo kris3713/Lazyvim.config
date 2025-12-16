@@ -20,7 +20,7 @@ require('which-key').add {
 ---@diagnostic enable: missing-fields
 
 
---- Sets options for keymaps
+---Sets options for keymaps
 ---@param desc string
 ---@param silent boolean?
 ---@return vim.keymap.set.Opts
@@ -33,6 +33,10 @@ end
 
 -- All modes (except TERMINAL 't')
 local all_modes = { 'n', 'x', 'i' }
+
+
+-- vim_keymap
+local vim_keymap = vim.keymap
 
 
 -- Neovide options
@@ -51,8 +55,8 @@ if vim.g.neovide then
 
   -- Using a font with ligatures can make the text appear confusing to some people, like myself.
   -- That is why I am using the concatenation operator (..) to make the keymaps more readable.
-  vim.keymap.set(all_modes, '<C-=' .. '>', function() zoom(1.25) end, other_opts)
-  vim.keymap.set(all_modes, '<C--' .. '>', function() zoom(1/1.25) end, other_opts)
+  vim_keymap.set(all_modes, '<C-=' .. '>', function() zoom(1.25) end, other_opts)
+  vim_keymap.set(all_modes, '<C--' .. '>', function() zoom(1/1.25) end, other_opts)
 end
 
 
@@ -83,48 +87,48 @@ do
     api.tree.find_file { update_root = false, open = true, focus = true }
   end
 
-  vim.keymap.set('n', '<leader>e', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
-  vim.keymap.set('n', '<leader>E', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
-  vim.keymap.set('n', '<leader>fe', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
-  vim.keymap.set('n', '<leader>fE', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
-  vim.keymap.set('n', '<leader>fC', change_root_to_global_cwd, opts('nvim-tree: Change root to global cwd (nvim-tree)'))
-  vim.keymap.set('n', '<leader>fd', find_opened_file, opts('nvim-tree: Focus on currently opened file'))
+  vim_keymap.set('n', '<leader>e', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
+  vim_keymap.set('n', '<leader>E', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
+  vim_keymap.set('n', '<leader>fe', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
+  vim_keymap.set('n', '<leader>fE', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
+  vim_keymap.set('n', '<leader>fC', change_root_to_global_cwd, opts('nvim-tree: Change root to global cwd (nvim-tree)'))
+  vim_keymap.set('n', '<leader>fd', find_opened_file, opts('nvim-tree: Focus on currently opened file'))
 end
 
 
 -- Map Ctrl-z to do nothing
-vim.keymap.set(all_modes, '<C-z>', '<Nop>', opts('', true))
+vim_keymap.set(all_modes, '<C-z>', '<Nop>', opts('', true))
 
 
 -- Map q to do nothing
-vim.keymap.set('n', 'q', '<Nop>', opts('', true))
-vim.keymap.set('x', 'q', '<Nop>', opts('', true))
+vim_keymap.set('n', 'q', '<Nop>', opts('', true))
+vim_keymap.set('x', 'q', '<Nop>', opts('', true))
 
 
 -- -- Map m to do nothing
--- vim.keymap.set('n', 'm', '<Nop>', opts('', true))
+-- vim_keymap.set('n', 'm', '<Nop>', opts('', true))
 
 
 -- Map quit command to Ctrl-q
-vim.keymap.set('n', '<C-q>', function() vim.cmd('q') end, opts('Quit Neovim', true))
+vim_keymap.set('n', '<C-q>', function() vim.cmd('q') end, opts('Quit Neovim', true))
 
 
 -- Map quit all command to Ctrl+Alt+q
-vim.keymap.set('n', '<C-A-q>', function() vim.cmd('qa') end, opts('Quit all Neovim instances', true))
+vim_keymap.set('n', '<C-A-q>', function() vim.cmd('qa') end, opts('Quit all Neovim instances', true))
 
 
 -- Change delete keymaps to "Delete without yanking"
-vim.keymap.set('n', 'd', '"_x', opts('', true))
-vim.keymap.set('n', '<Del>', '"_x', opts('', true))
-vim.keymap.set('x', 'd', '"_x', opts('', true))
-vim.keymap.set('x', '<Del>', '"_x', opts('', true))
+vim_keymap.set('n', 'd', '"_x', opts('', true))
+vim_keymap.set('n', '<Del>', '"_x', opts('', true))
+vim_keymap.set('x', 'd', '"_x', opts('', true))
+vim_keymap.set('x', '<Del>', '"_x', opts('', true))
 
 
 -- Make it easier to paste
-vim.keymap.set({ 'i', 'c' }, '<C-v>', '<C-r>+', opts('', false))
-vim.keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', opts('', false))
-vim.keymap.set('n', '<C-v>', '"+p', opts('', false))
-vim.keymap.set('n', '<S-Insert>', '"+p', opts('', false))
+vim_keymap.set({ 'i', 'c' }, '<C-v>', '<C-r>+', opts('', false))
+vim_keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', opts('', false))
+vim_keymap.set('n', '<C-v>', '"+p', opts('', false))
+vim_keymap.set('n', '<S-Insert>', '"+p', opts('', false))
 
 
 -- Switch between Tabs or Spaces
@@ -134,7 +138,7 @@ do
     require('functions.switch_indent_style').switch_indent_style(bufnr)
   end
 
-  vim.keymap.set('n', '<leader>\\', switch_indent_style, opts('Switch between Tabs or Spaces'))
+  vim_keymap.set('n', '<leader>\\', switch_indent_style, opts('Switch between Tabs or Spaces'))
 end
 
 
@@ -142,7 +146,7 @@ end
 do
   local ap = require('actions-preview')
 
-  vim.keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, opts('Open Code Actions'))
+  vim_keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, opts('Open Code Actions'))
 end
 
 
@@ -150,20 +154,20 @@ end
 do
   local neogen = require('neogen')
 
-  vim.keymap.set('n', '<leader>N', neogen.generate, opts('Generate annotations', true))
+  vim_keymap.set('n', '<leader>N', neogen.generate, opts('Generate annotations', true))
 end
 
 
 -- Set softwrap to Alt + Z
-vim.keymap.set('n', '<A-z>', function() vim.cmd('set wrap!') end, opts('Toggle softwrap', true))
+vim_keymap.set('n', '<A-z>', function() vim.cmd('set wrap!') end, opts('Toggle softwrap', true))
 
 
 -- Make it easier to open LazyExtras
-vim.keymap.set('n', '<leader>L', function() vim.cmd('LazyExtras') end, opts('Open LazyExtras'))
+vim_keymap.set('n', '<leader>L', function() vim.cmd('LazyExtras') end, opts('Open LazyExtras'))
 
 
 -- Make it easier to open Mason
-vim.keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mason'))
+vim_keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mason'))
 
 
 -- auto-session
@@ -178,15 +182,15 @@ do
     auto.restore_session(vim.fn.getcwd())
   end
 
-  vim.keymap.set('n', '<leader>qf', function() vim.cmd('AutoSession search') end, opts('Select a session to load/delete'))
-  vim.keymap.set('n', '<leader>qS', save_session, opts('Save session based on cwd'))
-  vim.keymap.set('n', '<leader>qs', restore_session, opts('Restore last session based on cwd'))
-  vim.keymap.set('n', '<leader>qd', function() vim.cmd('AutoSession toggle') end, opts('Toggle autosave'))
+  vim_keymap.set('n', '<leader>qf', function() vim.cmd('AutoSession search') end, opts('Select a session to load/delete'))
+  vim_keymap.set('n', '<leader>qS', save_session, opts('Save session based on cwd'))
+  vim_keymap.set('n', '<leader>qs', restore_session, opts('Restore last session based on cwd'))
+  vim_keymap.set('n', '<leader>qd', function() vim.cmd('AutoSession toggle') end, opts('Toggle autosave'))
 end
 
 
 -- Map the backwards indent to Shift + Tab
-vim.keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
+vim_keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
 
 
 -- toggleterm.nvim
@@ -219,12 +223,12 @@ do
     tt.new(nil, vim.fn.getcwd(), 'horizontal')
   end
 
-  vim.keymap.set({ 'n', 't' }, '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
-  vim.keymap.set('n', '<C-\\>', create_terminal, opts('Create a new Terminal (if one is active)'))
+  vim_keymap.set({ 'n', 't' }, '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
+  vim_keymap.set('n', '<C-\\>', create_terminal, opts('Create a new Terminal (if one is active)'))
   -- NOTE: "?" is short for "Ctrl + Shift + /"
-  vim.keymap.set('n', '<C-?>', toggle_all_terminals, opts('Toggles all Terminal instances'))
-  vim.keymap.set('n', '<leader>ft', open_terminal_in_root, opts('Open a Terminal (Root Dir)'))
-  vim.keymap.set('n', '<leader>fT', open_terminal_in_cwd, opts('Open a Terminal (cwd)'))
+  vim_keymap.set('n', '<C-?>', toggle_all_terminals, opts('Toggles all Terminal instances'))
+  vim_keymap.set('n', '<leader>ft', open_terminal_in_root, opts('Open a Terminal (Root Dir)'))
+  vim_keymap.set('n', '<leader>fT', open_terminal_in_cwd, opts('Open a Terminal (cwd)'))
 end
 
 
@@ -238,27 +242,27 @@ do
     })
   end
 
-  vim.keymap.set('v', '<leader>s/', grug_with_v_selection, opts('Search and Replace in current file'))
+  vim_keymap.set('v', '<leader>s/', grug_with_v_selection, opts('Search and Replace in current file'))
 end
 
 
 -- Keymap for built-in renaming
-vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts('Rename'))
+vim_keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts('Rename'))
 
 
 -- Yazi keymaps
 do
   local yz = require('yazi')
 
-  vim.keymap.set('n', '<leader>Y', function()
+  vim_keymap.set('n', '<leader>Y', function()
     yz.yazi(yz.config)
   end, opts('Open yazi at the current file', true))
 
-  vim.keymap.set('n', '<leader>cw', function()
+  vim_keymap.set('n', '<leader>cw', function()
     yz.yazi(yz.config, vim.fn.getcwd(), nil)
   end, opts('Open yazi in the cwd', true))
 
-  vim.keymap.set('n', '<leader><up>', function()
+  vim_keymap.set('n', '<leader><up>', function()
     yz.toggle(yz.config)
   end, opts('Resume the last yazi session', true))
 end
@@ -268,60 +272,56 @@ end
 do
   local ufo = require('ufo')
 
-  vim.keymap.set('n', 'zR', ufo.openAllFolds, opts('Open all folds'))
-  vim.keymap.set('n', 'zM', ufo.closeAllFolds, opts('Close all folds'))
+  vim_keymap.set('n', 'zR', ufo.openAllFolds, opts('Open all folds'))
+  vim_keymap.set('n', 'zM', ufo.closeAllFolds, opts('Close all folds'))
 end
 
 
--- telescope-undo
-vim.keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end, opts('Telescope undo'))
-
-
 -- lspsaga
-vim.keymap.set('n', 'gt', function() vim.cmd('Lspsaga peek_definition') end, opts('Peek definition'))
-vim.keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end, opts('Peek type definition'))
+vim_keymap.set('n', 'gt', function() vim.cmd('Lspsaga peek_definition') end, opts('Peek definition'))
+vim_keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end, opts('Peek type definition'))
 
 
 -- hover.nvim
 do
   local hover = require('hover')
 
-  vim.keymap.set('n', '<Tab>', hover.open, opts('Hover Doc'))
-  -- vim.keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
-  -- vim.keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
+  vim_keymap.set('n', '<Tab>', hover.open, opts('Hover Doc'))
+  -- vim_keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
+  -- vim_keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
 end
 
 
 -- Aerial
-vim.keymap.set('n', '<leader>O', require('aerial').toggle, opts('Outline'))
+vim_keymap.set('n', '<leader>O', require('aerial').toggle, opts('Outline'))
 
 
 -- dropbar
 do
   local dropbar_api = require('dropbar.api')
 
-  vim.keymap.set('n', '<Leader>;', dropbar_api.pick, opts('Pick symbols in winbar'))
-  vim.keymap.set('n', '[;', dropbar_api.goto_context_start, opts('Go to start of current context'))
-  vim.keymap.set('n', '];', dropbar_api.select_next_context, opts('Select next context'))
+  vim_keymap.set('n', '<Leader>;', dropbar_api.pick, opts('Pick symbols in winbar'))
+  vim_keymap.set('n', '[;', dropbar_api.goto_context_start, opts('Go to start of current context'))
+  vim_keymap.set('n', '];', dropbar_api.select_next_context, opts('Select next context'))
 end
 
 
 -- refactoring.nvim (Overriding their functions because they are not working as expected)
-vim.keymap.set({ 'n', 'x' }, '<leader>ri', function() vim.cmd('Refactor inline_var') end, opts('Inline Variable'))
-vim.keymap.set('n', '<leader>rb', function() vim.cmd('Refactor extract_block') end, opts('Extract Block'))
-vim.keymap.set('n', '<leader>rf', function() vim.cmd('Refactor extract_block_to_file') end, opts('Extract Block To File'))
-vim.keymap.set('n', '<leader>rF', function() vim.cmd('Refactor inline_func') end, opts('Inline Function'))
-vim.keymap.set('x', '<leader>rf', function() vim.cmd('Refactor extract_function') end, opts('Extract Function'))
-vim.keymap.set('x', '<leader>rF', function() vim.cmd('Refactor extract_function_to_file') end, opts('Extract Function To File'))
-vim.keymap.set('x', '<leader>rx', function() vim.cmd('Refactor extract_var') end, opts('Extract Variable'))
+vim_keymap.set({ 'n', 'x' }, '<leader>ri', function() vim.cmd('Refactor inline_var') end, opts('Inline Variable'))
+vim_keymap.set('n', '<leader>rb', function() vim.cmd('Refactor extract_block') end, opts('Extract Block'))
+vim_keymap.set('n', '<leader>rf', function() vim.cmd('Refactor extract_block_to_file') end, opts('Extract Block To File'))
+vim_keymap.set('n', '<leader>rF', function() vim.cmd('Refactor inline_func') end, opts('Inline Function'))
+vim_keymap.set('x', '<leader>rf', function() vim.cmd('Refactor extract_function') end, opts('Extract Function'))
+vim_keymap.set('x', '<leader>rF', function() vim.cmd('Refactor extract_function_to_file') end, opts('Extract Function To File'))
+vim_keymap.set('x', '<leader>rx', function() vim.cmd('Refactor extract_var') end, opts('Extract Variable'))
 
 
 -- treesj
 do
   local treesj = require('treesj')
 
-  vim.keymap.set('n', '<leader>i', treesj.split, opts('Split code block'))
-  vim.keymap.set('n', '<leader>j', treesj.join, opts('Join code block'))
+  vim_keymap.set('n', '<leader>i', treesj.split, opts('Split code block'))
+  vim_keymap.set('n', '<leader>j', treesj.join, opts('Join code block'))
 end
 
 
@@ -338,12 +338,15 @@ do
     end
   end
 
-  vim.keymap.set('n', '<leader>fq', swap_fileformats, opts('Swap fileformats (unix, dos, mac)'))
+  vim_keymap.set('n', '<leader>fq', swap_fileformats, opts('Swap fileformats (unix, dos, mac)'))
 end
 
 
--- Telescope symbols
-vim.keymap.set('n', '<leader>se', function() vim.cmd('Telescope symbols') end, opts('Telescope symbols'))
+-- Telescope
+vim_keymap.set('n', '<leader>se', function() vim.cmd('Telescope symbols') end, opts('Telescope symbols'))
+vim_keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end, opts('Telescope undo'))
+vim_keymap.set({ 'n', 'v', 'x' }, '"', function() vim.cmd('Telescope registers') end, opts('Telescope registers'))
+vim_keymap.set({ 'n', 'v' }, "<leader>'", function() vim.cmd('Telescope keymaps') end, opts('Telescope keymaps'))
 
 
 -- bufferline
@@ -366,14 +369,14 @@ do
     b_line.sort_by('tabs')
   end
 
-  vim.keymap.set('n', '<leader>bf', b_line.pick, opts('Bufferline Pick'))
-  vim.keymap.set('n', '<leader>bF', b_line.close_with_pick, opts('Bufferline Close with Pick'))
-  vim.keymap.set('n', '<leader>bL', function() vim.cmd('BufferLineMovePrev') end, opts('Bufferline Move previous'))
-  vim.keymap.set('n', '<leader>bH', function() vim.cmd('BufferLineMoveNext') end, opts('Bufferline Move next'))
-  vim.keymap.set('n', '<leader>bqe', b_line_sort_by_ext, opts('Bufferline Sort by Extension'))
-  vim.keymap.set('n', '<leader>bqd', b_line_sort_by_dir, opts('Bufferline Sort by Directory'))
-  vim.keymap.set('n', '<leader>bqr', b_line_sort_by_rel_dir, opts('Bufferline Sort by Relative Directory'))
-  vim.keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by Tabs'))
+  vim_keymap.set('n', '<leader>bf', b_line.pick, opts('Bufferline Pick'))
+  vim_keymap.set('n', '<leader>bF', b_line.close_with_pick, opts('Bufferline Close with Pick'))
+  vim_keymap.set('n', '<leader>bL', function() vim.cmd('BufferLineMovePrev') end, opts('Bufferline Move previous'))
+  vim_keymap.set('n', '<leader>bH', function() vim.cmd('BufferLineMoveNext') end, opts('Bufferline Move next'))
+  vim_keymap.set('n', '<leader>bqe', b_line_sort_by_ext, opts('Bufferline Sort by Extension'))
+  vim_keymap.set('n', '<leader>bqd', b_line_sort_by_dir, opts('Bufferline Sort by Directory'))
+  vim_keymap.set('n', '<leader>bqr', b_line_sort_by_rel_dir, opts('Bufferline Sort by Relative Directory'))
+  vim_keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by Tabs'))
 end
 
 
@@ -381,9 +384,9 @@ end
 do
   local mc = require('multicursors')
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>m', mc.start, opts('Create a selection for selected text or word under the cursor'))
+  vim_keymap.set({ 'n', 'v' }, '<leader>m', mc.start, opts('Create a selection for selected text or word under the cursor'))
 end
 
 
 -- trim.nvim
-vim.keymap.set('n', '<leader>T', function() vim.cmd('Trim') end, opts('Trim all trailing whitespaces and lines'))
+vim_keymap.set('n', '<leader>T', function() vim.cmd('Trim') end, opts('Trim all trailing whitespaces and lines'))

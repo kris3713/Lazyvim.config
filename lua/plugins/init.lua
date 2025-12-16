@@ -480,6 +480,7 @@ return {
         ---@param bufnr integer
         on_attach = function(bufnr)
           local api = require('nvim-tree.api')
+          local vim_keymap = vim.keymap
 
           local function edit_or_open()
             local node = api.tree.get_node_under_cursor()
@@ -509,21 +510,24 @@ return {
             api.tree.focus()
           end
 
-          --- (Copied from eddiebergman)
+          ---Sets options for keymaps
           ---@param desc string
-          ---@return table
-          local function opts(desc)
-            return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+          ---@param silent boolean?
+          ---@return vim.keymap.set.Opts
+          local function opts(desc, silent)
+            silent = silent or false
+            ---@type vim.keymap.set.Opts
+            return { desc = 'nvim-tree: ' .. desc, silent = silent, noremap = true, nowait = true }
           end
 
           -- default mappings (Copied from eddiebergman)
           api.config.mappings.default_on_attach(bufnr)
 
           -- Set keymaps on attach (Copied from eddiebergman)
-          vim.keymap.set('n', 'l', edit_or_open, opts('Edit or Open'))
-          vim.keymap.set('n', 'L', vsplit_preview, opts('Vsplit Preview'))
-          vim.keymap.set('n', 'h', api.tree.close, opts('Close'))
-          vim.keymap.set('n', 'H', api.tree.collapse_all, opts('Collapse'))
+          vim_keymap.set('n', 'l', edit_or_open, opts('Edit or Open'))
+          vim_keymap.set('n', 'L', vsplit_preview, opts('Vsplit Preview'))
+          vim_keymap.set('n', 'h', api.tree.close, opts('Close'))
+          vim_keymap.set('n', 'H', api.tree.collapse_all, opts('Collapse'))
         end,
         renderer = {
           icons = {
