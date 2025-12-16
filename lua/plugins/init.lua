@@ -343,6 +343,25 @@ return {
     }
   },
   {
+    'fedepujol/move.nvim',
+    keys = {
+      -- Normal Mode
+      { '<A-j>', function() vim.cmd('MoveLine(1)') end, desc = 'Move Line Up' },
+      { '<A-k>', function() vim.cmd('MoveLine(-1)') end, desc = 'Move Line Down' },
+      { '<A-h>', function() vim.cmd('MoveHChar(-1)') end, desc = 'Move Character Left' },
+      { '<A-l>', function() vim.cmd('MoveHChar(1)') end, desc = 'Move Character Right' },
+      { '<leader>wf', function() vim.cmd('MoveWord(-1)') end, mode = { 'n' }, desc = 'Move Word Left' },
+      { '<leader>wb', function() vim.cmd('MoveWord(1)') end, mode = { 'n' }, desc = 'Move Word Right' },
+      -- Visual Mode
+      { '<A-j>', function() vim.cmd('MoveBlock(-1)') end, mode = { 'v' }, desc = 'Move Block Up' },
+      { '<A-k>', function() vim.cmd('MoveBlock(1)') end, mode = { 'v' }, desc = 'Move Block Down' },
+      { '<A-h>', function() vim.cmd('MoveHBlock(-1)') end, mode = { 'v' }, desc = 'Move Block Left' },
+      { '<A-l>', function() vim.cmd('MoveHBlock(1)') end, mode = { 'v' }, desc = 'Move Block Right' }
+    },
+    ---@type MoveConfig
+    opts = {}
+  },
+  {
     'kylechui/nvim-surround',
     event = 'VeryLazy',
     opts = {
