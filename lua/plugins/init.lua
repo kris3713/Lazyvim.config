@@ -38,6 +38,11 @@ return {
     opts = {}
   },
   {
+    'nvzone/showkeys',
+    cmd = 'ShowkeysToggle',
+    opts = {}
+  },
+  {
     'nvzone/minty',
     opts = {},
     cmd = { 'Shades', 'Heufy' }
