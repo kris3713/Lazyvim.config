@@ -14,6 +14,14 @@ return {
     }
   },
   {
+    'L3MON4D3/LuaSnip',
+    init = function()
+      require('luasnip.loaders.from_vscode').lazy_load {
+        paths = { os.getenv('HOME') .. '/MEGA' }
+      }
+    end
+  },
+  {
     'mason-org/mason.nvim',
     ---@module 'mason',
     ---@type MasonSettings
@@ -67,6 +75,25 @@ return {
         }
       }
     }
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    -- telescope extensions
+    init = function()
+      local telescope = require('telescope')
+
+      local telescope_plugins = {
+        'ui-select',
+        'undo',
+        'frecency',
+        'dap',
+        'telescope-tabs'
+      }
+
+      for _, plugin in ipairs(telescope_plugins) do
+        telescope.load_extension(plugin)
+      end
+    end
   },
   {
     'folke/snacks.nvim',
@@ -217,6 +244,93 @@ return {
     }
   },
   {
+    'hrsh7th/nvim-cmp',
+    init = function()
+      local cmp = require('cmp')
+      local cmp_config = cmp.get_config()
+
+      ---@type cmp.SourceConfig[]
+      local cmp_sources = {
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'nvim_lua' },
+        { name = 'dap' },
+        { name = 'render-markdown' },
+        { name = 'diag-codes' },
+        { name = 'luasnip_choice' },
+        { name = 'npm' },
+        { name = 'pypi' }
+      }
+
+      for _, source in ipairs(cmp_sources) do
+        table.insert(cmp_config.sources, source)
+      end
+
+      cmp.setup {
+        window = {
+          completion = {
+            border = 'rounded'
+          },
+          ---@diagnostic disable-next-line: missing-fields
+          documentation = {
+            border = 'rounded'
+          }
+        },
+        formatting = {
+          fields = { 'abbr', 'kind', 'menu' },
+          format = function(entry, vim_item)
+            local lspkind = require('lspkind').cmp_format { mode = 'symbol_text' }
+            local extra_opts = lspkind(entry, vim.deepcopy(vim_item))
+            local highlights_info = require('colorful-menu').cmp_highlights(entry)
+
+            -- highlight_info is nil means we are missing the ts parser, it's
+            -- better to fallback to use default `vim_item.abbr`. What this plugin
+            -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+            if highlights_info ~= nil then
+              vim_item.abbr_hl_group = highlights_info.highlights
+              vim_item.abbr = highlights_info.text
+            end
+
+            local strings = vim.split(extra_opts.kind, '%s', { trimempty = true })
+            vim_item.kind = ' ' .. (strings[1] or '') .. ' '
+            vim_item.menu = ''
+
+            return vim_item
+          end
+        },
+        sources = cmp_config.sources,
+        -- mapping = cmp.mapping.preset.insert {
+        --   ['<a-y>'] = require('minuet').make_cmp_map()
+        -- },
+        ---@diagnostic disable-next-line: missing-fields
+        performance = {
+          fetching_timeout = 2000
+        }
+      }
+
+      -- only for sql
+      cmp.setup.filetype('sql', {
+        sources = {
+          { name = 'sql' }
+        }
+      })
+
+      -- only for golang
+      cmp.setup.filetype('go', {
+        sources = {
+          { name = 'go_pkgs' },
+          {
+            name = 'go_deep',
+            keyword_length = 3,
+            max_item_count = 5,
+            ---@module 'cmp_go_deep'
+            ---@type cmp_go_deep.Options
+            option = {}
+          }
+        }
+      })
+    end
+  },
+  {
     'mfussenegger/nvim-dap',
     optional = true,
     opts = function()
@@ -249,6 +363,71 @@ return {
           }
         end
       end
+    end
+  },
+  {
+    'nvimtools/none-ls.nvim',
+    init = function()
+      local null_ls = require('null-ls')
+
+      ---@module 'null-ls.builtins._meta.code_actions'
+      local null_ls__code_actions = null_ls.builtins.code_actions
+      ---@module 'null-ls.builtins._meta.completion'
+      local null_ls__completion = null_ls.builtins.completion
+      ---@module 'null-ls.builtins._meta.diagnostics'
+      local null_ls__diagnostics = null_ls.builtins.diagnostics
+      ---@module 'null-ls.builtins._meta.formatting'
+      local null_ls__formatting = null_ls.builtins.formatting
+      -- ---@module 'null-ls.builtins._meta.hover'
+      -- local null_ls__hover = null_ls.builtins.hover
+
+      -- none-ls extra sources
+      local null_ls__formatting__ruff = require('none-ls.formatting.ruff')
+      local null_ls__formatting__tex_fmt = require('none-ls.formatting.tex_fmt')
+
+      local null_ls__sources = null_ls.get_sources()
+
+      local new_null_ls_sources = {
+        null_ls__code_actions.gitsigns,
+        null_ls__code_actions.refactoring,
+        null_ls__code_actions.statix,
+        null_ls__completion.luasnip,
+        null_ls__completion.tags,
+        null_ls__diagnostics.actionlint,
+        null_ls__diagnostics.deadnix,
+        null_ls__diagnostics.dotenv_linter,
+        null_ls__diagnostics.editorconfig_checker,
+        null_ls__diagnostics.fish,
+        null_ls__diagnostics.ktlint,
+        null_ls__diagnostics.markdownlint,
+        null_ls__diagnostics.markdownlint_cli2,
+        null_ls__diagnostics.rpmspec,
+        null_ls__diagnostics.todo_comments,
+        null_ls__diagnostics.trail_space,
+        null_ls__diagnostics.statix,
+        null_ls__diagnostics.selene,
+        null_ls__diagnostics.pydoclint,
+        null_ls__diagnostics.yamllint,
+        null_ls__formatting.alejandra,
+        null_ls__formatting.biome,
+        null_ls__formatting.prettier,
+        null_ls__formatting.fish_indent,
+        null_ls__formatting.gofumpt,
+        null_ls__formatting.markdownlint,
+        null_ls__formatting.shfmt,
+        null_ls__formatting__ruff,
+        null_ls__formatting__tex_fmt,
+        null_ls__formatting.uncrustify,
+        null_ls__formatting.yamlfmt
+      }
+
+      for _, source in ipairs(new_null_ls_sources) do
+        table.insert(null_ls__sources, source)
+      end
+
+      null_ls.setup {
+        sources = null_ls__sources
+      }
     end
   }
 }

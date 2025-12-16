@@ -48,16 +48,21 @@ return {
     opts = {}
   },
   {
+    'cbochs/portal.nvim',
+    opts = {}
+  },
+  {
     'chrisgrieser/nvim-scissors',
-    opts = {
-      snippetDir = os.getenv('HOME') .. '/MEGA'
-    }
+    opts = { snippetDir = os.getenv('HOME') .. '/MEGA' }
   },
   {
     'm-demare/hlargs.nvim',
-    opts = {
-      color = '#ed8796'
-    }
+    opts = { color = '#ed8796' }
+  },
+  {
+    'julienvincent/hunk.nvim',
+    cmd = 'DiffEditor',
+    opts = {}
   },
   {
     'L3MON4D3/cmp-luasnip-choice',
@@ -145,7 +150,28 @@ return {
   {
     'NMAC427/guess-indent.nvim',
     opts = {
-      filetype_exclude = { 'netrw', 'tutor', 'snacks_dashboard', 'snacks_terminal' }
+      filetype_exclude = {
+        'netrw',
+        'tutor',
+        'snacks_dashboard',
+        'snacks_terminal'
+      }
+    }
+  },
+  {
+    'tzachar/highlight-undo.nvim',
+    opts = {
+      ignored_filetypes = {
+        'neo-tree',
+        'fugitive',
+        'TelescopePrompt',
+        'mason',
+        'lazy',
+        'netrw',
+        'tutor',
+        'snacks_dashboard',
+        'snacks_terminal'
+      }
     }
   },
   {
@@ -323,6 +349,23 @@ return {
     end,
     keys = {
       { '<localLeader>l', '', desc = '+vimtex', ft = 'tex' }
+    }
+  },
+  {
+    'cappyzawa/trim.nvim',
+    opts = {
+      -- harper:ignore
+      -- if you want to ignore markdown file.
+      -- you can specify filetypes.
+      ft_blocklist = {
+        'snacks_dashboard',
+        'snacks_terminal'
+      },
+      -- harper:ignore
+      -- if you want to disable trim on write by default
+      trim_on_write = false,
+      -- highlight trailing spaces
+      highlight = true
     }
   },
   {
