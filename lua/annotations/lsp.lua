@@ -4,7 +4,7 @@
 
 ---Common LSP server/client configuration options.
 ---This extends the `vim.lsp.ClientConfig`, `vim.lsp.Client`, and `vim.lsp.Config` types.
----@class lspClientOpts : vim.lsp.ClientConfig | vim.lsp.Client | vim.lsp.Config
+---@class lspClientOpts : vim.lsp.ClientConfig
 ---
 ---Allows for disabling or enabling mason.nvim integration
 ---for this LSP server. By default, this is set to `true`
@@ -27,7 +27,7 @@
 ---@field inlay_hints { enabled: boolean? }
 ---
 ---Common LSP server/client configuration options.
----@field servers { [string]: lspClientOpts }
+---@field servers { [string]: lspClientOpts | vim.lsp.Client | vim.lsp.Config }
 
 ---@type lspConfigOpts
 local M = {}
