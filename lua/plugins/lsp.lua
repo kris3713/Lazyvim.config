@@ -213,20 +213,26 @@ return {
       cssmodules_ls = {
         enabled = true,
         mason = false,
-        ---@param client vim.lsp.Client
-        on_attach = function(client, _)
-          --- @diagnostic disable-next-line: inject-field, undefined-field
-          client.config.filetypes = vim.tbl_deep_extend('force', client.config.filetypes, {
+        filetypes = (function()
+          local filetypes = require('lspconfig.configs.cssmodules_ls').default_config.filetypes
+
+          local new_filetypes = {
             'astro',
             'vue',
             'svelte'
-          })
+          }
+
+          for _, ft in ipairs(new_filetypes) do
+            table.insert(filetypes, ft)
+          end
 
           local sort = table.sort
 
           --- @diagnostic disable-next-line: undefined-field
-          sort(client.config.filetypes)
-        end
+          sort(filetypes)
+
+          return filetypes
+        end)()
       },
       -- jsonls
       jsonls = {
@@ -420,16 +426,10 @@ return {
       harper_ls = {
         mason = false,
         enabled = true,
-        settings = {
-          ['harper-ls'] = {
-            userDictPath = harperDictPath,
-            fileDictPath = harperDictPath
-          }
-        },
-        ---@param client vim.lsp.Client
-        on_attach = function(client, _)
-          --- @diagnostic disable-next-line: inject-field, undefined-field
-          client.config.filetypes = vim.tbl_deep_extend('force', client.config.filetypes, {
+        filetypes = (function()
+          local filetypes = require('lspconfig.configs.harper_ls').default_config.filetypes
+
+          local new_filetypes = {
             'astro',
             'vue',
             'svelte',
@@ -440,13 +440,25 @@ return {
             'zsh',
             'sh',
             'spec'
-          })
+          }
+
+          for _, ft in ipairs(new_filetypes) do
+            table.insert(filetypes, ft)
+          end
 
           local sort = table.sort
 
           --- @diagnostic disable-next-line: undefined-field
-          sort(client.config.filetypes)
-        end,
+          sort(filetypes)
+
+          return filetypes
+        end)(),
+        settings = {
+          ['harper-ls'] = {
+            userDictPath = harperDictPath,
+            fileDictPath = harperDictPath
+          }
+        },
         capabilities = {
           textDocument = {
             completion = {
