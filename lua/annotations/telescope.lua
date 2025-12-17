@@ -10,7 +10,7 @@
 ---Default configuration for builtin pickers goes here.
 ---@field pickers table
 ---
----Your extension configuration goes here
+---Your extension configuration goes here.
 ---@field extensions table
 
 ---@type TelescopeConfig
