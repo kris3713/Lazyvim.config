@@ -87,12 +87,30 @@ return {
         'undo',
         'frecency',
         'dap',
-        'telescope-tabs'
+        'telescope-tabs',
+        'ast_grep'
       }
 
+      -- load telescope plugins
       for _, plugin in ipairs(telescope_plugins) do
         telescope.load_extension(plugin)
       end
+    end,
+    ---@module 'annotations.telescope'
+    ---@param opts TelescopeConfig
+    opts = function(_, opts)
+      opts = vim.tbl_deep_extend('force', opts or {}, {
+        extensions = {
+          ast_grep = {
+            command = {
+              'ast-grep', -- For Linux, use `ast-grep` instead of `sg`
+              '--json=stream'
+            }, -- must have --json=stream
+            grep_open_files = false, -- search in opened files
+            lang = nil -- string value, specify language for ast-grep `nil` for default
+          }
+        }
+      })
     end
   },
   {

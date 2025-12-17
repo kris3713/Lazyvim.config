@@ -10,6 +10,7 @@ return {
   'nvim-telescope/telescope-frecency.nvim',
   'nvim-telescope/telescope-dap.nvim',
   'LukasPietzschmann/telescope-tabs',
+  'Marskey/telescope-sg',
   'onsails/lspkind.nvim',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
