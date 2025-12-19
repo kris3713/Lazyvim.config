@@ -3,20 +3,31 @@
 
 -- MSBuild
 local msbuild = os.getenv('MSBUILD_LSP')
--- actions-preview
-local ap = require('actions-preview')
--- hover.nvim
-local hover = require('hover')
 -- harper dictionary path
 local harperDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt'
 
--- Adds important capabilities to the LSP client
+---Adds important capabilities to the LSP client
 local function capabilities()
   local client_capabilities = vim.lsp.protocol.make_client_capabilities()
   ---@diagnostic disable-next-line: need-check-nil
   client_capabilities.textDocument.completion.completionItem.snippetSupport = true
   return client_capabilities
 end
+
+---Opens the hover window
+local function hover_open()
+  -- hover.nvim
+  local hover = require('hover')
+  hover.open {}
+end
+
+---Selects a code action available at the current cursor position.
+local function ap__code_actions()
+  -- actions-preview
+  local ap = require('actions-preview')
+  ap.code_actions {}
+end
+
 
 return {
   'neovim/nvim-lspconfig',
@@ -30,13 +41,13 @@ return {
         keys = {
           { -- Code Actions
             '<leader>ca',
-            ap.code_actions,
+            ap__code_actions,
             desc = 'Open Code Actions',
             noremap = true
           },
           { -- Hover Doc
             'K',
-            hover.open,
+            hover_open,
             desc = 'Hover Doc',
             noremap = true
           },
