@@ -30,7 +30,8 @@ end
 
 
 return {
-  'neovim/nvim-lspconfig',
+  'kris3713/nvim-lspconfig', -- switch back to neovim/nvim-lspconfig
+  branch = 'systemd_lsp',
   ---@module 'annotations.lsp'
   ---@type lspConfigOpts
   opts = {
@@ -58,6 +59,9 @@ return {
             noremap = true
           }
         }
+      },
+      systemd_lsp = {
+        enabled = true
       },
       -- rubocop
       rubocop = {
