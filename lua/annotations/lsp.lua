@@ -10,6 +10,8 @@
 ---for this LSP server. By default, this is set to `true`
 ---@field mason boolean?
 ---
+---@field enabled boolean?
+---
 ---Allows for setting custom keymaps for this LSP server.
 ---@field keys vim.api.keyset.keymap[]
 ---
