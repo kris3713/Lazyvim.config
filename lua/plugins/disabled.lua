@@ -22,6 +22,23 @@ return {
   }
   -- harper:ignore
   -- {
+  --   'lervag/vimtex',
+  --   -- harper:ignore
+  --   -- lazy-loading will disable inverse search
+  --   lazy = false,
+  --   config = function()
+  --     -- Disables `K` as it conflicts with LSP hover
+  --     vim.g.vimtex_mappings_disable = {
+  --       ['n'] = { 'K' }
+  --     }
+  --
+  --     vim.g.vimtex_quickfix_method = vim.fn.executable('pplatex') == 1 and 'pplatex' or 'latexlog'
+  --   end,
+  --   keys = {
+  --     { '<localLeader>l', '', desc = '+vimtex', ft = 'tex' }
+  --   }
+  -- },
+  -- {
   --   'fedepujol/move.nvim',
   --   keys = {
   --     -- Normal Mode
