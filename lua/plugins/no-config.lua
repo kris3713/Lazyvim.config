@@ -26,5 +26,6 @@ return {
   'vrslev/cmp-pypi',
   'ray-x/cmp-sql',
   'sbdchd/neoformat',
-  'direnv/direnv.vim'
+  'direnv/direnv.vim',
+  'stevearc/vim-vscode-snippets'
 }
