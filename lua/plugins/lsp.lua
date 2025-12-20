@@ -312,8 +312,8 @@ return {
       },
       -- emmylua_ls
       emmylua_ls = {
+        enabled = true,
         mason = false,
-        enabled = false,
         root_markers = {
           '.luarc.json',
           '.luarc.jsonc',
@@ -414,8 +414,8 @@ return {
       },
       -- lua_ls
       lua_ls = {
+        enabled = false,
         mason = false,
-        enabled = true,
         settings = {
           Lua = {
             completion = {
