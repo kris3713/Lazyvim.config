@@ -128,7 +128,7 @@ return {
       -- basedpyright
       basedpyright = {
         mason = false,
-        enabled = true
+        enabled = false
       },
       -- biome
       biome = {
@@ -169,6 +169,11 @@ return {
       pyright = {
         mason = false,
         enabled = false
+      },
+      -- pyrefly
+      pyrefly = {
+        mason = false,
+        enabled = true
       },
       -- tailwindcss
       tailwindcss = {
