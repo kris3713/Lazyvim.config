@@ -119,33 +119,35 @@ return {
   {
     'folke/snacks.nvim',
     ---@module 'snacks'
-    ---@type snacks.Config
-    opts = {
-      explorer = {
-        enabled = false
-      },
-      picker = {
-        previewers = {
-          diff = {
-            builtin = false,
-            cmd = { 'delta' }
-          },
-          git = {
-            builtin = false
-          },
-          man_pager = 'nvim +Man!'
+    ---@param opts snacks.Config
+    opts = function(_, opts)
+      opts = vim.tbl_deep_extend('force', opts or {}, --[[@as snacks.Config]]{
+        explorer = {
+          enabled = false
+        },
+        picker = {
+          previewers = {
+            diff = {
+              builtin = false,
+              cmd = { 'delta' }
+            },
+            git = {
+              builtin = false
+            },
+            man_pager = 'nvim +Man!'
+          }
+        },
+        win = {
+          border = 'rounded'
+        },
+        notifier = {
+          style = 'fancy'
         }
-      },
-      win = {
-        border = 'rounded'
-      },
-      notifier = {
-        style = 'fancy'
-      }
-    },
+      })
+    end,
     keys = {
       { '<leader>S', false }, -- Disables Scratchpad keymap
-      { '<c-/>', false, mode = 'i' } -- Disables Snacks terminal keymap
+      { '<C-/>', false, mode = 'i' } -- Disables Snacks terminal keymap
     }
   },
   {
