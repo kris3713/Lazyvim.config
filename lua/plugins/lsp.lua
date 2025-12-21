@@ -254,10 +254,7 @@ return {
             table.insert(filetypes, ft)
           end
 
-          local sort = table.sort
-
-          --- @diagnostic disable-next-line: undefined-field
-          sort(filetypes)
+          table.sort(filetypes)
 
           return filetypes
         end)()
@@ -474,10 +471,7 @@ return {
             table.insert(filetypes, ft)
           end
 
-          local sort = table.sort
-
-          --- @diagnostic disable-next-line: undefined-field
-          sort(filetypes)
+          table.sort(filetypes)
 
           return filetypes
         end)(),
