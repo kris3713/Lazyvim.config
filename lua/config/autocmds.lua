@@ -113,7 +113,7 @@ create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
     '*.timer',
     '*.path',
     '*.slice',
-    '*.socket',
+    '*.socket'
   },
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
