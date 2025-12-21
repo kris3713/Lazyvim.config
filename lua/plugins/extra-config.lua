@@ -1,3 +1,4 @@
+local sources = require("lualine.components.diagnostics.sources")
 --- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
 
 return {
@@ -390,8 +391,7 @@ return {
   },
   {
     'nvimtools/none-ls.nvim',
-    ---@param opts table
-    opts = function(_, opts)
+    init = function()
       local null_ls = require('null-ls')
 
       ---@module 'null-ls.builtins._meta.code_actions'
@@ -449,9 +449,9 @@ return {
         table.insert(null_ls__sources, source)
       end
 
-      opts = vim.tbl_deep_extend('force', opts or {}, {
+      null_ls.setup {
         sources = null_ls__sources
-      })
+      }
     end
   }
 }
