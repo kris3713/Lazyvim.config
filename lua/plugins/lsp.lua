@@ -125,11 +125,6 @@ return {
         mason = false,
         enabled = true
       },
-      -- basedpyright
-      basedpyright = {
-        mason = false,
-        enabled = false
-      },
       -- biome
       biome = {
         mason = false,
@@ -160,20 +155,33 @@ return {
         mason = false,
         enabled = true
       },
+      -- basedpyright
+      basedpyright = { -- medium speed and perfect
+        mason = false,
+        enabled = false
+      },
       -- jedi_language_server
-      jedi_language_server = {
+      jedi_language_server = { -- slow, but perfect
         mason = false,
         enabled = false
       },
       -- pyright
-      pyright = {
+      pyright = { -- Usable, but missing features. basedpyright should be used instead
         mason = false,
         enabled = false
       },
       -- pyrefly
-      pyrefly = {
+      pyrefly = { -- fast and perfect
         mason = false,
-        enabled = true
+        enabled = false
+      },
+      ty = { -- Still in beta, but has most of the expected features from a python language server
+        mason = false,
+        enabled = false
+      },
+      zuban = { -- Supports most features, but needs more.
+        mason = false,
+        enabled = false
       },
       -- tailwindcss
       tailwindcss = {
