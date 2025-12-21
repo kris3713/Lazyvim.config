@@ -173,7 +173,7 @@ return {
       -- pyrefly
       pyrefly = { -- fast and perfect
         mason = false,
-        enabled = false
+        enabled = true
       },
       ty = { -- Still in beta, but has most of the expected features from a python language server
         mason = false,
