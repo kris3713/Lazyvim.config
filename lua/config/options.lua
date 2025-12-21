@@ -11,6 +11,7 @@ vim.g.autoformat = false
 -- Improved sessionoptions
 vim.o.sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
+--- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then
   -- Set font family and font size (For Neovide)
   vim.opt.guifont = { 'JetBrainsMono Nerd Font', ':h14' }
@@ -25,12 +26,12 @@ vim.o.expandtab = true
 do
   local bufnr = vim.api.nvim_get_current_buf()
 
-  if vim.bo[bufnr].shiftwidth >= 4 or vim.bo[bufnr].tabstop >= 4 then
-    vim.o.shiftwidth = 4
-    vim.o.tabstop = 4
+  if (vim.bo[bufnr].shiftwidth >= 4) or (vim.bo[bufnr].tabstop >= 4) then
+    vim.bo[bufnr].shiftwidth = 4
+    vim.bo[bufnr].tabstop = 4
   else
-    vim.o.shiftwidth = 2
-    vim.o.tabstop = 2
+    vim.bo[bufnr].shiftwidth = 2
+    vim.bo[bufnr].tabstop = 2
   end
 end
 
@@ -108,8 +109,10 @@ vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decr
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
+--- @diagnostic disable-next-line: assign-type-mismatch
 -- Disable netrw
 vim.g.loaded_netrw = false
+--- @diagnostic disable-next-line: assign-type-mismatch
 vim.g.loaded_netrwPlugin = false
 
 -- Stop line numbers from shifting forward and back
@@ -131,7 +134,7 @@ do
     'kotlin_lsp'
   }
 
-  for _, name in ipairs(lsps) do
-    vim.lsp.enable(name)
+  for _, lsp in ipairs(lsps) do
+    vim.lsp.enable(lsp)
   end
 end
