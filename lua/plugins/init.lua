@@ -11,11 +11,11 @@ return {
   },
   {
     'Mgenuit/nvim-dap-kotlin',
-    config = true
+    opts = {}
   },
   {
     'fei6409/log-highlight.nvim',
-    config = true
+    opts = {}
   },
   {
     'samiulsami/cmp-go-deep',
@@ -65,6 +65,14 @@ return {
     opts = { color = '#ed8796' }
   },
   {
+    'akinsho/toggleterm.nvim',
+    opts = {}
+  },
+  {
+    'stevearc/stickybuf.nvim',
+    opts = {}
+  },
+  {
     'julienvincent/hunk.nvim',
     cmd = 'DiffEditor',
     opts = {}
@@ -97,22 +105,18 @@ return {
     }
   },
   {
-    'xzbdmw/colorful-menu.nvim',
-    config = function ()
-      require('colorful-menu').setup {
-        max_width = 80
-      }
-    end
-  },
-  {
-    'akinsho/toggleterm.nvim',
-    opts = {}
-  },
-  {
     'DaikyXendo/nvim-material-icon',
     opts = {
       color_icons = true,
       default = true
+    }
+  },
+  {
+    'xzbdmw/colorful-menu.nvim',
+    ---@module 'colorful-menu'
+    ---@type ColorfulMenuConfig
+    opts = {
+      max_width = 80
     }
   },
   {
