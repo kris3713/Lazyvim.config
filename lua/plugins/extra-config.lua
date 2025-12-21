@@ -66,7 +66,7 @@ return {
     ---@module 'bufferline'
     ---@param opts bufferline.Config
     opts = function(_, opts)
-      opts = vim.tbl_deep_extend('force', opts, {
+      opts = vim.tbl_deep_extend('force', opts or {}, {
         options = {
           always_show_bufferline = true,
           separator_style = 'thick',
@@ -102,7 +102,7 @@ return {
     ---@module 'annotations.telescope'
     ---@param opts TelescopeConfig
     opts = function(_, opts)
-      opts = vim.tbl_deep_extend('force', opts, --[[@as TelescopeConfig]]{
+      opts = vim.tbl_deep_extend('force', opts or {}, --[[@as TelescopeConfig]]{
         extensions = {
           ast_grep = {
             command = {
