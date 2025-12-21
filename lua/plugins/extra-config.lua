@@ -119,32 +119,30 @@ return {
   {
     'folke/snacks.nvim',
     ---@module 'snacks'
-    ---@param opts snacks.Config
-    opts = function(_, opts)
-      opts = vim.tbl_deep_extend('force', opts or {}, --[[@as snacks.Config]]{
-        explorer = {
-          enabled = false
-        },
-        picker = {
-          previewers = {
-            diff = {
-              builtin = false,
-              cmd = { 'delta' }
-            },
-            git = {
-              builtin = false
-            },
-            man_pager = 'nvim +Man!'
-          }
-        },
-        win = {
-          border = 'rounded'
-        },
-        notifier = {
-          style = 'fancy'
+    ---@type snacks.Config
+    opts = {
+      explorer = {
+        enabled = false
+      },
+      picker = {
+        previewers = {
+          diff = {
+            builtin = false,
+            cmd = { 'delta' }
+          },
+          git = {
+            builtin = false
+          },
+          man_pager = 'nvim +Man!'
         }
-      })
-    end,
+      },
+      win = {
+        border = 'rounded'
+      },
+      notifier = {
+        style = 'fancy'
+      }
+    },
     keys = {
       { '<leader>S', false }, -- Disables Scratchpad keymap
       { '<C-/>', false, mode = 'i' } -- Disables Snacks terminal keymap
@@ -452,11 +450,14 @@ return {
         null_ls__formatting.yamlfmt
       }
 
+      opts.sources = opts.sources or {}
+
       -- for _, source in ipairs(new_null_ls_sources) do
       --   table.insert(null_ls__sources, source)
       -- end
 
-      opts.sources = vim.list_extend(opts.sources or {}, new_null_ls_sources)
+      --- NOTE: Don't use vim.tbl_deep_extend with this one
+      opts.sources = vim.list_extend(opts.sources, new_null_ls_sources)
 
       -- null_ls.setup {
       --   sources = null_ls__sources
