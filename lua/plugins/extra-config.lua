@@ -54,29 +54,30 @@ return {
     dependencies = {
       'Issafalcon/neotest-dotnet'
     },
-    opts = {
-      adapters = {
-        -- Here we can set options for neotest-dotnet
+    opts = function(_, opts)
+      opts = vim.tbl_deep_extend('force', opts or {}, {
+         -- Here we can set options for neotest-dotnet
         ['neotest-dotnet'] = {}
-      }
-    }
+      })
+    end
   },
   {
     'akinsho/bufferline.nvim',
     ---@module 'bufferline'
-    ---@type bufferline.Config
-    ---@diagnostic disable-next-line: missing-fields
-    opts = {
-      options = {
-        always_show_bufferline = true,
-        separator_style = 'thick',
-        hover = {
-          enabled = true,
-          delay = 120,
-          reveal = { 'close' }
+    ---@param opts bufferline.Config
+    opts = function(_, opts)
+      opts = vim.tbl_deep_extend('force', opts, {
+        options = {
+          always_show_bufferline = true,
+          separator_style = 'thick',
+          hover = {
+            enabled = true,
+            delay = 120,
+            reveal = { 'close' }
+          }
         }
-      }
-    }
+      })
+    end
   },
   {
     'nvim-telescope/telescope.nvim',
@@ -101,7 +102,7 @@ return {
     ---@module 'annotations.telescope'
     ---@param opts TelescopeConfig
     opts = function(_, opts)
-      opts = vim.tbl_deep_extend('force', opts or {}, {
+      opts = vim.tbl_deep_extend('force', opts, --[[@as TelescopeConfig]]{
         extensions = {
           ast_grep = {
             command = {
@@ -387,7 +388,8 @@ return {
   },
   {
     'nvimtools/none-ls.nvim',
-    init = function()
+    ---@param opts table
+    opts = function(_, opts)
       local null_ls = require('null-ls')
 
       ---@module 'null-ls.builtins._meta.code_actions'
@@ -445,9 +447,9 @@ return {
         table.insert(null_ls__sources, source)
       end
 
-      null_ls.setup {
+      opts = vim.tbl_deep_extend('force', opts or {}, {
         sources = null_ls__sources
-      }
+      })
     end
   }
 }
