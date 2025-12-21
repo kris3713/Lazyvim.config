@@ -1,3 +1,5 @@
+--- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
+
 return {
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
   -- {
