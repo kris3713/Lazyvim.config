@@ -96,10 +96,6 @@ return {
       jdtls = {
         enabled = true
       },
-      -- statix
-      statix = {
-        enabled = true
-      },
       -- rpmspec
       rpmspec = {
         mason = false,
@@ -650,6 +646,10 @@ return {
       },
       -- texlab
       texlab = {
+        enabled = false
+      },
+      -- statix
+      statix = {
         enabled = false
       }
     }

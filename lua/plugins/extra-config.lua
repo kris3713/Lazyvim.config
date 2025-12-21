@@ -1,4 +1,3 @@
-local sources = require("lualine.components.diagnostics.sources")
 --- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
 
 return {
@@ -391,7 +390,8 @@ return {
   },
   {
     'nvimtools/none-ls.nvim',
-    init = function()
+    ---@param opts table
+    opts = function(_, opts)
       local null_ls = require('null-ls')
 
       ---@module 'null-ls.builtins._meta.code_actions'
@@ -402,14 +402,15 @@ return {
       local null_ls__diagnostics = null_ls.builtins.diagnostics
       ---@module 'null-ls.builtins._meta.formatting'
       local null_ls__formatting = null_ls.builtins.formatting
-      -- ---@module 'null-ls.builtins._meta.hover'
-      -- local null_ls__hover = null_ls.builtins.hover
+      ---@module 'null-ls.builtins._meta.hover'
+      local null_ls__hover = null_ls.builtins.hover
 
       -- none-ls extra sources
-      local null_ls__formatting__ruff = require('none-ls.formatting.ruff')
-      local null_ls__formatting__tex_fmt = require('none-ls.formatting.tex_fmt')
 
-      local null_ls__sources = null_ls.get_sources()
+      local null_ls__formatting__ruff = require('none-ls.formatting.ruff')
+      -- local null_ls__formatting__tex_fmt = require('none-ls.formatting.tex_fmt')
+
+      -- local null_ls__sources = null_ls.get_sources()
 
       local new_null_ls_sources = {
         null_ls__code_actions.gitsigns,
@@ -420,7 +421,9 @@ return {
         null_ls__diagnostics.actionlint,
         null_ls__diagnostics.deadnix,
         null_ls__diagnostics.dotenv_linter,
-        null_ls__diagnostics.editorconfig_checker,
+        null_ls__diagnostics.editorconfig_checker.with {
+          filetypes = { 'editorconfig' }
+        },
         null_ls__diagnostics.fish,
         null_ls__diagnostics.ktlint,
         null_ls__diagnostics.markdownlint,
@@ -429,29 +432,35 @@ return {
         null_ls__diagnostics.todo_comments,
         null_ls__diagnostics.trail_space,
         null_ls__diagnostics.statix,
-        null_ls__diagnostics.selene,
+        -- null_ls__diagnostics.selene,
         null_ls__diagnostics.pydoclint,
         null_ls__diagnostics.yamllint,
         null_ls__formatting.alejandra,
-        null_ls__formatting.biome,
-        null_ls__formatting.prettier,
+        null_ls__formatting.biome.with {
+          extra_filetypes = { 'astro' }
+        },
+        -- null_ls__formatting.prettier,
         null_ls__formatting.fish_indent,
         null_ls__formatting.gofumpt,
         null_ls__formatting.markdownlint,
-        null_ls__formatting.shfmt,
+        null_ls__formatting.shfmt.with {
+          extra_filetypes = { 'bash' }
+        },
         null_ls__formatting__ruff,
-        null_ls__formatting__tex_fmt,
+        -- null_ls__formatting__tex_fmt,
         null_ls__formatting.uncrustify,
         null_ls__formatting.yamlfmt
       }
 
-      for _, source in ipairs(new_null_ls_sources) do
-        table.insert(null_ls__sources, source)
-      end
+      -- for _, source in ipairs(new_null_ls_sources) do
+      --   table.insert(null_ls__sources, source)
+      -- end
 
-      null_ls.setup {
-        sources = null_ls__sources
-      }
+      opts.sources = vim.list_extend(opts.sources or {}, new_null_ls_sources)
+
+      -- null_ls.setup {
+      --   sources = null_ls__sources
+      -- }
     end
   }
 }
