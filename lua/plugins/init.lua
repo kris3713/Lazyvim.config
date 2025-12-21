@@ -195,8 +195,8 @@ return {
     'smoka7/multicursors.nvim',
     event = 'VeryLazy',
     dependencies = 'nvimtools/hydra.nvim',
-    opts = {},
-    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' }
+    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+    opts = {}
   },
   {
     'nvimdev/lspsaga.nvim',
@@ -229,24 +229,16 @@ return {
   {
     'Bekaboo/dropbar.nvim',
     lazy = false,
-    config = function()
-      --- @diagnostic disable-next-line: param-type-mismatch
-      require('dropbar').setup {
-        ---@type dropbar_menu_t
-        menu = {
-          win_configs = {
-            border = 'rounded'
-          }
+    ---@module 'dropbar'
+    ---@type dropbar_configs_t
+    opts = {
+      ---@type dropbar_menu_t
+      menu = {
+        win_configs = {
+          border = 'rounded'
         }
-        -- sources = {
-        --   lsp = {
-        --     valid_symbols = {
-        --       -- TODO: Fix error that causes comments to be interpreted as a symbol
-        --     }
-        --   }
-        -- }
       }
-    end
+    }
   },
   {
     'numToStr/Comment.nvim',
@@ -299,14 +291,13 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
-    -- Has potential for a complex configuration
-    config = function()
-      require('ufo').setup {
-        provider_selector = function(_, _, _)
-          return { 'treesitter', 'indent' }
-        end
-      }
-    end
+    ---@module 'ufo'
+    ---@type UfoConfig
+    opts = {
+      provider_selector = function(_, _, _)
+        return { 'treesitter', 'indent' }
+      end
+    }
   },
   {
     'michaelb/sniprun',
@@ -478,6 +469,7 @@ return {
         end
       }
 
+      --- @diagnostic disable-next-line: param-type-mismatch
       require('bigfile').setup {
         filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
         pattern = { '*' }, -- autocmd pattern or function see <### Overriding the detection of big files>
@@ -502,6 +494,7 @@ return {
     lazy = false,
     config = function()
       ---@param path string
+      ---@return string
       local function label(path)
         path = path:gsub(tostring(os.getenv('HOME')), '~', 1)
         -- local a = path:gsub('([a-zA-Z])[a-z0-9]+', '%1')
@@ -531,6 +524,7 @@ return {
           end
 
           -- harper:ignore
+
           -- open as vsplit on current node
           local function vsplit_preview()
             local node = api.tree.get_node_under_cursor()
@@ -597,6 +591,7 @@ return {
       pre_restore_cmds = {
         function()
           ---@param name string
+          ---@return integer
           local function create_augroup(name)
             return vim.api.nvim_create_augroup(name, { clear = true })
           end
