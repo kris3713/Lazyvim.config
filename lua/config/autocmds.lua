@@ -5,7 +5,7 @@
 -- with `vim.api.nvim_create_autocmd`
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
--- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+-- e.g. vim.api.nvim_del_augroup_by_name('lazyvim_wrap_spell')
 
 ---@param name string
 ---@return integer
@@ -100,4 +100,24 @@ create_autocmd('BufReadPost', {
     ---@diagnostic disable-next-line: param-type-mismatch
     require('guess-indent').set_from_buffer(bufnr, true, true)
   end
+})
+
+create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
+  group = create_augroup('systemd-filetypes'),
+  pattern = {
+    '*.service',
+    '*.mount',
+    '*.device',
+    '*.nspawn',
+    '*.target',
+    '*.timer',
+    '*.path',
+    '*.slice',
+    '*.socket',
+  },
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.bo[bufnr].filetype = 'systemd'
+  end,
+  desc = 'Set filetype to systemd for systemd unit files'
 })
