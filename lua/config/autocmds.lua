@@ -15,6 +15,7 @@ end
 
 local create_autocmd = vim.api.nvim_create_autocmd
 
+
 -- Get rid of Neovim's stupid cursor change
 create_autocmd('VimLeave', {
   group = create_augroup('restore_cursor_shape_on_exit'),
@@ -102,8 +103,10 @@ create_autocmd('BufReadPost', {
   end
 })
 
+-- Set filetype to systemd for systemd unit files
 create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
   group = create_augroup('systemd-filetypes'),
+  desc = 'Set filetype to systemd for systemd unit files',
   pattern = {
     '*.service',
     '*.mount',
@@ -118,6 +121,28 @@ create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
     vim.bo[bufnr].filetype = 'systemd'
-  end,
-  desc = 'Set filetype to systemd for systemd unit files'
+  end
 })
+
+-- Lock a buffer to a window
+create_autocmd('BufEnter', {
+  desc = 'Pin the buffer to any window that is fixed width or height',
+  callback = function(args)
+    local stickybuf = require('stickybuf')
+
+    -- local bufnr = vim.api.nvim_get_current_buf()
+    local winid = vim.api.nvim_get_current_win()
+    if not stickybuf.is_pinned(winid) and (vim.wo.winfixwidth or vim.wo.winfixheight) then
+      stickybuf.pin(winid, {})
+    end
+  end
+})
+
+
+-- -- Activate ShowKeys
+-- create_autocmd({ 'BufReadPost', 'BufNewFile', 'VimEnter' }, {
+--   group = create_augroup('ShowKeysToggle'),
+--   desc = 'Activate ShowKeys',
+--   once = true,
+--   command = 'ShowkeysToggle'
+-- })
