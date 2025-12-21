@@ -166,7 +166,7 @@ return {
         enabled = false
       },
       -- pyright
-      pyright = { -- Usable, but missing features. basedpyright should be used instead
+      pyright = { -- Usable, but missing features. Basedpyright should be used instead
         mason = false,
         enabled = false
       },
