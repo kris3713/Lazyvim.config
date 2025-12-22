@@ -35,7 +35,7 @@ end
 local all_modes = { 'n', 'x', 'i' }
 
 
--- vim_keymap
+-- `vim.keymap`
 local vim_keymap = vim.keymap
 
 
@@ -101,12 +101,11 @@ vim_keymap.set(all_modes, '<C-z>', '<Nop>', opts('', true))
 
 
 -- Map q to do nothing
-vim_keymap.set('n', 'q', '<Nop>', opts('', true))
-vim_keymap.set('x', 'q', '<Nop>', opts('', true))
+vim_keymap.set({ 'n', 'x' }, 'q', '<Nop>', opts('', true))
 
 
--- -- Map m to do nothing
--- vim_keymap.set('n', 'm', '<Nop>', opts('', true))
+-- Map alt + q to macro recording
+vim_keymap.set({ 'n', 'x' }, 'Q', 'q', opts('Record macro'))
 
 
 -- Map quit command to Ctrl-q
@@ -242,6 +241,8 @@ do
     })
   end
 
+  --TODO: Add some more keymaps more normal mode
+
   vim_keymap.set('v', '<leader>s/', grug_with_v_selection, opts('Search and Replace in current file'))
 end
 
@@ -252,19 +253,24 @@ vim_keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts('Rename'))
 
 -- Yazi keymaps
 do
-  local yz = require('yazi')
-
-  vim_keymap.set('n', '<leader>Y', function()
+  local function open_at_current_file()
+    local yz = require('yazi')
     yz.yazi(yz.config)
-  end, opts('Open yazi at the current file', true))
+  end
 
-  vim_keymap.set('n', '<leader>cw', function()
+  local function open_in_cwd()
+    local yz = require('yazi')
     yz.yazi(yz.config, vim.fn.getcwd(), nil)
-  end, opts('Open yazi in the cwd', true))
+  end
 
-  vim_keymap.set('n', '<leader><up>', function()
+  local function resume_last_session()
+    local yz = require('yazi')
     yz.toggle(yz.config)
-  end, opts('Resume the last yazi session', true))
+  end
+
+  vim_keymap.set('n', '<leader>Y', open_at_current_file, opts('Open yazi at the current file', true))
+  vim_keymap.set('n', '<leader>cw', open_in_cwd, opts('Open yazi in the cwd', true))
+  vim_keymap.set('n', '<leader><up>', resume_last_session, opts('Resume the last yazi session', true))
 end
 
 
@@ -293,10 +299,9 @@ vim_keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end
 
 -- pretty_hover
 do
-  local pretty_hover = require('pretty_hover')
-
   local function pretty_hover__hover()
-    pretty_hover.hover()
+    local pretty_hover = require('pretty_hover')
+    pretty_hover.hover {}
   end
 
   vim_keymap.set('n', '<Tab>', pretty_hover__hover, opts('Hover Doc'))
@@ -304,7 +309,14 @@ end
 
 
 -- Aerial
-vim_keymap.set('n', '<leader>O', require('aerial').toggle, opts('Outline'))
+do
+  local function aerial_toggle()
+    local aerial = require('aerial')
+    aerial.toggle {}
+  end
+
+  vim_keymap.set('n', '<leader>O', aerial_toggle, opts('Outline'))
+end
 
 
 -- dropbar
@@ -340,6 +352,7 @@ end
 do
   local function swap_fileformats()
     local bufnr = vim.api.nvim_get_current_buf()
+
     if vim.bo[bufnr].fileformat == 'unix' then
       vim.bo[bufnr].fileformat = 'dos'
     elseif vim.bo[bufnr].fileformat == 'dos' then
