@@ -64,6 +64,7 @@ return {
       },
       -- rubocop
       rubocop = {
+        mason = false,
         enabled = true
       },
       -- lemminx
@@ -77,6 +78,7 @@ return {
       },
       -- stylelint_lsp
       stylelint_lsp = {
+        mason = false,
         enabled = true
       },
       astro = {
@@ -94,6 +96,7 @@ return {
       },
       -- golangci_lint_ls
       golangci_lint_ls = {
+        mason = false,
         enabled = true
       },
       -- jdtls
