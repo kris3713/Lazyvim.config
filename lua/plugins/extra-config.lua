@@ -72,6 +72,7 @@ return {
       'fredrikaverpil/neotest-golang',
       'nvim-neotest/neotest-python'
     },
+    ---@module 'neotest'
     ---@param opts neotest.Config
     opts = function(_, opts)
       opts.adapters = vim.tbl_deep_extend('force', opts.adapters or {}, --[[@as neotest.Adapter[] ]]{
@@ -90,6 +91,7 @@ return {
   },
   {
     'akinsho/bufferline.nvim',
+    ---@module 'bufferline'
     ---@type bufferline.Config
     opts = {
       options = {
