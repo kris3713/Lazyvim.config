@@ -32,7 +32,6 @@ end
 return {
   'kris3713/nvim-lspconfig', -- switch back to neovim/nvim-lspconfig
   branch = 'systemd_lsp',
-  ---@module 'annotations.lsp'
   ---@type lspConfigOpts
   opts = {
     inlay_hints = { enabled = false },
@@ -80,8 +79,13 @@ return {
       stylelint_lsp = {
         enabled = true
       },
+      astro = {
+        mason = false,
+        enabled = true,
+      },
       -- gh_actions_ls
       gh_actions_ls = {
+        mason = false,
         enabled = true
       },
       -- gradle_ls
@@ -109,7 +113,7 @@ return {
       -- hadolint
       hadolint = {
         mason = false,
-        enabled = true
+        enabled = false
       },
       -- fish_lsp
       fish_lsp = {
@@ -134,10 +138,15 @@ return {
       -- dockerls
       dockerls = {
         mason = false,
-        enabled = true
+        enabled = false
       },
       -- docker_compose_language_service
       docker_compose_language_service = {
+        mason = false,
+        enabled = false
+      },
+      -- docker_language_server
+      docker_language_server = {
         mason = false,
         enabled = true
       },
@@ -161,11 +170,6 @@ return {
         mason = false,
         enabled = false
       },
-      -- pyright
-      pyright = { -- Usable, but missing features. Basedpyright should be used instead
-        mason = false,
-        enabled = false
-      },
       -- pyrefly
       pyrefly = { -- fast and perfect
         mason = false,
@@ -186,11 +190,6 @@ return {
       },
       -- vimls
       vimls = {
-        mason = false,
-        enabled = true
-      },
-      -- ruff
-      ruff = {
         mason = false,
         enabled = true
       },
@@ -233,6 +232,23 @@ return {
         enabled = true,
         capabilities = capabilities()
       },
+      svelte = {
+        mason = false,
+        enabled = true,
+        keys = {
+          {
+            '<leader>co',
+            vim.lsp.buf.code_action {
+              apply = true,
+              context = {
+                only = { 'source.organizeImports' },
+                diagnostics = {}
+              }
+            },
+            desc = 'Organize Imports'
+          },
+        }
+      },
       -- cssmodules_ls
       cssmodules_ls = {
         enabled = true,
@@ -262,11 +278,11 @@ return {
         capabilities = capabilities(),
         ---@param new_config vim.lsp.ClientConfig
         on_new_config = function(new_config)
-          ---@diagnostic disable-next-line: undefined-field, need-check-nil
-          new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-          vim.list_extend(
-            ---@diagnostic disable-next-line: undefined-field, need-check-nil
-            new_config.settings.json.schemas,
+          --- @diagnostic disable-next-line: need-check-nil, assign-type-mismatch
+          new_config.settings.json.schemas = vim.tbl_deep_extend('force',
+            --- @diagnostic disable-next-line: undefined-field, need-check-nil, generic-constraint-mismatch
+            new_config.settings.json.schemas or {},
+            --- @diagnostic disable-next-line: param-type-mismatch
             require('schemastore').json.schemas()
           )
         end,
@@ -305,7 +321,12 @@ return {
           )
         end,
         settings = {
+          redhat = { telemetry = { enabled = false } },
           yaml = {
+            keyOrdering = false,
+            format = {
+              enable = true
+            },
             schemaStore = {
               -- You must disable built-in schemaStore support if you want to use
               -- this plugin and its advanced options like `ignore`.
@@ -489,7 +510,8 @@ return {
       },
       -- markdown_oxide
       markdown_oxide = {
-        mason = false
+        mason = false,
+        enabled = true
         -- ---@param bufnr integer
         -- enabled = function(bufnr)
         --   local is_md = vim.bo[bufnr].filetype == 'markdown'
@@ -515,6 +537,7 @@ return {
       },
       -- marksman
       marksman = {
+        mason = false,
         enabled = true
         -- ---@param bufnr integer
         -- enabled = function(bufnr)
@@ -544,6 +567,15 @@ return {
       vtsls = {
         mason = false,
         enabled = true,
+        filetypes = (function()
+          local filetypes = require('lspconfig.configs.vtsls').default_config.filetypes
+
+          table.insert(filetypes, 'vue')
+
+          table.sort(filetypes)
+
+          return filetypes
+        end)(),
         ---@param client vim.lsp.Client
         on_init = function(client, _)
           ---@type lsp.LSPArray
@@ -583,14 +615,51 @@ return {
           }
 
           --- @diagnostic disable-next-line: param-type-mismatch, generic-constraint-mismatch
-          client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+          client.config.settings = vim.tbl_deep_extend('force', client.config.settings or {}, --[[@as lsp.LSPObject?]] {
             typescript = options,
             javascript = options
           })
         end,
         settings = {
+          complete_function_calls = true,
+          experimental = { enableProjectDiagnostics = true },
           vtsls = {
-            experimental = { enableProjectDiagnostics = true }
+            tsserver = {
+              globalPlugins = {
+                {
+                  name = '@astrojs/ts-plugin',
+                  location = vim.fn.system {
+                    'sh',
+                    '-c',
+                    'pnpm list -g --json --long @astrojs/ts-plugin | '
+                    .. "jq '.[0].dependencies.\"@astrojs/ts-plugin\".path' -r"
+                  },
+                  enableForWorkspaceTypeScriptVersions = true
+                },
+                {
+                  name = '@vue/typescript-plugin',
+                  location = vim.fn.system {
+                    'sh',
+                    '-c',
+                    'pnpm list -g --json --long @vue/typescript-plugin | '
+                    .. "jq '.[0].dependencies.\"@vue/typescript-plugin\".path' -r"
+                  },
+                  languages = { 'vue' },
+                  configNamespace = 'typescript',
+                  enableForWorkspaceTypeScriptVersions = true
+                },
+                {
+                  name = 'typescript-svelte-plugin',
+                  location = vim.fn.system {
+                    'sh',
+                    '-c',
+                    'pnpm list -g --json --long typescript-svelte-plugin | '
+                    .. "jq '.[0].dependencies.\"typescript-svelte-plugin\".path' -r"
+                  },
+                  enableForWorkspaceTypeScriptVersions = true
+                }
+              }
+            },
           }
         }
       },
@@ -636,11 +705,17 @@ return {
           }
         }
       },
+
       -- Disabled
 
       -- This is taken cared of by null-ls
       -- stylua
       stylua = {
+        mason = false,
+        enabled = false
+      },
+      -- ruff
+      ruff = {
         mason = false,
         enabled = false
       },
@@ -652,6 +727,33 @@ return {
       statix = {
         enabled = false
       }
+    },
+    setup = {
+      gopls = function(_, _)
+        -- TODO: Find an alternative to `Snacks.util.lsp.on`
+
+        -- workaround for gopls not supporting semanticTokensProvider
+        -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+        Snacks.util.lsp.on({ name = 'gopls' }, function(_, client)
+          --- @diagnostic disable-next-line: need-check-nil
+          if not client.server_capabilities.semanticTokensProvider then
+            --- @diagnostic disable-next-line: need-check-nil
+            local semantic = client.config.capabilities.textDocument.semanticTokens
+            if semantic then
+              --- @diagnostic disable-next-line: need-check-nil
+              client.server_capabilities.semanticTokensProvider = {
+                full = true,
+                legend = {
+                  tokenTypes = semantic.tokenTypes,
+                  tokenModifiers = semantic.tokenModifiers
+                },
+                range = true
+              }
+            end
+          end
+        end)
+        -- end workaround
+      end,
     }
   }
 }

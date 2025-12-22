@@ -25,7 +25,6 @@ return {
   },
   {
     'mason-org/mason.nvim',
-    ---@module 'mason',
     ---@type MasonSettings
     opts = {
       registries = {
@@ -36,7 +35,6 @@ return {
   },
   {
     'folke/noice.nvim',
-    ---@module 'noice'
     ---@type NoiceConfig
     opts = {
       lsp = {
@@ -50,34 +48,41 @@ return {
   },
   {
     'nvim-neotest/neotest',
-    optional = true,
     dependencies = {
-      'Issafalcon/neotest-dotnet'
+      'Issafalcon/neotest-dotnet',
+      'fredrikaverpil/neotest-golang',
+      'nvim-neotest/neotest-python'
     },
+    ---@param opts neotest.Config
     opts = function(_, opts)
-      opts = vim.tbl_deep_extend('force', opts or {}, {
-         -- Here we can set options for neotest-dotnet
-        ['neotest-dotnet'] = {}
+      opts.adapters = vim.tbl_deep_extend('force', opts.adapters or {}, --[[@as neotest.Adapter[] ]]{
+        ['neotest-dotnet'] = {},
+        ['neotest-golang'] = {
+          -- Here we can set options for neotest-golang, e.g.
+          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+          dap_go_enabled = true -- requires leoluz/nvim-dap-go
+        },
+        -- Here you can specify the settings for the adapter, i.e.
+        -- runner = 'pytest',
+        -- python = '.venv/bin/python'
+        ['neotest-python'] = {}
       })
     end
   },
   {
     'akinsho/bufferline.nvim',
-    ---@module 'bufferline'
-    ---@param opts bufferline.Config
-    opts = function(_, opts)
-      opts = vim.tbl_deep_extend('force', opts or {}, {
-        options = {
-          always_show_bufferline = true,
-          separator_style = 'thick',
-          hover = {
-            enabled = true,
-            delay = 120,
-            reveal = { 'close' }
-          }
+    ---@type bufferline.Config
+    opts = {
+      options = {
+        always_show_bufferline = true,
+        separator_style = 'thick',
+        hover = {
+          enabled = true,
+          delay = 120,
+          reveal = { 'close' }
         }
-      })
-    end
+      }
+    }
   },
   {
     'nvim-telescope/telescope.nvim',
@@ -99,26 +104,22 @@ return {
         telescope.load_extension(plugin)
       end
     end,
-    ---@module 'annotations.telescope'
     ---@param opts TelescopeConfig
     opts = function(_, opts)
-      opts = vim.tbl_deep_extend('force', opts or {}, --[[@as TelescopeConfig]]{
-        extensions = {
-          ast_grep = {
-            command = {
-              'ast-grep', -- For Linux, use `ast-grep` instead of `sg`
-              '--json=stream'
-            }, -- must have --json=stream
-            grep_open_files = false, -- search in opened files
-            lang = nil -- string value, specify language for ast-grep `nil` for default
-          }
+      opts.extensions = vim.tbl_deep_extend('force', opts.extensions or {}, {
+        ast_grep = {
+          command = {
+            'ast-grep', -- For Linux, use `ast-grep` instead of `sg`
+            '--json=stream'
+          }, -- must have --json=stream
+          grep_open_files = false, -- search in opened files
+          lang = nil -- string value, specify language for ast-grep `nil` for default
         }
       })
     end
   },
   {
     'folke/snacks.nvim',
-    ---@module 'snacks'
     ---@type snacks.Config
     opts = {
       explorer = {
@@ -268,30 +269,12 @@ return {
     'hrsh7th/nvim-cmp',
     init = function()
       local cmp = require('cmp')
-      local cmp_config = cmp.get_config()
-
-      ---@type cmp.SourceConfig[]
-      local cmp_sources = {
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'nvim_lua' },
-        { name = 'dap' },
-        { name = 'render-markdown' },
-        { name = 'diag-codes' },
-        { name = 'luasnip_choice' },
-        { name = 'npm' },
-        { name = 'pypi' }
-      }
-
-      for _, source in ipairs(cmp_sources) do
-        table.insert(cmp_config.sources, source)
-      end
 
       cmp.setup {
         window = {
           completion = {
             border = 'rounded'
           },
-          ---@diagnostic disable-next-line: missing-fields
           documentation = {
             border = 'rounded'
           }
@@ -299,8 +282,8 @@ return {
         formatting = {
           fields = { 'abbr', 'kind', 'menu' },
           format = function(entry, vim_item)
-            local lspkind = require('lspkind').cmp_format { mode = 'symbol_text' }
-            local extra_opts = lspkind(entry, vim.deepcopy(vim_item))
+            local lspkind__cmp_format = require('lspkind').cmp_format { mode = 'symbol_text' }
+            local extra_opts = lspkind__cmp_format(entry, vim.deepcopy(vim_item))
             local highlights_info = require('colorful-menu').cmp_highlights(entry)
 
             -- highlight_info is nil means we are missing the ts parser, it's
@@ -318,11 +301,10 @@ return {
             return vim_item
           end
         },
-        sources = cmp_config.sources,
+        -- sources = cmp_config.sources,
         -- mapping = cmp.mapping.preset.insert {
         --   ['<a-y>'] = require('minuet').make_cmp_map()
         -- },
-        ---@diagnostic disable-next-line: missing-fields
         performance = {
           fetching_timeout = 2000
         }
@@ -343,17 +325,36 @@ return {
             name = 'go_deep',
             keyword_length = 3,
             max_item_count = 5,
-            ---@module 'cmp_go_deep'
             ---@type cmp_go_deep.Options
             option = {}
           }
         }
       })
+    end,
+    ---@param opts cmp.ConfigSchema
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+
+      ---@type cmp.SourceConfig[]
+      local cmp_sources = {
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'nvim_lua' },
+        { name = 'dap' },
+        { name = 'render-markdown' },
+        { name = 'diag-codes' },
+        { name = 'luasnip_choice' },
+        { name = 'npm' },
+        { name = 'pypi' },
+        { name = 'git' }
+      }
+
+      for _, source in ipairs(cmp_sources) do
+        table.insert(opts.sources, source)
+      end
     end
   },
   {
     'mfussenegger/nvim-dap',
-    optional = true,
     opts = function()
       local dap = require('dap')
 
@@ -375,7 +376,6 @@ return {
               type = 'netcoredbg',
               name = 'Launch file',
               request = 'launch',
-              ---@diagnostic disable-next-line: redundant-parameter
               program = function()
                 return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/', 'file')
               end,
@@ -400,20 +400,23 @@ return {
       local null_ls__diagnostics = null_ls.builtins.diagnostics
       ---@module 'null-ls.builtins._meta.formatting'
       local null_ls__formatting = null_ls.builtins.formatting
-      ---@module 'null-ls.builtins._meta.hover'
-      local null_ls__hover = null_ls.builtins.hover
+      -- ---@module 'null-ls.builtins._meta.hover'
+      -- local null_ls__hover = null_ls.builtins.hover
 
       -- none-ls extra sources
 
       local null_ls__formatting__ruff = require('none-ls.formatting.ruff')
+      local null_ls__diagnostics__ruff = require('none-ls.diagnostics.ruff')
       -- local null_ls__formatting__tex_fmt = require('none-ls.formatting.tex_fmt')
 
       -- local null_ls__sources = null_ls.get_sources()
 
       local new_null_ls_sources = {
-        null_ls__code_actions.gitsigns,
+        -- null_ls__code_actions.gitsigns,
         null_ls__code_actions.refactoring,
         null_ls__code_actions.statix,
+        null_ls__code_actions.gomodifytags,
+        null_ls__code_actions.impl,
         null_ls__completion.luasnip,
         null_ls__completion.tags,
         null_ls__diagnostics.actionlint,
@@ -423,10 +426,12 @@ return {
           filetypes = { 'editorconfig' }
         },
         null_ls__diagnostics.fish,
+        null_ls__diagnostics.hadolint,
         null_ls__diagnostics.ktlint,
         null_ls__diagnostics.markdownlint,
         null_ls__diagnostics.markdownlint_cli2,
         null_ls__diagnostics.rpmspec,
+        null_ls__diagnostics__ruff,
         null_ls__diagnostics.todo_comments,
         null_ls__diagnostics.trail_space,
         null_ls__diagnostics.statix,
@@ -440,6 +445,7 @@ return {
         -- null_ls__formatting.prettier,
         null_ls__formatting.fish_indent,
         null_ls__formatting.gofumpt,
+        null_ls__formatting.goimports,
         null_ls__formatting.markdownlint,
         null_ls__formatting.shfmt.with {
           extra_filetypes = { 'bash' }
@@ -463,5 +469,16 @@ return {
       --   sources = null_ls__sources
       -- }
     end
+  },
+  {
+    'nvim-mini/mini.icons',
+    opts = {
+      file = {
+        ['.go-version'] = { glyph = '', hl = 'MiniIconsBlue' }
+      },
+      filetype = {
+        gotmpl = { glyph = '󰟓', hl = 'MiniIconsGrey' }
+      }
+    }
   }
 }

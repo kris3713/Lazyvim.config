@@ -14,10 +14,11 @@ return {
   'onsails/lspkind.nvim',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
-  'petertriho/cmp-git',
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'rcarriga/cmp-dap',
+  'petertriho/cmp-git',
+  'samiulsami/cmp-go-deep',
   'udalov/kotlin-vim',
   'hrsh7th/cmp-nvim-lua',
   'JMarkin/cmp-diag-codes',
@@ -27,5 +28,6 @@ return {
   'ray-x/cmp-sql',
   'sbdchd/neoformat',
   'direnv/direnv.vim',
-  'stevearc/vim-vscode-snippets'
+  'stevearc/vim-vscode-snippets',
+  'kkharji/sqlite.lua'
 }

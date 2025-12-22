@@ -18,12 +18,23 @@ return {
     opts = {}
   },
   {
-    'fei6409/log-highlight.nvim',
+    'leoluz/nvim-dap-go',
     opts = {}
   },
   {
-    'samiulsami/cmp-go-deep',
-    dependencies = 'kkharji/sqlite.lua'
+    'mfussenegger/nvim-dap-python',
+    -- stylua: ignore
+    keys = {
+      { '<leader>dPt', function() require('dap-python').test_method() end, desc = 'Debug Method', ft = 'python' },
+      { '<leader>dPc', function() require('dap-python').test_class() end, desc = 'Debug Class', ft = 'python' }
+    },
+    config = function()
+      require('dap-python').setup('debugpy-adapter')
+    end
+  },
+  {
+    'fei6409/log-highlight.nvim',
+    opts = {}
   },
   {
     'AckslD/muren.nvim',
@@ -55,6 +66,11 @@ return {
     'abccsss/nvim-gitstatus',
     event = 'VeryLazy',
     opts = {}
+  },
+  {
+    'b0o/SchemaStore.nvim',
+    lazy = true,
+    version = false -- last release is way too old
   },
   {
     'cbochs/portal.nvim',
@@ -117,7 +133,6 @@ return {
   },
   {
     'xzbdmw/colorful-menu.nvim',
-    ---@module 'colorful-menu'
     ---@type ColorfulMenuConfig
     opts = {
       max_width = 80
@@ -126,7 +141,6 @@ return {
   {
     'seblyng/roslyn.nvim',
     ft = { 'cs' },
-    ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
     opts = {
       filewatching = 'roslyn'
@@ -204,7 +218,6 @@ return {
   },
   {
     'nvimdev/lspsaga.nvim',
-    ---@module 'lspsaga'
     ---@type LspsagaConfig
     opts = {
       symbol_in_winbar = { enable = false }
@@ -213,7 +226,6 @@ return {
   {
     'mikavilpas/yazi.nvim',
     event = 'VeryLazy',
-    ---@module 'yazi'
     ---@type YaziConfig
     opts = {
       open_for_directories = true
@@ -233,10 +245,8 @@ return {
   {
     'Bekaboo/dropbar.nvim',
     lazy = false,
-    ---@module 'dropbar'
     ---@type dropbar_configs_t
     opts = {
-      ---@type dropbar_menu_t
       menu = {
         win_configs = {
           border = 'rounded'
@@ -282,7 +292,6 @@ return {
   {
     'zbirenbaum/neodim',
     event = 'LspAttach',
-    ---@module 'neodim'
     ---@type neodim.Options
     opts = {
       hide = {
@@ -295,7 +304,6 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
-    ---@module 'ufo'
     ---@type UfoConfig
     opts = {
       provider_selector = function(_, _, _)
@@ -313,7 +321,6 @@ return {
   },
   {
     'lewis6991/hover.nvim',
-    ---@module 'hover'
     ---@type Hover.Config
     opts = {
       providers = {
@@ -337,6 +344,20 @@ return {
         }
       }
     end
+  },
+  {
+    'linux-cultist/venv-selector.nvim',
+    ft = 'python',
+    cmd = 'VenvSelect',
+    opts = {
+      options = {
+        notify_user_on_venv_activation = true
+      }
+    },
+    --  Call config for Python files and load the cached venv automatically
+    keys = {
+      { '<leader>cv', function() vim.cmd('VenvSelect') end, desc = 'Select VirtualEnv', ft = 'python' }
+    }
   },
   {
     'cappyzawa/trim.nvim',
@@ -448,7 +469,6 @@ return {
         ft = 'NvimTree'
       },
     },
-    ---@module 'nvim_aider'
     ---@type nvim_aider.Config
     opts = {
       args = {
@@ -581,7 +601,6 @@ return {
   {
     'rmagatti/auto-session',
     lazy = false,
-    ---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
       session_lens = {
