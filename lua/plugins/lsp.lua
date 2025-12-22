@@ -22,7 +22,8 @@ end
 -- end
 
 local function pretty_hover__hover()
-  require('pretty_hover').hover()
+  local pretty_hover = require('pretty_hover')
+  pretty_hover.hover {}
 end
 
 ---Selects a code action available at the current cursor position.
