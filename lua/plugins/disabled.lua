@@ -22,6 +22,18 @@ return {
   }
   -- harper:ignore
   -- {
+  --   'lewis6991/hover.nvim',
+  --   ---@type Hover.Config
+  --   opts = {
+  --     providers = {
+  --       'hover.providers.lsp'
+  --       -- 'hover.providers.man',
+  --       -- 'hover.providers.dap'
+  --     },
+  --     preview_opts = { border = 'rounded' }
+  --   }
+  -- },
+  -- {
   --   'tamago324/nlsp-settings.nvim',
   --   opts = {
   --     config_home = vim.fn.stdpath('config') .. '/nlsp-settings',

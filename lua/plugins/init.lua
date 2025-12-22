@@ -320,15 +320,12 @@ return {
     opts = {}
   },
   {
-    'lewis6991/hover.nvim',
-    ---@type Hover.Config
+    'Fildo7525/pretty_hover',
+    event = 'LspAttach',
+    ---@module 'pretty_hover'
+    ---@type PrettyHoverConfig
     opts = {
-      providers = {
-        'hover.providers.lsp'
-        -- 'hover.providers.man',
-        -- 'hover.providers.dap'
-      },
-      preview_opts = { border = 'rounded' }
+      border = 'rounded'
     }
   },
   {
@@ -349,6 +346,8 @@ return {
     'linux-cultist/venv-selector.nvim',
     ft = 'python',
     cmd = 'VenvSelect',
+    ---@module 'venv-selector'
+    ---@type venv-selector.Settings
     opts = {
       options = {
         notify_user_on_venv_activation = true

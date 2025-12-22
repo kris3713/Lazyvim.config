@@ -14,11 +14,15 @@ local function capabilities()
   return client_capabilities
 end
 
----Opens the hover window
-local function hover_open()
-  -- hover.nvim
-  local hover = require('hover')
-  hover.open {}
+-- ---Opens the hover window
+-- local function hover_open()
+--   -- hover.nvim
+--   local hover = require('hover')
+--   hover.open {}
+-- end
+
+local function pretty_hover__hover()
+  require('pretty_hover').hover()
 end
 
 ---Selects a code action available at the current cursor position.
@@ -47,7 +51,7 @@ return {
           },
           { -- Hover Doc
             'K',
-            hover_open,
+            pretty_hover__hover,
             desc = 'Hover Doc',
             noremap = true
           },

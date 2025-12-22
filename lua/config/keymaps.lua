@@ -282,13 +282,24 @@ vim_keymap.set('n', 'gt', function() vim.cmd('Lspsaga peek_definition') end, opt
 vim_keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end, opts('Peek type definition'))
 
 
--- hover.nvim
-do
-  local hover = require('hover')
+-- -- hover.nvim
+-- do
+--   local hover = require('hover')
+--
+--   vim_keymap.set('n', '<Tab>', hover.open, opts('Hover Doc'))
+--   -- vim_keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
+--   -- vim_keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
+-- end
 
-  vim_keymap.set('n', '<Tab>', hover.open, opts('Hover Doc'))
-  -- vim_keymap.set('n', '<C-p>', function() hover.switch('previous', {}) end, opts('hover.nvim (Previous source)'))
-  -- vim_keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
+-- pretty_hover
+do
+  local pretty_hover = require('pretty_hover')
+
+  local function pretty_hover__hover()
+    pretty_hover.hover()
+  end
+
+  vim_keymap.set('n', '<Tab>', pretty_hover__hover, opts('Hover Doc'))
 end
 
 
