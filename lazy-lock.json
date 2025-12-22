@@ -69,7 +69,7 @@
   "minty": { "branch": "main", "commit": "aafc9e8e0afe6bf57580858a2849578d8d8db9e0" },
   "multicursors.nvim": { "branch": "main", "commit": "72225ea9e4443c3f4b9df91d0193e07c4ee8d382" },
   "muren.nvim": { "branch": "main", "commit": "fa18f2df80a52afd201da062d1af0e80c8d1988e" },
-  "neoconf.nvim": { "branch": "main", "commit": "ac1f4acb4c3fa57e37c11e7dc976c0d39e9e68da" },
+  "neoconf.nvim": { "branch": "main", "commit": "b3c8c1414fd826fc94981817a6bbd0b1cc9e554c" },
   "neodim": { "branch": "master", "commit": "1b8bda59a53b49ec2b59885e9fe78f8e90a1de76" },
   "neoformat": { "branch": "master", "commit": "2b11fb9fa383636de5de9ecc7c989436c4e0f9d1" },
   "neogen": { "branch": "main", "commit": "d7f9461727751fb07f82011051338a9aba07581d" },
@@ -158,6 +158,6 @@
   "volt": { "branch": "main", "commit": "620de1321f275ec9d80028c68d1b88b409c0c8b1" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "yanky.nvim": { "branch": "main", "commit": "04fc42b94305d94948c9c197f679336668af3292" },
-  "yazi.nvim": { "branch": "main", "commit": "0754bf5cee9a0c64d5755d685d1d9d4c18c75fcc" },
+  "yazi.nvim": { "branch": "main", "commit": "4e69df136c5d9879dcba94b595911681432e7800" },
   "zoxide.vim": { "branch": "master", "commit": "520d1abeb71ba42989a842251f8ba5c46be89aab" }
 }
