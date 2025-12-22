@@ -12,8 +12,3 @@
 ---
 ---Your extension configuration goes here.
 ---@field extensions table
-
----@type TelescopeConfig
-local M = {}
-
-return M

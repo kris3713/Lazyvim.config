@@ -1,3 +1,5 @@
+---@meta _
+
 ---@diagnostic disable: missing-fields
 
 --harper: ignore
@@ -29,9 +31,7 @@
 ---@field inlay_hints { enabled: boolean? }
 ---
 ---Common LSP server/client configuration options.
----@field servers { [string]: lspClientOpts | vim.lsp.Client }
-
----@type lspConfigOpts
-local M = {}
-
-return M
+---@field servers { [string]: (lspClientOpts | vim.lsp.Client) }
+---
+---Extra LSP server/client configuration options. Mostly used for workarounds.
+---@field setup table<string, fun(server: string, opts: (lspClientOpts | vim.lsp.Client)): boolean?>
