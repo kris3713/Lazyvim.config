@@ -25,16 +25,35 @@ return {
   },
   {
     'mason-org/mason.nvim',
-    ---@type MasonSettings
-    opts = {
-      registries = {
+    ---@module 'mason'
+    ---@param opts MasonSettings
+    opts = function(_, opts)
+      opts.registries = {
         'github:mason-org/mason-registry',
         'github:Crashdummyy/mason-registry'
       }
-    }
+
+
+      -- Ensure none of these are installed by mason.
+      -- https://github.com/LazyVim/LazyVim/discussions/6493#discussioncomment-14469953
+      --- @diagnostic disable-next-line: inject-field
+      opts.ensure_installed = vim.tbl_filter(function(p)
+        return not vim.tbl_contains(
+          {
+            'stylua',
+            'shellcheck',
+            'shfmt',
+            'markdown-toc',
+            'markdownlint-cli2'
+          },
+        p)
+        --- @diagnostic disable-next-line: undefined-field
+      end, opts.ensure_installed)
+    end
   },
   {
     'folke/noice.nvim',
+    ---@module 'noice'
     ---@type NoiceConfig
     opts = {
       lsp = {
