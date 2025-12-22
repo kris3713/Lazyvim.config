@@ -422,9 +422,8 @@ return {
         null_ls__code_actions.impl,
         null_ls__completion.luasnip,
         null_ls__completion.tags,
-        null_ls__diagnostics.actionlint,
         null_ls__diagnostics.deadnix,
-        -- null_ls__diagnostics.dotenv_linter,
+        null_ls__diagnostics.dotenv_linter,
         null_ls__diagnostics.editorconfig_checker.with {
           filetypes = { 'editorconfig' }
         },
