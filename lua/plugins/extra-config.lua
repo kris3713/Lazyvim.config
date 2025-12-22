@@ -388,6 +388,9 @@ return {
   },
   {
     'nvimtools/none-ls.nvim',
+    dependencies = {
+      'gbprod/none-ls-shellcheck.nvim'
+    },
     ---@param opts table
     opts = function(_, opts)
       local null_ls = require('null-ls')
@@ -421,7 +424,7 @@ return {
         null_ls__completion.tags,
         null_ls__diagnostics.actionlint,
         null_ls__diagnostics.deadnix,
-        null_ls__diagnostics.dotenv_linter,
+        -- null_ls__diagnostics.dotenv_linter,
         null_ls__diagnostics.editorconfig_checker.with {
           filetypes = { 'editorconfig' }
         },

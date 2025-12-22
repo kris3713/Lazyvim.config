@@ -276,31 +276,28 @@ return {
         enabled = true,
         mason = false,
         capabilities = capabilities(),
-        ---@param new_config vim.lsp.ClientConfig
-        on_new_config = function(new_config)
-          --- @diagnostic disable-next-line: need-check-nil, assign-type-mismatch
-          new_config.settings.json.schemas = vim.tbl_deep_extend('force',
-            --- @diagnostic disable-next-line: undefined-field, need-check-nil, generic-constraint-mismatch
-            new_config.settings.json.schemas or {},
-            --- @diagnostic disable-next-line: param-type-mismatch
-            require('schemastore').json.schemas()
+        -- lazy-load schemastore when needed
+        before_init = function(_, new_config)
+          --- @diagnostic disable-next-line: need-check-nil
+          new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+          vim.list_extend(
+            --- @diagnostic disable-next-line: need-check-nil
+            new_config.settings.json.schemas,
+            require("schemastore").json.schemas()
           )
         end,
         settings = {
           json = {
-            format = {
-              enable = true
-            },
-            validate = {
-              enable = true
-            }
-          }
-        },
+            format = { enable = true },
+            validate = { enable = true }
+          },
+        }
       },
       -- yamlls
       yamlls = {
         mason = false,
         enabled = true,
+        -- Have to add this for yamlls to understand that we support line folding
         capabilities = {
           textDocument = {
             foldingRange = {
@@ -309,15 +306,16 @@ return {
             }
           }
         },
-        ---@param new_config vim.lsp.ClientConfig
-        on_new_config = function(new_config)
+        -- lazy-load schemastore when needed
+        before_init = function(_, new_config)
           --- @diagnostic disable-next-line: need-check-nil, assign-type-mismatch
           new_config.settings.yaml.schemas = vim.tbl_deep_extend(
             'force',
-            --- @diagnostic disable-next-line: need-check-nil, generic-constraint-mismatch
+            --- @diagnostic disable-next-line: need-check-nil
+            --- @diagnostic disable-next-line: generic-constraint-mismatch
             new_config.settings.yaml.schemas or {},
             --- @diagnostic disable-next-line: param-type-mismatch
-            require('schemastore').yaml.schemas()
+            require("schemastore").yaml.schemas()
           )
         end,
         settings = {
@@ -327,9 +325,10 @@ return {
             format = {
               enable = true
             },
+            validate = true,
             schemaStore = {
-              -- You must disable built-in schemaStore support if you want to use
-              -- this plugin and its advanced options like `ignore`.
+              -- Must disable built-in schemaStore support to use
+              -- schemas from SchemaStore.nvim plugin
               enable = false,
               -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
               url = ''
