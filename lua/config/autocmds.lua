@@ -93,7 +93,7 @@ create_autocmd('VimEnter', {
 
 -- GuessIndent
 create_autocmd('BufReadPost', {
-  group = create_augroup('guess-indent'),
+  group = create_augroup('guess_indent_activate'),
   desc = 'Activates the cmd "GuessIndent" on BufReadPost event',
   pattern = '*',
   callback = function()
@@ -105,7 +105,7 @@ create_autocmd('BufReadPost', {
 
 -- Set filetype to systemd for systemd unit files
 create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
-  group = create_augroup('systemd-filetypes'),
+  group = create_augroup('set_systemd_filetypes'),
   desc = 'Set filetype to systemd for systemd unit files',
   pattern = {
     '*.service',
@@ -126,6 +126,7 @@ create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 
 -- Lock a buffer to a window
 create_autocmd('BufEnter', {
+  group = create_augroup('lock_buffer_to_window'),
   desc = 'Pin the buffer to any window that is fixed width or height',
   callback = function(args)
     local stickybuf = require('stickybuf')
@@ -146,3 +147,29 @@ create_autocmd('BufEnter', {
 --   once = true,
 --   command = 'ShowkeysToggle'
 -- })
+
+
+create_autocmd('RecordingEnter', {
+  group = create_augroup('show_macro_recording_on_lualine'),
+  callback = function()
+    --- @diagnostic disable-next-line: missing-fields, param-type-mismatch
+    require('lualine').refresh {
+      place = { 'statusline' }
+    }
+  end
+})
+
+create_autocmd('RecordingLeave', {
+  group = create_augroup('show_macro_recording_on_lualine'),
+  callback = function()
+    -- Small delay to allow vim.fn.reg_recording() to clear
+    --- @diagnostic disable-next-line: undefined-field
+    local timer = vim.uv.new_timer()
+    timer:start(50, 0, vim.schedule_wrap(function()
+      --- @diagnostic disable-next-line: missing-fields, param-type-mismatch
+      require('lualine').refresh {
+        place = { 'statusline' }
+      }
+    end))
+  end
+})

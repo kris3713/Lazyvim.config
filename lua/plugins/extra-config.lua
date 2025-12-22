@@ -172,7 +172,21 @@ return {
     'nvim-lualine/lualine.nvim',
     opts = {
       sections = {
-        lualine_b = { 'branch', 'gitstatus' },
+        lualine_b = {
+          {
+            function()
+              local recording_register = vim.fn.reg_recording()
+              if recording_register == '' then
+                return ''
+              else
+                return 'Recording @' .. recording_register
+              end
+            end,
+            color = { fg = '#ff9e64' }
+          },
+          'branch',
+          'gitstatus'
+        },
         lualine_c = {
           {
             'diagnostics',
@@ -211,7 +225,7 @@ return {
               if clicks == 2 then
                 require('functions.switch_indent_style').switch_indent_style(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
-                require('lualine').refresh()
+                require('lualine').refresh {}
               end
             end
           },
@@ -234,7 +248,7 @@ return {
               if clicks == 2 then
                 require('functions.set_indent_size_prompt').set_indent_size(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
-                require('lualine').refresh()
+                require('lualine').refresh {}
               end
             end
           },
@@ -265,7 +279,9 @@ return {
                 elseif vim.bo[bufnr].fileformat == 'mac' then
                   vim.bo[bufnr].fileformat = 'unix'
                 end
-                require('lualine').refresh()
+
+                -- Force Lualine to refresh to reflect the change immediately
+                require('lualine').refresh {}
               end
             end
           },
@@ -274,7 +290,7 @@ return {
             ---@param clicks integer
             on_click = function(clicks, _, _)
               if clicks == 2 then
-                require('telescope.builtin').filetypes()
+                require('telescope.builtin').filetypes {}
               end
             end
           }
