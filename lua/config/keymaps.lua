@@ -5,19 +5,22 @@
 ---@diagnostic disable: missing-fields
 -- which-key.nvim
 require('which-key').add {
+  --- @diagnostic disable-next-line: assign-type-mismatch
   { '<leader>bq', desc = 'Sort by' },
+  --- @diagnostic disable-next-line: assign-type-mismatch
   (function()
     local bufnr = vim.api.nvim_get_current_buf()
     if vim.bo[bufnr].filetype == 'man' then
+      --- @diagnostic disable-next-line: missing-fields
       ---@type wk.Mapping
       return { 'gO', desc = 'Open table of contents' }
     end
 
+    --- @diagnostic disable-next-line: missing-fields
     ---@type wk.Mapping
     return { 'gO', desc = 'Open document symbols' }
   end)()
 }
----@diagnostic enable: missing-fields
 
 
 ---Sets options for keymaps
@@ -39,17 +42,17 @@ local all_modes = { 'n', 'x', 'i' }
 local vim_keymap = vim.keymap
 
 
+--- @diagnostic disable-next-line: undefined-field
 -- Neovide options
 if vim.g.neovide then
-  ---@type integer
+  ---@type number
   vim.g.neovide_scale_factor = 1.0
 
   local other_opts = { nowait = false, noremap = false }
 
   --- Set zoom function for Neovide
-  ---@param delta integer
+  ---@param delta number
   local function zoom(delta)
-    ---@type integer
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
 
@@ -188,7 +191,7 @@ do
 end
 
 
--- Map the backwards indent to Shift + Tab
+-- Map the backwards/inverse indent to Shift + Tab
 vim_keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards/Inverse indent (INSERT mode)'))
 vim_keymap.set({ 'n', 'x' }, '<S-Tab>', '<S-Tab>', opts('Backwards/Inverse indent'))
 
