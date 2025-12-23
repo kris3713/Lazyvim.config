@@ -193,7 +193,7 @@ end
 
 -- Map the backwards/inverse indent to Shift + Tab
 vim_keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards/Inverse indent (INSERT mode)'))
-vim_keymap.set({ 'n', 'x' }, '<S-Tab>', '<S-Tab>', opts('Backwards/Inverse indent'))
+-- vim_keymap.set({ 'n', 'x' }, '<S-Tab>', '<S-Tab>', opts('Backwards/Inverse indent'))
 
 
 -- toggleterm.nvim
