@@ -189,7 +189,7 @@ end
 
 
 -- Map the backwards indent to Shift + Tab
-vim_keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards indent'))
+vim_keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards/Inverse indent'))
 
 
 -- toggleterm.nvim
