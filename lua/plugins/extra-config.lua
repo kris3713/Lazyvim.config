@@ -178,6 +178,7 @@ return {
           {
             function()
               local recording_register = vim.fn.reg_recording()
+
               if recording_register == '' then
                 return ''
               else
@@ -207,7 +208,10 @@ return {
           }
         },
         lualine_x = {
-          { 'encoding', show_bomb = true },
+          {
+            'encoding',
+            show_bomb = true
+          },
           {
             -- indent_style
             function()
@@ -362,6 +366,7 @@ return {
             name = 'go_deep',
             keyword_length = 3,
             max_item_count = 5,
+            ---@module 'cmp_go_deep'
             ---@type cmp_go_deep.Options
             option = {}
           }
