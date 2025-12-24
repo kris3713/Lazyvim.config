@@ -37,7 +37,7 @@ return {
       -- Ensure none of these are installed by mason.
       -- https://github.com/LazyVim/LazyVim/discussions/6493#discussioncomment-14469953
       --- @diagnostic disable-next-line: inject-field
-      opts.ensure_installed = vim.tbl_filter(function(p)
+      opts.ensure_installed = vim.tbl_filter(function(old_table)
         return not vim.tbl_contains(
           {
             'stylua',
@@ -46,7 +46,7 @@ return {
             'markdown-toc',
             'markdownlint-cli2'
           },
-        p)
+        old_table)
         --- @diagnostic disable-next-line: undefined-field
       end, opts.ensure_installed)
     end

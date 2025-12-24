@@ -146,17 +146,23 @@ end
 
 -- actions-preview.nvim
 do
-  local ap = require('actions-preview')
+  function ap__code_actions()
+    local ap = require('actions-preview')
+    ap.code_actions {}
+  end
 
-  vim_keymap.set({ 'x', 'n' }, '<leader>xf', ap.code_actions, opts('Open Code Actions'))
+  vim_keymap.set({ 'x', 'n' }, '<leader>xf', ap__code_actions, opts('Open Code Actions'))
 end
 
 
 -- neogen
 do
-  local neogen = require('neogen')
+  function neogen_generate()
+    local neogen = require('neogen')
+    neogen.generate {}
+  end
 
-  vim_keymap.set('n', '<leader>N', neogen.generate, opts('Generate annotations', true))
+  vim_keymap.set('n', '<leader>N', neogen_generate, opts('Generate annotations', true))
 end
 
 
@@ -245,7 +251,7 @@ do
     })
   end
 
-  --TODO: Add some more keymaps more normal mode
+  --TODO: Add some more keymaps for normal mode
 
   vim_keymap.set('v', '<leader>s/', grug_with_v_selection, opts('Search and Replace in current file'))
 end
