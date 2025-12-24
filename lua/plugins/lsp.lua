@@ -33,6 +33,11 @@ local function ap__code_actions()
   ap.code_actions {}
 end
 
+local function live_rename__rename()
+  local live_rename = require('live-rename')
+  live_rename.rename {}
+end
+
 
 return {
   'kris3713/nvim-lspconfig', -- switch back to neovim/nvim-lspconfig
@@ -48,6 +53,12 @@ return {
             '<leader>ca',
             ap__code_actions,
             desc = 'Open Code Actions',
+            noremap = true
+          },
+          { -- LSP Rename
+            '<leader>cr',
+            live_rename__rename,
+            desc = 'Lsp Rename',
             noremap = true
           },
           { -- Hover Doc

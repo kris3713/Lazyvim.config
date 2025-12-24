@@ -257,10 +257,6 @@ do
 end
 
 
--- Keymap for built-in renaming
-vim_keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts('Rename'))
-
-
 -- Yazi keymaps
 do
   local function open_at_current_file()

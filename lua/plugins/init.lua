@@ -73,6 +73,10 @@ return {
     opts = {}
   },
   {
+    'saecki/live-rename.nvim',
+    opts = {}
+  },
+  {
     'chrisgrieser/nvim-scissors',
     opts = { snippetDir = os.getenv('HOME') .. '/MEGA' }
   },
