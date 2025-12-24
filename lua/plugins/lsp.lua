@@ -518,12 +518,12 @@ return {
       -- markdown_oxide
       markdown_oxide = {
         mason = false,
-        ---@param bufnr integer
         enabled = (function()
           local bufnr = vim.api.nvim_get_current_buf()
           local is_md = vim.bo[bufnr].filetype == 'markdown'
+          local is_modifiable = vim.bo[bufnr].modifiable
 
-          if vim.bo[bufnr].modifiable and is_md then
+          if is_modifiable and is_md then
             return true -- Return true to enable
           end
 
@@ -533,7 +533,17 @@ return {
       -- marksman
       marksman = {
         mason = false,
-        enabled = true
+        enabled = (function()
+          local bufnr = vim.api.nvim_get_current_buf()
+          local is_md = vim.bo[bufnr].filetype == 'markdown'
+          local is_modifiable = vim.bo[bufnr].modifiable
+
+          if is_modifiable and is_md then
+            return true -- Return true to enable
+          end
+
+          return false
+        end)()
       },
       -- vtsls
       vtsls = {
