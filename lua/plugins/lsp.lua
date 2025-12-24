@@ -518,57 +518,22 @@ return {
       -- markdown_oxide
       markdown_oxide = {
         mason = false,
-        enabled = true
-        -- ---@param bufnr integer
-        -- enabled = function(bufnr)
-        --   local is_md = vim.bo[bufnr].filetype == 'markdown'
-        --
-        --   if vim.bo[bufnr].modifiable and is_md then
-        --     return true -- Return true to enable
-        --   end
-        --
-        --   return false
-        -- end,
-        -- settings = {
-        --   ---@param bufnr integer
-        --   autostart = function(bufnr)
-        --     local is_md = vim.bo[bufnr].filetype == 'markdown'
-        --
-        --     if vim.bo[bufnr].modifiable and is_md then
-        --       return true -- return true to allow autostart
-        --     end
-        --
-        --     return false
-        --   end
-        -- }
+        ---@param bufnr integer
+        enabled = (function()
+          local bufnr = vim.api.nvim_get_current_buf()
+          local is_md = vim.bo[bufnr].filetype == 'markdown'
+
+          if vim.bo[bufnr].modifiable and is_md then
+            return true -- Return true to enable
+          end
+
+          return false
+        end)()
       },
       -- marksman
       marksman = {
         mason = false,
         enabled = true
-        -- ---@param bufnr integer
-        -- enabled = function(bufnr)
-        --   local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
-        --
-        --   if vim.bo[bufnr].modifiable and is_md then
-        --     return true -- Return true to enable
-        --   end
-        --
-        --   return false -- Otherwise, return false to not enable
-        -- end,
-        -- settings = {
-        --   -- This solves the problem of Marksman exiting when a new hover doc buffer (from Lspsaga) is created
-        --   ---@param bufnr integer
-        --   autostart = function(bufnr)
-        --     local is_md = (vim.bo[bufnr].filetype == 'markdown') or (vim.bo[bufnr].filetype == 'markdown.mdx')
-        --
-        --     if vim.bo[bufnr].modifiable and is_md then
-        --       return true -- Return true to allow autostart
-        --     end
-        --
-        --     return false -- Otherwise, return false to prevent autostart
-        --   end
-        -- }
       },
       -- vtsls
       vtsls = {

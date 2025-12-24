@@ -49,10 +49,6 @@ return {
     opts = {}
   },
   {
-    'lewis6991/satellite.nvim',
-    opts = {}
-  },
-  {
     'nvzone/showkeys',
     cmd = 'ShowkeysToggle',
     opts = { position = 'bottom-center' }
@@ -95,6 +91,21 @@ return {
   {
     'julienvincent/hunk.nvim',
     cmd = 'DiffEditor',
+    opts = {}
+  },
+  {
+    'sustech-data/wildfire.nvim',
+    event = 'VeryLazy',
+    opts = {}
+  },
+  {
+    'dstein64/nvim-scrollview',
+    opts = {
+      excluded_filetypes = { 'NvimTree' }
+    }
+  },
+  {
+    'aaronik/treewalker.nvim',
     opts = {}
   },
   {
@@ -222,6 +233,12 @@ return {
     opts = {
       symbol_in_winbar = { enable = false }
     }
+  },
+  {
+    'alex-popov-tech/store.nvim',
+    cmd = 'Store',
+    dependencies = { 'OXY2DEV/markview.nvim' },
+    opts = {}
   },
   {
     'mikavilpas/yazi.nvim',
@@ -373,6 +390,61 @@ return {
       trim_on_write = false,
       -- highlight trailing spaces
       highlight = true
+    }
+  },
+  {
+    'hasansujon786/nvim-navbuddy',
+    dependencies = {
+      {
+        'SmiteshP/nvim-navic',
+        -- lazy = true,
+        init = function() vim.g.navic_silence = true end,
+        opts = function()
+          Snacks.util.lsp.on({ method = 'textDocument/documentSymbol' }, function(bufnr, client)
+            require('nvim-navic').attach(client, bufnr)
+          end)
+
+          return {
+            separator = " ",
+            highlight = true,
+            depth_limit = 5,
+            icons = {
+              File = ' ',
+              Module = ' ',
+              Namespace = ' ',
+              Package = ' ',
+              Class = ' ',
+              Method = ' ',
+              Property = ' ',
+              Field = ' ',
+              Constructor = ' ',
+              Enum = ' ',
+              Interface = ' ',
+              Function = ' ',
+              Variable = ' ',
+              Constant = ' ',
+              String = ' ',
+              Number = ' ',
+              Boolean = ' ',
+              Array = ' ',
+              Object = ' ',
+              Key = ' ',
+              Null = ' ',
+              EnumMember = ' ',
+              Struct = ' ',
+              Event = ' ',
+              Operator = ' ',
+              TypeParameter = ' '
+            },
+            lazy_update_context = true,
+            lsp = { auto_attach = true }
+          }
+        end
+      },
+      'MunifTanjim/nui.nvim'
+    },
+    opts = {
+      lsp = { auto_attach = true }
     }
   },
   {

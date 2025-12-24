@@ -29,5 +29,6 @@ return {
   'sbdchd/neoformat',
   'direnv/direnv.vim',
   'stevearc/vim-vscode-snippets',
-  'kkharji/sqlite.lua'
+  'kkharji/sqlite.lua',
+  'wellle/targets.vim'
 }
