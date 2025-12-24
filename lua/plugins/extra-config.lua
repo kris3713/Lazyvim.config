@@ -457,7 +457,7 @@ return {
       -- local null_ls__sources = null_ls.get_sources()
 
       local new_null_ls_sources = {
-        -- null_ls__code_actions.gitsigns,
+        null_ls__code_actions.gitsigns,
         null_ls__code_actions.refactoring,
         null_ls__code_actions.statix,
         null_ls__code_actions.gomodifytags,
