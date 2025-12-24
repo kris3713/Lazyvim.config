@@ -5,9 +5,12 @@ local finders = require('telescope.finders')
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 
---- Allows for setting a function to pick a value for shiftwidth or tabstop
+local utils = {}
+
+
+---Allows for setting a function to pick a value for shiftwidth or tabstop
 ---@param bufnr integer
-local function set_indent_size(bufnr)
+function utils.set_indent_size(bufnr)
   pickers.new(
     {
       layout_config = {
@@ -54,5 +57,34 @@ local function set_indent_size(bufnr)
   ):find()
 end
 
--- Return the function so it can be required and mapped
-return { set_indent_size = set_indent_size }
+
+---Allows for switching between tabs or spaces.
+---@param bufnr integer
+function utils.switch_indent_style(bufnr)
+  vim.bo[bufnr].expandtab = not vim.bo[bufnr].expandtab
+
+  if vim.bo[bufnr].expandtab then
+    -- Switched to spaces, set a common default for shiftwidth
+    vim.bo[bufnr].expandtab = true
+    vim.bo[bufnr].tabstop = 2
+    vim.bo[bufnr].shiftwidth = 2
+    vim.cmd('retab')
+
+    ---@diagnostic disable-next-line: param-type-mismatch
+    require('guess-indent').set_from_buffer(bufnr, true, true)
+    print('Switched Indent Style to Spaces')
+  else
+    -- Switched to tabs, set a common default for tabstop
+    vim.bo[bufnr].expandtab = false
+    vim.bo[bufnr].shiftwidth = 4
+    vim.bo[bufnr].tabstop = 4
+    vim.cmd('retab')
+
+    ---@diagnostic disable-next-line: param-type-mismatch
+    require('guess-indent').set_from_buffer(bufnr, true, true)
+    print('Switched Indent Style to Tabs')
+  end
+end
+
+
+return utils
