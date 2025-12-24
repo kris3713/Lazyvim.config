@@ -137,7 +137,7 @@ vim_keymap.set('n', '<S-Insert>', '"+p', opts('', false))
 do
   local function switch_indent_style()
     local bufnr = vim.api.nvim_get_current_buf()
-    require('functions.switch_indent_style').switch_indent_style(bufnr)
+    require('utils').switch_indent_style(bufnr)
   end
 
   vim_keymap.set('n', '<leader>\\', switch_indent_style, opts('Switch between Tabs or Spaces'))

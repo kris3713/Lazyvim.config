@@ -225,7 +225,7 @@ return {
               local bufnr = vim.api.nvim_get_current_buf()
 
               if clicks == 2 then
-                require('functions.switch_indent_style').switch_indent_style(bufnr)
+                require('utils').switch_indent_style(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
                 require('lualine').refresh {}
               end
@@ -248,7 +248,7 @@ return {
               local bufnr = vim.api.nvim_get_current_buf()
 
               if clicks == 2 then
-                require('functions.set_indent_size_prompt').set_indent_size(bufnr)
+                require('utils').set_indent_size(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
                 require('lualine').refresh {}
               end
