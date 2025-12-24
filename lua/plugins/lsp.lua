@@ -93,7 +93,7 @@ return {
       -- gh_actions_ls
       gh_actions_ls = {
         mason = false,
-        enabled = true
+        enabled = false
       },
       -- gradle_ls
       gradle_ls = {
