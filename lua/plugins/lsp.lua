@@ -281,9 +281,7 @@ return {
             'svelte'
           }
 
-          for _, ft in ipairs(new_filetypes) do
-            table.insert(filetypes, ft)
-          end
+          filetypes = vim.list_extend(filetypes, new_filetypes)
 
           table.sort(filetypes)
 
@@ -502,9 +500,7 @@ return {
             'spec'
           }
 
-          for _, ft in ipairs(new_filetypes) do
-            table.insert(filetypes, ft)
-          end
+          filetypes = vim.list_extend(filetypes, new_filetypes)
 
           table.sort(filetypes)
 

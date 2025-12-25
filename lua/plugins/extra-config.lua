@@ -390,9 +390,7 @@ return {
         { name = 'git' }
       }
 
-      for _, source in ipairs(cmp_sources) do
-        table.insert(opts.sources, source)
-      end
+      opts.sources = vim.list_extend(opts.sources, cmp_sources)
     end
   },
   {
@@ -433,71 +431,82 @@ return {
     dependencies = {
       'gbprod/none-ls-shellcheck.nvim'
     },
-    ---@param opts table
+    ---@param opts { sources: table }
     opts = function(_, opts)
       local null_ls = require('null-ls')
 
       ---@module 'null-ls.builtins._meta.code_actions'
-      local null_ls__code_actions = null_ls.builtins.code_actions
+      local code_actions = null_ls.builtins.code_actions
       ---@module 'null-ls.builtins._meta.completion'
-      local null_ls__completion = null_ls.builtins.completion
+      local completion = null_ls.builtins.completion
       ---@module 'null-ls.builtins._meta.diagnostics'
-      local null_ls__diagnostics = null_ls.builtins.diagnostics
+      local diagnostics = null_ls.builtins.diagnostics
       ---@module 'null-ls.builtins._meta.formatting'
-      local null_ls__formatting = null_ls.builtins.formatting
+      local formatting = null_ls.builtins.formatting
       -- ---@module 'null-ls.builtins._meta.hover'
-      -- local null_ls__hover = null_ls.builtins.hover
+      -- local hover = null_ls.builtins.hover
 
-      -- none-ls extra sources
+      -- none-ls extensions
+      local exts = {}
 
-      local null_ls__formatting__ruff = require('none-ls.formatting.ruff')
-      local null_ls__diagnostics__ruff = require('none-ls.diagnostics.ruff')
-      -- local null_ls__formatting__tex_fmt = require('none-ls.formatting.tex_fmt')
+      exts.code_actions = {
+        shellcheck = require('none-ls-shellcheck.code_actions')
+      }
+
+      exts.formatting = {
+        ruff = require('none-ls.formatting.ruff'),
+        tex_fmt = require('none-ls.formatting.tex_fmt')
+      }
+
+      exts.diagnostics = {
+        ruff = require('none-ls.diagnostics.ruff'),
+        shellcheck = require('none-ls-shellcheck.diagnostics')
+      }
 
       -- local null_ls__sources = null_ls.get_sources()
 
       local new_null_ls_sources = {
-        null_ls__code_actions.gitsigns,
-        null_ls__code_actions.refactoring,
-        null_ls__code_actions.statix,
-        null_ls__code_actions.gomodifytags,
-        null_ls__code_actions.impl,
-        null_ls__completion.luasnip,
+        code_actions.gitsigns,
+        code_actions.refactoring,
+        code_actions.gomodifytags,
+        code_actions.impl,
+        exts.code_actions.shellcheck,
+        code_actions.statix,
+        completion.luasnip,
         -- null_ls__completion.tags,
-        null_ls__diagnostics.deadnix,
-        null_ls__diagnostics.dotenv_linter,
-        null_ls__diagnostics.editorconfig_checker.with {
+        diagnostics.deadnix,
+        diagnostics.dotenv_linter,
+        diagnostics.editorconfig_checker.with {
           filetypes = { 'editorconfig' }
         },
-        null_ls__diagnostics.fish,
-        null_ls__diagnostics.hadolint,
-        null_ls__diagnostics.ktlint,
-        null_ls__diagnostics.markdownlint,
-        null_ls__diagnostics.markdownlint_cli2,
-        null_ls__diagnostics.rpmspec,
-        null_ls__diagnostics__ruff,
-        null_ls__diagnostics.todo_comments,
-        null_ls__diagnostics.trail_space,
-        null_ls__diagnostics.statix,
-        -- null_ls__diagnostics.selene,
-        null_ls__diagnostics.pydoclint,
-        null_ls__diagnostics.yamllint,
-        null_ls__formatting.alejandra,
-        null_ls__formatting.biome.with {
+        diagnostics.fish,
+        diagnostics.hadolint,
+        diagnostics.ktlint,
+        diagnostics.markdownlint,
+        diagnostics.markdownlint_cli2,
+        diagnostics.pydoclint,
+        diagnostics.rpmspec,
+        exts.diagnostics.ruff,
+        diagnostics.todo_comments,
+        diagnostics.trail_space,
+        exts.diagnostics.shellcheck,
+        diagnostics.statix,
+        diagnostics.yamllint,
+        formatting.alejandra,
+        formatting.biome.with {
           extra_filetypes = { 'astro' }
         },
-        -- null_ls__formatting.prettier,
-        null_ls__formatting.fish_indent,
-        null_ls__formatting.gofumpt,
-        null_ls__formatting.goimports,
-        null_ls__formatting.markdownlint,
-        null_ls__formatting.shfmt.with {
+        -- formatting.prettier,
+        formatting.fish_indent,
+        formatting.gofumpt,
+        formatting.goimports,
+        formatting.markdownlint,
+        formatting.shfmt.with {
           extra_filetypes = { 'bash' }
         },
-        null_ls__formatting__ruff,
-        -- null_ls__formatting__tex_fmt,
-        null_ls__formatting.uncrustify,
-        null_ls__formatting.yamlfmt
+        exts.formatting.ruff,
+        formatting.uncrustify,
+        formatting.yamlfmt
       }
 
       opts.sources = opts.sources or {}
