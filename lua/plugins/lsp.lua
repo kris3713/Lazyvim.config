@@ -78,6 +78,7 @@ return {
         }
       },
       systemd_lsp = {
+        mason = false,
         enabled = true
       },
       -- rubocop
