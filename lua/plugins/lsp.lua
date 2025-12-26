@@ -21,10 +21,12 @@ end
 --   hover.open {}
 -- end
 
-local function pretty_hover__hover()
-  local pretty_hover = require('pretty_hover')
-  pretty_hover.hover {}
-end
+-- NOTE: Switch back to this if Lspsaga hover_doc doesn't work
+
+-- local function pretty_hover__hover()
+--   local pretty_hover = require('pretty_hover')
+--   pretty_hover.hover {}
+-- end
 
 ---Selects a code action available at the current cursor position.
 local function ap__code_actions()
@@ -63,7 +65,7 @@ return {
           },
           { -- Hover Doc
             'K',
-            pretty_hover__hover,
+            function() vim.cmd('Lspsaga hover_doc') end,
             desc = 'Hover Doc',
             noremap = true
           },

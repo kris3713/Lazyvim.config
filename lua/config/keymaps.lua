@@ -290,6 +290,7 @@ end
 
 
 -- lspsaga
+vim_keymap.set('n', '<Tab>', function() vim.cmd('Lspsaga hover_doc') end, opts('Hover Doc'))
 vim_keymap.set('n', 'gt', function() vim.cmd('Lspsaga peek_definition') end, opts('Peek definition'))
 vim_keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end, opts('Peek type definition'))
 
@@ -303,15 +304,17 @@ vim_keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end
 --   -- vim_keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
 -- end
 
--- pretty_hover
-do
-  local function pretty_hover__hover()
-    local pretty_hover = require('pretty_hover')
-    pretty_hover.hover {}
-  end
+-- NOTE: Switch back to this if Lspsaga hover_doc doesn't work
 
-  vim_keymap.set('n', '<Tab>', pretty_hover__hover, opts('Hover Doc'))
-end
+-- pretty_hover
+-- do
+--   local function pretty_hover__hover()
+--     local pretty_hover = require('pretty_hover')
+--     pretty_hover.hover {}
+--   end
+--
+--   vim_keymap.set('n', '<Tab>', pretty_hover__hover, opts('Hover Doc'))
+-- end
 
 
 -- Aerial
