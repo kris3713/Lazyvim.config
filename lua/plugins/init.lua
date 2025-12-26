@@ -98,6 +98,11 @@ return {
     opts = {}
   },
   {
+    'chentoast/marks.nvim',
+    event = 'VeryLazy',
+    opts = {}
+  },
+  {
     'sustech-data/wildfire.nvim',
     event = 'VeryLazy',
     opts = {}
