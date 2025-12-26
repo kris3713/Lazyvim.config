@@ -472,8 +472,6 @@ return {
         code_actions.impl,
         exts.code_actions.shellcheck,
         code_actions.statix,
-        completion.luasnip,
-        -- null_ls__completion.tags,
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
         diagnostics.editorconfig_checker.with {
