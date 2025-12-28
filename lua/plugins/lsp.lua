@@ -730,45 +730,27 @@ return {
       },
     },
     setup = {
-      gopls = function(_, client)
+      gopls = function(_, _)
         -- workaround for gopls not supporting semanticTokensProvider
         -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-
-        -- Snacks.util.lsp.on({ name = 'gopls' }, function(_, client)
-        --   --- @diagnostic disable-next-line: need-check-nil
-        --   if not client.server_capabilities.semanticTokensProvider then
-        --     --- @diagnostic disable-next-line: need-check-nil
-        --     local semantic = client.config.capabilities.textDocument.semanticTokens
-        --     if semantic then
-        --       --- @diagnostic disable-next-line: need-check-nil
-        --       client.server_capabilities.semanticTokensProvider = {
-        --         full = true,
-        --         legend = {
-        --           tokenTypes = semantic.tokenTypes,
-        --           tokenModifiers = semantic.tokenModifiers
-        --         },
-        --         range = true
-        --       }
-        --     end
-        --   end
-        -- end)
-
-        --- @diagnostic disable-next-line: need-check-nil
-        if not client.server_capabilities.semanticTokensProvider then
+        Snacks.util.lsp.on({ name = 'gopls' }, function(_, client)
           --- @diagnostic disable-next-line: need-check-nil
-          local semantic = client.config.capabilities.textDocument.semanticTokens
-          if semantic then
+          if not client.server_capabilities.semanticTokensProvider then
             --- @diagnostic disable-next-line: need-check-nil
-            client.server_capabilities.semanticTokensProvider = {
-              full = true,
-              legend = {
-                tokenTypes = semantic.tokenTypes,
-                tokenModifiers = semantic.tokenModifiers
-              },
-              range = true
-            }
+            local semantic = client.config.capabilities.textDocument.semanticTokens
+            if semantic then
+              --- @diagnostic disable-next-line: need-check-nil
+              client.server_capabilities.semanticTokensProvider = {
+                full = true,
+                legend = {
+                  tokenTypes = semantic.tokenTypes,
+                  tokenModifiers = semantic.tokenModifiers
+                },
+                range = true
+              }
+            end
           end
-        end
+        end)
         -- end workaround
       end,
     }
