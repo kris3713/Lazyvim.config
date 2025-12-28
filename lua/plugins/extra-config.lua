@@ -479,6 +479,7 @@ return {
         },
         diagnostics.fish,
         diagnostics.hadolint,
+        diagnostics.golangci_lint,
         diagnostics.ktlint,
         diagnostics.markdownlint,
         diagnostics.markdownlint_cli2,
@@ -489,6 +490,7 @@ return {
         diagnostics.trail_space,
         exts.diagnostics.shellcheck,
         diagnostics.statix,
+        diagnostics.stylelint,
         diagnostics.yamllint,
         formatting.alejandra,
         formatting.biome.with {
