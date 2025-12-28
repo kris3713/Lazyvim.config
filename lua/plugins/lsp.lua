@@ -164,17 +164,17 @@ return {
       -- dockerls
       dockerls = {
         mason = false,
-        enabled = false
+        enabled = true
       },
       -- docker_compose_language_service
       docker_compose_language_service = {
         mason = false,
-        enabled = false
+        enabled = true
       },
       -- docker_language_server
       docker_language_server = {
         mason = false,
-        enabled = true
+        enabled = false
       },
       -- dprint
       dprint = {
@@ -272,7 +272,7 @@ return {
               }
             },
             desc = 'Organize Imports'
-          },
+          }
         }
       },
       -- cssmodules_ls
@@ -321,6 +321,7 @@ return {
       yamlls = {
         mason = false,
         enabled = true,
+        filetypes = { 'yaml', 'yaml.gitlab', 'yaml.helm-values' },
         -- Have to add this for yamlls to understand that we support line folding
         capabilities = {
           textDocument = {
