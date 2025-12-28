@@ -99,11 +99,6 @@ return {
         mason = false,
         enabled = true
       },
-      -- stylelint_lsp
-      stylelint_lsp = {
-        mason = false,
-        enabled = true
-      },
       astro = {
         mason = false,
         enabled = true,
@@ -115,11 +110,6 @@ return {
       },
       -- gradle_ls
       gradle_ls = {
-        enabled = true
-      },
-      -- golangci_lint_ls
-      golangci_lint_ls = {
-        mason = false,
         enabled = true
       },
       -- jdtls
@@ -255,9 +245,14 @@ return {
       -- html
       html = {
         mason = false,
-        enabled = true,
+        enabled = false,
         capabilities = capabilities()
       },
+      superhtml = {
+        mason = false,
+        enabled = true
+      },
+      -- svelte
       svelte = {
         mason = false,
         enabled = true,
@@ -376,6 +371,7 @@ return {
           '.git'
         },
         ---@param client vim.lsp.Client
+        ---@param _ lsp.InitializeResult
         on_init = function(client, _)
           if client.workspace_folders then
             --- @diagnostic disable-next-line: need-check-nil
@@ -574,6 +570,7 @@ return {
           return filetypes
         end)(),
         ---@param client vim.lsp.Client
+        ---@param _ lsp.InitializeResult
         on_init = function(client, _)
           ---@type lsp.LSPArray
           local options = {
@@ -706,14 +703,13 @@ return {
       -- Disabled
 
       -- This is taken cared of by null-ls
-      -- stylua
-      stylua = {
-        mason = false,
+
+      -- golangci_lint_ls
+      golangci_lint_ls = {
         enabled = false
       },
       -- ruff
       ruff = {
-        mason = false,
         enabled = false
       },
       -- texlab
@@ -723,32 +719,56 @@ return {
       -- statix
       statix = {
         enabled = false
-      }
+      },
+      -- stylua
+      stylua = {
+        enabled = false
+      },
+      -- stylelint_lsp
+      stylelint_lsp = {
+        enabled = false
+      },
     },
     setup = {
-      gopls = function(_, _)
-        -- TODO: Find an alternative to `Snacks.util.lsp.on`
-
+      gopls = function(_, client)
         -- workaround for gopls not supporting semanticTokensProvider
         -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-        Snacks.util.lsp.on({ name = 'gopls' }, function(_, client)
+
+        -- Snacks.util.lsp.on({ name = 'gopls' }, function(_, client)
+        --   --- @diagnostic disable-next-line: need-check-nil
+        --   if not client.server_capabilities.semanticTokensProvider then
+        --     --- @diagnostic disable-next-line: need-check-nil
+        --     local semantic = client.config.capabilities.textDocument.semanticTokens
+        --     if semantic then
+        --       --- @diagnostic disable-next-line: need-check-nil
+        --       client.server_capabilities.semanticTokensProvider = {
+        --         full = true,
+        --         legend = {
+        --           tokenTypes = semantic.tokenTypes,
+        --           tokenModifiers = semantic.tokenModifiers
+        --         },
+        --         range = true
+        --       }
+        --     end
+        --   end
+        -- end)
+
+        --- @diagnostic disable-next-line: need-check-nil
+        if not client.server_capabilities.semanticTokensProvider then
           --- @diagnostic disable-next-line: need-check-nil
-          if not client.server_capabilities.semanticTokensProvider then
+          local semantic = client.config.capabilities.textDocument.semanticTokens
+          if semantic then
             --- @diagnostic disable-next-line: need-check-nil
-            local semantic = client.config.capabilities.textDocument.semanticTokens
-            if semantic then
-              --- @diagnostic disable-next-line: need-check-nil
-              client.server_capabilities.semanticTokensProvider = {
-                full = true,
-                legend = {
-                  tokenTypes = semantic.tokenTypes,
-                  tokenModifiers = semantic.tokenModifiers
-                },
-                range = true
-              }
-            end
+            client.server_capabilities.semanticTokensProvider = {
+              full = true,
+              legend = {
+                tokenTypes = semantic.tokenTypes,
+                tokenModifiers = semantic.tokenModifiers
+              },
+              range = true
+            }
           end
-        end)
+        end
         -- end workaround
       end,
     }
