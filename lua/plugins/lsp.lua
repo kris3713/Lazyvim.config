@@ -86,6 +86,10 @@ return {
         mason = false,
         enabled = true
       },
+      ruby_lsp = {
+        mason = false,
+        enabled = true
+      },
       -- lemminx
       lemminx = {
         enabled = true
