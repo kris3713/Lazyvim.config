@@ -52,6 +52,36 @@ return {
     end
   },
   {
+    'folke/which-key.nvim',
+    ---@module 'which-key'
+    ---@param opts wk.Opts
+    opts = function(_, opts)
+      ---@type wk.Spec[]
+      local extra_keys = {
+        { '<leader>bq', desc = 'Sort by' },
+        (function()
+          local bufnr = vim.api.nvim_get_current_buf()
+
+          if vim.bo[bufnr].filetype == 'man' then
+            --- @diagnostic disable-next-line: missing-fields
+            ---@type wk.Spec
+            local wk_mapping = { 'gO', desc = 'Open table of contents' }
+            return wk_mapping
+          end
+
+          --- @diagnostic disable-next-line: missing-fields
+          ---@type wk.Spec
+          local wk_mapping = { 'gO', desc = 'Open document symbols' }
+          return wk_mapping
+        end)()
+      }
+
+      opts.spec = opts.spec or {}
+
+      opts.spec = vim.list_extend(opts.spec, extra_keys)
+    end
+  },
+  {
     'folke/noice.nvim',
     ---@module 'noice'
     ---@type NoiceConfig
