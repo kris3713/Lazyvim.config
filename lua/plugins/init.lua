@@ -93,6 +93,10 @@ return {
     opts = {}
   },
   {
+    'ckolkey/ts-node-action',
+    opts = {}
+  },
+  {
     'julienvincent/hunk.nvim',
     cmd = 'DiffEditor',
     opts = {}
