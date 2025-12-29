@@ -70,7 +70,8 @@ return {
     dependencies = {
       'Issafalcon/neotest-dotnet',
       'fredrikaverpil/neotest-golang',
-      'nvim-neotest/neotest-python'
+      'nvim-neotest/neotest-python',
+      'olimorris/neotest-rspec'
     },
     ---@module 'neotest'
     ---@param opts neotest.Config
@@ -85,7 +86,17 @@ return {
         -- Here you can specify the settings for the adapter, i.e.
         -- runner = 'pytest',
         -- python = '.venv/bin/python'
-        ['neotest-python'] = {}
+        ['neotest-python'] = {},
+        ['neotest-rspec'] = {
+          -- NOTE: By default neotest-rspec uses the system wide rspec gem instead of the one through bundler
+          -- rspec_cmd = function()
+          --   return vim.tbl_flatten({
+          --     "bundle",
+          --     "exec",
+          --     "rspec",
+          --   })
+          -- end
+        }
       })
     end
   },
@@ -447,20 +458,23 @@ return {
       -- local hover = null_ls.builtins.hover
 
       -- none-ls extensions
-      local exts = {}
+      local exts = {
+        code_actions = {
+          shellcheck = require('none-ls-shellcheck.code_actions')
+        },
 
-      exts.code_actions = {
-        shellcheck = require('none-ls-shellcheck.code_actions')
-      }
+        formatting = {
+          golangci_lint = require('none-ls.formatting.golangci_lint'),
+          jq = require('none-ls.formatting.jq'),
+          ruff = require('none-ls.formatting.ruff'),
+          tex_fmt = require('none-ls.formatting.tex_fmt'),
+          yq = require('none-ls.formatting.yq')
+        },
 
-      exts.formatting = {
-        ruff = require('none-ls.formatting.ruff'),
-        tex_fmt = require('none-ls.formatting.tex_fmt')
-      }
-
-      exts.diagnostics = {
-        ruff = require('none-ls.diagnostics.ruff'),
-        shellcheck = require('none-ls-shellcheck.diagnostics')
+        diagnostics = {
+          ruff = require('none-ls.diagnostics.ruff'),
+          shellcheck = require('none-ls-shellcheck.diagnostics')
+        }
       }
 
       -- local null_ls__sources = null_ls.get_sources()
@@ -472,11 +486,13 @@ return {
         code_actions.impl,
         exts.code_actions.shellcheck,
         code_actions.statix,
+        code_actions.ts_node_action,
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
         diagnostics.editorconfig_checker.with {
           filetypes = { 'editorconfig' }
         },
+        diagnostics.erb_lint,
         diagnostics.fish,
         diagnostics.hadolint,
         diagnostics.golangci_lint,
@@ -485,6 +501,7 @@ return {
         diagnostics.markdownlint_cli2,
         diagnostics.pydoclint,
         diagnostics.rpmspec,
+        diagnostics.rubocop,
         exts.diagnostics.ruff,
         diagnostics.todo_comments,
         diagnostics.trail_space,
@@ -496,17 +513,19 @@ return {
         formatting.biome.with {
           extra_filetypes = { 'astro' }
         },
-        -- formatting.prettier,
+        formatting.erb_lint,
         formatting.fish_indent,
         formatting.gofumpt,
         formatting.goimports,
+        exts.formatting.golangci_lint,
+        exts.formatting.jq,
         formatting.markdownlint,
         formatting.shfmt.with {
           extra_filetypes = { 'bash' }
         },
         exts.formatting.ruff,
         formatting.uncrustify,
-        formatting.yamlfmt
+        exts.formatting.yq
       }
 
       opts.sources = opts.sources or {}
