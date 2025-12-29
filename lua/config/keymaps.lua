@@ -9,7 +9,8 @@
 local function opts(desc, silent)
   silent = silent or false
   ---@type vim.keymap.set.Opts
-  return { desc = desc, silent = silent, noremap = true }
+  local set_opts = { desc = desc, silent = silent, noremap = true }
+  return set_opts
 end
 
 
@@ -357,11 +358,11 @@ end
 -- Telescope
 vim_keymap.set('n', '<leader>se', function() vim.cmd('Telescope symbols') end, opts('Telescope symbols'))
 vim_keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end, opts('Telescope undo'))
-vim_keymap.set({ 'n', 'v', 'x' }, '"', function() vim.cmd('Telescope registers') end, opts('Telescope registers'))
-vim_keymap.set({ 'n', 'v' }, "<leader>'", function() vim.cmd('Telescope keymaps') end, opts('Telescope keymaps'))
+vim_keymap.set('n', '"', function() vim.cmd('Telescope registers') end, opts('Telescope registers'))
+vim_keymap.set('n', "<leader>'", function() vim.cmd('Telescope keymaps') end, opts('Telescope keymaps'))
 
 for _, lhs in ipairs { "'", '`' } do
-  vim_keymap.set({ 'n', 'v', 'x' }, lhs, function() vim.cmd('Telescope marks') end, opts('Telescope marks'))
+  vim_keymap.set('n', lhs, function() vim.cmd('Telescope marks') end, opts('Telescope marks'))
 end
 
 
