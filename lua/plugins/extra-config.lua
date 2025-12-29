@@ -513,7 +513,12 @@ return {
         code_actions.impl,
         exts.code_actions.shellcheck,
         code_actions.statix,
-        code_actions.ts_node_action,
+        code_actions.ts_node_action.with {
+          -- Don't remove, this is needed by `nvim-tree.lua`
+          disabled_filetypes = {
+            'spec'
+          }
+        },
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
         diagnostics.editorconfig_checker.with {
