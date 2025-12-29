@@ -61,8 +61,12 @@ vim.filetype.add {
     tasks = 'msbuild',
     targets = 'msbuild'
   },
-  pattern = { [ [[.*\..*proj]] ] = 'msbuild' }
+  pattern = {
+    [ [[.*\..*proj]] ] = 'msbuild'
+  }
 }
+
+vim.treesitter.language.register('xml', { 'msbuild' })
 
 -- `yaml.docker-compose`
 vim.filetype.add {
@@ -80,8 +84,6 @@ vim.filetype.add {
     ['composer.lock'] = 'json'
   }
 }
-
-vim.treesitter.language.register('xml', { 'msbuild' })
 
 -- Set listchars
 vim.o.listchars = 'tab:󰌒 ,trail:·,space:·,nbsp:+'
