@@ -81,12 +81,19 @@ return {
         mason = false,
         enabled = true
       },
-      -- rubocop
-      rubocop = {
+      steep = {
+        mason = false,
+        enabled = true
+      },
+      sorbet = {
         mason = false,
         enabled = true
       },
       ruby_lsp = {
+        mason = false,
+        enabled = true
+      },
+      herb_ls = {
         mason = false,
         enabled = true
       },
@@ -714,6 +721,10 @@ return {
       },
       -- ruff
       ruff = {
+        enabled = false
+      },
+      -- rubocop
+      rubocop = {
         enabled = false
       },
       -- texlab
