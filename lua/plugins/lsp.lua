@@ -511,8 +511,7 @@ return {
             'fish',
             'bash',
             'zsh',
-            'sh',
-            'spec'
+            'sh'
           }
 
           filetypes = vim.list_extend(filetypes, new_filetypes)
