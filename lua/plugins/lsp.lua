@@ -90,6 +90,10 @@ return {
         mason = false,
         enabled = true
       },
+      -- typeprof
+      typeprof = {
+        enabled = true
+      },
       -- lemminx
       lemminx = {
         enabled = true
