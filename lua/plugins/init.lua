@@ -621,6 +621,12 @@ return {
 
       -- Has potential for a more complex configuration
       require('nvim-tree').setup {
+        sync_root_with_cwd = true,
+        respect_buf_cwd = true,
+        update_focused_file = {
+          enable = true,
+          update_root = true
+        },
         filters = { enable = false },
         ---@param bufnr integer
         on_attach = function(bufnr)
