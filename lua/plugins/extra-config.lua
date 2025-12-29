@@ -26,27 +26,26 @@ return {
   {
     'mason-org/mason.nvim',
     ---@module 'mason'
-    ---@param opts MasonSettings
+    ---@param opts MasonSettings | { ensure_installed: table }
     opts = function(_, opts)
       opts.registries = {
         'github:mason-org/mason-registry',
         'github:Crashdummyy/mason-registry'
       }
 
+      opts.ensure_installed = opts.ensure_installed or {}
 
       -- Ensure none of these are installed by mason.
       -- https://github.com/LazyVim/LazyVim/discussions/6493#discussioncomment-14469953
       --- @diagnostic disable-next-line: inject-field
-      opts.ensure_installed = vim.tbl_filter(function(old_table)
-        return not vim.tbl_contains(
-          {
-            'stylua',
-            'shellcheck',
-            'shfmt',
-            'markdown-toc',
-            'markdownlint-cli2'
-          },
-        old_table)
+      opts.ensure_installed = vim.tbl_filter(--[[@param old_table table]] function(old_table)
+        return not vim.tbl_contains({
+          'stylua',
+          'shellcheck',
+          'shfmt',
+          'markdown-toc',
+          'markdownlint-cli2'
+        }, old_table)
         --- @diagnostic disable-next-line: undefined-field
       end, opts.ensure_installed)
     end
@@ -507,9 +506,7 @@ return {
         }
       }
 
-      -- local null_ls__sources = null_ls.get_sources()
-
-      local new_null_ls_sources = {
+      local new_sources = {
         code_actions.gitsigns,
         code_actions.refactoring,
         code_actions.gomodifytags,
@@ -560,16 +557,8 @@ return {
 
       opts.sources = opts.sources or {}
 
-      -- for _, source in ipairs(new_null_ls_sources) do
-      --   table.insert(null_ls__sources, source)
-      -- end
-
       --- NOTE: Don't use vim.tbl_deep_extend with this one
-      opts.sources = vim.list_extend(opts.sources, new_null_ls_sources)
-
-      -- null_ls.setup {
-      --   sources = null_ls__sources
-      -- }
+      opts.sources = vim.list_extend(opts.sources, new_sources)
     end
   },
   {
