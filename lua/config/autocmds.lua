@@ -107,16 +107,27 @@ create_autocmd('BufReadPost', {
 create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
   group = create_augroup('set_systemd_filetypes'),
   desc = 'Set filetype to systemd for systemd unit files',
-  pattern = {
+  pattern = { -- Credit to @magnuslarsen
+    -- systemd unit files
     '*.service',
-    '*.mount',
-    '*.device',
-    '*.nspawn',
-    '*.target',
+    '*.socket',
     '*.timer',
+    '*.mount',
+    '*.automount',
+    '*.swap',
+    '*.target',
     '*.path',
     '*.slice',
-    '*.socket'
+    '*.scope',
+    '*.device',
+    -- Podman Quadlet files
+    '*.container',
+    '*.volume',
+    '*.network',
+    '*.kube',
+    '*.pod',
+    '*.build',
+    '*.image',
   },
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()

@@ -85,6 +85,8 @@ vim.filetype.add {
   }
 }
 
+-- systemd unit files
+
 -- Set listchars
 vim.o.listchars = 'tab:󰌒 ,trail:·,space:·,nbsp:+'
 
