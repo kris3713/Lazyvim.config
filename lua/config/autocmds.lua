@@ -103,38 +103,6 @@ create_autocmd('BufReadPost', {
   end
 })
 
--- Set filetype to systemd for systemd unit files
-create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
-  group = create_augroup('set_systemd_filetypes'),
-  desc = 'Set filetype to systemd for systemd unit files',
-  pattern = { -- Credit to @magnuslarsen
-    -- systemd unit files
-    '*.service',
-    '*.socket',
-    '*.timer',
-    '*.mount',
-    '*.automount',
-    '*.swap',
-    '*.target',
-    '*.path',
-    '*.slice',
-    '*.scope',
-    '*.device',
-    -- Podman Quadlet files
-    '*.container',
-    '*.volume',
-    '*.network',
-    '*.kube',
-    '*.pod',
-    '*.build',
-    '*.image'
-  },
-  callback = function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    vim.bo[bufnr].filetype = 'systemd'
-  end
-})
-
 -- Lock a buffer to a window
 create_autocmd('BufEnter', {
   group = create_augroup('lock_buffer_to_window'),

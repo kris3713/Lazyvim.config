@@ -85,6 +85,41 @@ vim.filetype.add {
   }
 }
 
+-- Set filetype to systemd for systemd unit files
+do
+  local systemd_unit_extensions = { -- Credit to @magnuslarsen
+    -- systemd unit files
+    'service',
+    'socket',
+    'timer',
+    'mount',
+    'automount',
+    'swap',
+    'target',
+    'path',
+    'slice',
+    'scope',
+    'device',
+    -- Podman Quadlet files
+    'container',
+    'volume',
+    'network',
+    'kube',
+    'pod',
+    'build',
+    'image'
+  }
+
+  local extension_map = {}
+  for _, exts in ipairs(systemd_unit_extensions) do
+    extension_map[exts] = 'systemd'
+  end
+
+  vim.filetype.add {
+    extension = extension_map
+  }
+end
+
 -- Set listchars
 vim.o.listchars = 'tab:󰌒 ,trail:·,space:·,nbsp:+'
 
