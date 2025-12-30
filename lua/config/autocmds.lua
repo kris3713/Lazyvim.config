@@ -127,7 +127,7 @@ create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
     '*.kube',
     '*.pod',
     '*.build',
-    '*.image',
+    '*.image'
   },
   callback = function()
     local bufnr = vim.api.nvim_get_current_buf()
