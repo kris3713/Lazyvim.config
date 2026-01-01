@@ -412,6 +412,17 @@ return {
           }
         }
       })
+
+      cmp.setup.cmdline({ "/", "?" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          {
+              name = 'buffer',
+              option = { keyword_pattern = [[\k\+]] }
+          },
+          { name = 'buffer-lines' }
+        }
+      })
     end,
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
@@ -427,7 +438,8 @@ return {
         { name = 'luasnip_choice' },
         { name = 'npm' },
         { name = 'pypi' },
-        { name = 'git' }
+        { name = 'git' },
+        { name = 'buffer-lines' }
       }
 
       opts.sources = vim.list_extend(opts.sources, cmp_sources)

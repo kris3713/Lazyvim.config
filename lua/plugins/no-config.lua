@@ -19,6 +19,7 @@ return {
   'rcarriga/cmp-dap',
   'petertriho/cmp-git',
   'samiulsami/cmp-go-deep',
+  'https://git.sr.ht/~amaral/nvim-cmp-buffer-lines',
   'udalov/kotlin-vim',
   'hrsh7th/cmp-nvim-lua',
   'JMarkin/cmp-diag-codes',
