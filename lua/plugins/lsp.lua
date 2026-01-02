@@ -114,9 +114,7 @@ return {
 
           local util = require('lspconfig.util')
 
-          for _, ft in ipairs(systemd_unit_filetypes) do
-            on_dir((util.root_pattern(ft))(fname))
-          end
+          on_dir((util.root_pattern(systemd_unit_filetypes))(fname))
         end
       },
       steep = {
