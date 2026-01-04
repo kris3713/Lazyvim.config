@@ -527,7 +527,13 @@ return {
         code_actions.statix,
         code_actions.ts_node_action.with {
           -- Don't remove, this is needed by `nvim-tree.lua`
-          disabled_filetypes = { 'spec', 'conf', 'dosini', 'systemd' }
+          disabled_filetypes = {
+            'spec',
+            'conf',
+            'dosini',
+            'systemd',
+            'fish'
+          }
         },
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
