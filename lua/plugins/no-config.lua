@@ -31,5 +31,6 @@ return {
   'direnv/direnv.vim',
   'stevearc/vim-vscode-snippets',
   'kkharji/sqlite.lua',
-  'tpope/vim-repeat'
+  'tpope/vim-repeat',
+  'RRethy/nvim-treesitter-endwise'
 }
