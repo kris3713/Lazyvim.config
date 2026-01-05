@@ -157,7 +157,9 @@ return {
         'frecency',
         'dap',
         'telescope-tabs',
-        'ast_grep'
+        'ast_grep',
+        'package_info',
+        'toggleterm'
       }
 
       -- load telescope plugins

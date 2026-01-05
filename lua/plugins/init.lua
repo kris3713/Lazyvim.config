@@ -101,6 +101,10 @@ return {
     opts = {}
   },
   {
+    'aaronik/treewalker.nvim',
+    opts = {}
+  },
+  {
     'julienvincent/hunk.nvim',
     cmd = 'DiffEditor',
     opts = {}
@@ -122,8 +126,10 @@ return {
     }
   },
   {
-    'aaronik/treewalker.nvim',
-    opts = {}
+    'vuki656/package-info.nvim',
+    opts = {
+      package_manager = 'pnpm'
+    }
   },
   {
     'L3MON4D3/cmp-luasnip-choice',
@@ -132,12 +138,21 @@ return {
     }
   },
   {
+    'mvllow/modes.nvim',
+    version = '*',
+    opts = {}
+  },
+  {
+    'https://git.sr.ht/~havi/telescope-toggleterm.nvim',
+    event = 'TermOpen',
+    dependencies = 'nvim-lua/popup.nvim',
+    opts = {}
+  },
+  {
     'chrisgrieser/nvim-various-textobjs',
     event = 'VeryLazy',
     opts = {
-      keymaps = {
-        useDefaults = true
-      }
+      keymaps = { useDefaults = true }
     }
   },
   {
