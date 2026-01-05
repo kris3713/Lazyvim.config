@@ -14,6 +14,10 @@ return {
     init = function() vim.g.zoxide_use_select = 1 end
   },
   {
+    'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+    opts = {}
+  },
+  {
     'Mgenuit/nvim-dap-kotlin',
     opts = {}
   },

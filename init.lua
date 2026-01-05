@@ -6,13 +6,13 @@ require('config.lazy')
 vim.cmd('colorscheme catppuccin-macchiato')
 
 
--- conform.nvim
--- require('conform').setup {
---   formatters_by_ft = {
---     javascript = { 'prettier', 'prettierd', stop_after_first = true },
---     typescript = { 'prettier', 'prettierd', stop_after_first = true }
---   }
--- }
+-- Configure Neovim's diagnostics
+vim.diagnostic.config {
+  -- Disable Neovim's built-in virtual text for diagnostics
+  virtual_text = false,
+  -- Enable the functionality of lsp_lines.nvim
+  virtual_lines = true
+}
 
 
 -- indent-blankline
