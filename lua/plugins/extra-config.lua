@@ -528,11 +528,12 @@ return {
         code_actions.ts_node_action.with {
           -- Don't remove, this is needed by `nvim-tree.lua`
           disabled_filetypes = {
-            'spec',
             'conf',
             'dosini',
+            'fish',
+            'spec',
             'systemd',
-            'fish'
+            'toml'
           }
         },
         diagnostics.deadnix,
