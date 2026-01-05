@@ -15,6 +15,10 @@ vim.diagnostic.config {
 }
 
 
+-- Enable vim loader
+vim.loader.enable()
+
+
 -- indent-blankline
 do
   local highlight = {
@@ -29,7 +33,7 @@ do
   }
 
   local hooks = require('ibl.hooks')
-  -- create the highlight groups in the highlight setup hook, so they are reset
+  -- Create the highlight groups in the highlight setup hook, so they are reset
   -- every time the colorscheme changes
   hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
     vim.api.nvim_set_hl(0, highlight[1], { fg = '#ed6e6d' })
@@ -79,7 +83,7 @@ do
   vim.g.rainbow_delimiters = { highlight = highlight }
 end
 
-
+-- harper:ignore
 -- -- nvim-snippets
 -- require('snippets').setup {
 --   search_paths = {  os.getenv('HOME') .. '/MEGA' }
