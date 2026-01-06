@@ -163,6 +163,11 @@ return {
       jdtls = {
         enabled = true
       },
+      -- kotlin_lsp
+      kotlin_lsp = {
+        mason = false,
+        enabled = true
+      },
       -- rpmspec
       rpmspec = {
         mason = false,

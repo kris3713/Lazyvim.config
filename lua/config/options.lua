@@ -85,10 +85,10 @@ vim.filetype.add {
   }
 }
 
--- Set filetype to systemd for systemd unit files
+-- Set filetype to Systemd for Systemd unit files
 do
   local systemd_unit_extensions = { -- Credit to @magnuslarsen
-    -- systemd unit files
+    -- Systemd unit files
     'service',
     'socket',
     'timer',
@@ -121,7 +121,52 @@ do
 end
 
 -- Set listchars
-vim.o.listchars = 'tab:󰌒 ,trail:·,space:·,nbsp:+'
+do
+  ---@param name string
+  ---@return integer
+  local function create_augroup(name)
+    return vim.api.nvim_create_augroup(name, { clear = true })
+  end
+
+  local create_autocmd = vim.api.nvim_create_autocmd
+
+  local set_hl = vim.api.nvim_set_hl
+
+  local tab = '󰌒'
+  local space = '·'
+  local blankspace = '␣'
+
+  vim.opt.listchars:append {
+    lead = space,
+    tab = '|' .. tab,
+    multispace = space,
+    nbsp = blankspace,
+    space = space,
+    trail = space,
+  }
+
+  local function error_hl()
+    set_hl(0, 'TrailingWhitespace', { link = 'Error' })
+  end
+
+  vim.cmd([[match TrailingWhitespace /\\s\\+\$/]])
+
+  create_autocmd('InsertEnter', {
+    group = create_augroup('hl_trailing_whitespace_pt_1'),
+    callback = function()
+      vim.opt.listchars.trail = nil
+      set_hl(0, 'TrailingWhitespace', { link = 'Whitespace' })
+    end
+  })
+
+  create_autocmd('InsertLeave', {
+    group = create_augroup('hl_trailing_whitespace_pt_2'),
+    callback = function()
+      vim.opt.listchars.trail = space
+      error_hl()
+    end
+  })
+end
 
 -- Enable list
 vim.o.list = true
@@ -143,6 +188,7 @@ vim.o.mousemodel = 'popup'
 -- nvim-ufo
 vim.o.foldcolumn = '1' -- '0' is not bad
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+-- harper:ignore
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
@@ -163,15 +209,5 @@ vim.o.relativenumber = false
 
 -- Enable smartindent
 vim.o.smartindent = true
+-- harper:ignore
 -- vim.o.autoindent = true
-
--- LSP configs (That can't be manually enabled in lsp.lua)
-do
-  local lsps = {
-    'kotlin_lsp'
-  }
-
-  for _, lsp in ipairs(lsps) do
-    vim.lsp.enable(lsp)
-  end
-end

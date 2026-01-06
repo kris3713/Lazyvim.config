@@ -257,8 +257,9 @@ return {
     'mcauley-penney/visual-whitespace.nvim',
     event = 'ModeChanged *:[vV\22]',
     opts = {
-      space_char = '·',
-      tab_char = '󰌒 '
+      list_chars = {
+        tab = '|󰌒'
+      }
     }
   },
   {
