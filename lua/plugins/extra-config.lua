@@ -535,7 +535,9 @@ return {
             'fish',
             'spec',
             'systemd',
-            'toml'
+            'toml',
+            'sh',
+            'bash'
           }
         },
         diagnostics.deadnix,
