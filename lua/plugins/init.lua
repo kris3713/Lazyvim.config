@@ -149,13 +149,6 @@ return {
     opts = {}
   },
   {
-    'chrisgrieser/nvim-various-textobjs',
-    event = 'VeryLazy',
-    opts = {
-      keymaps = { useDefaults = true }
-    }
-  },
-  {
     'jmbuhr/otter.nvim',
     config = function()
       -- Has potential for a complex configuration
