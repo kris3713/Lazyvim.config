@@ -537,7 +537,9 @@ return {
             'systemd',
             'toml',
             'sh',
-            'bash'
+            'bash',
+            'text',
+            ''
           }
         },
         diagnostics.deadnix,
