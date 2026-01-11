@@ -23,6 +23,7 @@ vim.opt.wrap = true
 -- Ensure all indents are spaces and have a width of 2
 vim.o.expandtab = true
 
+-- Enable either shiftwidth or tabstop.
 do
   local bufnr = vim.api.nvim_get_current_buf()
 
@@ -142,7 +143,7 @@ do
     multispace = space,
     nbsp = blankspace,
     space = space,
-    trail = space,
+    trail = space
   }
 
   local function error_hl()
@@ -211,3 +212,12 @@ vim.o.relativenumber = false
 vim.o.smartindent = true
 -- harper:ignore
 -- vim.o.autoindent = true
+
+-- Configure Neovim's diagnostics
+vim.diagnostic.config {
+  underline = true,
+  signs = true,
+  virtual_text = false,
+  virtual_lines = false,
+  update_in_insert = true
+}

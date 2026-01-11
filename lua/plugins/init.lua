@@ -1,9 +1,6 @@
----@diagnostic disable-next-line: unknown-diag-code
 --- @diagnostic disable: missing-fields, type-not-found
 
-return {
-  -- TODO: Add https://github.com/meznaric/conmenu here and configure it.
-
+return --[[@type (LazyPluginSpec[])]]{
   -- Plugins with configs go here
   {
     'calops/hmts.nvim',
@@ -12,10 +9,6 @@ return {
   {
     'nanotee/zoxide.vim',
     init = function() vim.g.zoxide_use_select = 1 end
-  },
-  {
-    'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-    opts = {}
   },
   {
     'Mgenuit/nvim-dap-kotlin',
@@ -66,6 +59,29 @@ return {
     'abccsss/nvim-gitstatus',
     event = 'VeryLazy',
     opts = {}
+  },
+  {
+    'sontungexpt/better-diagnostic-virtual-text',
+    event = 'LspAttach',
+    opts = {
+      inline = false,
+      ui = { above = true }
+    }
+  },
+  {
+    'dgagn/diagflow.nvim',
+    event = 'LspAttach',
+    opts = {
+      padding_right = 3,
+      padding_top = 7,
+      border_chars = {
+        top_left = '╭',
+        top_right = '╮',
+        bottom_left = '╰',
+        bottom_right = '╯',
+      },
+      show_borders = true
+    }
   },
   {
     'b0o/SchemaStore.nvim',
@@ -160,14 +176,6 @@ return {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     opts = {}
-  },
-  {
-    'dgagn/diagflow.nvim',
-    event = 'LspAttach',
-    opts = {
-      padding_right = 3,
-      padding_top = 7
-    }
   },
   {
     'DaikyXendo/nvim-material-icon',

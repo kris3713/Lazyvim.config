@@ -1,6 +1,6 @@
 --- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
 
-return {
+return --[[@type (LazyPluginSpec[])]]{
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
   -- {
   --   'LazyVim/LazyVim',
@@ -21,6 +21,25 @@ return {
       require('luasnip.loaders.from_vscode').lazy_load {
         paths = { os.getenv('HOME') .. '/MEGA' }
       }
+    end
+  },
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    cmd = 'LazyDev',
+    dependencies = {
+      {
+        'DrKJeff16/wezterm-types',
+        lazy = true,
+        version = false
+      }
+    },
+    ---@module 'lazydev'
+    ---@param opts lazydev.Config
+    opts = function(_, opts)
+      opts.library = vim.tbl_deep_extend('force', opts.library or {}, --[[@as lazydev.Library.spec[] ]]{
+        { path = 'wezterm-types', mods = { 'wezterm' } }
+      })
     end
   },
   {
@@ -75,9 +94,10 @@ return {
         end)()
       }
 
-      opts.spec = opts.spec or {}
-
-      opts.spec = vim.list_extend(opts.spec, extra_keys)
+      opts.spec = vim.list_extend(opts.spec or {}, extra_keys)
+      -- opts.triggers = vim.tbl_deep_extend('force', opts.triggers or {}, --[[@as wk.Spec]]{
+      --   --
+      -- })
     end
   },
   {
@@ -105,7 +125,7 @@ return {
     ---@module 'neotest'
     ---@param opts neotest.Config
     opts = function(_, opts)
-      opts.adapters = vim.tbl_deep_extend('force', opts.adapters or {}, --[[@as neotest.Adapter[] ]]{
+      opts.adapters = vim.tbl_deep_extend('force', opts.adapters or {}, --[[@as (neotest.Adapter[])]]{
         ['neotest-dotnet'] = {},
         ['neotest-golang'] = {
           -- Here we can set options for neotest-golang, e.g.
@@ -384,7 +404,6 @@ return {
             return vim_item
           end
         },
-        -- sources = cmp_config.sources,
         -- mapping = cmp.mapping.preset.insert {
         --   ['<a-y>'] = require('minuet').make_cmp_map()
         -- },
@@ -426,6 +445,7 @@ return {
         }
       })
     end,
+    ---@module 'cmp'
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       opts.sources = opts.sources or {}

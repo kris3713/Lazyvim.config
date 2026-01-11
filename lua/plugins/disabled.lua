@@ -1,4 +1,4 @@
-return {
+return --[[@type (LazyPluginSpec[])]]{
   -- Disabled plugins go here
   {
     'stevearc/conform.nvim',

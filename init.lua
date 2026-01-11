@@ -6,17 +6,8 @@ require('config.lazy')
 vim.cmd('colorscheme catppuccin-macchiato')
 
 
--- Configure Neovim's diagnostics
-vim.diagnostic.config {
-  -- Disable Neovim's built-in virtual text for diagnostics
-  virtual_text = false,
-  -- Enable the functionality of lsp_lines.nvim
-  virtual_lines = true
-}
-
-
 -- Enable vim loader
-vim.loader.enable()
+vim.loader.enable(true)
 
 
 -- indent-blankline

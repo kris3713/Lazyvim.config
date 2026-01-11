@@ -41,10 +41,13 @@ local function live_rename__rename()
 end
 
 
-return {
+return --[[@type (LazyPluginSpec[])]]{
   'neovim/nvim-lspconfig',
   ---@type lspConfigOpts
   opts = {
+    diagnostics = {
+      virtual_text = false
+    },
     inlay_hints = { enabled = false },
     servers = {
       -- All servers

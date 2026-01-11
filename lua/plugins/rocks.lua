@@ -1,4 +1,4 @@
-return {
+return --[[@type (LazyPluginSpec[])]]{
   {
     'vhyrro/luarocks.nvim',
     priority = 1000,
