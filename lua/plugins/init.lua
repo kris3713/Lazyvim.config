@@ -272,8 +272,12 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'nvimdev/lspsaga.nvim',
+    ---@module 'lspsaga'
     ---@type LspsagaConfig
     opts = {
+      ui = {
+        code_action = ''
+      },
       symbol_in_winbar = { enable = false }
     }
   },
@@ -286,6 +290,7 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'mikavilpas/yazi.nvim',
     event = 'VeryLazy',
+    ---@module 'yazi'
     ---@type YaziConfig
     opts = {
       open_for_directories = true
@@ -305,6 +310,7 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'Bekaboo/dropbar.nvim',
     lazy = false,
+    ---@module 'dropbar'
     ---@type dropbar_configs_t
     opts = {
       menu = {
@@ -352,6 +358,7 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'zbirenbaum/neodim',
     event = 'LspAttach',
+    ---@module 'neodim'
     ---@type neodim.Options
     opts = {
       hide = {
