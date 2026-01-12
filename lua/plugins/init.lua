@@ -358,13 +358,13 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'zbirenbaum/neodim',
     event = 'LspAttach',
-    ---@module 'neodim'
+    --@module 'neodim'
     ---@type neodim.Options
     opts = {
       hide = {
-        underline = true,
+        underline = false,
         virtual_text = false,
-        signs = true
+        signs = false
       }
     }
   },
