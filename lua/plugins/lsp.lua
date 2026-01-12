@@ -40,7 +40,7 @@ local function live_rename__rename()
 end
 
 
-return --[[@type (LazyPluginSpec)]]{
+return --[[@type LazyPluginSpec]]{
   'neovim/nvim-lspconfig',
   ---@param opts lspConfigOpts
   opts = function(_, opts)
