@@ -4,6 +4,14 @@
 
 --harper: ignore
 
+---@class inlayHintsOpts
+---
+---Enable or Disable inlay hints. The default value is `true`
+---@field enabled boolean?
+---
+---Filetypes for which you don't want to enable inlay hints
+---@field exclude string[]
+
 ---Common LSP server/client configuration options.
 ---This extends the `vim.lsp.ClientConfig`, `vim.lsp.Client`, and `vim.lsp.Config` types.
 ---@class lspClientOpts : vim.lsp.Config
@@ -27,8 +35,11 @@
 ---feature all _necessary_ fields.
 ---@class lspConfigOpts
 ---
----Allows for configuring inlay hints for this LSP server.
----@field inlay_hints { enabled: boolean? }
+---Diagnostics configuration options.
+---@field diagnostics vim.diagnostic.Opts
+---
+---Inlay hints configuration options.
+---@field inlay_hints inlayHintsOpts
 ---
 ---Common LSP server/client configuration options.
 ---@field servers table<string, (lspClientOpts | vim.lsp.Client)>
