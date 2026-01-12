@@ -1,6 +1,7 @@
 --- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
 
 return --[[@type (LazyPluginSpec[])]]{
+  --harper:ignore
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
   -- {
   --   'LazyVim/LazyVim',
@@ -8,13 +9,6 @@ return --[[@type (LazyPluginSpec[])]]{
   --   branch = 'fix/catppuccin/bufferline-api-change',
   --   version = false
   -- },
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    ft = { 'markdown' },
-    opts = {
-      file_types = { 'markdown' }
-    }
-  },
   {
     'L3MON4D3/LuaSnip',
     init = function()
@@ -57,7 +51,7 @@ return --[[@type (LazyPluginSpec[])]]{
       -- Ensure none of these are installed by mason.
       -- https://github.com/LazyVim/LazyVim/discussions/6493#discussioncomment-14469953
       --- @diagnostic disable-next-line: inject-field
-      opts.ensure_installed = vim.tbl_filter(--[[@param old_table table]] function(old_table)
+      opts.ensure_installed = vim.tbl_filter(--[[@param old_table table]]function(old_table)
         return not vim.tbl_contains({
           'stylua',
           'shellcheck',
@@ -94,10 +88,11 @@ return --[[@type (LazyPluginSpec[])]]{
         end)()
       }
 
+      -- ---@type wk.Spec
+      -- local extra_triggers = {}
+
       opts.spec = vim.list_extend(opts.spec or {}, extra_keys)
-      -- opts.triggers = vim.tbl_deep_extend('force', opts.triggers or {}, --[[@as wk.Spec]]{
-      --   --
-      -- })
+      -- opts.triggers = vim.list_extend(opts.triggers or {}, extra_triggers)
     end
   },
   {
@@ -125,7 +120,8 @@ return --[[@type (LazyPluginSpec[])]]{
     ---@module 'neotest'
     ---@param opts neotest.Config
     opts = function(_, opts)
-      opts.adapters = vim.tbl_deep_extend('force', opts.adapters or {}, --[[@as (neotest.Adapter[])]]{
+      ---@type neotest.Adapter[]
+      local new_adapters = {
         ['neotest-dotnet'] = {},
         ['neotest-golang'] = {
           -- Here we can set options for neotest-golang, e.g.
@@ -146,7 +142,9 @@ return --[[@type (LazyPluginSpec[])]]{
           --   })
           -- end
         }
-      })
+      }
+
+      opts.adapters = vim.tbl_deep_extend('force', opts.adapters or {}, new_adapters)
     end
   },
   {
@@ -446,10 +444,8 @@ return --[[@type (LazyPluginSpec[])]]{
       })
     end,
     ---@module 'cmp'
-    ---@param opts cmp.ConfigSchema
+    ---@param opts cmp.Setup | cmp.ConfigSchema
     opts = function(_, opts)
-      opts.sources = opts.sources or {}
-
       ---@type cmp.SourceConfig[]
       local cmp_sources = {
         { name = 'nvim_lsp_signature_help' },
@@ -464,11 +460,12 @@ return --[[@type (LazyPluginSpec[])]]{
         { name = 'buffer-lines' }
       }
 
-      opts.sources = vim.list_extend(opts.sources, cmp_sources)
+      opts.sources = vim.list_extend(opts.sources or {}, cmp_sources)
     end
   },
   {
     'mfussenegger/nvim-dap',
+    --TODO: Replace this with function(_, opts)
     opts = function()
       local dap = require('dap')
 
@@ -603,10 +600,8 @@ return --[[@type (LazyPluginSpec[])]]{
         exts.formatting.yq
       }
 
-      opts.sources = opts.sources or {}
-
       --- NOTE: Don't use vim.tbl_deep_extend with this one
-      opts.sources = vim.list_extend(opts.sources, new_sources)
+      opts.sources = vim.list_extend(opts.sources or {}, new_sources)
     end
   },
   {
