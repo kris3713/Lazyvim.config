@@ -556,6 +556,8 @@ return --[[@type (LazyPluginSpec[])]]{
             'sh',
             'bash',
             'text',
+            'nix',
+            'lisp',
             ''
           }
         },
