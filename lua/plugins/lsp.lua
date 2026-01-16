@@ -256,10 +256,10 @@ return --[[@type LazyPluginSpec]]{
           mason = false
         },
         -- MSBuild
-        msbuild_project_tools_server = {
-          enabled = msbuild ~= nil and msbuild ~= '',
-          cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
-        },
+        -- msbuild_project_tools_server = {
+        --   enabled = msbuild ~= nil and msbuild ~= '',
+        --   cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
+        -- },
         -- csharp_ls
         csharp_ls = {
           enabled = true,
