@@ -284,18 +284,6 @@ vim_keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end
 --   -- vim_keymap.set('n', '<C-n>', function() hover.switch('next', {}) end, opts('hover.nvim (Next source)'))
 -- end
 
--- NOTE: Switch back to this if Lspsaga hover_doc doesn't work
-
--- pretty_hover
--- do
---   local function pretty_hover__hover()
---     local pretty_hover = require('pretty_hover')
---     pretty_hover.hover {}
---   end
---
---   vim_keymap.set('n', '<Tab>', pretty_hover__hover, opts('Hover Doc'))
--- end
-
 
 -- Aerial
 do

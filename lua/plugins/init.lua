@@ -387,15 +387,6 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {}
   },
   {
-    'Fildo7525/pretty_hover',
-    event = 'LspAttach',
-    ---@module 'pretty_hover'
-    ---@type PrettyHoverConfig
-    opts = {
-      border = 'rounded'
-    }
-  },
-  {
     'GCBallesteros/jupytext.nvim',
     config = function()
       require('jupytext').setup {

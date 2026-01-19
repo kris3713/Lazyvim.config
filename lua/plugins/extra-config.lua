@@ -444,7 +444,7 @@ return --[[@type (LazyPluginSpec[])]]{
       })
     end,
     ---@module 'cmp'
-    ---@param opts cmp.Setup | cmp.ConfigSchema
+    ---@param opts cmp.Setup|cmp.ConfigSchema
     opts = function(_, opts)
       ---@type cmp.SourceConfig[]
       local cmp_sources = {

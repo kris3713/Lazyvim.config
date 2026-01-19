@@ -5,7 +5,7 @@ local msbuild = os.getenv('MSBUILD_LSP')
 -- harper dictionary path
 local harperDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt'
 
----Adds important capabilities to the LSP client
+-- Adds important capabilities to the LSP client
 local function capabilities()
   local client_capabilities = vim.lsp.protocol.make_client_capabilities()
   ---@diagnostic disable-next-line: need-check-nil
@@ -18,13 +18,6 @@ end
 --   -- hover.nvim
 --   local hover = require('hover')
 --   hover.open {}
--- end
-
--- NOTE: Switch back to this if Lspsaga hover_doc doesn't work
-
--- local function pretty_hover__hover()
---   local pretty_hover = require('pretty_hover')
---   pretty_hover.hover {}
 -- end
 
 ---Selects a code action available at the current cursor position.
@@ -800,35 +793,39 @@ return --[[@type LazyPluginSpec]]{
     opts.servers = vim.tbl_deep_extend('force', opts.servers or {}, lspConfig.servers)
     opts.setup = vim.tbl_deep_extend('force', opts.setup or {}, lspConfig.setup)
 
+    ---keymaps for all LSP servers/clients
+    ---@type vim.api.keyset.keymap[]
+    local all_keymaps = {
+      { -- Hover Doc
+        'K',
+        function() vim.cmd('Lspsaga hover_doc') end,
+        desc = 'Hover Doc',
+        noremap = true
+      },
+      { -- Code Actions
+        '<leader>ca',
+        ap__code_actions,
+        desc = 'Open Code Actions',
+        noremap = true
+      },
+      { -- LSP Rename
+        '<leader>cr',
+        live_rename__rename,
+        desc = 'Lsp Rename',
+        noremap = true
+      },
+      { -- Line Diagnostics
+        '<leader>cd',
+        function() vim.cmd('Lspsaga show_line_diagnostics') end,
+        desc = 'Line Diagnostics',
+        noremap = true
+      }
+    }
+
     -- Special config for '*'
     if opts.servers['*'] then
       ---@cast opts.servers table<string,(lspClientOpts|vim.lsp.Client)>
-      opts.servers['*'].keys = vim.list_extend(opts.servers['*'].keys or {}, {
-        { -- Hover Doc
-          'K',
-          function() vim.cmd('Lspsaga hover_doc') end,
-          desc = 'Hover Doc',
-          noremap = true
-        },
-        { -- Code Actions
-          '<leader>ca',
-          ap__code_actions,
-          desc = 'Open Code Actions',
-          noremap = true
-        },
-        { -- LSP Rename
-          '<leader>cr',
-          live_rename__rename,
-          desc = 'Lsp Rename',
-          noremap = true
-        },
-        { -- Line Diagnostics
-          '<leader>cd',
-          function() vim.cmd('Lspsaga show_line_diagnostics') end,
-          desc = 'Line Diagnostics',
-          noremap = true
-        }
-      })
+      opts.servers['*'].keys = vim.list_extend(opts.servers['*'].keys or {}, all_keymaps)
     end
   end
 }
