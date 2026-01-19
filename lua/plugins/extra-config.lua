@@ -43,24 +43,25 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = function(_, opts)
       opts.registries = {
         'github:mason-org/mason-registry',
-        'github:Crashdummyy/mason-registry'
+        'github:Crashdummyy/mason-registry',
+        'github:MKindberg/ghostty-ls'
       }
-
-      opts.ensure_installed = opts.ensure_installed or {}
 
       -- Ensure none of these are installed by mason.
       -- https://github.com/LazyVim/LazyVim/discussions/6493#discussioncomment-14469953
       --- @diagnostic disable-next-line: inject-field
-      opts.ensure_installed = vim.tbl_filter(--[[@param old_table table]]function(old_table)
-        return not vim.tbl_contains({
-          'stylua',
-          'shellcheck',
-          'shfmt',
-          'markdown-toc',
-          'markdownlint-cli2'
-        }, old_table)
-        --- @diagnostic disable-next-line: undefined-field
-      end, opts.ensure_installed)
+      opts.ensure_installed = vim.tbl_filter(
+        ---@param old_table table
+        function(old_table)
+          return not vim.tbl_contains({
+            'stylua',
+            'shellcheck',
+            'shfmt',
+            'markdown-toc',
+            'markdownlint-cli2'
+          }, old_table)
+        end,
+      opts.ensure_installed or {})
     end
   },
   {
