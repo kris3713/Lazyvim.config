@@ -1,5 +1,6 @@
 --- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
 
+
 return --[[@type (LazyPluginSpec[])]]{
   --harper:ignore
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
@@ -31,9 +32,12 @@ return --[[@type (LazyPluginSpec[])]]{
     ---@module 'lazydev'
     ---@param opts lazydev.Config
     opts = function(_, opts)
-      opts.library = vim.tbl_deep_extend('force', opts.library or {}, --[[@as lazydev.Library.spec[] ]]{
+      ---@type lazydev.Library.spec[]
+      local extra = {
         { path = 'wezterm-types', mods = { 'wezterm' } }
-      })
+      }
+
+      opts.library = vim.tbl_deep_extend('force', opts.library or {}, extra)
     end
   },
   {
@@ -69,31 +73,27 @@ return --[[@type (LazyPluginSpec[])]]{
     ---@module 'which-key'
     ---@param opts wk.Opts
     opts = function(_, opts)
+      ---@module 'which-key'
       ---@type wk.Spec[]
       local extra_keys = {
         { '<leader>bq', desc = 'Sort by' },
         (function()
           local bufnr = vim.api.nvim_get_current_buf()
+          local wk_mapping = {}
 
           if vim.bo[bufnr].filetype == 'man' then
-            --- @diagnostic disable-next-line: missing-fields
-            ---@type wk.Spec
-            local wk_mapping = { 'gO', desc = 'Open table of contents' }
-            return wk_mapping
+            ---@cast wk_mapping wk.Spec[]
+            wk_mapping = { 'gO', desc = 'Open table of contents' }
+          else
+            ---@cast wk_mapping wk.Spec[]
+            wk_mapping = { 'gO', desc = 'Open document symbols' }
           end
 
-          --- @diagnostic disable-next-line: missing-fields
-          ---@type wk.Spec
-          local wk_mapping = { 'gO', desc = 'Open document symbols' }
           return wk_mapping
         end)()
       }
 
-      -- ---@type wk.Spec
-      -- local extra_triggers = {}
-
       opts.spec = vim.list_extend(opts.spec or {}, extra_keys)
-      -- opts.triggers = vim.list_extend(opts.triggers or {}, extra_triggers)
     end
   },
   {
