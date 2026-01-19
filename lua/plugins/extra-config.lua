@@ -1,6 +1,5 @@
 --- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
 
-
 return --[[@type (LazyPluginSpec[])]]{
   --harper:ignore
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
@@ -73,7 +72,6 @@ return --[[@type (LazyPluginSpec[])]]{
     ---@module 'which-key'
     ---@param opts wk.Opts
     opts = function(_, opts)
-      ---@module 'which-key'
       ---@type wk.Spec[]
       local extra_keys = {
         { '<leader>bq', desc = 'Sort by' },
@@ -202,6 +200,7 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'folke/snacks.nvim',
+    ---@module 'snacks'
     ---@type snacks.Config
     opts = {
       explorer = {
