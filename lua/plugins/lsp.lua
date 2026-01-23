@@ -557,32 +557,12 @@ return --[[@type LazyPluginSpec]]{
         -- markdown_oxide
         markdown_oxide = {
           mason = false,
-          enabled = (function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local is_md = vim.bo[bufnr].filetype == 'markdown'
-            local is_modifiable = vim.bo[bufnr].modifiable
-
-            if is_modifiable and is_md then
-              return true -- Return true to enable
-            end
-
-            return false
-          end)()
+          enabled = true
         },
         -- marksman
         marksman = {
           mason = false,
-          enabled = (function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local is_md = vim.bo[bufnr].filetype == 'markdown'
-            local is_modifiable = vim.bo[bufnr].modifiable
-
-            if is_modifiable and is_md then
-              return true -- Return true to enable
-            end
-
-            return false
-          end)()
+          enabled = true
         },
         -- vtsls
         vtsls = {
