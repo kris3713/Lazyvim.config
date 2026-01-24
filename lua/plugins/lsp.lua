@@ -400,7 +400,6 @@ return --[[@type LazyPluginSpec]]{
             '.git'
           },
           ---@param client vim.lsp.Client
-          ---@param _ lsp.InitializeResult
           on_init = function(client, _)
             if client.workspace_folders then
               --- @diagnostic disable-next-line: need-check-nil
@@ -463,7 +462,6 @@ return --[[@type LazyPluginSpec]]{
                   'LazyVim',
                   'Snacks'
                 },
-
                 disable = {
                   'unnecessary-if'
                 },
@@ -476,10 +474,6 @@ return --[[@type LazyPluginSpec]]{
               codeAction = {
                 insertSpace = true
               },
-              -- signature = {
-              --   detailSignatureHelper = true
-              -- },
-
               strict = {
                 typeCall = true,
                 arrayIndex = true,
@@ -562,7 +556,9 @@ return --[[@type LazyPluginSpec]]{
             local is_md = vim.bo[bufnr].filetype == 'markdown'
             local is_modifiable = vim.bo[bufnr].modifiable
 
-            return (is_modifiable and is_md)
+            if not is_modifiable and not is_md then
+              return
+            end
           end
         },
         -- marksman
@@ -575,7 +571,9 @@ return --[[@type LazyPluginSpec]]{
             local is_mdx = vim.bo[bufnr].filetype == 'markdown.mdx'
             local is_modifiable = vim.bo[bufnr].modifiable
 
-            return (is_modifiable and (is_md or is_mdx))
+            if not is_modifiable and not (is_md or is_mdx) then
+              return
+            end
           end
         },
         -- vtsls
