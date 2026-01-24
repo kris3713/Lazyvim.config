@@ -96,19 +96,6 @@ return --[[@type (LazyPluginSpec[])]]{
     'folke/noice.nvim',---@module 'noice'
     ---@type NoiceConfig
     opts = {
-      routes = {
-        {
-          filter = {
-            event = 'lsp',
-            kind = 'progress',
-            cond = function(message)
-              local client = vim.tbl_get(message.opts, 'progress', 'client')
-              return client == 'markdown_oxide'
-            end
-          },
-          opts = { skip = true }
-        }
-      },
       lsp = {
         hover = { silent = true },
         message = { silent = true },
