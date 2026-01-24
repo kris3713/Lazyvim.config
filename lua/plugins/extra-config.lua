@@ -40,8 +40,7 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'mason-org/mason.nvim',
-    ---@module 'mason'
+    'mason-org/mason.nvim',---@module 'mason'
     ---@param opts MasonSettings | { ensure_installed: table }
     opts = function(_, opts)
       opts.registries = {
@@ -68,8 +67,7 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'folke/which-key.nvim',
-    ---@module 'which-key'
+    'folke/which-key.nvim',---@module 'which-key'
     ---@param opts wk.Opts
     opts = function(_, opts)
       ---@type wk.Spec[]
@@ -95,10 +93,22 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'folke/noice.nvim',
-    ---@module 'noice'
+    'folke/noice.nvim',---@module 'noice'
     ---@type NoiceConfig
     opts = {
+      routes = {
+        {
+          filter = {
+            event = 'lsp',
+            kind = 'progress',
+            cond = function(message)
+              local client = vim.tbl_get(message.opts, 'progress', 'client')
+              return client == 'markdown_oxide'
+            end
+          },
+          opts = { skip = true }
+        }
+      },
       lsp = {
         hover = { silent = true },
         message = { silent = true },
@@ -147,8 +157,7 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'akinsho/bufferline.nvim',
-    ---@module 'bufferline'
+    'akinsho/bufferline.nvim',---@module 'bufferline'
     ---@type bufferline.Config
     opts = {
       options = {
@@ -199,8 +208,7 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'folke/snacks.nvim',
-    ---@module 'snacks'
+    'folke/snacks.nvim',---@module 'snacks'
     ---@type snacks.Config
     opts = {
       explorer = {
@@ -442,8 +450,7 @@ return --[[@type (LazyPluginSpec[])]]{
           { name = 'buffer-lines' }
         }
       })
-    end,
-    ---@module 'cmp'
+    end,---@module 'cmp'
     ---@param opts cmp.Setup|cmp.ConfigSchema
     opts = function(_, opts)
       ---@type cmp.SourceConfig[]

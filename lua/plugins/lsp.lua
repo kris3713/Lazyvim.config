@@ -513,7 +513,6 @@ return --[[@type LazyPluginSpec]]{
           enabled = true,
           filetypes = (function()
             local filetypes = require('lspconfig.configs.harper_ls').default_config.filetypes
-
             local new_filetypes = {
               'astro',
               'vue',
@@ -546,20 +545,6 @@ return --[[@type LazyPluginSpec]]{
               }
             }
           }
-        },
-        -- markdown_oxide
-        markdown_oxide = {
-          mason = false,
-          enabled = true,
-          ---@param bufnr integer
-          on_attach = function(_, bufnr)
-            local is_md = vim.bo[bufnr].filetype == 'markdown'
-            local is_modifiable = vim.bo[bufnr].modifiable
-
-            if not is_modifiable and not is_md then
-              return
-            end
-          end
         },
         -- marksman
         marksman = {

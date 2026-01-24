@@ -219,8 +219,7 @@ return --[[@type (LazyPluginSpec[])]]{
     'zeioth/garbage-day.nvim',
     event = 'VeryLazy',
     opts = {
-      -- Put misbehaving lsp clients here
-      excluded_lsp_clients = { 'marksman', 'markdown_oxide' }
+      aggressive_mode = true
     }
   },
   {
@@ -271,8 +270,7 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {}
   },
   {
-    'nvimdev/lspsaga.nvim',
-    ---@module 'lspsaga'
+    'nvimdev/lspsaga.nvim',---@module 'lspsaga'
     ---@type LspsagaConfig
     opts = {
       ui = {
@@ -289,8 +287,7 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'mikavilpas/yazi.nvim',
-    event = 'VeryLazy',
-    ---@module 'yazi'
+    event = 'VeryLazy',---@module 'yazi'
     ---@type YaziConfig
     opts = {
       open_for_directories = true
@@ -309,8 +306,7 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'Bekaboo/dropbar.nvim',
-    lazy = false,
-    ---@module 'dropbar'
+    lazy = false,---@module 'dropbar'
     ---@type dropbar_configs_t
     opts = {
       menu = {
@@ -357,8 +353,7 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'zbirenbaum/neodim',
-    event = 'LspAttach',
-    --@module 'neodim'
+    event = 'LspAttach',---@module 'neodim'
     ---@type neodim.Options
     opts = {
       hide = {
@@ -370,7 +365,7 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'kevinhwang91/nvim-ufo',
-    dependencies = 'kevinhwang91/promise-async',
+    dependencies = 'kevinhwang91/promise-async',---@module 'ufo'
     ---@type UfoConfig
     opts = {
       provider_selector = function(_, _, _)
@@ -403,8 +398,7 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'linux-cultist/venv-selector.nvim',
     ft = 'python',
-    cmd = 'VenvSelect',
-    ---@module 'venv-selector'
+    cmd = 'VenvSelect',---@module 'venv-selector'
     ---@type venv-selector.Settings
     opts = {
       options = {
@@ -413,7 +407,12 @@ return --[[@type (LazyPluginSpec[])]]{
     },
     --  Call config for Python files and load the cached venv automatically
     keys = {
-      { '<leader>cv', function() vim.cmd('VenvSelect') end, desc = 'Select VirtualEnv', ft = 'python' }
+      {
+        '<leader>cv',
+        function() vim.cmd('VenvSelect') end,
+        desc = 'Select VirtualEnv',
+        ft = 'python'
+      }
     }
   },
   {
@@ -676,7 +675,7 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'rmagatti/auto-session',
-    lazy = false,
+    lazy = false,---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
       session_lens = {
