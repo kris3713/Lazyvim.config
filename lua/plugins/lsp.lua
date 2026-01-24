@@ -1,7 +1,7 @@
 ---@diagnostic disable: missing-fields, type-not-found, assign-type-mismatch
 
 -- MSBuild
-local msbuild = os.getenv('MSBUILD_LSP')
+-- local msbuild = os.getenv('MSBUILD_LSP')
 -- harper dictionary path
 local harperDictPath = os.getenv('HOME') .. '/MEGA/harperdict.txt'
 
@@ -415,7 +415,7 @@ return --[[@type LazyPluginSpec]]{
             end
 
             if client.config.settings then
-              --- @diagnostic disable-next-line: param-type-mismatch, assign-type-mismatch, generic-constraint-mismatch
+              --- @diagnostic disable-next-line: param-type-mismatch, assign-type-mismatch, generic-constraint-mismatch, undefined-field
               client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
                 -- Make the server aware of Neovim runtime files
                 workspace = {
@@ -533,7 +533,6 @@ return --[[@type LazyPluginSpec]]{
             }
 
             filetypes = vim.list_extend(filetypes, new_filetypes)
-
             table.sort(filetypes)
 
             return filetypes
@@ -557,12 +556,27 @@ return --[[@type LazyPluginSpec]]{
         -- markdown_oxide
         markdown_oxide = {
           mason = false,
-          enabled = true
+          enabled = true,
+          ---@param bufnr integer
+          on_attach = function(_, bufnr)
+            local is_md = vim.bo[bufnr].filetype == 'markdown'
+            local is_modifiable = vim.bo[bufnr].modifiable
+
+            return (is_modifiable and is_md)
+          end
         },
         -- marksman
         marksman = {
           mason = false,
-          enabled = true
+          enabled = true,
+          ---@param bufnr integer
+          on_attach = function(_, bufnr)
+            local is_md = vim.bo[bufnr].filetype == 'markdown'
+            local is_mdx = vim.bo[bufnr].filetype == 'markdown.mdx'
+            local is_modifiable = vim.bo[bufnr].modifiable
+
+            return (is_modifiable and (is_md or is_mdx))
+          end
         },
         -- vtsls
         vtsls = {
@@ -572,7 +586,6 @@ return --[[@type LazyPluginSpec]]{
             local filetypes = require('lspconfig.configs.vtsls').default_config.filetypes
 
             table.insert(filetypes, 'vue')
-
             table.sort(filetypes)
 
             return filetypes
