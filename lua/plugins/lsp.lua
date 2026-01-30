@@ -123,14 +123,15 @@ return --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true
         },
+        -- astro
         astro = {
           mason = false,
           enabled = true,
         },
-        -- gh_actions_ls
-        gh_actions_ls = {
+        -- dartls
+        dartls = {
           mason = false,
-          enabled = false
+          enabled = true
         },
         -- gradle_ls
         gradle_ls = {
@@ -734,6 +735,10 @@ return --[[@type LazyPluginSpec]]{
         },
         -- stylelint_lsp
         stylelint_lsp = {
+          enabled = false
+        },
+        -- gh_actions_ls
+        gh_actions_ls = {
           enabled = false
         },
       },
