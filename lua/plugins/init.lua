@@ -294,6 +294,11 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
+    'nvim-flutter/flutter-tools.nvim',
+    lazy = false,
+    opts = {}
+  },
+  {
     'ray-x/lsp_signature.nvim',
     event = 'InsertEnter',
     opts = {
