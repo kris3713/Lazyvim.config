@@ -56,6 +56,8 @@ return --[[@type (LazyPluginSpec[])]]{
         ---@param old_table table
         function(old_table)
           return not vim.tbl_contains({
+            'cmakelang',
+            'cmakelint',
             'stylua',
             'shellcheck',
             'shfmt',

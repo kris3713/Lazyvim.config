@@ -94,14 +94,22 @@ return --[[@type LazyPluginSpec]]{
             on_dir((util.root_pattern(systemd_unit_filetypes))(fname))
           end
         },
+        -- clangd
+        clangd = {
+          mason = false,
+          enabled = true
+        },
+        -- steep
         steep = {
           mason = false,
           enabled = true
         },
+        -- sorbet
         sorbet = {
           mason = false,
           enabled = true
         },
+        -- ruby-lsp
         ruby_lsp = {
           mason = false,
           enabled = true
