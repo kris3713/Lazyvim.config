@@ -69,16 +69,6 @@ vim.filetype.add {
 
 vim.treesitter.language.register('xml', { 'msbuild' })
 
--- `yaml.docker-compose`
-vim.filetype.add {
-  filename = {
-    ['docker-compose.yaml'] = 'yaml.docker-compose',
-    ['docker-compose.yml'] = 'yaml.docker-compose',
-    ['compose.yaml'] = 'yaml.docker-compose',
-    ['compose.yml'] = 'yaml.docker-compose'
-  }
-}
-
 -- `composer.lock`
 vim.filetype.add {
   filename = {

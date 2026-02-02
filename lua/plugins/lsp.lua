@@ -189,13 +189,8 @@ return --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true
         },
-        -- dockerls
+        -- docker lsp nodejs
         dockerls = {
-          mason = false,
-          enabled = true
-        },
-        -- docker_compose_language_service
-        docker_compose_language_service = {
           mason = false,
           enabled = true
         },
