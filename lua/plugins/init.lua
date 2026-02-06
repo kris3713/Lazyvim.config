@@ -204,8 +204,13 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {}
   },
   {
-    'JoosepAlviste/nvim-ts-context-commentstring',
+    'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
+    ---@type ts_context_commentstring.Config
     opts = {
+      ---@type ts_context_commentstring.LanguagesConfig?
+      languages = {
+        systemd = '# %s'
+      },
       enable_autocmd = false
     }
   },

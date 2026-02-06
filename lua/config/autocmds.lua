@@ -57,6 +57,7 @@ create_autocmd('LspTokenUpdate', {
 })
 
 
+--- @diagnostic disable-next-line: assign-type-mismatch
 -- Auto-start for nvim-tree
 create_autocmd('VimEnter', {
   group = create_augroup('autostart_nvim_tree'),
