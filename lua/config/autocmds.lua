@@ -40,7 +40,7 @@ create_autocmd('VimLeave', {
 create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
   desc = 'Set semantic highlighting for LSP tokens',
-  callback = function()
+  callback = function(_)
     set_hl(0, '@lsp.type.class', { fg = '#eed49f' })
     set_hl(0, '@lsp.type.typeParameter', { fg = '#ed9687', italic = true })
     -- set_hl(0, '@lsp.type.method', { fg = '#8aadf4' })
@@ -63,15 +63,15 @@ create_autocmd('VimEnter', {
   group = create_augroup('autostart_nvim_tree'),
   desc = 'Auto-start nvim-tree with directory',
   once = true,
-  ---@param data vim.api.create_autocmd.callback.args
-  callback = function(data)
+  ---@param args vim.api.create_autocmd.callback.args
+  callback = function(args)
     -- Check if the `data` parameter is a table
-    if type(data) ~= 'table' then return end
+    if type(args) ~= 'table' then return end
     -- buffer is a directory
-    if not (vim.fn.isdirectory(data.file) == 1) then return end
+    if not (vim.fn.isdirectory(args.file) == 1) then return end
 
     -- change to the directory
-    vim.cmd.cd(data.file)
+    vim.cmd.cd(args.file)
     -- open the tree
     require('nvim-tree.api').tree.open()
   end
@@ -83,8 +83,8 @@ create_autocmd('BufReadPost', {
   group = create_augroup('guess_indent_activate'),
   desc = 'Activates the cmd "GuessIndent" on BufReadPost event',
   pattern = '*',
-  callback = function()
-    local bufnr = vim.api.nvim_get_current_buf()
+  callback = function(args)
+    local bufnr = args.buf
     ---@diagnostic disable-next-line: param-type-mismatch
     require('guess-indent').set_from_buffer(bufnr, true, true)
   end
@@ -94,10 +94,10 @@ create_autocmd('BufReadPost', {
 create_autocmd('BufEnter', {
   group = create_augroup('lock_buffer_to_window'),
   desc = 'Pin the buffer to any window that is fixed width or height',
-  callback = function(args)
+  callback = function(_)
     local stickybuf = require('stickybuf')
 
-    -- local bufnr = vim.api.nvim_get_current_buf()
+    -- local bufnr = args.buf
     local winid = vim.api.nvim_get_current_win()
     if not stickybuf.is_pinned(winid) and (vim.wo.winfixwidth or vim.wo.winfixheight) then
       stickybuf.pin(winid, {})
@@ -118,7 +118,7 @@ create_autocmd('RecordingEnter', {
 
 create_autocmd('RecordingLeave', {
   group = create_augroup('show_macro_recording_on_lualine'),
-  callback = function()
+  callback = function(_)
     -- Small delay to allow vim.fn.reg_recording() to clear
     --- @diagnostic disable-next-line: undefined-field
     local timer = vim.uv.new_timer()
@@ -128,5 +128,15 @@ create_autocmd('RecordingLeave', {
         place = { 'statusline' }
       }
     end))
+  end
+})
+
+-- Ensure comments in Systemd files use '#'
+create_autocmd({ "BufEnter", "BufRead" }, {
+  callback = function(args)
+    local bufnr = args.buf
+    if vim.bo[bufnr].filetype == 'systemd' then
+      vim.bo[bufnr].commentstring = '# %s'
+    end
   end
 })

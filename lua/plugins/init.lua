@@ -1,4 +1,5 @@
---- @diagnostic disable: missing-fields, type-not-found
+--- @diagnostic disable: missing-fields, type-not-found, annotation-usage-error
+---@module 'lazy'
 
 return --[[@type (LazyPluginSpec[])]]{
   -- Plugins with configs go here
@@ -205,14 +206,21 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
-    ---@type ts_context_commentstring.Config
+    ---@type ts_context_commentstring.Config?
     opts = {
-      ---@type ts_context_commentstring.LanguagesConfig?
-      languages = {
-        systemd = '# %s'
-      },
       enable_autocmd = false
     }
+  },
+  {
+    'numToStr/Comment.nvim',
+    -- Has potential for a complex configuration
+    config = function()
+      local c = require('ts_context_commentstring.integrations.comment_nvim')
+      --- @diagnostic disable-next-line: param-type-mismatch
+      require('Comment').setup {
+        pre_hook = c.create_pre_hook()
+      }
+    end
   },
   {
     'luckasRanarison/tailwind-tools.nvim',
@@ -325,17 +333,6 @@ return --[[@type (LazyPluginSpec[])]]{
         }
       }
     }
-  },
-  {
-    'numToStr/Comment.nvim',
-    -- Has potential for a complex configuration
-    config = function()
-      local c = require('ts_context_commentstring.integrations.comment_nvim')
-      --- @diagnostic disable-next-line: param-type-mismatch
-      require('Comment').setup {
-        pre_hook = c.create_pre_hook()
-      }
-    end
   },
   {
     'gbprod/phpactor.nvim',
