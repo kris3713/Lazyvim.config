@@ -578,7 +578,6 @@ return --[[@type (LazyPluginSpec[])]]{
         exts.diagnostics.shellcheck,
         diagnostics.statix,
         diagnostics.stylelint,
-        diagnostics.yamllint,
         formatting.alejandra,
         formatting.biome.with {
           extra_filetypes = { 'astro' }
