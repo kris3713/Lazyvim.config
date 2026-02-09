@@ -555,6 +555,7 @@ return --[[@type (LazyPluginSpec[])]]{
             'text',
             'nix',
             'lisp',
+            'ps1',
             ''
           }
         },
