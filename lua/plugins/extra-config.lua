@@ -61,6 +61,7 @@ return --[[@type (LazyPluginSpec[])]]{
             'stylua',
             'shellcheck',
             'shfmt',
+            'sqlfluff',
             'markdown-toc',
             'markdownlint-cli2'
           }, old_table)
