@@ -30,7 +30,7 @@ local function enable_lua_ls(lsp_name)
   local neoconf_json = nil
   local success, data = pcall(vim.json.decode, json_content, { object = true })
   if success then
-    ---@cast neoconf_json NeoConf_Json
+    ---@cast neoconf_json NeoConf_Json?
     neoconf_json = data
   end
 
