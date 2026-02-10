@@ -1,4 +1,50 @@
----@diagnostic disable: missing-fields, type-not-found, assign-type-mismatch
+---@diagnostic disable: missing-fields, type-not-found, assign-type-mismatch, generic-constraint-mismatch, param-type-mismatch
+
+---Enable either lua_ls or emmylua_ls
+---@param lsp_name 'lua_ls' | 'emmylua_ls'
+---@return boolean
+local function enable_lua_ls(lsp_name)
+  local script_dir = vim.fn.expand('<sfile>:p:h')
+  local filepath = script_dir .. '/.neoconf.json'
+  local file = io.open(filepath, 'r')
+
+  local json_content = nil
+  if file then
+    json_content = file:read('*a')
+    file:close()
+  else
+    print('Failed to open file!')
+    print(filepath)
+    return false
+  end
+
+  ---@alias is_enabled { enabled: boolean }
+
+  ---@class NeoConf_Json
+  ---@private
+  ---@field neoconf { plugins: {
+  ---   lua_ls: is_enabled,
+  ---   emmylua_ls: is_enabled
+  --- }}
+
+  local neoconf_json = nil
+  local success, data = pcall(vim.json.decode, json_content, { object = true })
+  if success then
+    ---@cast neoconf_json NeoConf_Json
+    neoconf_json = data
+  end
+
+  if neoconf_json then
+    local neoconf_plugins = neoconf_json.neoconf.plugins
+    if neoconf_plugins[lsp_name] then
+      ---@type is_enabled
+      local name = neoconf_plugins[lsp_name]
+      return name.enabled
+    end
+  end
+
+  return false
+end
 
 -- MSBuild
 -- local msbuild = os.getenv('MSBUILD_LSP')
@@ -275,9 +321,15 @@ return --[[@type LazyPluginSpec]]{
         },
         -- powershell_es
         powershell_es = {
+          mason = false,
           enabled = true,
+          cmd = { 'powershell-editor-services' },
           settings = {
-            bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services'
+            bundle_path = (vim.fn.system {
+              'nix', 'eval',
+              'nixpkgs#powershell-editor-services.outPath',
+              '--raw'
+            } .. 'lib/powershell-editor-services/PowerShellEditorServices')
           }
         },
         -- html
@@ -286,6 +338,7 @@ return --[[@type LazyPluginSpec]]{
           enabled = false,
           capabilities = capabilities()
         },
+        -- superhtml
         superhtml = {
           mason = false,
           enabled = true
@@ -314,7 +367,6 @@ return --[[@type LazyPluginSpec]]{
           mason = false,
           filetypes = (function()
             local filetypes = require('lspconfig.configs.cssmodules_ls').default_config.filetypes
-
             local new_filetypes = {
               'astro',
               'vue',
@@ -322,7 +374,6 @@ return --[[@type LazyPluginSpec]]{
             }
 
             filetypes = vim.list_extend(filetypes, new_filetypes)
-
             table.sort(filetypes)
 
             return filetypes
@@ -333,15 +384,15 @@ return --[[@type LazyPluginSpec]]{
           enabled = true,
           mason = false,
           capabilities = capabilities(),
-          -- lazy-load schemastore when needed
+          -- lazy-load schemaStore when needed
           before_init = function(_, new_config)
-            --- @diagnostic disable-next-line: need-check-nil
-            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(
-              --- @diagnostic disable-next-line: need-check-nil
-              new_config.settings.json.schemas,
-              require("schemastore").json.schemas()
-            )
+            local schemas = require("schemastore").json.schemas()
+
+            if new_config.settings then
+              ---@cast new_config.settings.json lsp.LSPObject
+              new_config.settings.json.schemas = vim.list_extend(
+                new_config.settings.json.schemas or {}, schemas)
+            end
           end,
           settings = {
             json = {
@@ -366,15 +417,13 @@ return --[[@type LazyPluginSpec]]{
           },
           -- lazy-load schemastore when needed
           before_init = function(_, new_config)
-            --- @diagnostic disable-next-line: need-check-nil, assign-type-mismatch
-            new_config.settings.yaml.schemas = vim.tbl_deep_extend(
-              'force',
-              --- @diagnostic disable-next-line: need-check-nil
-              --- @diagnostic disable-next-line: generic-constraint-mismatch
-              new_config.settings.yaml.schemas or {},
-              --- @diagnostic disable-next-line: param-type-mismatch
-              require("schemastore").yaml.schemas()
-            )
+            local schemas = require("schemastore").yaml.schemas()
+
+            if new_config.settings then
+              ---@cast new_config.settings.yaml lsp.LSPObject
+              new_config.settings.yaml.schemas = vim.tbl_deep_extend('force',
+                new_config.settings.yaml.schemas or {}, schemas)
+            end
           end,
           settings = {
             redhat = { telemetry = { enabled = false } },
@@ -396,7 +445,7 @@ return --[[@type LazyPluginSpec]]{
         },
         -- emmylua_ls
         emmylua_ls = {
-          enabled = true,
+          enabled = enable_lua_ls('emmylua_ls'),
           mason = false,
           root_markers = {
             '.luarc.json',
@@ -410,21 +459,22 @@ return --[[@type LazyPluginSpec]]{
           },
           ---@param client vim.lsp.Client
           on_init = function(client, _)
-            if client.workspace_folders then
-              --- @diagnostic disable-next-line: need-check-nil
+            local uv = vim.uv
+
+            if client.workspace_folders and client.workspace_folders[1] then
               local path = client.workspace_folders[1].name
-              if
-                path ~= vim.fn.stdpath('config')
-                --- @diagnostic disable-next-line: undefined-field
-                and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-              then
+              --- @diagnostic disable: undefined-field
+              local exists = (uv.fs_stat(path .. '/.luarc.json') or
+                uv.fs_stat(path .. '/.luarc.jsonc'))
+              if path ~= vim.fn.stdpath('config') and exists then
                 return
               end
+              --- @diagnostic enable: undefined-field
             end
 
             if client.config.settings then
-              --- @diagnostic disable-next-line: param-type-mismatch, assign-type-mismatch, generic-constraint-mismatch, undefined-field
-              client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+              --- @cast client.config.settings.Lua lsp.LSPObject
+              client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua or {}, {
                 -- Make the server aware of Neovim runtime files
                 workspace = {
                   library = {
@@ -439,7 +489,7 @@ return --[[@type LazyPluginSpec]]{
                   --   vim.api.nvim_get_runtime_file('', true),
                   -- }
                 }
-              })
+              } --[[@as lsp.LSPObject]])
             end
           end,
           settings = {
@@ -493,7 +543,7 @@ return --[[@type LazyPluginSpec]]{
         },
         -- lua_ls
         lua_ls = {
-          enabled = false,
+          enabled = enable_lua_ls('lua_ls'),
           mason = false,
           settings = {
             Lua = {
@@ -621,11 +671,10 @@ return --[[@type LazyPluginSpec]]{
               }
             }
 
-            --- @diagnostic disable-next-line: param-type-mismatch, generic-constraint-mismatch
-            client.config.settings = vim.tbl_deep_extend('force', client.config.settings or {}, --[[@as lsp.LSPObject?]] {
+            client.config.settings = vim.tbl_deep_extend('force', client.config.settings or {}, {
               typescript = options,
               javascript = options
-            })
+            } --[[@as lsp.LSPObject]])
           end,
           settings = {
             complete_function_calls = true,
@@ -636,8 +685,7 @@ return --[[@type LazyPluginSpec]]{
                   {
                     name = '@astrojs/ts-plugin',
                     location = vim.fn.system {
-                      'sh',
-                      '-c',
+                      'sh', '-c',
                       'pnpm list -g --json --long @astrojs/ts-plugin | '
                       .. "jq '.[0].dependencies.\"@astrojs/ts-plugin\".path' -r"
                     },
@@ -646,8 +694,7 @@ return --[[@type LazyPluginSpec]]{
                   {
                     name = '@vue/typescript-plugin',
                     location = vim.fn.system {
-                      'sh',
-                      '-c',
+                      'sh', '-c',
                       'pnpm list -g --json --long @vue/typescript-plugin | '
                       .. "jq '.[0].dependencies.\"@vue/typescript-plugin\".path' -r"
                     },
@@ -658,8 +705,7 @@ return --[[@type LazyPluginSpec]]{
                   {
                     name = 'typescript-svelte-plugin',
                     location = vim.fn.system {
-                      'sh',
-                      '-c',
+                      'sh', '-c',
                       'pnpm list -g --json --long typescript-svelte-plugin | '
                       .. "jq '.[0].dependencies.\"typescript-svelte-plugin\".path' -r"
                     },
@@ -813,7 +859,7 @@ return --[[@type LazyPluginSpec]]{
 
     -- Special config for '*'
     if opts.servers['*'] then
-      ---@cast opts.servers table<string,(lspClientOpts|vim.lsp.Client)>
+      ---@cast opts.servers table<string, (lspClientOpts|vim.lsp.Client)>
       opts.servers['*'].keys = vim.list_extend(opts.servers['*'].keys or {}, all_keymaps)
     end
   end

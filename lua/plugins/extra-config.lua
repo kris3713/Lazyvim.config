@@ -58,12 +58,12 @@ return --[[@type (LazyPluginSpec[])]]{
           return not vim.tbl_contains({
             'cmakelang',
             'cmakelint',
+            'markdown-toc',
+            'markdownlint-cli2',
             'stylua',
             'shellcheck',
             'shfmt',
-            'sqlfluff',
-            'markdown-toc',
-            'markdownlint-cli2'
+            'sqlfluff'
           }, old_table)
         end,
       opts.ensure_installed or {})
