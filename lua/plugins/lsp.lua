@@ -308,11 +308,6 @@ return --[[@type LazyPluginSpec]]{
         --   enabled = msbuild ~= nil and msbuild ~= '',
         --   cmd = { 'dotnet', msbuild .. '/MSBuildProjectTools.LanguageServer.Host.dll' }
         -- },
-        -- csharp_ls
-        csharp_ls = {
-          enabled = true,
-          settings = { AutomaticWorkspaceInit = true }
-        },
         -- cssls
         cssls = {
           mason = false,
