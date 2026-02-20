@@ -468,7 +468,7 @@ return --[[@type LazyPluginSpec]]{
             end
 
             if client.config.settings then
-              --- @cast client.config.settings.Lua lsp.LSPObject
+              ---@cast client.config.settings.Lua lsp.LSPObject
               client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua or {}, {
                 -- Make the server aware of Neovim runtime files
                 workspace = {
