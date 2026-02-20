@@ -263,7 +263,7 @@ return --[[@type LazyPluginSpec]]{
         -- basedpyright
         basedpyright = { -- medium speed and perfect
           mason = false,
-          enabled = false
+          enabled = true
         },
         -- jedi_language_server
         jedi_language_server = { -- slow, but perfect
@@ -273,7 +273,7 @@ return --[[@type LazyPluginSpec]]{
         -- pyrefly
         pyrefly = { -- fast and perfect
           mason = false,
-          enabled = true
+          enabled = false
         },
         ty = { -- Still in beta, but has most of the expected features from a python language server
           mason = false,
