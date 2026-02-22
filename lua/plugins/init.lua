@@ -559,16 +559,6 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'LunarVim/bigfile.nvim',
     config = function()
-      local supermaven = {
-        name = 'supermaven',
-        opts = {
-          defer = false
-        },
-        disable = function()
-          vim.cmd('SupermavenStop')
-        end
-      }
-
       --- @diagnostic disable-next-line: param-type-mismatch
       require('bigfile').setup {
         filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
@@ -579,7 +569,6 @@ return --[[@type (LazyPluginSpec[])]]{
           'lsp',
           'treesitter',
           ---@diagnostic disable-next-line: assign-type-mismatch
-          supermaven,
           'syntax',
           'matchparen',
           'vimopts',
@@ -618,7 +607,8 @@ return --[[@type (LazyPluginSpec[])]]{
 
           local function edit_or_open()
             local node = api.tree.get_node_under_cursor()
-            if node.nodes ~= nil then
+            --- @diagnostic disable-next-line: undefined-field
+            if node and node.nodes ~= nil then
               -- expand or collapse folder
               api.node.open.edit()
             else
@@ -634,7 +624,8 @@ return --[[@type (LazyPluginSpec[])]]{
           -- open as vsplit on current node
           local function vsplit_preview()
             local node = api.tree.get_node_under_cursor()
-            if node.nodes ~= nil then
+            --- @diagnostic disable-next-line: undefined-field
+            if node and node.nodes ~= nil then
               -- expand or collapse folder
               api.node.open.edit()
             else
