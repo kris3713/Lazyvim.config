@@ -153,7 +153,7 @@ return --[[@type LazyPluginSpec]]{
         -- sorbet
         sorbet = {
           mason = false,
-          enabled = true
+          enabled = false
         },
         -- ruby-lsp
         ruby_lsp = {
