@@ -198,7 +198,7 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'folke/snacks.nvim',---@module 'snacks'
+    'folke/snacks.nvim', ---@module 'snacks'
     ---@type snacks.Config
     opts = {
       explorer = {
@@ -223,6 +223,7 @@ return --[[@type (LazyPluginSpec[])]]{
         style = 'fancy'
       }
     },
+    version = '*',
     keys = {
       { '<leader>S', false }, -- Disables Scratchpad keymap
       { '<C-/>', false, mode = 'i' } -- Disables Snacks terminal keymap

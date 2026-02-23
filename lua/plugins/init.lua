@@ -228,13 +228,13 @@ return --[[@type (LazyPluginSpec[])]]{
     build = function() vim.cmd('UpdateRemotePlugins') end,
     opts = {}
   },
-  {
-    'zeioth/garbage-day.nvim',
-    event = 'VeryLazy',
-    opts = {
-      aggressive_mode = true
-    }
-  },
+  -- {
+  --   'zeioth/garbage-day.nvim',
+  --   event = 'VeryLazy',
+  --   opts = {
+  --     aggressive_mode = true
+  --   }
+  -- },
   {
     'Wansmer/treesj',
     opts = {}
@@ -513,7 +513,9 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'kylechui/nvim-surround',
-    event = 'VeryLazy',
+    version = '3.1.8',
+    event = 'VeryLazy', ---@module 'nvim-surround'
+    ---@type
     opts = {
       keymaps = {
         insert = '<Nop>',
