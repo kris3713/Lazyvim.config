@@ -513,9 +513,8 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'kylechui/nvim-surround',
-    version = '3.1.8',
-    event = 'VeryLazy', ---@module 'nvim-surround'
-    ---@type
+    version = '3.1.8', -- TODO: Migrate to version 4.x.x
+    event = 'VeryLazy',
     opts = {
       keymaps = {
         insert = '<Nop>',

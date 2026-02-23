@@ -159,12 +159,12 @@ return --[[@type LazyPluginSpec]]{
         ruby_lsp = {
           mason = false,
           enabled = true,
-          filetypes = 'erb'
+          -- filetypes = 'erb'
         },
         -- solargraph
         solargraph = {
           mason = false,
-          enabled = true
+          enabled = false
         },
         herb_ls = {
           mason = false,
