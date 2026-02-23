@@ -573,7 +573,7 @@ return --[[@type (LazyPluginSpec[])]]{
         diagnostics.markdownlint_cli2,
         diagnostics.pydoclint,
         diagnostics.rpmspec,
-        diagnostics.rubocop,
+        -- diagnostics.rubocop,
         exts.diagnostics.ruff,
         diagnostics.todo_comments,
         diagnostics.trail_space,
