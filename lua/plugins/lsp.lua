@@ -153,7 +153,13 @@ return --[[@type LazyPluginSpec]]{
         -- sorbet
         sorbet = {
           mason = false,
-          enabled = true
+          enabled = true,
+          cmd = {
+            'srb', 'tc', '--lsp'
+          },
+          init_options = {
+            highlightUntyped = true
+          }
         },
         -- ruby-lsp
         ruby_lsp = {
