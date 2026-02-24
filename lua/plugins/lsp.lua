@@ -148,7 +148,7 @@ return --[[@type LazyPluginSpec]]{
         -- steep
         steep = {
           mason = false,
-          enabled = true
+          enabled = false
         },
         -- sorbet
         sorbet = {
