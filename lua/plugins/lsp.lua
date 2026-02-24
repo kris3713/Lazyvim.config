@@ -154,9 +154,6 @@ return --[[@type LazyPluginSpec]]{
         sorbet = {
           mason = false,
           enabled = true,
-          cmd = {
-            'srb', 'tc', '--lsp'
-          },
           init_options = {
             highlightUntyped = true
           }
