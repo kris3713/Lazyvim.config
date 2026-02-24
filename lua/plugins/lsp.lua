@@ -154,6 +154,13 @@ return --[[@type LazyPluginSpec]]{
         sorbet = {
           mason = false,
           enabled = true,
+          cmd = (function()
+            local cmd = require('lspconfig.configs.sorbet').default_config.cmd
+            local additional_args = { '--disable-watchman' }
+
+            cmd = vim.list_extend(cmd, additional_args)
+            return cmd
+          end)(),
           init_options = {
             highlightUntyped = true
           }
@@ -861,9 +868,9 @@ return --[[@type LazyPluginSpec]]{
     }
 
     -- Special config for '*'
-    if opts.servers['*'] then
+    if (opts.servers['*']) then
       ---@cast opts.servers table<string, (lspClientOpts|vim.lsp.Client)>
-      opts.servers['*'].keys = vim.list_extend(opts.servers['*'].keys or {}, all_keymaps)
+      (opts.servers['*']).keys = vim.list_extend((opts.servers['*']).keys or {}, all_keymaps)
     end
   end
 }
