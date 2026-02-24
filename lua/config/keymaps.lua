@@ -395,3 +395,27 @@ end
 
 -- trim.nvim
 vim_keymap.set('n', '<leader>T', function() vim.cmd('Trim') end, opts('Trim all trailing whitespaces and lines'))
+
+-- nvim-surround
+do
+  -- Normal mode
+  vim_keymap.set('n', 'ys', '<Plug>(nvim-surround-normal)', opts('Add surrounding pair around motion'))
+  vim_keymap.set('n', 'yss', '<Plug>(nvim-surround-normal-cur)', opts('Add surrounding pair around current line'))
+  vim_keymap.set('n', 'yS', '<Plug>(nvim-surround-normal-line)', opts('Add surrounding pair around motion on new lines'))
+  vim_keymap.set('n', 'ySS', '<Plug>(nvim-surround-normal-cur-line)', opts('Add surrounding pair around current line on new lines'))
+
+  -- Visual mode
+  vim_keymap.set('x', 'S', '<Plug>(nvim-surround-visual)', opts('Add surrounding pair around visual selection'))
+  vim_keymap.set('x', 'gS', '<Plug>(nvim-surround-visual-line)', opts('Add surrounding pair around visual selection on new lines'))
+
+  -- Delete mode
+  vim_keymap.set('n', 'ds', '<Plug>(nvim-surround-delete)', opts('Delete surrounding pair'))
+
+  -- Change mode
+  vim_keymap.set('n', 'cs', '<Plug>(nvim-surround-change)', opts('Change surrounding pair'))
+  vim_keymap.set('n', 'cS', '<Plug>(nvim-surround-change-line)', opts('Change surrounding pair putting replacements on new lines'))
+
+  -- Insert mode
+  vim_keymap.set('i', '<C-g>s', '<Plug>(nvim-surround-insert)', opts('Add surrounding pair around cursor (insert mode)'))
+  vim_keymap.set('i', '<C-g>S', '<Plug>(nvim-surround-insert-line)', opts('Add surrounding pair around cursor on new lines (insert mode)'))
+end

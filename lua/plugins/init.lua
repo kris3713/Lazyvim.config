@@ -513,22 +513,10 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'kylechui/nvim-surround',
-    version = '3.1.8', -- TODO: Migrate to version 4.x.x
+    version = '*',
     event = 'VeryLazy',
     opts = {
-      keymaps = {
-        insert = '<Nop>',
-        insert_line = '<Nop>',
-        normal = 'gss',
-        normal_cur = 'gss',
-        normal_line = 'gsS',
-        normal_cur_line = 'gsSs',
-        visual = 'gss',
-        visual_line = 'gsS',
-        delete = 'gsd',
-        change = 'gsc',
-        change_line = 'gsC'
-      }
+      no_default_keymaps = true
     }
   },
   {
