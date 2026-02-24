@@ -153,13 +153,12 @@ return --[[@type LazyPluginSpec]]{
         -- sorbet
         sorbet = {
           mason = false,
-          enabled = false
+          enabled = true
         },
         -- ruby-lsp
         ruby_lsp = {
           mason = false,
-          enabled = true,
-          -- filetypes = 'erb'
+          enabled = true
         },
         -- solargraph
         solargraph = {
