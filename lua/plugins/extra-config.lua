@@ -18,17 +18,7 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    cmd = 'LazyDev',
-    dependencies = {
-      {
-        'DrKJeff16/wezterm-types',
-        lazy = true,
-        version = false
-      }
-    },
-    ---@module 'lazydev'
+    'folke/lazydev.nvim',---@module 'lazydev'
     ---@param opts lazydev.Config
     opts = function(_, opts)
       ---@type lazydev.Library.spec[]
@@ -37,7 +27,16 @@ return --[[@type (LazyPluginSpec[])]]{
       }
 
       opts.library = vim.tbl_deep_extend('force', opts.library or {}, extra)
-    end
+    end,
+    ft = 'lua',
+    cmd = 'LazyDev',
+    dependencies = {
+      {
+        'DrKJeff16/wezterm-types',
+        lazy = true,
+        version = false
+      }
+    }
   },
   {
     'mason-org/mason.nvim',---@module 'mason'
