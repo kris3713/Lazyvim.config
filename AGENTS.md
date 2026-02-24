@@ -25,24 +25,27 @@ code:
 ### Formatting
 
 **stylua** - Lua code formatter
+
 ```bash
 stylua lua/
 stylua --check lua/  # Check without fixing
 ```
 
 Configuration in `stylua.toml`:
+
 - Indent: 2 spaces
 - Column width: 120
 - Quote style: Force single quotes
 
 ### Linting / Type Checking
 
-**lua-language-server** (emmylua_ls or lua_ls)
+**emmylua_ls** (or lua_ls)
 - Integrated via Neovim LSP
 - Provides diagnostics and type checking
 - Configured in `lua/plugins/lsp.lua`
 
 **Neovim built-in diagnostics**
+
 ```bash
 nvim --headless -c "lua vim.diagnostic.enable()" -c "qa" .
 ```
@@ -50,12 +53,16 @@ nvim --headless -c "lua vim.diagnostic.enable()" -c "qa" .
 ### EditorConfig
 
 The project uses EditorConfig (`.editorconfig`):
+
 - UTF-8 charset
 - LF line endings
 - Trim trailing whitespace
 - 2-space indentation
 
 ## Code Style Guidelines
+
+Follow the same structure as the formatting guide but
+do not leave any unnecessary trailing commas.
 
 ### General Structure
 
@@ -76,6 +83,7 @@ return --[[@type LazyPluginSpec]]{
 - Use `vim.*` for Neovim built-ins
 - Group imports at the top of files or in lazy loading blocks
 - Example:
+
   ```lua
   local api = require('nvim-tree.api')
   local vim_keymap = vim.keymap
