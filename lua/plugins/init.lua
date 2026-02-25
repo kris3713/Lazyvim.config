@@ -514,10 +514,7 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'kylechui/nvim-surround',
     version = '*',
-    event = 'VeryLazy',
-    opts = {
-      no_default_keymaps = true
-    }
+    event = 'VeryLazy'
   },
   {
     'aznhe21/actions-preview.nvim',
