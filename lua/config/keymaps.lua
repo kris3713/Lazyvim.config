@@ -25,9 +25,9 @@ local vim_keymap = vim.keymap
 --- @diagnostic disable-next-line: undefined-field
 -- Neovide options
 if vim.g.neovide then
-  ---@type number
   vim.g.neovide_scale_factor = 1.0
 
+  ---@type vim.keymap.set.Opts
   local other_opts = { nowait = false, noremap = false }
 
   --- Set zoom function for Neovide
@@ -126,7 +126,7 @@ end
 
 -- actions-preview.nvim
 do
-  function ap__code_actions()
+  local function ap__code_actions()
     local ap = require('actions-preview')
     ap.code_actions {}
   end
@@ -137,7 +137,7 @@ end
 
 -- neogen
 do
-  function neogen_generate()
+  local function neogen_generate()
     local neogen = require('neogen')
     neogen.generate {}
   end
@@ -187,14 +187,19 @@ do
   local function open_terminal()
     local tt = require('toggleterm')
     local terminals = require('toggleterm.terminal').get_all()
-    if #terminals == 0 then tt.new(nil, LazyVim.root(), 'horizontal')
-    else tt.toggle_all() end
+    if #terminals == 0 then
+      tt.new(nil, LazyVim.root(), 'horizontal')
+    else
+      tt.toggle_all()
+    end
   end
 
   local function create_terminal()
     local tt = require('toggleterm')
     local terminals = require('toggleterm.terminal').get_all()
-    if #terminals ~= 0 then tt.new(nil, LazyVim.root(), 'horizontal') end
+    if #terminals ~= 0 then
+      tt.new(nil, LazyVim.root(), 'horizontal')
+    end
   end
 
   local function toggle_all_terminals()

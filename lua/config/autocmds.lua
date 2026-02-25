@@ -30,7 +30,7 @@ create_autocmd('VimLeave', {
 create_autocmd('VimLeave', {
   group = create_augroup('close_all_lsp_servers_on_quit'),
   desc = 'Close all lsp servers on qutting Neovim',
-  callback = function()
+  callback = function(_)
     vim.lsp.stop_client(vim.lsp.get_clients())
   end
 })
@@ -63,7 +63,6 @@ create_autocmd('VimEnter', {
   group = create_augroup('autostart_nvim_tree'),
   desc = 'Auto-start nvim-tree with directory',
   once = true,
-  ---@param args vim.api.create_autocmd.callback.args
   callback = function(args)
     -- Check if the `data` parameter is a table
     if type(args) ~= 'table' then return end
@@ -108,7 +107,7 @@ create_autocmd('BufEnter', {
 
 create_autocmd('RecordingEnter', {
   group = create_augroup('show_macro_recording_on_lualine'),
-  callback = function()
+  callback = function(_)
     --- @diagnostic disable-next-line: missing-fields, param-type-mismatch
     require('lualine').refresh {
       place = { 'statusline' }
