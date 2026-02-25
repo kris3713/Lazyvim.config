@@ -1,4 +1,4 @@
---- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
+--- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter, type-not-found
 
 return --[[@type (LazyPluginSpec[])]]{
   --harper:ignore
@@ -74,7 +74,7 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = function(_, opts)
       ---@type wk.Spec[]
       local extra_keys = {
-        { '<leader>bq', desc = 'Sort by' },
+        { '<leader>bq', desc = 'Sort by', mode = 'n' },
         (function()
           local bufnr = vim.api.nvim_get_current_buf()
           local wk_mapping = {}
@@ -86,6 +86,8 @@ return --[[@type (LazyPluginSpec[])]]{
             ---@cast wk_mapping wk.Spec[]
             wk_mapping = { 'gO', desc = 'Open document symbols' }
           end
+
+          table.insert(wk_mapping, { mode = 'n' })
 
           return wk_mapping
         end)()
