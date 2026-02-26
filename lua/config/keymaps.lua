@@ -38,8 +38,8 @@ if vim.g.neovide then
 
   -- Using a font with ligatures can make the text appear confusing to some people, like myself.
   -- That is why I am using the concatenation operator (..) to make the keymaps more readable.
-  vim_keymap.set(all_modes, '<C-=' .. '>', function() zoom(1.25) end, other_opts)
-  vim_keymap.set(all_modes, '<C--' .. '>', function() zoom(1/1.25) end, other_opts)
+  vim_keymap.set(all_modes, '<C>', function() zoom(1.25) end, other_opts)
+  vim_keymap.set(all_modes, '<C>', function() zoom(1/1.25) end, other_opts)
 end
 
 
@@ -414,31 +414,29 @@ do
     vim.g[global] = true
   end
 
-  -- Delete default keymaps
+  -- Delete default (annoying) keymaps
   for _, keymap in ipairs { 'ys', 'yss', 'yS', 'ySS', 'ds', 'cs', 'cS' } do
     vim_keymap.del('n', keymap)
   end
 
-  local nvim_surround = '<Plug>(nvim-surround'
-
   -- Normal mode
-  vim_keymap.set('n', 'gs', nvim_surround .. '-normal)', opts('Add surrounding pair around motion'))
-  vim_keymap.set('n', 'gss', nvim_surround .. '-normal-cur)', opts('Add surrounding pair around current line'))
-  vim_keymap.set('n', 'gS', nvim_surround .. '-normal-line)', opts('Add surrounding pair around motion on new lines'))
-  vim_keymap.set('n', 'gSS', nvim_surround .. '-normal-cur-line)', opts('Add surrounding pair around current line on new lines'))
+  vim_keymap.set('n', 'gss', '<Plug>(nvim-surround-normal)', opts('Add surrounding pair around motion'))
+  vim_keymap.set('n', 'gsS', '<Plug>(nvim-surround-normal-cur)', opts('Add surrounding pair around current line'))
+  vim_keymap.set('n', 'gSs', '<Plug>(nvim-surround-normal-line)', opts('Add surrounding pair around motion on new lines'))
+  vim_keymap.set('n', 'gSS', '<Plug>(nvim-surround-normal-cur-line)', opts('Add surrounding pair around current line on new lines'))
 
   -- Visual mode
-  vim_keymap.set('x', 'gs', nvim_surround .. '-visual)', opts('Add surrounding pair around visual selection'))
-  vim_keymap.set('x', 'gS', nvim_surround .. '-visual-line)', opts('Add surrounding pair around visual selection on new lines'))
+  vim_keymap.set('x', 'gss', '<Plug>(nvim-surround-visual)', opts('Add surrounding pair around visual selection'))
+  vim_keymap.set('x', 'gsS', '<Plug>(nvim-surround-visual-line)', opts('Add surrounding pair around visual selection on new lines'))
 
   -- Delete mode
-  vim_keymap.set('n', 'gsd', nvim_surround .. '-delete)', opts('Delete surrounding pair'))
+  vim_keymap.set('n', 'gsd', '<Plug>(nvim-surround-delete)', opts('Delete surrounding pair'))
 
   -- Change mode
-  vim_keymap.set('n', 'gsc', nvim_surround .. '-change)', opts('Change surrounding pair'))
-  vim_keymap.set('n', 'gSc', nvim_surround .. '-change-line)', opts('Change surrounding pair putting replacements on new lines'))
+  vim_keymap.set('n', 'gsc', '<Plug>(nvim-surround-change)', opts('Change surrounding pair'))
+  vim_keymap.set('n', 'gSc', '<Plug>(nvim-surround-change-line)', opts('Change surrounding pair putting replacements on new lines'))
 
   -- Insert mode
-  vim_keymap.set('i', '<C-g>s', nvim_surround .. '-insert)', opts('Add surrounding pair around cursor (insert mode)'))
-  vim_keymap.set('i', '<C-g>S', nvim_surround .. '-insert-line)', opts('Add surrounding pair around cursor on new lines (insert mode)'))
+  vim_keymap.set('i', '<C-g>s', '<Plug>(nvim-surround-insert)', opts('Add surrounding pair around cursor (insert mode)'))
+  vim_keymap.set('i', '<C-g>S', '<Plug>(nvim-surround-insert-line)', opts('Add surrounding pair around cursor on new lines (insert mode)'))
 end
