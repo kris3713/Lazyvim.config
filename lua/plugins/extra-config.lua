@@ -52,8 +52,8 @@ return --[[@type (LazyPluginSpec[])]]{
       -- https://github.com/LazyVim/LazyVim/discussions/6493#discussioncomment-14469953
       --- @diagnostic disable-next-line: inject-field
       opts.ensure_installed = vim.tbl_filter(
-        ---@param old_table table
-        function(old_table)
+        ---@param table_to_check table
+        function(table_to_check)
           return not vim.tbl_contains({
             'cmakelang',
             'cmakelint',
@@ -63,7 +63,7 @@ return --[[@type (LazyPluginSpec[])]]{
             'shellcheck',
             'shfmt',
             'sqlfluff'
-          }, old_table)
+          }, table_to_check)
         end,
       opts.ensure_installed or {})
     end
@@ -80,14 +80,12 @@ return --[[@type (LazyPluginSpec[])]]{
           local wk_mapping = {}
 
           if vim.bo[bufnr].filetype == 'man' then
-            ---@cast wk_mapping wk.Spec[]
-            wk_mapping = { 'gO', desc = 'Open table of contents' }
+            ---@cast wk_mapping wk.Spec
+            wk_mapping = { 'gO', desc = 'Open table of contents', mode = 'n' }
           else
-            ---@cast wk_mapping wk.Spec[]
-            wk_mapping = { 'gO', desc = 'Open document symbols' }
+            ---@cast wk_mapping wk.Spec
+            wk_mapping = { 'gO', desc = 'Open document symbols', mode = 'n' }
           end
-
-          table.insert(wk_mapping, { mode = 'n' })
 
           return wk_mapping
         end)()
@@ -110,14 +108,7 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'nvim-neotest/neotest',
-    dependencies = {
-      'Issafalcon/neotest-dotnet',
-      'fredrikaverpil/neotest-golang',
-      'nvim-neotest/neotest-python',
-      'olimorris/neotest-rspec'
-    },
-    ---@module 'neotest'
+    'nvim-neotest/neotest',---@module 'neotest'
     ---@param opts neotest.Config
     opts = function(_, opts)
       ---@type neotest.Adapter[]
@@ -145,7 +136,13 @@ return --[[@type (LazyPluginSpec[])]]{
       }
 
       opts.adapters = vim.tbl_deep_extend('force', opts.adapters or {}, new_adapters)
-    end
+    end,
+    dependencies = {
+      'Issafalcon/neotest-dotnet',
+      'fredrikaverpil/neotest-golang',
+      'nvim-neotest/neotest-python',
+      'olimorris/neotest-rspec'
+    },
   },
   {
     'akinsho/bufferline.nvim',---@module 'bufferline'
@@ -164,11 +161,11 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'nvim-telescope/telescope.nvim',
-    -- telescope extensions
     init = function()
       local telescope = require('telescope')
 
-      local telescope_plugins = {
+      -- telescope plugins
+      local plugins = {
         'ui-select',
         'undo',
         'frecency',
@@ -180,7 +177,7 @@ return --[[@type (LazyPluginSpec[])]]{
       }
 
       -- load telescope plugins
-      for _, plugin in ipairs(telescope_plugins) do
+      for _, plugin in ipairs(plugins) do
         telescope.load_extension(plugin)
       end
     end,
@@ -367,7 +364,25 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'hrsh7th/nvim-cmp',
+    'hrsh7th/nvim-cmp',---@module 'cmp'
+    ---@param opts cmp.Setup|cmp.ConfigSchema
+    opts = function(_, opts)
+      ---@type cmp.SourceConfig[]
+      local cmp_sources = {
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'nvim_lua' },
+        { name = 'dap' },
+        { name = 'render-markdown' },
+        { name = 'diag-codes' },
+        { name = 'luasnip_choice' },
+        { name = 'npm' },
+        { name = 'pypi' },
+        { name = 'git' },
+        { name = 'buffer-lines' }
+      }
+
+      opts.sources = vim.list_extend(opts.sources or {}, cmp_sources)
+    end,
     init = function()
       local cmp = require('cmp')
 
@@ -442,30 +457,11 @@ return --[[@type (LazyPluginSpec[])]]{
           { name = 'buffer-lines' }
         }
       })
-    end,---@module 'cmp'
-    ---@param opts cmp.Setup|cmp.ConfigSchema
-    opts = function(_, opts)
-      ---@type cmp.SourceConfig[]
-      local cmp_sources = {
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'nvim_lua' },
-        { name = 'dap' },
-        { name = 'render-markdown' },
-        { name = 'diag-codes' },
-        { name = 'luasnip_choice' },
-        { name = 'npm' },
-        { name = 'pypi' },
-        { name = 'git' },
-        { name = 'buffer-lines' }
-      }
-
-      opts.sources = vim.list_extend(opts.sources or {}, cmp_sources)
     end
   },
   {
     'mfussenegger/nvim-dap',
-    --TODO: Replace this with function(_, opts)
-    opts = function()
+    init = function()
       local dap = require('dap')
 
       if not dap.adapters['netcoredbg'] then
@@ -503,12 +499,13 @@ return --[[@type (LazyPluginSpec[])]]{
     },
     ---@param opts { sources: table }
     opts = function(_, opts)
+      ---@class NullLS
       local null_ls = require('null-ls')
 
       ---@module 'null-ls.builtins._meta.code_actions'
       local code_actions = null_ls.builtins.code_actions
-      ---@module 'null-ls.builtins._meta.completion'
-      local completion = null_ls.builtins.completion
+      -- ---@module 'null-ls.builtins._meta.completion'
+      -- local completion = null_ls.builtins.completion
       ---@module 'null-ls.builtins._meta.diagnostics'
       local diagnostics = null_ls.builtins.diagnostics
       ---@module 'null-ls.builtins._meta.formatting'
