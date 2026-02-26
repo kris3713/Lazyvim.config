@@ -499,7 +499,6 @@ return --[[@type (LazyPluginSpec[])]]{
     },
     ---@param opts { sources: table }
     opts = function(_, opts)
-      ---@class NullLS
       local null_ls = require('null-ls')
 
       ---@module 'null-ls.builtins._meta.code_actions'
@@ -540,7 +539,7 @@ return --[[@type (LazyPluginSpec[])]]{
         code_actions.impl,
         exts.code_actions.shellcheck,
         code_actions.statix,
-        code_actions.ts_node_action.with {
+        code_actions.ts_node_action.with --[[@as fun(opts: table)]]{
           -- Don't remove, this is needed by `nvim-tree.lua`
           disabled_filetypes = {
             'conf',
@@ -560,7 +559,7 @@ return --[[@type (LazyPluginSpec[])]]{
         },
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
-        diagnostics.editorconfig_checker.with {
+        diagnostics.editorconfig_checker.with  --[[@as fun(opts: table)]]{
           filetypes = { 'editorconfig' }
         },
         diagnostics.erb_lint,
@@ -590,7 +589,7 @@ return --[[@type (LazyPluginSpec[])]]{
         exts.formatting.golangci_lint,
         exts.formatting.jq,
         formatting.markdownlint,
-        formatting.shfmt.with {
+        formatting.shfmt.with --[[@as fun(opts: table)]]{
           extra_filetypes = { 'bash' }
         },
         exts.formatting.ruff,
@@ -598,7 +597,8 @@ return --[[@type (LazyPluginSpec[])]]{
         exts.formatting.yq
       }
 
-      --- NOTE: Don't use vim.tbl_deep_extend with this one
+      -- harper:ignore
+      -- NOTE: Don't use vim.tbl_deep_extend with this one
       opts.sources = vim.list_extend(opts.sources or {}, new_sources)
     end
   },
