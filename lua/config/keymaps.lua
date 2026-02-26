@@ -38,8 +38,8 @@ if vim.g.neovide then
 
   -- Using a font with ligatures can make the text appear confusing to some people, like myself.
   -- That is why I am using the concatenation operator (..) to make the keymaps more readable.
-  vim_keymap.set(all_modes, '<C>', function() zoom(1.25) end, other_opts)
-  vim_keymap.set(all_modes, '<C>', function() zoom(1/1.25) end, other_opts)
+  vim_keymap.set(all_modes, '<C->', function() zoom(1.25) end, other_opts)
+  vim_keymap.set(all_modes, '<C-=>', function() zoom(1/1.25) end, other_opts)
 end
 
 
