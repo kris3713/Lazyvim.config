@@ -241,12 +241,12 @@ lua/
 │   ├── options.lua    -- vim.opt settings
 │   ├── keymaps.lua    -- keybindings
 │   ├── autocmds.lua   -- autocommands
-│   └── lazy.lua      -- plugin manager setup
+│   └── lazy.lua      -- lazy.nvim plugin manager setup
 ├── plugins/
-│   ├── init.lua      -- main plugins
+│   ├── init.lua      -- Main plugins
 │   ├── lsp.lua       -- LSP configuration
-│   ├── extra-config.lua
-│   ├── no-config.lua
+│   ├── extra-config.lua -- Extra configuration for plugins already installed
+│   ├── no-config.lua    -- Plugins that don't require configuration
 │   └── rocks.lua     -- LuaRocks plugins
 └── utils/
     └── init.lua      -- utility functions
