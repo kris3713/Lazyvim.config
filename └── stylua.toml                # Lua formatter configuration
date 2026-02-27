@@ -1,0 +1,102 @@
+
+## Key Features
+
+### LSP Configuration
+- **Servers**: emmylua_ls, gopls, jsonls, marksman, vtsls, yamlls, ghostty_ls, systemd_lsp
+- **Features**: Diagnostics, completion, formatting, code actions
+- **Null-LS**: Additional LSP-like functionality for various tools
+
+### Plugins
+- **nvim-tree**: File tree explorer
+- **telescope**: Fuzzy finder
+- **lualine**: Status line
+- **cmp**: Autocompletion
+- **dap**: Debugging
+- **neotest**: Testing framework
+- **auto-session**: Session management
+- **nvim-navbuddy**: Navigation with navic
+
+### Autocommands
+- Close LSP servers on quit
+- Set semantic highlighting for LSP tokens
+- Auto-start nvim-tree with directories
+- Activate guess-indent on buffer read
+- Pin buffers to fixed-size windows
+- Show macro recording status in lualine
+- Set comment string for systemd files
+
+### Keymaps
+- Leader key: `<space>`
+- Buffer management with bufferline
+- File format switching (unix/dos/mac)
+- Indent style switching
+- Terminal management with toggleterm
+- Session save/restore
+- Yazi file browser integration
+
+## Utility Functions
+
+### `utils.set_indent_size(bufnr)`
+Opens a picker to set the indent size for a buffer.
+
+### `utils.switch_indent_style(bufnr)`
+Switches between tabs and spaces for a buffer.
+
+## Custom Configurations
+
+### Lualine Sections
+- **lualine_b**: Shows recording status when macros are being recorded
+- **lualine_c**: Diagnostics with click-to-open trouble
+- **lualine_x**: 
+  - Encoding with bom display
+  - Indent style (tabs/spaces) with click-to-switch
+  - Indent size with click-to-set
+  - File format (LF/CRLF) with click-to-cycle
+  - Filetype with click-to-search
+
+### Mason Registry
+Extended with additional registries:
+- github:mason-org/mason-registry
+- github:Crashdummyy/mason-registry
+- github:MKindberg/ghostty-ls
+
+### Neotest Adapters
+- neotest-dotnet
+- neotest-golang (with dap-go support)
+
+## File Format Handling
+- Default: Unix (LF)
+- Can cycle through: unix → dos → mac → unix
+- Enforced for most filetypes (except help, man, gitcommit)
+
+## Indent Configuration
+- Uses guess-indent plugin
+- Can be set per-buffer
+- Displayed in lualine
+- Clickable to change
+
+## Notes for LLMs
+
+1. **LazyVim Base**: This configuration extends LazyVim, so many defaults come from there
+2. **Lua Version**: Uses Lua 5.1+ with Neovim's vim.* API
+3. **Type Annotations**: Uses `---@type` and `---@param` for type hints
+4. **Plugin Config**: Most plugins use the `opts` function pattern for configuration
+5. **Autocommands**: Use `vim.api.nvim_create_autocmd` with groups for organization
+6. **Keymaps**: Use `vim.keymap.set` with `opts()` helper for silent option
+
+## Common Tasks
+
+### Adding a Plugin
+Add to `lua/plugins/init.lua` with appropriate config in `opts` function
+
+### Adding LSP Server
+Configure in `lua/plugins/lsp.lua` under the `servers` table
+
+### Adding Keymaps
+Add to `lua/config/keymaps.lua` using `vim.keymap.set`
+
+### Adding Autocommands
+Add to `lua/config/autocommands.lua` using `create_autocmd()` helper
+
+### Custom Utilities
+Add functions to `lua/utils/init.lua` and require them elsewhere
