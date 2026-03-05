@@ -4,6 +4,11 @@
 return --[[@type (LazyPluginSpec[])]]{
   -- Plugins with configs go here
   {
+    'yousefhadder/markdown-plus.nvim',
+    ft = 'markdown',
+    opts = {}
+  },
+  {
     'calops/hmts.nvim',
     version = '*'
   },
