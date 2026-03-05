@@ -293,12 +293,6 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'alex-popov-tech/store.nvim',
-    cmd = 'Store',
-    dependencies = { 'OXY2DEV/markview.nvim' },
-    opts = {}
-  },
-  {
     'mikavilpas/yazi.nvim',
     event = 'VeryLazy',---@module 'yazi'
     ---@type YaziConfig
