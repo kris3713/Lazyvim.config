@@ -143,6 +143,12 @@ return --[[@type LazyPluginSpec]]{
         -- tabby_ml
         tabby_ml = {
           mason = false,
+          enabled = true,
+          filetypes = '*'
+        },
+        -- nickel_ls
+        nickel_ls = {
+          mason = false,
           enabled = true
         },
         -- clangd

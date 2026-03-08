@@ -32,5 +32,6 @@ return --[[@type LazyPluginSpec]]{
   'stevearc/vim-vscode-snippets',
   'kkharji/sqlite.lua',
   'tpope/vim-repeat',
-  'RRethy/nvim-treesitter-endwise'
+  'RRethy/nvim-treesitter-endwise',
+  'nickel-lang/vim-nickel'
 }
