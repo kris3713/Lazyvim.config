@@ -465,13 +465,12 @@ return --[[@type (LazyPluginSpec[])]]{
         max_lines = 100,
         provider = 'Ollama',
         provider_options = {
-          model = 'codegemma:7b-instruct-v1.1-q4_0',
-          prompt = function(lines_before, _)
-            return lines_before
-          end,
-          suffix = function(lines_after)
-            return lines_after
-          end,
+          model = 'codegemma:7b-code-q4_K_M',
+          prompt = function(lines_before, lines_after)
+            -- You may include filetype and/or other project-wise context in this string as well.
+            -- Consult model documentation in case there are special tokens for this.
+            return '<|fim_prefix|>' .. lines_before .. '<|fim_suffix|>' .. lines_after .. '<|fim_middle|>'
+          end
         },
         notify = true,
         notify_callback = function(msg)
