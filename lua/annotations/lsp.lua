@@ -10,11 +10,11 @@
 ---@field enabled boolean?
 ---
 ---Filetypes for which you don't want to enable inlay hints
----@field exclude string[]
+---@field exclude string[]?
 
 ---Common LSP server/client configuration options.
----This extends the `vim.lsp.ClientConfig`, `vim.lsp.Client`, and `vim.lsp.Config` types.
----@class lspClientOpts : vim.lsp.Config
+---This extends the [vim.lsp.ClientConfig] and [vim.lsp.Config] types.
+---@class lspClientOpts : (vim.lsp.Config | vim.lsp.ClientConfig)
 ---
 ---Allows for disabling or enabling mason.nvim integration
 ---for this LSP server. By default, this is set to `true`
@@ -23,7 +23,7 @@
 ---@field enabled boolean?
 ---
 ---Allows for setting custom keymaps for this LSP server.
----@field keys vim.api.keyset.keymap[]
+---@field keys vim.api.keyset.keymap[]?
 ---
 ---Callback invoked when a new configuration is created.
 ---@field on_new_config fun(config: vim.lsp.ClientConfig, root_dir: string?)
@@ -42,7 +42,7 @@
 ---@field inlay_hints inlayHintsOpts
 ---
 ---Common LSP server/client configuration options.
----@field servers table<string, (lspClientOpts | vim.lsp.Client)>
+---@field servers table<string, (lspClientOpts | vim.lsp.ClientConfig)>
 ---
 ---Extra LSP server/client configuration options. Mostly used for workarounds.
 ---@field setup table<string, fun(server: string, opts: (lspClientOpts | vim.lsp.Client)): boolean?>
