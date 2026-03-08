@@ -104,7 +104,6 @@ create_autocmd('BufEnter', {
   end
 })
 
-
 create_autocmd('RecordingEnter', {
   group = create_augroup('show_macro_recording_on_lualine'),
   callback = function(_)

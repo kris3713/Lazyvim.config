@@ -649,7 +649,6 @@ return --[[@type LazyPluginSpec]]{
             return filetypes
           end)(),
           ---@param client vim.lsp.Client
-          ---@param _ lsp.InitializeResult
           on_init = function(client, _)
             ---@type lsp.LSPArray
             local options = {

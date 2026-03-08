@@ -14,7 +14,7 @@
 
 ---Common LSP server/client configuration options.
 ---This extends the [vim.lsp.ClientConfig] and [vim.lsp.Config] types.
----@class lspClientOpts : (vim.lsp.Config | vim.lsp.ClientConfig)
+---@class lspClientOpts : vim.lsp.Config, vim.lsp.ClientConfig
 ---
 ---Allows for disabling or enabling mason.nvim integration
 ---for this LSP server. By default, this is set to `true`
@@ -45,4 +45,4 @@
 ---@field servers table<string, (lspClientOpts | vim.lsp.ClientConfig)>
 ---
 ---Extra LSP server/client configuration options. Mostly used for workarounds.
----@field setup table<string, fun(server: string, opts: (lspClientOpts | vim.lsp.Client)): boolean?>
+---@field setup table<string, fun(server: string, opts: lspClientOpts): boolean?>
