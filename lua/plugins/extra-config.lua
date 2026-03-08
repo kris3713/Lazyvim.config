@@ -527,6 +527,7 @@ return --[[@type (LazyPluginSpec[])]]{
         },
 
         diagnostics = {
+          eslint_d = require('none-ls.diagnostics.eslint_d'),
           ruff = require('none-ls.diagnostics.ruff'),
           shellcheck = require('none-ls-shellcheck.diagnostics')
         }
@@ -563,6 +564,7 @@ return --[[@type (LazyPluginSpec[])]]{
           filetypes = { 'editorconfig' }
         },
         diagnostics.erb_lint,
+        exts.diagnostics.eslint_d,
         diagnostics.fish,
         diagnostics.hadolint,
         diagnostics.golangci_lint,

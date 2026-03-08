@@ -273,7 +273,7 @@ return --[[@type LazyPluginSpec]]{
         -- eslint
         eslint = {
           mason = false,
-          enabled = true
+          enabled = false
         },
         -- basedpyright
         basedpyright = { -- medium speed and perfect
