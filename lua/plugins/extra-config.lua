@@ -462,25 +462,22 @@ return --[[@type (LazyPluginSpec[])]]{
       local cmp_ai = require('cmp_ai.config')
 
       cmp_ai:setup({
-        max_lines = 1000,
-        provider = 'Tabby',
-        notify = true,
+        max_lines = 100,
+        provider = 'Ollama',
         provider_options = {
-          -- These are optional
-          -- user = 'yourusername',
-          -- temperature = 0.2,
-          -- seed = 'randomstring',
+          model = 'codegemma:7b-instruct-v1.1-q4_0',
+          prompt = function(lines_before, _)
+            return lines_before
+          end,
+          suffix = function(lines_after)
+            return lines_after
+          end,
         },
-        ---@param msg string
+        notify = true,
         notify_callback = function(msg)
           vim.notify(msg)
         end,
-        run_on_every_keystroke = true,
-        ignored_file_types = {
-          -- default is not to ignore
-          -- uncomment to ignore in lua:
-          -- lua = true
-        }
+        run_on_every_keystroke = true
       })
     end
   },
