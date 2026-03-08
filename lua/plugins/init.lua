@@ -9,10 +9,6 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {}
   },
   {
-    'fspv/tabby.nvim',
-    opts = {}
-  },
-  {
     'calops/hmts.nvim',
     version = '*'
   },

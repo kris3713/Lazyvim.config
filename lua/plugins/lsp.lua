@@ -140,6 +140,11 @@ return --[[@type LazyPluginSpec]]{
             on_dir((util.root_pattern(systemd_unit_filetypes))(fname))
           end
         },
+        -- tabby_ml
+        tabby_ml = {
+          mason = false,
+          enabled = true
+        },
         -- clangd
         clangd = {
           mason = false,
