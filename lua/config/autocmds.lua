@@ -131,11 +131,27 @@ create_autocmd('RecordingLeave', {
 })
 
 -- Ensure comments in Systemd files use '#'
-create_autocmd({ "BufEnter", "BufRead" }, {
+create_autocmd({ 'BufEnter', 'BufRead' }, {
   callback = function(args)
     local bufnr = args.buf
     if vim.bo[bufnr].filetype == 'systemd' then
       vim.bo[bufnr].commentstring = '# %s'
     end
+  end
+})
+
+-- Force tabby_ml to attach to any filetype
+create_autocmd('FileType', {
+  pattern = '*',
+  callback = function(args)
+    local bufnr = args.buf
+    ---@diagnostic disable-next-line: missing-fields
+    ---@type lspClientOpts
+    local config = {
+      name = 'tabby_ml',
+      cmd = require('lspconfig.configs.tabby_ml').default_config.cmd,
+      filetypes = {'*'}
+    }
+    vim.lsp.start(config, { bufnr = bufnr })
   end
 })

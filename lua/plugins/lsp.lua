@@ -140,12 +140,6 @@ return --[[@type LazyPluginSpec]]{
             on_dir((util.root_pattern(systemd_unit_filetypes))(fname))
           end
         },
-        -- tabby_ml
-        tabby_ml = {
-          mason = false,
-          enabled = true,
-          filetypes = '*'
-        },
         -- nickel_ls
         nickel_ls = {
           mason = false,
@@ -441,6 +435,7 @@ return --[[@type LazyPluginSpec]]{
             local schemas = require("schemastore").yaml.schemas()
 
             if new_config.settings then
+              --- @diagnostic disable-next-line: inject-field
               ---@cast new_config.settings.yaml lsp.LSPObject
               new_config.settings.yaml.schemas = vim.tbl_deep_extend('force',
                 new_config.settings.yaml.schemas or {}, schemas)
@@ -639,7 +634,7 @@ return --[[@type LazyPluginSpec]]{
             if not is_modifiable and not (is_md or is_mdx) then
               return
             end
-          end
+          end,
         },
         -- vtsls
         vtsls = {
