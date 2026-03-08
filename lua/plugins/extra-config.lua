@@ -370,7 +370,6 @@ return --[[@type (LazyPluginSpec[])]]{
       ---@type cmp.SourceConfig[]
       local cmp_sources = {
         { name = 'buffer-lines' },
-        { name = 'cmp_ai' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lua' },
         { name = 'dap' },
