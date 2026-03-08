@@ -370,7 +370,7 @@ return --[[@type (LazyPluginSpec[])]]{
       ---@type cmp.SourceConfig[]
       local cmp_sources = {
         { name = 'buffer-lines' },
-        -- { name = 'cmp_ai' },
+        { name = 'cmp_ai' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lua' },
         { name = 'dap' },
@@ -456,6 +456,30 @@ return --[[@type (LazyPluginSpec[])]]{
               option = { keyword_pattern = [[\k\+]] }
           },
           { name = 'buffer-lines' }
+        }
+      })
+
+      local cmp_ai = require('cmp_ai.config')
+
+      cmp_ai:setup({
+        max_lines = 1000,
+        provider = 'Tabby',
+        notify = true,
+        provider_options = {
+          -- These are optional
+          -- user = 'yourusername',
+          -- temperature = 0.2,
+          -- seed = 'randomstring',
+        },
+        ---@param msg string
+        notify_callback = function(msg)
+          vim.notify(msg)
+        end,
+        run_on_every_keystroke = true,
+        ignored_file_types = {
+          -- default is not to ignore
+          -- uncomment to ignore in lua:
+          -- lua = true
         }
       })
     end
