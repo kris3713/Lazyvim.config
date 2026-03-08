@@ -515,6 +515,7 @@ return --[[@type (LazyPluginSpec[])]]{
       -- none-ls extensions
       local exts = {
         code_actions = {
+          eslint_d = require('none-ls.code_actions.eslint_d'),
           shellcheck = require('none-ls-shellcheck.code_actions')
         },
 
@@ -530,10 +531,12 @@ return --[[@type (LazyPluginSpec[])]]{
           eslint_d = require('none-ls.diagnostics.eslint_d'),
           ruff = require('none-ls.diagnostics.ruff'),
           shellcheck = require('none-ls-shellcheck.diagnostics')
+          -- oxc = require('none-ls.diagnostics.')
         }
       }
 
       local new_sources = {
+        exts.code_actions.eslint_d,
         code_actions.gitsigns,
         code_actions.refactoring,
         code_actions.gomodifytags,
