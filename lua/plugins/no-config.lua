@@ -27,6 +27,7 @@ return --[[@type LazyPluginSpec]]{
   'Snikimonkd/cmp-go-pkgs',
   'vrslev/cmp-pypi',
   'ray-x/cmp-sql',
+  'tzachar/cmp-ai',
   'sbdchd/neoformat',
   'direnv/direnv.vim',
   'stevearc/vim-vscode-snippets',

@@ -25,14 +25,6 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {}
   },
   {
-    'TabbyML/vim-tabby',
-    lazy = false,
-    init = function()
-      vim.g.tabby_agent_start_command = { 'tabby-agent', '--stdio' }
-      vim.g.tabby_inline_completion_keybinding_accept = '<a-cr>'
-    end
-  },
-  {
     'mfussenegger/nvim-dap-python',
     -- stylua: ignore
     keys = {

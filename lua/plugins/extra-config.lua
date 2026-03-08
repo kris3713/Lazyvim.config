@@ -369,6 +369,8 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = function(_, opts)
       ---@type cmp.SourceConfig[]
       local cmp_sources = {
+        { name = 'buffer-lines' },
+        { name = 'cmp_ai' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lua' },
         { name = 'dap' },
@@ -377,8 +379,7 @@ return --[[@type (LazyPluginSpec[])]]{
         { name = 'luasnip_choice' },
         { name = 'npm' },
         { name = 'pypi' },
-        { name = 'git' },
-        { name = 'buffer-lines' }
+        { name = 'git' }
       }
 
       opts.sources = vim.list_extend(opts.sources or {}, cmp_sources)
