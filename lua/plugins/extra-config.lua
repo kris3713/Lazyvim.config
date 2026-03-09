@@ -564,7 +564,7 @@ return --[[@type (LazyPluginSpec[])]]{
         },
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
-        diagnostics.editorconfig_checker.with  --[[@as fun(opts: table)]]{
+        diagnostics.editorconfig_checker.with --[[@as fun(opts: table)]]{
           filetypes = { 'editorconfig' }
         },
         diagnostics.erb_lint,
@@ -585,8 +585,8 @@ return --[[@type (LazyPluginSpec[])]]{
         diagnostics.statix,
         diagnostics.stylelint,
         formatting.alejandra,
-        formatting.biome.with {
-          extra_filetypes = { 'astro' }
+        formatting.biome.with --[[@as fun(opts: table)]]{
+          extra_filetypes = { 'astro', 'html' }
         },
         formatting.erb_lint,
         formatting.fish_indent,
