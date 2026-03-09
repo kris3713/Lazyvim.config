@@ -182,7 +182,8 @@ return --[[@type LazyPluginSpec]]{
         },
         herb_ls = {
           mason = false,
-          enabled = true
+          enabled = true,
+          filetypes = { 'eruby' }
         },
         -- typeprof
         typeprof = {
