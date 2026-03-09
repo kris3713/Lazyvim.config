@@ -709,7 +709,7 @@ return --[[@type (LazyPluginSpec[])]]{
           api_key = 'TERM',
           name = 'Ollama',
           end_point = 'http://localhost:11434/v1/completions',
-          model = 'codegemma:7b-code-q4_K_M',
+          model = 'qwen2.5-coder:7b-instruct-q4_K_M',
           optional = {
             max_tokens = 56,
             top_p = 0.9
