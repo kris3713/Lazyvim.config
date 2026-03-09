@@ -703,7 +703,7 @@ return --[[@type (LazyPluginSpec[])]]{
     'milanglacier/minuet-ai.nvim',
     opts = {
       provider = 'openai_fim_compatible',
-      -- context_window = 512,
+      context_window = 512,
       provider_options = {
         openai_fim_compatible = {
           api_key = 'TERM',
