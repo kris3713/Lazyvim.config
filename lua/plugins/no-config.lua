@@ -1,3 +1,6 @@
+--- @diagnostic disable: annotation-usage-error
+---@module 'lazy'
+
 return --[[@type LazyPluginSpec]]{
     -- No config plugins go here
   'hiphish/rainbow-delimiters.nvim',

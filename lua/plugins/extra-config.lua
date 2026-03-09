@@ -369,6 +369,7 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = function(_, opts)
       ---@type cmp.SourceConfig[]
       local cmp_sources = {
+        { name = 'minuet' },
         { name = 'buffer-lines' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lua' },
@@ -417,9 +418,9 @@ return --[[@type (LazyPluginSpec[])]]{
             return vim_item
           end
         },
-        -- mapping = cmp.mapping.preset.insert {
-        --   ['<a-y>'] = require('minuet').make_cmp_map()
-        -- },
+        mapping = cmp.mapping.preset.insert {
+          ['<a-y>'] = require('minuet').make_cmp_map()
+        },
         performance = {
           fetching_timeout = 2000
         }
