@@ -706,7 +706,7 @@ return --[[@type (LazyPluginSpec[])]]{
       context_window = 512,
       provider_options = {
         openai_fim_compatible = {
-          api_key = 'ollama',
+          api_key = 'TERM',
           name = 'Ollama',
           end_point = 'http://localhost:11434/v1/completions',
           model = 'qwen2.5-coder:14b-instruct-q4_K_M',
