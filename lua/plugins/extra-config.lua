@@ -419,7 +419,7 @@ return --[[@type (LazyPluginSpec[])]]{
           end
         },
         mapping = cmp.mapping.preset.insert {
-          ['<a-cr>'] = require('minuet').make_cmp_map()
+          -- ['<a-cr>'] = require('minuet').make_cmp_map()
         },
         performance = {
           fetching_timeout = 2000
