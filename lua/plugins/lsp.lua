@@ -343,7 +343,8 @@ return --[[@type LazyPluginSpec]]{
           cmd = { 'powershell-editor-services' },
           settings = {
             bundle_path = (vim.fn.system {
-              'nix', 'eval',
+              'nix',
+              'eval',
               'nixpkgs#powershell-editor-services.outPath',
               '--raw'
             } .. 'lib/powershell-editor-services/PowerShellEditorServices')
