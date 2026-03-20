@@ -73,6 +73,7 @@ local function ap__code_actions()
   ap.code_actions {}
 end
 
+--- @diagnostic disable-next-line: incomplete-signature-doc
 local function live_rename__rename()
   local live_rename = require('live-rename')
   live_rename.rename {}
@@ -88,22 +89,22 @@ return --[[@type LazyPluginSpec]]{
       diagnostics = { virtual_text = false },
       inlay_hints = { enabled = false },
       servers = {
-        ghostty_ls = {
-          enabled = (function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            local ghostty_config_dir = os.getenv('HOME') .. '/.config/ghostty/'
-            return vim.startswith(fname, ghostty_config_dir)
-          end)(),
-          cmd = { 'ghostty-ls' },
-          filetypes = { 'conf' },
-          ---@param on_dir any|fun(...: any): any
-          root_dir = function(_, on_dir) -- harper:ignore
-            -- If enabled is true, we know the file is in the desired directory.
-            -- So, the root directory is simply ~/.config/ghostty.
-            on_dir(os.getenv('HOME') .. '/.config/ghostty')
-          end
-        },
+        -- ghostty_ls = {
+        --   enabled = (function()
+        --     local bufnr = vim.api.nvim_get_current_buf()
+        --     local fname = vim.api.nvim_buf_get_name(bufnr)
+        --     local ghostty_config_dir = os.getenv('HOME') .. '/.config/ghostty/'
+        --     return vim.startswith(fname, ghostty_config_dir)
+        --   end)(),
+        --   cmd = { 'ghostty-ls', '' },
+        --   filetypes = { 'conf' },
+        --   ---@param on_dir any|fun(...: any): any
+        --   root_dir = function(_, on_dir) -- harper:ignore
+        --     -- If enabled is true, we know the file is in the desired directory.
+        --     -- So, the root directory is simply ~/.config/ghostty.
+        --     on_dir(os.getenv('HOME') .. '/.config/ghostty')
+        --   end
+        -- },
         systemd_lsp = {
           mason = false,
           enabled = true,
