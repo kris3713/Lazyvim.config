@@ -342,12 +342,21 @@ return --[[@type LazyPluginSpec]]{
           enabled = true,
           cmd = { 'powershell-editor-services' },
           settings = {
-            bundle_path = (vim.fn.system {
-              'nix',
-              'eval',
-              'nixpkgs#powershell-editor-services.outPath',
-              '--raw'
-            } .. 'lib/powershell-editor-services/PowerShellEditorServices')
+            bundle_path = (function()
+              -- Get the path of the `powershell-editor-services` executable.
+              local exec = vim.fn.exepath('powershell-editor-services')
+              if exec ~= '' then
+                -- Get the realpath of the symbolic link from the executable filepath
+                local realpath = vim.fn.resolve(vim.fn.fnamemodify(exec, ':p'))
+                -- Get the dirname of the realpath
+                local dirname = vim.fn.resolve(vim.fn.fnamemodify(realpath, ':h'))
+                local normalized_path = vim.fs.normalize(dirname .. '/../lib/powershell-editor-services/PowerShellEditorServices')
+                local bundle_path = vim.fs.abspath(normalized_path)
+                return bundle_path
+              end
+
+              return ''
+            end)()
           }
         },
         -- html
