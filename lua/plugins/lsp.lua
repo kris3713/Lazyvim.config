@@ -56,6 +56,7 @@ local function capabilities()
   local client_capabilities = vim.lsp.protocol.make_client_capabilities()
   ---@diagnostic disable-next-line: need-check-nil
   client_capabilities.textDocument.completion.completionItem.snippetSupport = true
+  --- @diagnostic disable-next-line: incomplete-signature-doc
   return client_capabilities
 end
 
@@ -413,12 +414,11 @@ return --[[@type LazyPluginSpec]]{
           capabilities = capabilities(),
           -- lazy-load schemaStore when needed
           before_init = function(_, new_config)
-            local schemas = require("schemastore").json.schemas()
+            local schemas = require('schemastore').json.schemas()
 
             if new_config.settings then
               ---@cast new_config.settings.json lsp.LSPObject
-              new_config.settings.json.schemas = vim.list_extend(
-                new_config.settings.json.schemas or {}, schemas)
+              new_config.settings.json.schemas = vim.list_extend(new_config.settings.json.schemas or {}, schemas)
             end
           end,
           settings = {
@@ -444,13 +444,12 @@ return --[[@type LazyPluginSpec]]{
           },
           -- lazy-load schemastore when needed
           before_init = function(_, new_config)
-            local schemas = require("schemastore").yaml.schemas()
+            local schemas = require('schemastore').yaml.schemas()
 
             if new_config.settings then
               --- @diagnostic disable-next-line: inject-field
               ---@cast new_config.settings.yaml lsp.LSPObject
-              new_config.settings.yaml.schemas = vim.tbl_deep_extend('force',
-                new_config.settings.yaml.schemas or {}, schemas)
+              new_config.settings.yaml.schemas = vim.tbl_deep_extend('force', new_config.settings.yaml.schemas or {}, schemas)
             end
           end,
           settings = {
@@ -712,7 +711,8 @@ return --[[@type LazyPluginSpec]]{
                   {
                     name = '@astrojs/ts-plugin',
                     location = vim.fn.system {
-                      'sh', '-c',
+                      'sh',
+                      '-c',
                       'pnpm list -g --json --long @astrojs/ts-plugin | '
                       .. "jq '.[0].dependencies.\"@astrojs/ts-plugin\".path' -r"
                     },
@@ -721,7 +721,8 @@ return --[[@type LazyPluginSpec]]{
                   {
                     name = '@vue/typescript-plugin',
                     location = vim.fn.system {
-                      'sh', '-c',
+                      'sh',
+                      '-c',
                       'pnpm list -g --json --long @vue/typescript-plugin | '
                       .. "jq '.[0].dependencies.\"@vue/typescript-plugin\".path' -r"
                     },
