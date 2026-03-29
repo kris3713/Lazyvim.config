@@ -205,6 +205,11 @@ return --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true,
         },
+        -- vue_ls
+        vue_ls = {
+          mason = false,
+          enabled = true
+        },
         -- dartls
         dartls = {
           mason = false,
