@@ -200,16 +200,6 @@ return --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true
         },
-        -- astro
-        astro = {
-          mason = false,
-          enabled = true,
-        },
-        -- vue_ls
-        vue_ls = {
-          mason = false,
-          enabled = true
-        },
         -- dartls
         dartls = {
           mason = false,
@@ -652,6 +642,16 @@ return --[[@type LazyPluginSpec]]{
             end
           end,
         },
+        -- astro
+        astro = {
+          mason = false,
+          enabled = true,
+        },
+        -- vue_ls
+        vue_ls = {
+          mason = false,
+          enabled = true
+        },
         -- vtsls
         vtsls = {
           mason = false,
@@ -659,7 +659,11 @@ return --[[@type LazyPluginSpec]]{
           filetypes = (function()
             local filetypes = require('lspconfig.configs.vtsls').default_config.filetypes
 
-            table.insert(filetypes, 'vue')
+            filetypes = vim.list_extend(filetypes, {
+              'astro',
+              'svelte',
+              'vue'
+            })
             table.sort(filetypes)
 
             return filetypes
@@ -713,37 +717,38 @@ return --[[@type LazyPluginSpec]]{
             vtsls = {
               tsserver = {
                 globalPlugins = {
-                  {
-                    name = '@astrojs/ts-plugin',
-                    location = vim.fn.system {
-                      'sh',
-                      '-c',
-                      'pnpm list -g --json --long @astrojs/ts-plugin | '
-                      .. "jq '.[0].dependencies.\"@astrojs/ts-plugin\".path' -r"
-                    },
-                    enableForWorkspaceTypeScriptVersions = true
-                  },
+                  -- {
+                  --   name = '@astrojs/ts-plugin',
+                  --   location = vim.fn.system {
+                  --     'sh',
+                  --     '-c',
+                  --     'pnpm list -g --json --long @astrojs/ts-plugin | '
+                  --     .. [[ jq '.[0].dependencies."@astrojs/ts-plugin".path' -rj ]]
+                  --   },
+                  --   enableForWorkspaceTypeScriptVersions = true
+                  -- },
                   {
                     name = '@vue/typescript-plugin',
                     location = vim.fn.system {
                       'sh',
                       '-c',
-                      'pnpm list -g --json --long @vue/typescript-plugin | '
-                      .. "jq '.[0].dependencies.\"@vue/typescript-plugin\".path' -r"
+                      'pnpm list -g --json --long @vue/language-server | '
+                      .. [[ jq '.[0].dependencies."@vue/language-server".path' -rj ]]
                     },
                     languages = { 'vue' },
                     configNamespace = 'typescript',
                     enableForWorkspaceTypeScriptVersions = true
                   },
-                  {
-                    name = 'typescript-svelte-plugin',
-                    location = vim.fn.system {
-                      'sh', '-c',
-                      'pnpm list -g --json --long typescript-svelte-plugin | '
-                      .. "jq '.[0].dependencies.\"typescript-svelte-plugin\".path' -r"
-                    },
-                    enableForWorkspaceTypeScriptVersions = true
-                  }
+                  -- {
+                  --   name = 'typescript-svelte-plugin',
+                  --   location = vim.fn.system {
+                  --     'sh',
+                  --     '-c',
+                  --     'pnpm list -g --json --long typescript-svelte-plugin | '
+                  --       .. [[ jq '.[0].dependencies."typescript-svelte-plugin".path' -rj ]]
+                  --   },
+                  --   enableForWorkspaceTypeScriptVersions = true
+                  -- }
                 }
               },
             }
@@ -852,6 +857,59 @@ return --[[@type LazyPluginSpec]]{
             end
           end)
           -- end workaround
+        end,
+        vtsls = function(_, _)
+          Snacks.util.lsp.on({ name = "vtsls" }, function(_, client)
+            client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
+              ---@type string, string, lsp.Range
+              local action, uri, range = unpack(command.arguments)
+
+              --- @diagnostic disable-next-line: incomplete-signature-doc
+              local function move(newf)
+                client:request("workspace/executeCommand", {
+                  command = command.command,
+                  arguments = { action, uri, range, newf },
+                })
+              end
+
+              local fname = vim.uri_to_fname(uri)
+              client:request("workspace/executeCommand", {
+                command = "typescript.tsserverRequest",
+                arguments = {
+                  "getMoveToRefactoringFileSuggestions",
+                  {
+                    file = fname,
+                    startLine = range.start.line + 1,
+                    startOffset = range.start.character + 1,
+                    endLine = range["end"].line + 1,
+                    endOffset = range["end"].character + 1,
+                  },
+                },
+              }, function(_, result)
+                ---@type string[]
+                local files = result.body.files
+                table.insert(files, 1, "Enter new path...")
+                vim.ui.select(files, {
+                  prompt = "Select move destination:",
+                  format_item = function(f)
+                    return vim.fn.fnamemodify(f, ":~:.")
+                  end,
+                }, function(f)
+                  if f and f:find("^Enter new path") then
+                    vim.ui.input({
+                      prompt = "Enter move destination:",
+                      default = vim.fn.fnamemodify(fname, ":h") .. "/",
+                      completion = "file",
+                    }, function(newf)
+                      return newf and move(newf)
+                    end)
+                  elseif f then
+                    move(f)
+                  end
+                end)
+              end)
+            end
+          end)
         end
       }
     }
