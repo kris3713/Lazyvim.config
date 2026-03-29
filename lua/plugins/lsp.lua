@@ -662,7 +662,9 @@ return --[[@type LazyPluginSpec]]{
             filetypes = vim.list_extend(filetypes, {
               'astro',
               'svelte',
-              'vue'
+              'vue',
+              'javascript.jsx',
+              'typescript.tsx'
             })
             table.sort(filetypes)
 
