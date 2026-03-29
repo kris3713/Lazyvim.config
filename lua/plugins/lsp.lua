@@ -651,14 +651,6 @@ return --[[@type LazyPluginSpec]]{
         vtsls = {
           mason = false,
           enabled = true,
-          filetypes = (function()
-            local filetypes = require('lspconfig.configs.vtsls').default_config.filetypes
-
-            table.insert(filetypes, 'vue')
-            table.sort(filetypes)
-
-            return filetypes
-          end)(),
           ---@param client vim.lsp.Client
           on_init = function(client, _)
             ---@type lsp.LSPArray
