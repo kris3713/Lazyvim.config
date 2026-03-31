@@ -523,6 +523,7 @@ return --[[@type (LazyPluginSpec[])]]{
         formatting = {
           golangci_lint = require('none-ls.formatting.golangci_lint'),
           jq = require('none-ls.formatting.jq'),
+          oxfmt = require('none-ls.formatting.oxfmt'),
           ruff = require('none-ls.formatting.ruff'),
           tex_fmt = require('none-ls.formatting.tex_fmt'),
           yq = require('none-ls.formatting.yq')
@@ -532,12 +533,11 @@ return --[[@type (LazyPluginSpec[])]]{
           eslint_d = require('none-ls.diagnostics.eslint_d'),
           ruff = require('none-ls.diagnostics.ruff'),
           shellcheck = require('none-ls-shellcheck.diagnostics')
-          -- oxc = require('none-ls.diagnostics.')
         }
       }
 
       local new_sources = {
-        exts.code_actions.eslint_d,
+        -- exts.code_actions.eslint_d,
         code_actions.gitsigns,
         code_actions.refactoring,
         code_actions.gomodifytags,
@@ -569,7 +569,7 @@ return --[[@type (LazyPluginSpec[])]]{
           filetypes = { 'editorconfig' }
         },
         diagnostics.erb_lint,
-        exts.diagnostics.eslint_d,
+        -- exts.diagnostics.eslint_d,
         diagnostics.fish,
         diagnostics.hadolint,
         diagnostics.golangci_lint,
@@ -586,9 +586,6 @@ return --[[@type (LazyPluginSpec[])]]{
         diagnostics.statix,
         diagnostics.stylelint,
         formatting.alejandra,
-        formatting.biome.with --[[@as fun(opts: table)]]{
-          extra_filetypes = { 'astro', 'html' }
-        },
         formatting.erb_lint,
         formatting.fish_indent,
         formatting.gofumpt,
@@ -599,6 +596,7 @@ return --[[@type (LazyPluginSpec[])]]{
         formatting.shfmt.with --[[@as fun(opts: table)]]{
           extra_filetypes = { 'bash' }
         },
+        exts.formatting.oxfmt,
         exts.formatting.ruff,
         formatting.uncrustify,
         exts.formatting.yq

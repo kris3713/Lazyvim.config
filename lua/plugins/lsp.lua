@@ -243,10 +243,20 @@ return --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true
         },
-        -- biome
-        biome = {
+        -- -- biome
+        -- biome = {
+        --   mason = false,
+        --   enabled = true
+        -- },
+        -- oxlint
+        oxlint = {
           mason = false,
-          enabled = true
+          enabled = true,
+          root_markers = {
+            '.oxlintrc.json',
+            '.oxlintrc.jsonc',
+            'oxlint.config.ts'
+          }
         },
         -- css_variables
         css_variables = {
