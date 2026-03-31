@@ -243,11 +243,6 @@ return --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true
         },
-        -- -- biome
-        -- biome = {
-        --   mason = false,
-        --   enabled = true
-        -- },
         -- oxlint
         oxlint = {
           mason = false,
