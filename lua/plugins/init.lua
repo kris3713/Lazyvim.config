@@ -238,6 +238,11 @@ return --[[@type (LazyPluginSpec[])]]{
               -- '(tw`(?:(?:(?:[^`]*\\$\\{[^]*?\\})[^`]*)+|[^`]*`))'
               [[tw`([^`]*)`]]
             }
+          },
+          includeLanguages = {
+            elixir = 'html-eex',
+            eelixir = 'html-eex',
+            heex = 'html-eex'
           }
         }
       }
