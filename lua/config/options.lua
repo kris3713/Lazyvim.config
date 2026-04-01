@@ -138,6 +138,7 @@ do
     trail = space
   }
 
+  --- @diagnostic disable-next-line: incomplete-signature-doc
   local function error_hl()
     set_hl(0, 'TrailingWhitespace', { link = 'Error' })
   end
@@ -213,3 +214,17 @@ vim.diagnostic.config {
   virtual_lines = false,
   update_in_insert = true
 }
+
+-- Native built-in comments
+do
+  local get_option = vim.filetype.get_option
+
+  ---@param filetype string
+  ---@param option string
+  ---@return (string|boolean|integer)|string?
+  vim.filetype.get_option = function(filetype, option)
+    return option == 'commentstring' and
+      require('ts_context_commentstring.internal').calculate_commentstring() or
+      get_option(filetype, option)
+  end
+end

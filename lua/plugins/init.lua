@@ -211,20 +211,20 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
-    ---@type ts_context_commentstring.Config?
+    ---@type ts_context_commentstring.Config
     opts = {
       enable_autocmd = false
     }
   },
-  {
-    'faergeek/Comment.nvim',---@module 'Comment'
-    ---@param opts CommentConfig
-    opts = function(opts)
-      local c = require('ts_context_commentstring.integrations.comment_nvim')
-      opts.pre_hook = c.create_pre_hook()
-    end,
-    branch = 'nvim-0.12-compatibility'
-  },
+  -- {
+  --   'faergeek/Comment.nvim',---@module 'Comment'
+  --   ---@param opts CommentConfig
+  --   opts = function(opts)
+  --     local c = require('ts_context_commentstring.integrations.comment_nvim')
+  --     opts.pre_hook = c.create_pre_hook()
+  --   end,
+  --   branch = 'nvim-0.12-compatibility'
+  -- },
   {
     'luckasRanarison/tailwind-tools.nvim',---@module 'tailwind-tools'
     ---@type TailwindTools.Option
@@ -530,32 +530,30 @@ return --[[@type (LazyPluginSpec[])]]{
     version = '*',
     event = 'VeryLazy'
   },
-  {
-    'aznhe21/actions-preview.nvim',
-    config = function()
-      -- Has potential for a more complex configuration
-      require('actions-preview').setup {
-        backend = 'telescope',
-        telescope = {
-          sorting_strategy = 'ascending',
-          layout_strategy = 'vertical',
-          layout_config = {
-            width = 0.8,
-            -- height = 0.9,
-            prompt_position = 'top',
-            preview_cutoff = 25,
-            ---@param max_lines integer
-            preview_height = function(_, _, max_lines)
-              return max_lines - 20
-            end
-          }
-        },
-        highlight_command = {
-          require('actions-preview.highlight').delta()
-        }
-      }
-    end
-  },
+  -- {
+  --   'aznhe21/actions-preview.nvim',
+  --   opts = function(opts)
+  --     opts = {
+  --       -- telescope = {
+  --       --   sorting_strategy = 'ascending',
+  --       --   layout_strategy = 'vertical',
+  --       --   layout_config = {
+  --       --     width = 0.8,
+  --       --     -- height = 0.9,
+  --       --     prompt_position = 'top',
+  --       --     preview_cutoff = 25,
+  --       --     ---@param max_lines integer
+  --       --     preview_height = function(_, _, max_lines)
+  --       --       return max_lines - 20
+  --       --     end
+  --       --   }
+  --       -- },
+  --       highlight_command = {
+  --         require('actions-preview.highlight').delta()
+  --       }
+  --     }
+  --   end
+  -- },
   {
     'LunarVim/bigfile.nvim',
     config = function()

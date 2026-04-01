@@ -67,12 +67,12 @@ end
 --   hover.open {}
 -- end
 
----Selects a code action available at the current cursor position.
-local function ap__code_actions()
-  -- actions-preview
-  local ap = require('actions-preview')
-  ap.code_actions {}
-end
+------Selects a code action available at the current cursor position.
+---local function ap__code_actions()
+---  -- actions-preview
+---  local ap = require('actions-preview')
+---  ap.code_actions {}
+---end
 
 --- @diagnostic disable-next-line: incomplete-signature-doc
 local function live_rename__rename()
@@ -935,12 +935,12 @@ return --[[@type LazyPluginSpec]]{
         desc = 'Hover Doc',
         noremap = true
       },
-      { -- Code Actions
-        '<leader>ca',
-        ap__code_actions,
-        desc = 'Open Code Actions',
-        noremap = true
-      },
+      -- { -- Code Actions
+      --   '<leader>ca',
+      --   ap__code_actions,
+      --   desc = 'Open Code Actions',
+      --   noremap = true
+      -- },
       { -- LSP Rename
         '<leader>cr',
         live_rename__rename,

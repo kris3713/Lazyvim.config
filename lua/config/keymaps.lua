@@ -1,3 +1,4 @@
+--- @diagnostic disable: incomplete-signature-doc
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
@@ -124,15 +125,15 @@ do
 end
 
 
--- actions-preview.nvim
-do
-  local function ap__code_actions()
-    local ap = require('actions-preview')
-    ap.code_actions {}
-  end
-
-  vim_keymap.set({ 'x', 'n' }, '<leader>xf', ap__code_actions, opts('Open Code Actions'))
-end
+-- -- actions-preview.nvim
+-- do
+--   local function ap__code_actions()
+--     local ap = require('actions-preview')
+--     ap.code_actions {}
+--   end
+--
+--   vim_keymap.set({ 'x', 'n' }, '<leader>xf', ap__code_actions, opts('Open Code Actions'))
+-- end
 
 
 -- neogen
