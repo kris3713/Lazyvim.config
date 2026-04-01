@@ -217,15 +217,13 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'numToStr/Comment.nvim',
-    -- Has potential for a complex configuration
-    config = function()
+    'faergeek/Comment.nvim',---@module 'Comment'
+    ---@param opts CommentConfig
+    opts = function(opts)
       local c = require('ts_context_commentstring.integrations.comment_nvim')
-      --- @diagnostic disable-next-line: param-type-mismatch
-      require('Comment').setup {
-        pre_hook = c.create_pre_hook()
-      }
-    end
+      opts.pre_hook = c.create_pre_hook()
+    end,
+    branch = 'nvim-0.12-compatibility'
   },
   {
     'luckasRanarison/tailwind-tools.nvim',---@module 'tailwind-tools'
