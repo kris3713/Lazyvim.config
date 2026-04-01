@@ -309,7 +309,17 @@ return --[[@type LazyPluginSpec]]{
         -- tailwindcss
         tailwindcss = {
           mason = false,
-          enabled = true
+          enabled = true,
+          settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  '(tw`(?:(?:(?:[^`]*\\$\\{[^]*?\\})[^`]*)+|[^`]*`))',
+                  "((?:(?<=`)(?:[^\"'`]*)(?=\\${|`))|(?:(?<=\\})(?:[^\"'`]*)(?=\\${))|(?:(?<=\\})(?:[^\"'"
+                }
+              }
+            }
+          }
         },
         -- vimls
         vimls = {
