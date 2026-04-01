@@ -228,10 +228,22 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'luckasRanarison/tailwind-tools.nvim',
+    'luckasRanarison/tailwind-tools.nvim',---@module 'tailwind-tools'
+    ---@type TailwindTools.Option
+    opts = {
+      server = {
+        settings = {
+          experimental = {
+            classRegex = {
+              '(tw`(?:(?:(?:[^`]*\\$\\{[^]*?\\})[^`]*)+|[^`]*`))',
+              "((?:(?<=`)(?:[^\"'`]*)(?=\\${|`))|(?:(?<=\\})(?:[^\"'`]*)(?=\\${))|(?:(?<=\\})(?:[^\"'"
+            }
+          }
+        }
+      }
+    },
     name = 'tailwind-tools',
-    build = function() vim.cmd('UpdateRemotePlugins') end,
-    opts = {}
+    build = function() vim.cmd('UpdateRemotePlugins') end
   },
   -- {
   --   'zeioth/garbage-day.nvim',
