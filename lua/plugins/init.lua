@@ -8,10 +8,10 @@ return --[[@type (LazyPluginSpec[])]]{
     ft = 'markdown',
     opts = {}
   },
-  {
-    'calops/hmts.nvim',
-    version = '*'
-  },
+  -- {
+  --   'calops/hmts.nvim',
+  --   version = '*'
+  -- },
   {
     'nanotee/zoxide.vim',
     init = function() vim.g.zoxide_use_select = 1 end
