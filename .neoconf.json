@@ -8,10 +8,10 @@
   "neoconf": {
     "plugins": {
       "lua_ls": {
-        "enabled": false
+        "enabled": true
       },
       "emmylua_ls": {
-        "enabled": true
+        "enabled": false
       }
     }
   }

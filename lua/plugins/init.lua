@@ -26,13 +26,12 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'mfussenegger/nvim-dap-python',
-    -- stylua: ignore
     keys = {
       { '<leader>dPt', function() require('dap-python').test_method() end, desc = 'Debug Method', ft = 'python' },
       { '<leader>dPc', function() require('dap-python').test_class() end, desc = 'Debug Class', ft = 'python' }
     },
     config = function()
-      require('dap-python').setup('debugpy-adapter')
+      require('dap-python').setup('debugpy-adapter', {})
     end
   },
   {
@@ -172,11 +171,7 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'jmbuhr/otter.nvim',
-    config = function()
-      -- Has potential for a complex configuration
-      local otter = require('otter')
-      otter.setup()
-    end
+    opts = {}
   },
   {
     'windwp/nvim-autopairs',
@@ -191,19 +186,19 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'xzbdmw/colorful-menu.nvim',
+    'xzbdmw/colorful-menu.nvim',---@module 'colorful-menu'
     ---@type ColorfulMenuConfig
     opts = {
       max_width = 80
     }
   },
   {
-    'seblyng/roslyn.nvim',
-    ft = { 'cs' },
+    'seblyng/roslyn.nvim',---@module 'roslyn'
     ---@type RoslynNvimConfig
     opts = {
       filewatching = 'roslyn'
-    }
+    },
+    ft = { 'cs' }
   },
   {
     'nacro90/numb.nvim',
@@ -317,7 +312,14 @@ return --[[@type (LazyPluginSpec[])]]{
     'smoka7/multicursors.nvim',
     event = 'VeryLazy',
     dependencies = 'nvimtools/hydra.nvim',
-    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+    cmd = {
+      'MCstart',
+      'MCvisual',
+      'MCclear',
+      'MCpattern',
+      'MCvisualPattern',
+      'MCunderCursor'
+    },
     opts = {}
   },
   {
@@ -331,12 +333,12 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'mikavilpas/yazi.nvim',
-    event = 'VeryLazy',---@module 'yazi'
+    'mikavilpas/yazi.nvim',---@module 'yazi'
     ---@type YaziConfig
     opts = {
       open_for_directories = true
-    }
+    },
+    event = 'VeryLazy'
   },
   {
     'nvim-flutter/flutter-tools.nvim',
@@ -355,8 +357,7 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'Bekaboo/dropbar.nvim',
-    lazy = false,---@module 'dropbar'
+    'Bekaboo/dropbar.nvim',---@module 'dropbar'
     ---@type dropbar_configs_t
     opts = {
       menu = {
@@ -364,7 +365,8 @@ return --[[@type (LazyPluginSpec[])]]{
           border = 'rounded'
         }
       }
-    }
+    },
+    lazy = false
   },
   {
     'gbprod/phpactor.nvim',
@@ -377,22 +379,20 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'windwp/nvim-ts-autotag',
-    config = function()
+    'windwp/nvim-ts-autotag',---@module 'nvim-ts-autotag'
+    ---@type nvim-ts-autotag.PluginSetup
+    opts = {
       --- @diagnostic disable-next-line: param-type-mismatch
       -- Has potential for a complex configuration
-      require('nvim-ts-autotag').setup {
-        opts = {
-          enable_close = true,
-          enable_close_on_slash = true,
-          enable_rename = true
-        }
+      opts = {
+        enable_close = true,
+        enable_close_on_slash = true,
+        enable_rename = true
       }
-    end
+    }
   },
   {
-    'zbirenbaum/neodim',
-    event = 'LspAttach',---@module 'neodim'
+    'zbirenbaum/neodim',---@module 'neodim'
     ---@type neodim.Options
     opts = {
       hide = {
@@ -400,17 +400,18 @@ return --[[@type (LazyPluginSpec[])]]{
         virtual_text = false,
         signs = false
       }
-    }
+    },
+    event = 'LspAttach'
   },
   {
-    'kevinhwang91/nvim-ufo',
-    dependencies = 'kevinhwang91/promise-async',---@module 'ufo'
+    'kevinhwang91/nvim-ufo',---@module 'ufo'
     ---@type UfoConfig
     opts = {
       provider_selector = function(_, _, _)
         return { 'treesitter', 'indent' }
       end
-    }
+    },
+    dependencies = 'kevinhwang91/promise-async'
   },
   {
     'michaelb/sniprun',
@@ -422,28 +423,26 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'GCBallesteros/jupytext.nvim',
-    config = function()
-      require('jupytext').setup {
-        custom_language_formatting = {
-          python = {
-            extension = 'md',
-            style = 'markdown',
-            force_ft = 'markdown' -- you can set whatever filetype you want here
-          }
+    opts = {
+      custom_language_formatting = {
+        python = {
+          extension = 'md',
+          style = 'markdown',
+          force_ft = 'markdown' -- you can set whatever filetype you want here
         }
       }
-    end
+    }
   },
   {
-    'linux-cultist/venv-selector.nvim',
-    ft = 'python',
-    cmd = 'VenvSelect',---@module 'venv-selector'
+    'linux-cultist/venv-selector.nvim',---@module 'venv-selector'
     ---@type venv-selector.Settings
     opts = {
       options = {
         notify_user_on_venv_activation = true
       }
     },
+    ft = 'python',
+    cmd = 'VenvSelect',
     --  Call config for Python files and load the cached venv automatically
     keys = {
       {
@@ -469,61 +468,6 @@ return --[[@type (LazyPluginSpec[])]]{
       trim_on_write = false,
       -- highlight trailing spaces
       highlight = true
-    }
-  },
-  {
-    'hasansujon786/nvim-navbuddy',
-    dependencies = {
-      {
-        'SmiteshP/nvim-navic',
-        -- lazy = true,
-        init = function() vim.g.navic_silence = true end,
-        opts = function()
-          Snacks.util.lsp.on({ method = 'textDocument/documentSymbol' }, function(bufnr, client)
-            require('nvim-navic').attach(client, bufnr)
-          end)
-
-          return {
-            separator = " ",
-            highlight = true,
-            depth_limit = 5,
-            icons = {
-              File = ' ',
-              Module = ' ',
-              Namespace = ' ',
-              Package = ' ',
-              Class = ' ',
-              Method = ' ',
-              Property = ' ',
-              Field = ' ',
-              Constructor = ' ',
-              Enum = ' ',
-              Interface = ' ',
-              Function = ' ',
-              Variable = ' ',
-              Constant = ' ',
-              String = ' ',
-              Number = ' ',
-              Boolean = ' ',
-              Array = ' ',
-              Object = ' ',
-              Key = ' ',
-              Null = ' ',
-              EnumMember = ' ',
-              Struct = ' ',
-              Event = ' ',
-              Operator = ' ',
-              TypeParameter = ' '
-            },
-            lazy_update_context = true,
-            lsp = { auto_attach = true }
-          }
-        end
-      },
-      'MunifTanjim/nui.nvim'
-    },
-    opts = {
-      lsp = { auto_attach = true }
     }
   },
   {
@@ -594,10 +538,9 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'nvim-tree/nvim-tree.lua',
-    dependencies = 'antosha417/nvim-lsp-file-operations',
-    lazy = false,
-    config = function()
+    'nvim-tree/nvim-tree.lua',---@module 'nvim-tree'
+    ---@param opts nvim_tree.config?
+    opts = function(_, opts)
       ---@param path string
       ---@return string
       local function label(path)
@@ -607,89 +550,96 @@ return --[[@type (LazyPluginSpec[])]]{
         return path
       end
 
-      -- Has potential for a more complex configuration
-      require('nvim-tree').setup {
-        sync_root_with_cwd = true,
-        respect_buf_cwd = true,
-        update_focused_file = {
-          enable = true,
-          update_root = true
-        },
-        filters = { enable = false },
-        ---@param bufnr integer
-        on_attach = function(bufnr)
-          local api = require('nvim-tree.api')
-          local vim_keymap = vim.keymap
+      local setEnable = { enable = true }
 
-          local function edit_or_open()
-            local node = api.tree.get_node_under_cursor()
-            --- @diagnostic disable-next-line: undefined-field
-            if node and node.nodes ~= nil then
-              -- expand or collapse folder
-              api.node.open.edit()
-            else
-              -- open file
-              api.node.open.edit()
-              -- Close the tree if file was opened
-              api.tree.close()
-            end
-          end
-
-          -- harper:ignore
-
-          -- open as vsplit on current node
-          local function vsplit_preview()
-            local node = api.tree.get_node_under_cursor()
-            --- @diagnostic disable-next-line: undefined-field
-            if node and node.nodes ~= nil then
-              -- expand or collapse folder
-              api.node.open.edit()
-            else
-              -- open file as vsplit
-              api.node.open.vertical()
-            end
-            -- Finally refocus on tree if it was lost
-            api.tree.focus()
-          end
-
-          ---Sets options for keymaps
-          ---@param desc string
-          ---@param silent boolean?
-          ---@return vim.keymap.set.Opts
-          local function opts(desc, silent)
-            silent = silent or false
-            ---@type vim.keymap.set.Opts
-            return { desc = 'nvim-tree: ' .. desc, silent = silent, noremap = true, nowait = true }
-          end
-
-          -- default mappings (Copied from eddiebergman)
-          api.config.mappings.default_on_attach(bufnr)
-
-          -- Set keymaps on attach (Copied from eddiebergman)
-          vim_keymap.set('n', 'l', edit_or_open, opts('Edit or Open'))
-          vim_keymap.set('n', 'L', vsplit_preview, opts('Vsplit Preview'))
-          vim_keymap.set('n', 'h', api.tree.close, opts('Close'))
-          vim_keymap.set('n', 'H', api.tree.collapse_all, opts('Collapse'))
-        end,
-        renderer = {
-          icons = {
-            glyphs = {
-              git = {
-                unstaged = '󰄱',
-                staged = '󰱒'
-              }
-            }
+      if opts then
+        -- Has potential for a more complex configuration
+        opts = {
+          sync_root_with_cwd = true,
+          respect_buf_cwd = true,
+          update_focused_file = {
+            enable = true,
+            update_root = setEnable()
           },
-          root_folder_label = label,
-          group_empty = label
+          filters = setEnable(),
+          renderer = {
+            icons = {
+              glyphs = {
+                git = {
+                  unstaged = '󰄱',
+                  staged = '󰱒'
+                }
+              }
+            },
+            root_folder_label = label,
+            group_empty = label
+          },
+          ---@param bufnr integer
+          on_attach = function(bufnr)
+            local api = require('nvim-tree.api')
+
+            local function edit_or_open()
+              local node = api.tree.get_node_under_cursor()
+              --- @diagnostic disable-next-line: undefined-field
+              if node and node.nodes ~= nil then
+                -- expand or collapse folder
+                api.node.open.edit()
+              else
+                -- open file
+                api.node.open.edit()
+                -- Close the tree if file was opened
+                api.tree.close()
+              end
+            end
+
+            -- harper:ignore
+
+            -- open as vsplit on current node
+            local function vsplit_preview()
+              local node = api.tree.get_node_under_cursor()
+              --- @diagnostic disable-next-line: undefined-field
+              if node and node.nodes ~= nil then
+                -- expand or collapse folder
+                api.node.open.edit()
+              else
+                -- open file as vsplit
+                api.node.open.vertical()
+              end
+              -- Finally refocus on tree if it was lost
+              api.tree.focus()
+            end
+
+            local vim_keymap = vim.keymap
+
+            ---Sets options for keymaps
+            ---@param desc string
+            ---@param silent boolean?
+            ---@return vim.keymap.set.Opts
+            local function keymap_opts(desc, silent)
+              silent = silent or false
+              ---@type vim.keymap.set.Opts
+              local set_opts = { desc = 'nvim-tree: ' .. desc, silent = silent, noremap = true, nowait = true }
+              return set_opts
+            end
+
+            -- default mappings (Copied from eddiebergman)
+            api.config.mappings.on_attach.default(bufnr)
+
+            -- Set keymaps on attach (Copied from eddiebergman)
+            vim_keymap.set('n', 'l', edit_or_open, keymap_opts('Edit or Open'))
+            vim_keymap.set('n', 'L', vsplit_preview, keymap_opts('Vsplit Preview'))
+            vim_keymap.set('n', 'h', api.tree.close, keymap_opts('Close'))
+            vim_keymap.set('n', 'H', api.tree.collapse_all, keymap_opts('Collapse'))
+          end
         }
-      }
+      end
     end,
+    dependencies = 'antosha417/nvim-lsp-file-operations',
+    lazy = false,
     deactivate = function() vim.cmd('NvimTreeClose') end
   },
   {
-    'rmagatti/auto-session',
-    lazy = false,---@module 'auto-session'
+    'rmagatti/auto-session',---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
       session_lens = {
@@ -728,20 +678,21 @@ return --[[@type (LazyPluginSpec[])]]{
           })
         end
       }
-    }
+    },
+    lazy = false
   },
   {
     'milanglacier/minuet-ai.nvim',
-    enabled = false,
+    enabled = true,
     opts = {
       provider = 'openai_fim_compatible',
       context_window = 512,
       provider_options = {
         openai_fim_compatible = {
           api_key = 'TERM',
-          name = 'Ollama',
-          end_point = 'http://localhost:11434/v1/completions',
-          model = 'qwen2.5-coder:14b-instruct-q4_K_M',
+          name = 'llama-swap',
+          end_point = 'http://localhost:1234/v1/completions',
+          model = 'OmniCoder-9B',
           optional = {
             max_tokens = 56,
             top_p = 0.9
