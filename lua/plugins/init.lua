@@ -98,10 +98,6 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {}
   },
   {
-    'saecki/live-rename.nvim',
-    opts = {}
-  },
-  {
     'chrisgrieser/nvim-scissors',
     opts = { snippetDir = os.getenv('HOME') .. '/MEGA' }
   },
@@ -261,13 +257,6 @@ return --[[@type (LazyPluginSpec[])]]{
     name = 'tailwind-tools',
     build = function() vim.cmd('UpdateRemotePlugins') end
   },
-  -- {
-  --   'zeioth/garbage-day.nvim',
-  --   event = 'VeryLazy',
-  --   opts = {
-  --     aggressive_mode = true
-  --   }
-  -- },
   {
     'Wansmer/treesj',
     opts = {}

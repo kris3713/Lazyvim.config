@@ -18,6 +18,10 @@ return --[[@type (LazyPluginSpec[])]]{
   }
   -- harper:ignore
   -- {
+  --   'saecki/live-rename.nvim',
+  --   opts = {}
+  -- },
+  -- {
   --   'GeorgesAlkhouri/nvim-aider',
   --   cmd = 'Aider',
   --   -- Example key mappings for common actions:
