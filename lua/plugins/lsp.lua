@@ -74,12 +74,6 @@ end
 ---  ap.code_actions {}
 ---end
 
---- @diagnostic disable-next-line: incomplete-signature-doc
-local function live_rename__rename()
-  local live_rename = require('live-rename')
-  live_rename.rename {}
-end
-
 
 return --[[@type LazyPluginSpec]]{
   'neovim/nvim-lspconfig',
@@ -937,26 +931,28 @@ return --[[@type LazyPluginSpec]]{
       },
       -- { -- Code Actions
       --   '<leader>ca',
-      --   ap__code_actions,
+      --   ,
       --   desc = 'Open Code Actions',
       --   noremap = true
       -- },
       { -- LSP Rename
         '<leader>cr',
-        live_rename__rename,
+        vim.lsp.buf.rename,
         desc = 'Lsp Rename',
         noremap = true
       },
       { -- Line Diagnostics
         '<leader>cd',
-        function() vim.cmd('Lspsaga show_line_diagnostics') end,
+        function()
+          vim.cmd('Lspsaga show_line_diagnostics')
+        end,
         desc = 'Line Diagnostics',
         noremap = true
       }
     }
 
     -- Special config for '*'
-    if (opts.servers['*']) then
+    if opts.servers['*'] then
       ---@cast opts.servers table<string, (lspClientOpts|vim.lsp.Client)>
       (opts.servers['*']).keys = vim.list_extend((opts.servers['*']).keys or {}, all_keymaps)
     end
