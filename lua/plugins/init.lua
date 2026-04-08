@@ -552,30 +552,29 @@ return --[[@type (LazyPluginSpec[])]]{
 
       local setEnable = { enable = true }
 
+      -- Has potential for a more complex configuration
       if opts then
-        -- Has potential for a more complex configuration
-        opts = {
-          sync_root_with_cwd = true,
-          respect_buf_cwd = true,
-          update_focused_file = {
-            enable = true,
-            update_root = setEnable()
-          },
-          filters = setEnable(),
-          renderer = {
-            icons = {
-              glyphs = {
-                git = {
-                  unstaged = '󰄱',
-                  staged = '󰱒'
-                }
+        opts.sync_root_with_cwd = true
+        opts.respect_buf_cwd = true
+        opts.update_focused_file = {
+          enable = true,
+          update_root = setEnable
+        }
+        opts.filters = setEnable
+        opts.renderer = {
+          icons = {
+            glyphs = {
+              git = {
+                unstaged = '󰄱',
+                staged = '󰱒'
               }
-            },
-            root_folder_label = label,
-            group_empty = label
+            }
           },
-          ---@param bufnr integer
-          on_attach = function(bufnr)
+          root_folder_label = label,
+          group_empty = label
+        }
+        if opts.on_attach then
+          opts.on_attach = function(bufnr)
             local api = require('nvim-tree.api')
 
             local function edit_or_open()
@@ -605,7 +604,7 @@ return --[[@type (LazyPluginSpec[])]]{
                 -- open file as vsplit
                 api.node.open.vertical()
               end
-              -- Finally refocus on tree if it was lost
+              -- Finally refocus on nvim-tree if it was lost
               api.tree.focus()
             end
 
@@ -631,7 +630,7 @@ return --[[@type (LazyPluginSpec[])]]{
             vim_keymap.set('n', 'h', api.tree.close, keymap_opts('Close'))
             vim_keymap.set('n', 'H', api.tree.collapse_all, keymap_opts('Collapse'))
           end
-        }
+        end
       end
     end,
     dependencies = 'antosha417/nvim-lsp-file-operations',
@@ -683,22 +682,47 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'milanglacier/minuet-ai.nvim',
-    enabled = true,
     opts = {
+      cmp = {
+        enable_auto_complete = false
+      },
+      blink = {
+        enable_auto_complete = false
+      },
+      lsp = {
+        completion = {
+          enable = true
+        }
+      },
       provider = 'openai_fim_compatible',
+      n_completions = 1,
       context_window = 512,
       provider_options = {
         openai_fim_compatible = {
           api_key = 'TERM',
           name = 'llama-swap',
           end_point = 'http://localhost:1234/v1/completions',
-          model = 'OmniCoder-9B',
+          model = 'Qwen2.5-Coder-7B-Instruct',
           optional = {
             max_tokens = 56,
             top_p = 0.9
+          },
+          -- Llama.cpp does not support the `suffix` option in FIM completion.
+          -- Therefore, we must disable it and manually populate the special
+          -- tokens required for FIM completion.
+          template = {
+            prompt = function(context_before_cursor, context_after_cursor, _)
+              return '<|fim_prefix|>'
+                .. context_before_cursor
+                .. '<|fim_suffix|>'
+                .. context_after_cursor
+                .. '<|fim_middle|>'
+            end,
+            suffix = false
           }
         }
       }
-    }
+    },
+    enabled = true
   }
 }

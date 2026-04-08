@@ -369,7 +369,7 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = function(_, opts)
       ---@type cmp.SourceConfig[]
       local cmp_sources = {
-        { name = 'minuet' },
+        -- { name = 'minuet' },
         { name = 'buffer-lines' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lua' },
@@ -381,50 +381,45 @@ return --[[@type (LazyPluginSpec[])]]{
         { name = 'pypi' },
         { name = 'git' }
       }
-
       opts.sources = vim.list_extend(opts.sources or {}, cmp_sources)
+
+      local setRounded = { border = 'rounded' }
+      opts.window = {
+        completion = setRounded,
+        documentation = setRounded
+      }
+
+      opts.formatting = {
+        fields = { 'abbr', 'kind', 'menu' },
+        format = function(entry, vim_item)
+          local lspkind__cmp_format = require('lspkind').cmp_format { mode = 'symbol_text' }
+          local extra_opts = lspkind__cmp_format(entry, vim.deepcopy(vim_item))
+          local highlights_info = require('colorful-menu').cmp_highlights(entry)
+
+          -- highlight_info is nil means we are missing the ts parser, it's
+          -- better to fallback to use default `vim_item.abbr`. What this plugin
+          -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+          if highlights_info ~= nil then
+            vim_item.abbr_hl_group = highlights_info.highlights
+            vim_item.abbr = highlights_info.text
+          end
+
+          local strings = vim.split(extra_opts.kind, '%s', { trimempty = true })
+          vim_item.kind = ' ' .. (strings[1] or '') .. ' '
+          vim_item.menu = ''
+
+          return vim_item
+        end
+      }
     end,
     init = function()
       local cmp = require('cmp')
 
-      cmp.setup {
-        window = {
-          completion = {
-            border = 'rounded'
-          },
-          documentation = {
-            border = 'rounded'
-          }
-        },
-        formatting = {
-          fields = { 'abbr', 'kind', 'menu' },
-          format = function(entry, vim_item)
-            local lspkind__cmp_format = require('lspkind').cmp_format { mode = 'symbol_text' }
-            local extra_opts = lspkind__cmp_format(entry, vim.deepcopy(vim_item))
-            local highlights_info = require('colorful-menu').cmp_highlights(entry)
-
-            -- highlight_info is nil means we are missing the ts parser, it's
-            -- better to fallback to use default `vim_item.abbr`. What this plugin
-            -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
-            if highlights_info ~= nil then
-              vim_item.abbr_hl_group = highlights_info.highlights
-              vim_item.abbr = highlights_info.text
-            end
-
-            local strings = vim.split(extra_opts.kind, '%s', { trimempty = true })
-            vim_item.kind = ' ' .. (strings[1] or '') .. ' '
-            vim_item.menu = ''
-
-            return vim_item
-          end
-        },
+      cmp.setup({
         mapping = cmp.mapping.preset.insert {
-          -- ['<a-cr>'] = require('minuet').make_cmp_map()
-        },
-        performance = {
-          fetching_timeout = 2000
+          ['<a-y>'] = require('minuet').make_cmp_map()
         }
-      }
+      })
 
       -- only for sql
       cmp.setup.filetype('sql', {
@@ -448,12 +443,12 @@ return --[[@type (LazyPluginSpec[])]]{
         }
       })
 
-      cmp.setup.cmdline({ "/", "?" }, {
+      cmp.setup.cmdline({ '/', '?' }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
           {
-              name = 'buffer',
-              option = { keyword_pattern = [[\k\+]] }
+            name = 'buffer',
+            option = { keyword_pattern = [[\k\+]] }
           },
           { name = 'buffer-lines' }
         }
