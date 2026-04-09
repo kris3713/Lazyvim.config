@@ -693,8 +693,7 @@ return --[[@type (LazyPluginSpec[])]]{
           end_point = 'http://localhost:1234/v1/completions',
           model = 'Qwen2.5-Coder-14B-Instruct',
           optional = {
-            max_tokens = 56,
-            top_p = 0.9
+            max_tokens = 56
           },
           -- Llama.cpp does not support the `suffix` option in FIM completion.
           -- Therefore, we must disable it and manually populate the special
