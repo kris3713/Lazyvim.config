@@ -691,7 +691,7 @@ return --[[@type (LazyPluginSpec[])]]{
           api_key = 'TERM',
           name = 'llama-swap',
           end_point = 'http://localhost:1234/v1/completions',
-          model = 'Qwen2.5-Coder-7B-Instruct',
+          model = 'Qwen2.5-Coder-14B-Instruct',
           optional = {
             max_tokens = 56,
             top_p = 0.9
