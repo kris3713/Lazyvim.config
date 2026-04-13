@@ -68,7 +68,7 @@
   "mini.move": { "branch": "main", "commit": "74d140143b1bb905c3d0aebcfc2f216fd237080e" },
   "mini.pairs": { "branch": "main", "commit": "69864a2efb36c030877421634487fd90db1e4298" },
   "minty": { "branch": "main", "commit": "aafc9e8e0afe6bf57580858a2849578d8d8db9e0" },
-  "minuet-ai.nvim": { "branch": "main", "commit": "fd022e2fd6c637fe5298f59bf718905ebfaea0ff" },
+  "minuet-ai.nvim": { "branch": "main", "commit": "d851cf7ee0afa5630acbc645d6b0a4e7e981546e" },
   "modes.nvim": { "branch": "main", "commit": "fc7bc0141500d9cf7c14f46fca846f728545a781" },
   "multicursors.nvim": { "branch": "main", "commit": "72225ea9e4443c3f4b9df91d0193e07c4ee8d382" },
   "muren.nvim": { "branch": "main", "commit": "fa18f2df80a52afd201da062d1af0e80c8d1988e" },
