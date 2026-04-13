@@ -670,6 +670,10 @@ return --[[@type (LazyPluginSpec[])]]{
     lazy = false
   },
   {
+    'editor-code-assistant/eca-nvim',
+    opts = {}
+  },
+  {
     'milanglacier/minuet-ai.nvim',
     opts = {
       cmp = {
