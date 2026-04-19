@@ -670,16 +670,6 @@ return --[[@type (LazyPluginSpec[])]]{
     lazy = false
   },
   {
-    'editor-code-assistant/eca-nvim',---@module 'eca'
-    ---@param opts eca.Config
-    opts = function(_, opts)
-      opts.server_path = vim.fn.exepath('eca')
-      if opts.behavior then
-        opts.behavior.auto_set_keymaps = false
-      end
-    end
-  },
-  {
     'milanglacier/minuet-ai.nvim',
     opts = {
       cmp = {
