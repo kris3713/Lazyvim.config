@@ -3,6 +3,24 @@
 
 return --[[@type (LazyPluginSpec[])]]{
   -- Plugins with configs go here
+  -- {
+  --   'ThePrimeagen/refactoring.nvim',
+  --   event = { 'BufReadPre', 'BufNewFile' },
+  --   keys = {
+  --     {
+  --       '<leader>r',
+  --       '',
+  --       desc = '+refactor',
+  --       mode = { 'n', 'x' }
+  --     },
+  --     {
+  --       "<leader>rs",
+  --       require('refactoring').select_refactor,
+  --       mode = { "n", "x" },
+  --       desc = "Refactor",
+  --     }
+  --   }
+  -- },
   {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
