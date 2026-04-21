@@ -145,7 +145,7 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'vuki656/package-info.nvim',
     opts = {
-      package_manager = 'pnpm'
+      package_manager = 'bun'
     }
   },
   {

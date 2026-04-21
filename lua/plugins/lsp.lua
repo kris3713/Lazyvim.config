@@ -731,10 +731,9 @@ return --[[@type LazyPluginSpec]]{
                   {
                     name = '@vue/typescript-plugin',
                     location = vim.fn.system {
-                      'sh',
-                      '-c',
-                      'pnpm list -g --json --long @vue/language-server | '
-                      .. [[ jq '.[0].dependencies."@vue/language-server".path' -rj ]]
+                      'mise',
+                      'where',
+                      'npm:@vue/language-server@latest'
                     },
                     languages = { 'vue' },
                     configNamespace = 'typescript',
@@ -860,47 +859,47 @@ return --[[@type LazyPluginSpec]]{
           -- end workaround
         end,
         vtsls = function(_, _)
-          Snacks.util.lsp.on({ name = "vtsls" }, function(_, client)
-            client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
+          Snacks.util.lsp.on({ name = 'vtsls' }, function(_, client)
+            client.commands['_typescript.moveToFileRefactoring'] = function(command, _)
               ---@type string, string, lsp.Range
               local action, uri, range = unpack(command.arguments)
 
               --- @diagnostic disable-next-line: incomplete-signature-doc
               local function move(newf)
-                client:request("workspace/executeCommand", {
+                client:request('workspace/executeCommand', {
                   command = command.command,
                   arguments = { action, uri, range, newf },
                 })
               end
 
               local fname = vim.uri_to_fname(uri)
-              client:request("workspace/executeCommand", {
-                command = "typescript.tsserverRequest",
+              client:request('workspace/executeCommand', {
+                command = 'typescript.tsserverRequest',
                 arguments = {
-                  "getMoveToRefactoringFileSuggestions",
+                  'getMoveToRefactoringFileSuggestions',
                   {
                     file = fname,
                     startLine = range.start.line + 1,
                     startOffset = range.start.character + 1,
-                    endLine = range["end"].line + 1,
-                    endOffset = range["end"].character + 1,
+                    endLine = range['end'].line + 1,
+                    endOffset = range['end'].character + 1,
                   },
                 },
               }, function(_, result)
                 ---@type string[]
                 local files = result.body.files
-                table.insert(files, 1, "Enter new path...")
+                table.insert(files, 1, 'Enter new path...')
                 vim.ui.select(files, {
-                  prompt = "Select move destination:",
+                  prompt = 'Select move destination:',
                   format_item = function(f)
-                    return vim.fn.fnamemodify(f, ":~:.")
+                    return vim.fn.fnamemodify(f, ':~:.')
                   end,
                 }, function(f)
-                  if f and f:find("^Enter new path") then
+                  if f and f:find('^Enter new path') then
                     vim.ui.input({
-                      prompt = "Enter move destination:",
-                      default = vim.fn.fnamemodify(fname, ":h") .. "/",
-                      completion = "file",
+                      prompt = 'Enter move destination:',
+                      default = vim.fn.fnamemodify(fname, ':h') .. '/',
+                      completion = 'file',
                     }, function(newf)
                       return newf and move(newf)
                     end)
