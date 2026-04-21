@@ -312,16 +312,6 @@ do
 end
 
 
--- refactoring.nvim (Overriding their functions because they are not working as expected)
-vim_keymap.set({ 'n', 'x' }, '<leader>ri', function() vim.cmd('Refactor inline_var') end, opts('Inline Variable'))
-vim_keymap.set('n', '<leader>rb', function() vim.cmd('Refactor extract_block') end, opts('Extract Block'))
-vim_keymap.set('n', '<leader>rf', function() vim.cmd('Refactor extract_block_to_file') end, opts('Extract Block To File'))
-vim_keymap.set('n', '<leader>rF', function() vim.cmd('Refactor inline_func') end, opts('Inline Function'))
-vim_keymap.set('x', '<leader>rf', function() vim.cmd('Refactor extract_function') end, opts('Extract Function'))
-vim_keymap.set('x', '<leader>rF', function() vim.cmd('Refactor extract_function_to_file') end, opts('Extract Function To File'))
-vim_keymap.set('x', '<leader>rx', function() vim.cmd('Refactor extract_var') end, opts('Extract Variable'))
-
-
 -- treesj
 do
   local treesj = require('treesj')

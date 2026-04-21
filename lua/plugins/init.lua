@@ -3,24 +3,89 @@
 
 return --[[@type (LazyPluginSpec[])]]{
   -- Plugins with configs go here
-  -- {
-  --   'ThePrimeagen/refactoring.nvim',
-  --   event = { 'BufReadPre', 'BufNewFile' },
-  --   keys = {
-  --     {
-  --       '<leader>r',
-  --       '',
-  --       desc = '+refactor',
-  --       mode = { 'n', 'x' }
-  --     },
-  --     {
-  --       "<leader>rs",
-  --       require('refactoring').select_refactor,
-  --       mode = { "n", "x" },
-  --       desc = "Refactor",
-  --     }
-  --   }
-  -- },
+  {
+    'ThePrimeagen/refactoring.nvim',---@module 'refactoring'
+    ---@type refactor.UserConfig
+    opts = {},
+    lazy = false,
+    event = { 'BufReadPre', 'BufNewFile' },
+    keys = function ()
+      local refactoring = require('refactoring')
+      local Refactor = vim.cmd.Refactor
+
+      ---@type LazyKeysSpec[]
+      local mappings = {
+        {
+          '<leader>r',
+          '',
+          desc = '+refactor',
+          mode = { 'n', 'x' }
+        },
+        {
+          '<leader>rs',
+          function()
+            return refactoring.select_refactor {}
+          end,
+          desc = 'Select Refactor',
+          mode = { 'n', 'x' }
+        },
+        {
+          '<leader>re',
+          '',
+          desc = '+inline operations',
+          mode = { 'n', 'x' }
+        },
+        {
+          '<leader>rev',
+          function()
+            Refactor('inline_var')
+          end,
+          desc = 'Inline Variable',
+          mode = { 'n', 'x' }
+        },
+        {
+          '<leader>ref',
+          function()
+            Refactor('inline_func')
+          end,
+          desc = 'Inline Function',
+          mode = { 'n', 'x' }
+        },
+        {
+          '<leader>rx',
+          '',
+          desc = '+extraction operations',
+          mode = { 'n', 'x' }
+        },
+        {
+          '<leader>rxv',
+          function()
+            Refactor('extract_var')
+          end,
+          desc = 'Extract Variable',
+          mode = { 'n', 'x' }
+        },
+        {
+          '<leader>rxf',
+          function()
+            Refactor('extract_func')
+          end,
+          desc = 'Extract Function',
+          mode = { 'n', 'x' }
+        },
+        {
+          '<leader>rxF',
+          function()
+            Refactor('extract_function_to_file')
+          end,
+          desc = 'Extract Function To File',
+          mode = { 'n', 'x' }
+        }
+      }
+
+      return mappings
+    end
+  },
   {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
