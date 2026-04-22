@@ -372,13 +372,15 @@ return --[[@type LazyPluginSpec]]{
           keys = {
             {
               '<leader>co',
-              vim.lsp.buf.code_action {
-                apply = true,
-                context = {
-                  only = { 'source.organizeImports' },
-                  diagnostics = {}
+              function()
+                vim.lsp.buf.code_action {
+                  apply = true,
+                  context = {
+                    only = { 'source.organizeImports' },
+                    diagnostics = {}
+                  }
                 }
-              },
+              end,
               desc = 'Organize Imports'
             }
           }
@@ -411,7 +413,9 @@ return --[[@type LazyPluginSpec]]{
             local schemas = require('schemastore').json.schemas()
 
             if new_config.settings then
+              ---@diagnostic disable-next-line: unknown-cast-variable
               ---@cast new_config.settings.json lsp.LSPObject
+              ---@diagnostic disable-next-line: inject-field
               new_config.settings.json.schemas = vim.list_extend(new_config.settings.json.schemas or {}, schemas)
             end
           end,
@@ -441,8 +445,9 @@ return --[[@type LazyPluginSpec]]{
             local schemas = require('schemastore').yaml.schemas()
 
             if new_config.settings then
-              --- @diagnostic disable-next-line: inject-field
+              --- @diagnostic disable-next-line: inject-field, unknown-cast-variable
               ---@cast new_config.settings.yaml lsp.LSPObject
+              ---@diagnostic disable-next-line: inject-field
               new_config.settings.yaml.schemas = vim.tbl_deep_extend('force', new_config.settings.yaml.schemas or {}, schemas)
             end
           end,
@@ -494,6 +499,7 @@ return --[[@type LazyPluginSpec]]{
             end
 
             if client.config.settings then
+              ---@diagnostic disable-next-line: unknown-cast-variable
               ---@cast client.config.settings.Lua lsp.LSPObject
               client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua or {}, {
                 -- Make the server aware of Neovim runtime files
@@ -734,21 +740,21 @@ return --[[@type LazyPluginSpec]]{
                       'mise',
                       'where',
                       'npm:@vue/language-server@latest'
-                    }):gsub('%c', ''),
+                    }:gsub('%c', '') .. '/node_modules'),
                     languages = { 'vue' },
                     configNamespace = 'typescript',
                     enableForWorkspaceTypeScriptVersions = true
                   },
-                  -- {
-                  --   name = 'typescript-svelte-plugin',
-                  --   location = vim.fn.system {
-                  --     'sh',
-                  --     '-c',
-                  --     'pnpm list -g --json --long typescript-svelte-plugin | '
-                  --       .. [[ jq '.[0].dependencies."typescript-svelte-plugin".path' -rj ]]
-                  --   },
-                  --   enableForWorkspaceTypeScriptVersions = true
-                  -- }
+                  {
+                    name = 'typescript-svelte-plugin',
+                    location = (vim.fn.system {
+                      'mise',
+                      'where',
+                      'npm:typescript-svelte-plugin@latest'
+                    }:gsub('%c', '') .. '/node_modules'),
+                    languages = { 'svelte' },
+                    enableForWorkspaceTypeScriptVersions = true
+                  }
                 }
               },
             }
