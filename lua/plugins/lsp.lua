@@ -733,6 +733,7 @@ return --[[@type LazyPluginSpec]]{
                     location = vim.fn.system {
                       'mise',
                       'where',
+                      '--raw',
                       'npm:@vue/language-server@latest'
                     },
                     languages = { 'vue' },
