@@ -730,12 +730,11 @@ return --[[@type LazyPluginSpec]]{
                   -- },
                   {
                     name = '@vue/typescript-plugin',
-                    location = vim.fn.system {
+                    location = (vim.fn.system {
                       'mise',
                       'where',
-                      '--raw',
                       'npm:@vue/language-server@latest'
-                    },
+                    }):gsub('%c', ''),
                     languages = { 'vue' },
                     configNamespace = 'typescript',
                     enableForWorkspaceTypeScriptVersions = true
