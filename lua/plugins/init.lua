@@ -23,7 +23,7 @@ return --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rs',
           function()
-            return refactoring.select_refactor { prefer_ex_cmd = true }
+            refactoring.select_refactor { prefer_ex_cmd = true }
           end,
           desc = 'Select Refactor',
           mode = { 'n', 'x' }
