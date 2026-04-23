@@ -11,7 +11,6 @@ return --[[@type (LazyPluginSpec[])]]{
     event = { 'BufReadPre', 'BufNewFile' },
     keys = function ()
       local refactoring = require('refactoring')
-      local Refactor = vim.cmd.Refactor
 
       ---@type LazyKeysSpec[]
       local mappings = {
@@ -24,7 +23,7 @@ return --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rs',
           function()
-            return refactoring.select_refactor {}
+            return refactoring.select_refactor { prefer_ex_cmd = true }
           end,
           desc = 'Select Refactor',
           mode = { 'n', 'x' }
@@ -38,7 +37,7 @@ return --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rev',
           function()
-            Refactor('inline_var')
+            return refactoring.inline_var {}
           end,
           desc = 'Inline Variable',
           mode = { 'n', 'x' }
@@ -46,7 +45,7 @@ return --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>ref',
           function()
-            Refactor('inline_func')
+            return refactoring.inline_func {}
           end,
           desc = 'Inline Function',
           mode = { 'n', 'x' }
@@ -60,7 +59,7 @@ return --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rxv',
           function()
-            Refactor('extract_var')
+            return refactoring.extract_var {}
           end,
           desc = 'Extract Variable',
           mode = { 'n', 'x' }
@@ -68,7 +67,7 @@ return --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rxf',
           function()
-            Refactor('extract_func')
+            return refactoring.extract_func {}
           end,
           desc = 'Extract Function',
           mode = { 'n', 'x' }
@@ -76,7 +75,7 @@ return --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rxF',
           function()
-            Refactor('extract_function_to_file')
+            return refactoring.extract_func_to_file {}
           end,
           desc = 'Extract Function To File',
           mode = { 'n', 'x' }
