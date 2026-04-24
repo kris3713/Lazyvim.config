@@ -382,57 +382,53 @@ return --[[@type (LazyPluginSpec[])]]{
       }
       opts.sources = vim.list_extend(opts.sources or {}, cmp_sources)
 
-      if opts.window then
-        local setRounded = { border = 'rounded' }
-        opts.window = {
-          completion = setRounded,
-          documentation = {
-            border = setRounded.border,
-            max_width = 60
-          }
+      local setRounded = { border = 'rounded' }
+      opts.window = {
+        completion = setRounded,
+        documentation = {
+          border = setRounded.border,
+          max_width = 60
         }
-      end
+      }
 
       if opts.performance then
         opts.performance.max_view_entries = 100
       end
 
-      if opts.formatting then
-        opts.formatting = {
-          fields = { 'abbr', 'icon', 'kind', 'menu' },
-          format = function(entry, vim_item) --- Combination of lspkind and colorful-menu
-            local options = {
-              ---@type 'symbol'|'symbol_text'|'text'|'text_symbol'
-              mode = 'symbol_text',
-              maxwidth = {
-                -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-                -- can also be a function to dynamically calculate max width such as
-                -- menu = function() return math.floor(0.45 * vim.o.columns) end,
-                menu = 60, -- leading text (labelDetails)
-                abbr = 60 -- actual suggestion item
-              },
-              ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-              show_labelDetails = true
-            }
-            local kind = require('lspkind').cmp_format(options)(entry, vim.deepcopy(vim_item))
-            local highlights_info = require('colorful-menu').cmp_highlights(entry)
+      opts.formatting = {
+        fields = { 'abbr', 'icon', 'kind', 'menu' },
+        format = function(entry, vim_item) --- Combination of lspkind and colorful-menu
+          local options = {
+            ---@type 'symbol'|'symbol_text'|'text'|'text_symbol'
+            mode = 'symbol',
+            maxwidth = {
+              -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+              -- can also be a function to dynamically calculate max width such as
+              -- menu = function() return math.floor(0.45 * vim.o.columns) end,
+              menu = 60, -- leading text (labelDetails)
+              abbr = 60 -- actual suggestion item
+            },
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            show_labelDetails = true
+          }
+          local kind = require('lspkind').cmp_format(options)(entry, vim.deepcopy(vim_item))
+          local highlights_info = require('colorful-menu').cmp_highlights(entry)
 
-            -- highlight_info is nil means we are missing the ts parser, it's
-            -- better to fallback to use default `vim_item.abbr`. What this plugin
-            -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
-            if highlights_info then
-              vim_item.abbr_hl_group = highlights_info.highlights
-              vim_item.abbr = highlights_info.text
-            end
-
-            local strings = vim.split(kind.kind, '%s', { trimempty = true })
-            vim_item.kind = ' ' .. (strings[1] or '') .. ' '
-            vim_item.menu = ''
-
-            return vim_item
+          -- highlight_info is nil means we are missing the ts parser, it's
+          -- better to fallback to use default `vim_item.abbr`. What this plugin
+          -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+          if highlights_info then
+            vim_item.abbr_hl_group = highlights_info.highlights
+            vim_item.abbr = highlights_info.text
           end
-        }
-      end
+
+          local strings = vim.split(kind.kind, '%s', { trimempty = true })
+          vim_item.kind = ' ' .. (strings[1] or '') .. ' '
+          vim_item.menu = ''
+
+          return vim_item
+        end
+      }
     end,
     init = function()
       local cmp = require('cmp')
