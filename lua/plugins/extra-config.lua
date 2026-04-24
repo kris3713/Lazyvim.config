@@ -365,7 +365,7 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'hrsh7th/nvim-cmp',---@module 'cmp'
-    ---@param opts cmp.Setup|cmp.ConfigSchema
+    ---@param opts cmp.SetupProperty|cmp.ConfigSchema
     opts = function(_, opts)
       ---@type cmp.SourceConfig[]
       local cmp_sources = {
@@ -390,21 +390,33 @@ return --[[@type (LazyPluginSpec[])]]{
       }
 
       opts.formatting = {
-        fields = { 'abbr', 'kind', 'menu' },
-        format = function(entry, vim_item)
-          local lspkind__cmp_format = require('lspkind').cmp_format { mode = 'symbol_text' }
-          local extra_opts = lspkind__cmp_format(entry, vim.deepcopy(vim_item))
+        fields = { 'abbr', 'icon', 'kind', 'menu' },
+        format = function(entry, vim_item) --- Combination of lspkind and colorful-menu
+          local options = {
+            ---@type 'symbol'|'symbol_text'|'text'|'text_symbol'
+            mode = 'symbol_text',
+            maxwidth = {
+              -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+              -- can also be a function to dynamically calculate max width such as
+              -- menu = function() return math.floor(0.45 * vim.o.columns) end,
+              menu = 60, -- leading text (labelDetails)
+              abbr = 60 -- actual suggestion item
+            },
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            show_labelDetails = true
+          }
+          local kind = require('lspkind').cmp_format(options)(entry, vim.deepcopy(vim_item))
           local highlights_info = require('colorful-menu').cmp_highlights(entry)
 
           -- highlight_info is nil means we are missing the ts parser, it's
           -- better to fallback to use default `vim_item.abbr`. What this plugin
           -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
-          if highlights_info ~= nil then
+          if highlights_info then
             vim_item.abbr_hl_group = highlights_info.highlights
             vim_item.abbr = highlights_info.text
           end
 
-          local strings = vim.split(extra_opts.kind, '%s', { trimempty = true })
+          local strings = vim.split(kind.kind, "%s", { trimempty = true })
           vim_item.kind = ' ' .. (strings[1] or '') .. ' '
           vim_item.menu = ''
 

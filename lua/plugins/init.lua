@@ -7,11 +7,9 @@ return --[[@type (LazyPluginSpec[])]]{
     'ThePrimeagen/refactoring.nvim',---@module 'refactoring'
     ---@type refactor.UserConfig
     opts = {},
-    lazy = false,
-    event = { 'BufReadPre', 'BufNewFile' },
-    keys = function ()
+    -- event = { 'BufReadPre', 'BufNewFile' },
+    keys = function()
       local refactoring = require('refactoring')
-
       ---@type LazyKeysSpec[]
       local mappings = {
         {
