@@ -429,7 +429,7 @@ return --[[@type (LazyPluginSpec[])]]{
               vim_item.abbr = highlights_info.text
             end
 
-            local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            local strings = vim.split(kind.kind, '%s', { trimempty = true })
             vim_item.kind = ' ' .. (strings[1] or '') .. ' '
             vim_item.menu = ''
 
