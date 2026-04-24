@@ -265,7 +265,7 @@ return --[[@type (LazyPluginSpec[])]]{
     'xzbdmw/colorful-menu.nvim',---@module 'colorful-menu'
     ---@type ColorfulMenuConfig
     opts = {
-      max_width = 80
+      max_width = 60
     }
   },
   {
