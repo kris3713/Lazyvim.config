@@ -771,23 +771,23 @@ return --[[@type (LazyPluginSpec[])]]{
           api_key = 'TERM',
           name = 'llama-swap',
           end_point = 'http://localhost:1234/v1/completions',
-          model = 'Qwen2.5-Coder-14B-Instruct',
+          model = 'granite-4.1',
           optional = {
             max_tokens = 56
-          },
-          -- Llama.cpp does not support the `suffix` option in FIM completion.
-          -- Therefore, we must disable it and manually populate the special
-          -- tokens required for FIM completion.
-          template = {
-            prompt = function(context_before_cursor, context_after_cursor, _)
-              return '<|fim_prefix|>'
-                .. context_before_cursor
-                .. '<|fim_suffix|>'
-                .. context_after_cursor
-                .. '<|fim_middle|>'
-            end,
-            suffix = false
           }
+          -- -- Llama.cpp does not support the `suffix` option in FIM completion.
+          -- -- Therefore, we must disable it and manually populate the special
+          -- -- tokens required for FIM completion.
+          -- template = {
+          --   prompt = function(context_before_cursor, context_after_cursor, _)
+          --     return '<|fim_prefix|>'
+          --       .. context_before_cursor
+          --       .. '<|fim_suffix|>'
+          --       .. context_after_cursor
+          --       .. '<|fim_middle|>'
+          --   end,
+          --   suffix = false
+          -- }
         }
       }
     },
