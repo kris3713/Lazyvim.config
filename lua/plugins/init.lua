@@ -84,13 +84,16 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'chrisgrieser/nvim-recorder',
-    -- dependencies = 'rcarriga/nvim-notify',
-    opts = {
-      mapping = {
-        switchSlot = '<A-q>'
-      }
-    }
+    'chrisgrieser/nvim-recorder',---@module 'recorder'
+    ---@param opts configObj
+    opts = function(_, opts)
+      if not opts.mapping then
+        return
+      end
+
+      opts.mapping.switchSlot = '<A-q>'
+    end,
+    -- dependencies = 'rcarriga/nvim-notify'
   },
   {
     'yousefhadder/markdown-plus.nvim',
@@ -630,86 +633,29 @@ return --[[@type (LazyPluginSpec[])]]{
 
       local setEnable = { enable = true }
 
-      -- Has potential for a more complex configuration
-      if opts then
-        opts.sync_root_with_cwd = true
-        opts.respect_buf_cwd = true
-        opts.update_focused_file = {
-          enable = true,
-          update_root = setEnable
-        }
-        opts.filters = setEnable
-        opts.renderer = {
-          icons = {
-            glyphs = {
-              git = {
-                unstaged = '󰄱',
-                staged = '󰱒'
-              }
-            }
-          },
-          root_folder_label = label,
-          group_empty = label
-        }
-        if opts.on_attach then
-          opts.on_attach = function(bufnr)
-            local api = require('nvim-tree.api')
-
-            local function edit_or_open()
-              local node = api.tree.get_node_under_cursor()
-              --- @diagnostic disable-next-line: undefined-field
-              if node and node.nodes ~= nil then
-                -- expand or collapse folder
-                api.node.open.edit()
-              else
-                -- open file
-                api.node.open.edit()
-                -- Close the tree if file was opened
-                api.tree.close()
-              end
-            end
-
-            -- harper:ignore
-
-            -- open as vsplit on current node
-            local function vsplit_preview()
-              local node = api.tree.get_node_under_cursor()
-              --- @diagnostic disable-next-line: undefined-field
-              if node and node.nodes ~= nil then
-                -- expand or collapse folder
-                api.node.open.edit()
-              else
-                -- open file as vsplit
-                api.node.open.vertical()
-              end
-              -- Finally refocus on nvim-tree if it was lost
-              api.tree.focus()
-            end
-
-            local vim_keymap = vim.keymap
-
-            ---Sets options for keymaps
-            ---@param desc string
-            ---@param silent boolean?
-            ---@return vim.keymap.set.Opts
-            local function keymap_opts(desc, silent)
-              silent = silent or false
-              ---@type vim.keymap.set.Opts
-              local set_opts = { desc = 'nvim-tree: ' .. desc, silent = silent, noremap = true, nowait = true }
-              return set_opts
-            end
-
-            -- default mappings (Copied from eddiebergman)
-            api.config.mappings.on_attach.default(bufnr)
-
-            -- Set keymaps on attach (Copied from eddiebergman)
-            vim_keymap.set('n', 'l', edit_or_open, keymap_opts('Edit or Open'))
-            vim_keymap.set('n', 'L', vsplit_preview, keymap_opts('Vsplit Preview'))
-            vim_keymap.set('n', 'h', api.tree.close, keymap_opts('Close'))
-            vim_keymap.set('n', 'H', api.tree.collapse_all, keymap_opts('Collapse'))
-          end
-        end
+      if not opts then
+        return
       end
+      -- Has potential for a more complex configuration
+      opts.sync_root_with_cwd = true
+      opts.respect_buf_cwd = true
+      opts.update_focused_file = {
+        enable = true,
+        update_root = setEnable
+      }
+      opts.filters = setEnable
+      opts.renderer = {
+        icons = {
+          glyphs = {
+            git = {
+              unstaged = '󰄱',
+              staged = '󰱒'
+            }
+          }
+        },
+        root_folder_label = label,
+        group_empty = label
+      }
     end,
     dependencies = 'antosha417/nvim-lsp-file-operations',
     lazy = false,
