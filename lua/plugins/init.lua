@@ -84,6 +84,15 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
+    'chrisgrieser/nvim-recorder',
+    -- dependencies = 'rcarriga/nvim-notify',
+    opts = {
+      mapping = {
+        switchSlot = '<A-q>'
+      }
+    }
+  },
+  {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
     opts = {}

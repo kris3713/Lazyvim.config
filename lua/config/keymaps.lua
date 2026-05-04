@@ -84,12 +84,12 @@ end
 vim_keymap.set(all_modes, '<C-z>', '<Nop>', opts('', true))
 
 
--- Map q to do nothing
-vim_keymap.set({ 'n', 'x' }, 'q', '<Nop>', opts('', true))
+-- -- Map q to do nothing
+-- vim_keymap.set({ 'n', 'x' }, 'q', '<Nop>', opts('', true))
 
 
--- Map alt + q to macro recording
-vim_keymap.set({ 'n', 'x' }, 'Q', 'q', opts('Record macro'))
+-- -- Map alt + q to macro recording
+-- vim_keymap.set({ 'n', 'x' }, 'Q', 'q', opts('Record macro'))
 
 
 -- Map quit command to Ctrl-q

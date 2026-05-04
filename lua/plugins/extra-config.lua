@@ -232,22 +232,12 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {
       sections = {
         lualine_b = {
-          {
-            function()
-              local recording_register = vim.fn.reg_recording()
-
-              if recording_register == '' then
-                return ''
-              else
-                return 'Recording @' .. recording_register
-              end
-            end,
-            color = { fg = '#ff9e64' }
-          },
+          { require('recorder').recordingStatus },
           'branch',
           'gitstatus'
         },
         lualine_c = {
+          { require('recorder').displaySlots },
           {
             'diagnostics',
             ---@param clicks integer
