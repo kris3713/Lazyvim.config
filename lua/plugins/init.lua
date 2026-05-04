@@ -622,13 +622,13 @@ return --[[@type (LazyPluginSpec[])]]{
     'nvim-tree/nvim-tree.lua',---@module 'nvim-tree'
     ---@param opts nvim_tree.config?
     opts = function(_, opts)
-      ---@param path string
+      ---@param relative_path string
       ---@return string
-      local function label(path)
-        path = path:gsub(tostring(os.getenv('HOME')), '~', 1)
+      local function label(relative_path)
+        relative_path = relative_path:gsub(tostring(os.getenv('HOME')), '~', 1)
         -- local a = path:gsub('([a-zA-Z])[a-z0-9]+', '%1')
         -- local b = tostring(path:match '[a-zA-Z]([a-z0-9]*)$' or '')
-        return path
+        return relative_path
       end
 
       local setEnable = { enable = true }

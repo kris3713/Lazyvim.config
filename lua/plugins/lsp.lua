@@ -942,7 +942,9 @@ return --[[@type LazyPluginSpec]]{
       -- },
       { -- LSP Rename
         '<leader>cr',
-        vim.lsp.buf.rename,
+        function()
+          vim.cmd('Lspsaga rename')
+        end,
         desc = 'Lsp Rename',
         noremap = true
       },
