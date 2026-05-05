@@ -500,7 +500,7 @@ return --[[@type (LazyPluginSpec[])]]{
     'chrisgrieser/nvim-origami',---@module 'origami'
     ---@param opts Origami.config
     opts = function(_, opts)
-      if not (opts.foldKeymaps and opts.autoFold) then
+      if not opts.foldKeymaps and not opts.autoFold then
         return
       end
 
