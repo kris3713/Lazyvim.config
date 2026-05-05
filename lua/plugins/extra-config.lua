@@ -585,7 +585,7 @@ return --[[@type (LazyPluginSpec[])]]{
         diagnostics.ktlint,
         diagnostics.markdownlint,
         diagnostics.markdownlint_cli2,
-        exts.diagnostics.oxlint,
+        -- exts.diagnostics.oxlint,
         diagnostics.pydoclint,
         diagnostics.rpmspec,
         -- diagnostics.rubocop,

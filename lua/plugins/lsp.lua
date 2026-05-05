@@ -240,7 +240,7 @@ return --[[@type LazyPluginSpec]]{
         -- oxlint
         oxlint = {
           mason = false,
-          enabled = false,
+          enabled = true,
           root_markers = {
             '.oxlintrc.json',
             '.oxlintrc.jsonc',
