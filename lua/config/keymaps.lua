@@ -268,10 +268,10 @@ end
 
 -- nvim-ufo
 do
-  local ufo = require('ufo')
+  local origami = require('origami')
 
-  vim_keymap.set('n', 'zR', ufo.openAllFolds, opts('Open all folds'))
-  vim_keymap.set('n', 'zM', ufo.closeAllFolds, opts('Close all folds'))
+  vim_keymap.set('n', 'zR', origami.dollar, opts('Open all folds'))
+  vim_keymap.set('n', 'zM', origami.caret, opts('Close all folds'))
 end
 
 

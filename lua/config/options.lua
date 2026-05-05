@@ -180,11 +180,9 @@ vim.o.mouse = 'a'
 vim.o.mousemodel = 'popup'
 
 -- nvim-ufo
-vim.o.foldcolumn = '1' -- '0' is not bad
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 -- harper:ignore
 vim.o.foldlevelstart = 99
-vim.o.foldenable = true
 
 --- @diagnostic disable-next-line: assign-type-mismatch
 -- Disable netrw

@@ -7,7 +7,13 @@ return --[[@type (LazyPluginSpec[])]]{
     'ThePrimeagen/refactoring.nvim',---@module 'refactoring'
     ---@type refactor.UserConfig
     opts = {},
-    -- event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      {
+        'lewis6991/async.nvim',
+        lazy = true
+      }
+    },
+    event = { 'BufReadPre', 'BufNewFile' },
     keys = function()
       local refactoring = require('refactoring')
       ---@type LazyKeysSpec[]
@@ -38,7 +44,8 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.inline_var {}
           end,
           desc = 'Inline Variable',
-          mode = { 'n', 'x' }
+          mode = { 'n', 'x' },
+          expr = true
         },
         {
           '<leader>ref',
@@ -46,13 +53,15 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.inline_func {}
           end,
           desc = 'Inline Function',
-          mode = { 'n', 'x' }
+          mode = { 'n', 'x' },
+          expr = true
         },
         {
           '<leader>rx',
           '',
           desc = '+extraction operations',
-          mode = { 'n', 'x' }
+          mode = { 'n', 'x' },
+          expr = true
         },
         {
           '<leader>rxv',
@@ -60,7 +69,8 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.extract_var {}
           end,
           desc = 'Extract Variable',
-          mode = { 'n', 'x' }
+          mode = { 'n', 'x' },
+          expr = true
         },
         {
           '<leader>rxf',
@@ -68,7 +78,8 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.extract_func {}
           end,
           desc = 'Extract Function',
-          mode = { 'n', 'x' }
+          mode = { 'n', 'x' },
+          expr = true
         },
         {
           '<leader>rxF',
@@ -76,7 +87,8 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.extract_func_to_file {}
           end,
           desc = 'Extract Function To File',
-          mode = { 'n', 'x' }
+          mode = { 'n', 'x' },
+          expr = true
         }
       }
 
@@ -92,7 +104,7 @@ return --[[@type (LazyPluginSpec[])]]{
       end
 
       opts.mapping.switchSlot = '<A-q>'
-    end,
+    end,ufo
     -- dependencies = 'rcarriga/nvim-notify'
   },
   {
@@ -485,14 +497,16 @@ return --[[@type (LazyPluginSpec[])]]{
     event = 'LspAttach'
   },
   {
-    'kevinhwang91/nvim-ufo',---@module 'ufo'
-    ---@type UfoConfig
-    opts = {
-      provider_selector = function(_, _, _)
-        return { 'treesitter', 'indent' }
+    'chrisgrieser/nvim-origami',---@module 'origami'
+    ---@param opts Origami.config
+    opts = function(_, opts)
+      if not opts.foldKeymaps then
+        return
       end
-    },
-    dependencies = 'kevinhwang91/promise-async'
+
+      opts.foldKeymaps.setup = false
+    end,
+    event = 'VeryLazy'
   },
   {
     'michaelb/sniprun',
