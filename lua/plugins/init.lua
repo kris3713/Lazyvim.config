@@ -321,15 +321,6 @@ return --[[@type (LazyPluginSpec[])]]{
       enable_autocmd = false
     }
   },
-  -- {
-  --   'faergeek/Comment.nvim',---@module 'Comment'
-  --   ---@param opts CommentConfig
-  --   opts = function(opts)
-  --     local c = require('ts_context_commentstring.integrations.comment_nvim')
-  --     opts.pre_hook = c.create_pre_hook()
-  --   end,
-  --   branch = 'nvim-0.12-compatibility'
-  -- },
   {
     'luckasRanarison/tailwind-tools.nvim',---@module 'tailwind-tools'
     ---@type TailwindTools.Option
