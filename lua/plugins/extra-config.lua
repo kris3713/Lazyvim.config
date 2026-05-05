@@ -359,7 +359,6 @@ return --[[@type (LazyPluginSpec[])]]{
       ---@type cmp.SourceConfig[]
       local cmp_sources = {
         -- { name = 'minuet' },
-        { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lua' },
         { name = 'dap' },
         { name = 'render-markdown' },

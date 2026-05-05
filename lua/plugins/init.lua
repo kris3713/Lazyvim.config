@@ -103,13 +103,16 @@ return --[[@type (LazyPluginSpec[])]]{
     keys = function (_, keys)
       -- Customize how cursors look.
       local set_hl = vim.api.nvim_set_hl
-      set_hl(0, 'MultiCursorCursor', { reverse = true })
-      set_hl(0, 'MultiCursorVisual', { link = 'Visual' })
-      set_hl(0, 'MultiCursorSign', { link = 'SignColumn'})
+      local reverse = { reverse = true }
+      local visual = { link = 'Visual' }
+      local sign_column = { link = 'SignColumn'}
+      set_hl(0, 'MultiCursorCursor', reverse)
+      set_hl(0, 'MultiCursorVisual', visual)
+      set_hl(0, 'MultiCursorSign', sign_column)
       set_hl(0, 'MultiCursorMatchPreview', { link = 'Search' })
-      set_hl(0, 'MultiCursorDisabledCursor', { reverse = true })
-      set_hl(0, 'MultiCursorDisabledVisual', { link = 'Visual' })
-      set_hl(0, 'MultiCursorDisabledSign', { link = 'SignColumn'})
+      set_hl(0, 'MultiCursorDisabledCursor', reverse)
+      set_hl(0, 'MultiCursorDisabledVisual', visual)
+      set_hl(0, 'MultiCursorDisabledSign', sign_column)
 
       local mc = require('multicursor-nvim')
       local modes = { 'n', 'x' }
@@ -126,7 +129,7 @@ return --[[@type (LazyPluginSpec[])]]{
           function ()
             mc.lineAddCursor(-1)
           end,
-          desc = 'Add a cursor below the main cursor, skipping empty lines',
+          desc = 'Add a cursor above the main cursor, skipping empty lines',
           mode = modes,
           expr = true
         },
@@ -135,7 +138,7 @@ return --[[@type (LazyPluginSpec[])]]{
           function()
             mc.lineAddCursor(1)
           end,
-          desc = 'Add a cursor above the main cursor, skipping empty lines',
+          desc = 'Add a cursor below the main cursor, skipping empty lines',
           mode = modes,
           expr = true
         },
@@ -144,7 +147,7 @@ return --[[@type (LazyPluginSpec[])]]{
           function()
             mc.lineSkipCursor(-1)
           end,
-          desc = 'Move only the main cursor down a line, skipping empty lines',
+          desc = 'Move only the main cursor up a line, skipping empty lines',
           mode = modes,
           expr = true
         },
@@ -153,7 +156,7 @@ return --[[@type (LazyPluginSpec[])]]{
           function()
             mc.lineSkipCursor(1)
           end,
-          desc = 'Move only the main cursor up a line, skipping empty lines',
+          desc = 'Move only the main cursor down a line, skipping empty lines',
           mode = modes,
           expr = true
         },
@@ -162,7 +165,7 @@ return --[[@type (LazyPluginSpec[])]]{
           function()
             mc.matchAddCursor(1)
           end,
-          desc = 'Add a new cursor by matching the current word/selection. Forwards',
+          desc = 'Add a new cursor by matching the current word/selection. Backwards',
           mode = modes,
           expr = true
         },
@@ -171,7 +174,7 @@ return --[[@type (LazyPluginSpec[])]]{
           function()
             mc.matchSkipCursor(1)
           end,
-          desc = 'Move only the main cursor by matching the current word/selection. Forwards',
+          desc = 'Move only the main cursor by matching the current word/selection. Backwards',
           mode = modes,
           expr = true
         },
@@ -180,7 +183,7 @@ return --[[@type (LazyPluginSpec[])]]{
           function()
             mc.matchAddCursor(-1)
           end,
-          desc = 'Add a new cursor by matching the current word/selection. Backwards',
+          desc = 'Add a new cursor by matching the current word/selection. Forwards',
           mode = modes,
           expr = true
         },
@@ -189,7 +192,7 @@ return --[[@type (LazyPluginSpec[])]]{
           function()
             mc.matchSkipCursor(-1)
           end,
-          desc = 'Move only the main cursor by matching the current word/selection. Backwards',
+          desc = 'Move only the main cursor by matching the current word/selection. Forwards',
           mode = modes,
           expr = true
         },
@@ -589,14 +592,12 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'ray-x/lsp_signature.nvim',
-    event = 'InsertEnter',
     opts = {
-      bind = true,
-      handler_opts = {
-        border = 'rounded'
-      },
-      hint_prefix = '❔ '
-    }
+      handler_opts = { border = 'rounded' },
+      hint_prefix = '❔ ',
+      floating_window_off_y = -2
+    },
+    event = 'InsertEnter',
   },
   {
     'Bekaboo/dropbar.nvim',---@module 'dropbar'
@@ -656,11 +657,11 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'michaelb/sniprun',
+    opts = {},
     branch = 'master',
-    build = 'sh ./install.sh',
+    build = 'sh ./install.sh'
     -- do 'sh install.sh 1' if you want to force compile locally
     -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
-    opts = {}
   },
   {
     'GCBallesteros/jupytext.nvim',
@@ -714,7 +715,6 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     -- support for image pasting
     'HakonHarnes/img-clip.nvim',
-    event = 'VeryLazy',
     opts = {
       -- recommended settings
       default = {
@@ -726,37 +726,14 @@ return --[[@type (LazyPluginSpec[])]]{
         -- required for Windows users
         use_absolute_path = vim.fn.has('win32') and true or false
       }
-    }
+    },
+    event = 'VeryLazy'
   },
   {
     'kylechui/nvim-surround',
     version = '*',
     event = 'VeryLazy'
   },
-  -- {
-  --   'aznhe21/actions-preview.nvim',
-  --   opts = function(opts)
-  --     opts = {
-  --       -- telescope = {
-  --       --   sorting_strategy = 'ascending',
-  --       --   layout_strategy = 'vertical',
-  --       --   layout_config = {
-  --       --     width = 0.8,
-  --       --     -- height = 0.9,
-  --       --     prompt_position = 'top',
-  --       --     preview_cutoff = 25,
-  --       --     ---@param max_lines integer
-  --       --     preview_height = function(_, _, max_lines)
-  --       --       return max_lines - 20
-  --       --     end
-  --       --   }
-  --       -- },
-  --       highlight_command = {
-  --         require('actions-preview.highlight').delta()
-  --       }
-  --     }
-  --   end
-  -- },
   {
     'LunarVim/bigfile.nvim',
     config = function()
@@ -782,13 +759,17 @@ return --[[@type (LazyPluginSpec[])]]{
     'nvim-tree/nvim-tree.lua',---@module 'nvim-tree'
     ---@param opts nvim_tree.config?
     opts = function(_, opts)
-      ---@param relative_path string
+      ---@param rel_path string
       ---@return string
-      local function label(relative_path)
-        relative_path = relative_path:gsub(tostring(os.getenv('HOME')), '~', 1)
+      local function label(rel_path)
+        rel_path = rel_path:gsub(
+          tostring(os.getenv('HOME')),
+          '~',
+          1
+        )
         -- local a = path:gsub('([a-zA-Z])[a-z0-9]+', '%1')
         -- local b = tostring(path:match '[a-zA-Z]([a-z0-9]*)$' or '')
-        return relative_path
+        return rel_path
       end
 
       local setEnable = { enable = true }
