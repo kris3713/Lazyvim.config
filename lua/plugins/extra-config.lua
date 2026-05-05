@@ -543,12 +543,19 @@ return --[[@type (LazyPluginSpec[])]]{
       local new_sources = {
         -- exts.code_actions.eslint_d,
         code_actions.gitsigns,
-        code_actions.refactoring,
+        code_actions.refactoring.with --[[@as fun(user_opts: table)]]{
+          extra_filetypes = {
+            'javascriptreact',
+            'typescriptreact',
+            'vue',
+            'svelte'
+          }
+        },
         code_actions.gomodifytags,
         code_actions.impl,
         exts.code_actions.shellcheck,
         code_actions.statix,
-        code_actions.ts_node_action.with --[[@as fun(opts: table)]]{
+        code_actions.ts_node_action.with --[[@as fun(user_opts: table)]]{
           -- Don't remove, this is needed by `nvim-tree.lua`
           disabled_filetypes = {
             'conf',
@@ -569,7 +576,7 @@ return --[[@type (LazyPluginSpec[])]]{
         },
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
-        diagnostics.editorconfig_checker.with --[[@as fun(opts: table)]]{
+        diagnostics.editorconfig_checker.with --[[@as fun(user_opts: table)]]{
           filetypes = { 'editorconfig' }
         },
         diagnostics.erb_lint,
@@ -598,7 +605,7 @@ return --[[@type (LazyPluginSpec[])]]{
         exts.formatting.golangci_lint,
         exts.formatting.jq,
         formatting.markdownlint,
-        formatting.shfmt.with --[[@as fun(opts: table)]]{
+        formatting.shfmt.with --[[@as fun(user_opts: table)]]{
           extra_filetypes = { 'bash' }
         },
         exts.formatting.oxfmt,
