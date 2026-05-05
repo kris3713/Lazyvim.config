@@ -8,21 +8,20 @@ return --[[@type (LazyPluginSpec[])]]{
     ---@type refactor.UserConfig
     opts = {},
     dependencies = {
-      {
-        'lewis6991/async.nvim',
-        lazy = true
-      }
+      { 'lewis6991/async.nvim', lazy = true }
     },
     event = { 'BufReadPre', 'BufNewFile' },
-    keys = function()
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
       local refactoring = require('refactoring')
-      ---@type LazyKeysSpec[]
-      local mappings = {
+      local modes = { 'n', 'x' }
+
+      keys = {
         {
           '<leader>r',
           '',
           desc = '+refactor',
-          mode = { 'n', 'x' }
+          mode = modes
         },
         {
           '<leader>rs',
@@ -30,13 +29,13 @@ return --[[@type (LazyPluginSpec[])]]{
             refactoring.select_refactor {}
           end,
           desc = 'Select Refactor',
-          mode = { 'n', 'x' }
+          mode = modes
         },
         {
           '<leader>re',
           '',
           desc = '+inline operations',
-          mode = { 'n', 'x' }
+          mode = modes
         },
         {
           '<leader>rev',
@@ -44,7 +43,7 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.inline_var {}
           end,
           desc = 'Inline Variable',
-          mode = { 'n', 'x' },
+          mode = modes,
           expr = true
         },
         {
@@ -53,14 +52,14 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.inline_func {}
           end,
           desc = 'Inline Function',
-          mode = { 'n', 'x' },
+          mode = modes,
           expr = true
         },
         {
           '<leader>rx',
           '',
           desc = '+extraction operations',
-          mode = { 'n', 'x' },
+          mode = modes,
           expr = true
         },
         {
@@ -69,7 +68,7 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.extract_var {}
           end,
           desc = 'Extract Variable',
-          mode = { 'n', 'x' },
+          mode = modes,
           expr = true
         },
         {
@@ -78,7 +77,7 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.extract_func {}
           end,
           desc = 'Extract Function',
-          mode = { 'n', 'x' },
+          mode = modes,
           expr = true
         },
         {
@@ -87,12 +86,144 @@ return --[[@type (LazyPluginSpec[])]]{
             return refactoring.extract_func_to_file {}
           end,
           desc = 'Extract Function To File',
-          mode = { 'n', 'x' },
+          mode = modes,
           expr = true
         }
       }
 
-      return mappings
+      return keys
+    end
+  },
+  {
+    'jake-stewart/multicursor.nvim',---@module 'multicursor-nvim'
+    ---@type mc.MultiCursorOpts
+    opts = {},
+    branch = '1.0',
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function (_, keys)
+      -- Customize how cursors look.
+      local set_hl = vim.api.nvim_set_hl
+      set_hl(0, 'MultiCursorCursor', { reverse = true })
+      set_hl(0, 'MultiCursorVisual', { link = 'Visual' })
+      set_hl(0, 'MultiCursorSign', { link = 'SignColumn'})
+      set_hl(0, 'MultiCursorMatchPreview', { link = 'Search' })
+      set_hl(0, 'MultiCursorDisabledCursor', { reverse = true })
+      set_hl(0, 'MultiCursorDisabledVisual', { link = 'Visual' })
+      set_hl(0, 'MultiCursorDisabledSign', { link = 'SignColumn'})
+
+      local mc = require('multicursor-nvim')
+      local modes = { 'n', 'x' }
+
+      keys = {
+        {
+          '<leader>m',
+          '',
+          desc = '+multicursor',
+          mode = modes
+        },
+        {
+          '<leader>m<up>',
+          function ()
+            mc.lineAddCursor(-1)
+          end,
+          desc = 'Add a cursor below the main cursor, skipping empty lines',
+          mode = modes,
+          expr = true
+        },
+        {
+          '<leader>m<down>',
+          function()
+            mc.lineAddCursor(1)
+          end,
+          desc = 'Add a cursor above the main cursor, skipping empty lines',
+          mode = modes,
+          expr = true
+        },
+        {
+          '<leader>m<left>',
+          function()
+            mc.lineSkipCursor(-1)
+          end,
+          desc = 'Move only the main cursor down a line, skipping empty lines',
+          mode = modes,
+          expr = true
+        },
+        {
+          '<leader>m<right>',
+          function()
+            mc.lineSkipCursor(1)
+          end,
+          desc = 'Move only the main cursor up a line, skipping empty lines',
+          mode = modes,
+          expr = true
+        },
+        {
+          '<leader>mn',
+          function()
+            mc.matchAddCursor(1)
+          end,
+          desc = 'Add a new cursor by matching the current word/selection. Forwards',
+          mode = modes,
+          expr = true
+        },
+        {
+          '<leader>ms',
+          function()
+            mc.matchSkipCursor(1)
+          end,
+          desc = 'Move only the main cursor by matching the current word/selection. Forwards',
+          mode = modes,
+          expr = true
+        },
+        {
+          '<leader>mN',
+          function()
+            mc.matchAddCursor(-1)
+          end,
+          desc = 'Add a new cursor by matching the current word/selection. Backwards',
+          mode = modes,
+          expr = true
+        },
+        {
+          '<leader>mS',
+          function()
+            mc.matchSkipCursor(-1)
+          end,
+          desc = 'Move only the main cursor by matching the current word/selection. Backwards',
+          mode = modes,
+          expr = true
+        },
+        -- {
+        --   '<leader>m<c-leftmouse>',
+        --   mc.handleMouse,
+        --   desc = 'add/remove cursors with mouse click',
+        --   mode = 'n',
+        --   expr = true
+        -- },
+        -- {
+        --   '<leader>m<c-leftdrag>',
+        --   mc.handleMouseDrag,
+        --   desc = 'add/remove cursors with (vertical) mouse drag',
+        --   mode = 'n',
+        --   expr = true
+        -- },
+        -- {
+        --   '<leader>m<c-leftrelease>',
+        --   mc.handleMouseRelease,
+        --   desc = 'Improve mouse support when dragging with a modifier',
+        --   mode = 'n',
+        --   expr = true
+        -- },
+        {
+          '<leader>mq',
+          mc.toggleCursor,
+          desc = 'Disable and enable cursors',
+          mode = modes,
+          expr = true
+        }
+      }
+
+      return keys
     end
   },
   {
@@ -242,8 +373,38 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'chentoast/marks.nvim',
+    opts = function(_, opts)
+      if not opts then
+        return
+      end
+
+      opts.mappings = {
+        set = 'mm',
+        delete = 'md',
+        delete_line = 'md-',
+        delete_bookmark = 'md=',
+        delete_buf = 'md<space>'
+        -- set_next = "m,",
+        -- next = "m]",
+        -- preview = "m:",
+        -- set_bookmark0 = "m0",
+        -- prev = false
+      }
+
+      for i = 0, 9 do
+        opts.mappings['set_bookmark' .. i] = 'm' .. tostring(i)
+        opts.mappings['delete_bookmark' .. i] = 'md' .. tostring(i)
+      end
+    end,
     event = 'VeryLazy',
-    opts = {}
+    keys = {
+      {
+        'm',
+        '',
+        desc = '+marks',
+        mode = 'n'
+      }
+    }
   },
   {
     'sustech-data/wildfire.nvim',
@@ -364,7 +525,10 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'Wansmer/treesj',
-    opts = {}
+    opts = {
+      ---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
+      use_default_keymaps = false
+    }
   },
   {
     'NMAC427/guess-indent.nvim',
@@ -403,26 +567,10 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
-    'smoka7/multicursors.nvim',
-    event = 'VeryLazy',
-    dependencies = 'nvimtools/hydra.nvim',
-    cmd = {
-      'MCstart',
-      'MCvisual',
-      'MCclear',
-      'MCpattern',
-      'MCvisualPattern',
-      'MCunderCursor'
-    },
-    opts = {}
-  },
-  {
     'nvimdev/lspsaga.nvim',---@module 'lspsaga'
     ---@type LspsagaConfig
     opts = {
-      ui = {
-        code_action = ''
-      },
+      ui = { code_action = '' },
       symbol_in_winbar = { enable = false }
     }
   },
@@ -739,22 +887,25 @@ return --[[@type (LazyPluginSpec[])]]{
           name = 'llama-swap',
           end_point = 'http://localhost:1234/v1/completions',
           model = 'granite-4.1',
-          optional = {
-            max_tokens = 56
+          -- optional = {
+          --   max_tokens = 56
+          -- },
+          -- Llama.cpp does not support the `suffix` option in FIM completion.
+          -- Therefore, we must disable it and manually populate the special
+          -- tokens required for FIM completion.
+          template = {
+            ---@param context_before_cursor string
+            ---@param context_after_cursor string
+            ---@return string
+            prompt = function(context_before_cursor, context_after_cursor, _)
+              return '<|fim_prefix|>'
+                .. context_before_cursor
+                .. '<|fim_suffix|>'
+                .. context_after_cursor
+                .. '<|fim_middle|>'
+            end,
+            suffix = false
           }
-          -- -- Llama.cpp does not support the `suffix` option in FIM completion.
-          -- -- Therefore, we must disable it and manually populate the special
-          -- -- tokens required for FIM completion.
-          -- template = {
-          --   prompt = function(context_before_cursor, context_after_cursor, _)
-          --     return '<|fim_prefix|>'
-          --       .. context_before_cursor
-          --       .. '<|fim_suffix|>'
-          --       .. context_after_cursor
-          --       .. '<|fim_middle|>'
-          --   end,
-          --   suffix = false
-          -- }
         }
       }
     },

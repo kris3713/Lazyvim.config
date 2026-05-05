@@ -74,7 +74,6 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = function(_, opts)
       ---@type wk.Spec[]
       local extra_keys = {
-        { '<leader>bq', desc = 'Sort by', mode = 'n' },
         (function()
           local bufnr = vim.api.nvim_get_current_buf()
           local wk_mapping = {}

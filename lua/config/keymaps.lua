@@ -370,22 +370,41 @@ do
     b_line.sort_by('tabs')
   end
 
+  vim_keymap.set('n', '<leader>bq', '', opts('+sort by'))
   vim_keymap.set('n', '<leader>bf', b_line.pick, opts('Bufferline Pick'))
   vim_keymap.set('n', '<leader>bF', b_line.close_with_pick, opts('Bufferline Close with Pick'))
-  vim_keymap.set('n', '<leader>bL', function() vim.cmd('BufferLineMovePrev') end, opts('Bufferline Move previous'))
-  vim_keymap.set('n', '<leader>bH', function() vim.cmd('BufferLineMoveNext') end, opts('Bufferline Move next'))
+  vim_keymap.set(
+    'n',
+    '<leader>bL',
+    function() vim.cmd('BufferLineMovePrev') end,
+    opts('Bufferline Move previous')
+  )
+  vim_keymap.set(
+    'n',
+    '<leader>bH',
+    function() vim.cmd('BufferLineMoveNext') end,
+    opts('Bufferline Move next')
+  )
   vim_keymap.set('n', '<leader>bqe', b_line_sort_by_ext, opts('Bufferline Sort by Extension'))
   vim_keymap.set('n', '<leader>bqd', b_line_sort_by_dir, opts('Bufferline Sort by Directory'))
-  vim_keymap.set('n', '<leader>bqr', b_line_sort_by_rel_dir, opts('Bufferline Sort by Relative Directory'))
+  vim_keymap.set(
+    'n',
+    '<leader>bqr',
+    b_line_sort_by_rel_dir,
+    opts('Bufferline Sort by Relative Directory')
+  )
   vim_keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by Tabs'))
 end
 
 
--- multicursors
+-- multicursor-nvim
 do
-  local mc = require('multicursors')
+  local mc = require('multicursor-nvim')
+  local modes = { 'n', 'x' }
 
-  vim_keymap.set({ 'n', 'v' }, '<leader>m', mc.start, opts('Create a selection for selected text or word under the cursor'))
+  -- TODO: Finish setting up multicursor-nvim   https://github.com/jake-stewart/multicursor.nvim#example-config-lazynvim
+
+  -- vim_keymap.set(modes, '<leader>m', mc.start, opts('Create a selection for selected text or word under the cursor'))
 end
 
 
