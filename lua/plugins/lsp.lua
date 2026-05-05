@@ -240,7 +240,7 @@ return --[[@type LazyPluginSpec]]{
         -- oxlint
         oxlint = {
           mason = false,
-          enabled = true,
+          enabled = false,
           root_markers = {
             '.oxlintrc.json',
             '.oxlintrc.jsonc',
@@ -597,25 +597,25 @@ return --[[@type LazyPluginSpec]]{
         harper_ls = {
           mason = false,
           enabled = true,
-          filetypes = (function()
-            local filetypes = require('lspconfig.configs.harper_ls').default_config.filetypes
-            local new_filetypes = {
-              'astro',
-              'vue',
-              'svelte',
-              'tex',
-              'bib',
-              'fish',
-              'bash',
-              'zsh',
-              'sh'
-            }
-
-            filetypes = vim.list_extend(filetypes, new_filetypes)
-            table.sort(filetypes)
-
-            return filetypes
-          end)(),
+          -- filetypes = (function()
+          --   local filetypes = require('lspconfig.configs.harper_ls').default_config.filetypes
+          --   local new_filetypes = {
+          --     'astro',
+          --     'vue',
+          --     'svelte',
+          --     'tex',
+          --     'bib',
+          --     'fish',
+          --     'bash',
+          --     'zsh',
+          --     'sh'
+          --   }
+          --
+          --   filetypes = vim.list_extend(filetypes, new_filetypes)
+          --   table.sort(filetypes)
+          --
+          --   return filetypes
+          -- end)(),
           settings = {
             ['harper-ls'] = {
               userDictPath = harperDictPath,
@@ -650,7 +650,7 @@ return --[[@type LazyPluginSpec]]{
         -- astro
         astro = {
           mason = false,
-          enabled = true,
+          enabled = true
         },
         -- vue_ls
         vue_ls = {

@@ -534,6 +534,7 @@ return --[[@type (LazyPluginSpec[])]]{
 
         diagnostics = {
           eslint_d = require('none-ls.diagnostics.eslint_d'),
+          oxlint = require('none-ls.diagnostics.oxlint'),
           ruff = require('none-ls.diagnostics.ruff'),
           shellcheck = require('none-ls-shellcheck.diagnostics')
         }
@@ -579,6 +580,7 @@ return --[[@type (LazyPluginSpec[])]]{
         diagnostics.ktlint,
         diagnostics.markdownlint,
         diagnostics.markdownlint_cli2,
+        exts.diagnostics.oxlint,
         diagnostics.pydoclint,
         diagnostics.rpmspec,
         -- diagnostics.rubocop,
@@ -606,6 +608,7 @@ return --[[@type (LazyPluginSpec[])]]{
       }
 
       -- harper:ignore
+
       -- NOTE: Don't use vim.tbl_deep_extend with this one
       opts.sources = vim.list_extend(opts.sources or {}, new_sources)
     end
