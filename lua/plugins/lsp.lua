@@ -607,8 +607,7 @@ return --[[@type LazyPluginSpec]]{
           --     'bib',
           --     'fish',
           --     'bash',
-          --     'zsh',
-          --     'sh'
+          --     'zsh'
           --   }
           --
           --   filetypes = vim.list_extend(filetypes, new_filetypes)
