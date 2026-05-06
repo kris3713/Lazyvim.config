@@ -100,6 +100,12 @@ return --[[@type LazyPluginSpec]]{
         --     on_dir(os.getenv('HOME') .. '/.config/ghostty')
         --   end
         -- },
+        -- -- go-css-lsp
+        -- go_css_lsp = {
+        --   enabled = true,
+        --   cmd = { 'go-css-lsp' },
+        --   filetypes = { 'css' }
+        -- },
         systemd_lsp = {
           mason = false,
           enabled = true,
