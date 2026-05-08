@@ -41,6 +41,7 @@
   "harpoon": { "branch": "harpoon2", "commit": "87b1a3506211538f460786c23f98ec63ad9af4e5" },
   "highlight-undo.nvim": { "branch": "main", "commit": "ee32e12693d70e66f954d09a504a7371d110fc27" },
   "hlargs.nvim": { "branch": "main", "commit": "0b29317c944fb1f76503ce4540d6dceffbb5ccd2" },
+  "hmts.nvim": { "branch": "patch-1", "commit": "c3014b514ccb8f1975828b8f5a009ef93f9b4ced" },
   "hunk.nvim": { "branch": "master", "commit": "376a2a5c13ad8acfa6a2801c4ae19a194d2cb85a" },
   "img-clip.nvim": { "branch": "main", "commit": "b6ddfb97b5600d99afe3452d707444afda658aca" },
   "indent-blankline.nvim": { "branch": "master", "commit": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03" },

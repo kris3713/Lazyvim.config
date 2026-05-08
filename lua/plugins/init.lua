@@ -249,25 +249,34 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'chrisgrieser/nvim-recorder',---@module 'recorder'
-    ---@param opts configObj
-    opts = function(_, opts)
-      if not opts.mapping then
-        return
-      end
-
-      opts.mapping.switchSlot = '<A-q>'
-    end
-    -- dependencies = 'rcarriga/nvim-notify'
+    ---@type configObj
+    opts = {
+      mapping = {
+        startStopRecording = 'qq',
+        switchSlot = '<A-q>',
+        editMacro = 'qc',
+        deleteAllMacros = 'qd'
+      }
+    },
+    keys = {
+      {
+        'q',
+        '',
+        desc = '+macros',
+        mode = 'n'
+      }
+    }
+    -- ,dependencies = 'rcarriga/nvim-notify'
   },
   {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
     opts = {}
   },
-  -- {
-  --   'calops/hmts.nvim',
-  --   version = '*'
-  -- },
+  {
+    'auipga/hmts.nvim',
+    branch = 'patch-1'
+  },
   {
     'nanotee/zoxide.vim',
     init = function() vim.g.zoxide_use_select = 1 end
