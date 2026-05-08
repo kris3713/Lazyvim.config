@@ -95,6 +95,21 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
+    'neovim-plugins/comment.nvim',---@module 'Comment'
+    ---@param opts CommentConfig
+    opts = function(opts)
+      local c = require('ts_context_commentstring.integrations.comment_nvim')
+      opts.pre_hook = c.create_pre_hook()
+    end
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
+    ---@type ts_context_commentstring.Config
+    opts = {
+      enable_autocmd = false
+    }
+  },
+  {
     'jake-stewart/multicursor.nvim',---@module 'multicursor-nvim'
     ---@type mc.MultiCursorOpts
     opts = {},
@@ -228,21 +243,6 @@ return --[[@type (LazyPluginSpec[])]]{
 
       return keys
     end
-  },
-  {
-    'neovim-plugins/comment.nvim',---@module 'Comment'
-    ---@param opts CommentConfig
-    opts = function(opts)
-      local c = require('ts_context_commentstring.integrations.comment_nvim')
-      opts.pre_hook = c.create_pre_hook()
-    end
-  },
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
-    ---@type ts_context_commentstring.Config
-    opts = {
-      enable_autocmd = false
-    }
   },
   {
     'chrisgrieser/nvim-recorder',---@module 'recorder'
