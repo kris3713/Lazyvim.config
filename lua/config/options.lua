@@ -12,7 +12,7 @@ vim.g.autoformat = false
 vim.o.sessionoptions = 'buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 -- Prevent macro recording from interfering with plugin keymaps
-vim.o.timeoutlen = 50
+vim.o.timeoutlen = 2000
 vim.o.ttimeoutlen = 0
 
 --- @diagnostic disable-next-line: undefined-field
