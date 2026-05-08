@@ -230,15 +230,12 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
-    'nvim-mini/mini.comment',
-    opts = {
-      options = {
-        custom_commentstring = function()
-          return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
-        end
-      }
-    },
-    version = '*'
+    'neovim-plugins/comment.nvim',---@module 'Comment'
+    ---@param opts CommentConfig
+    opts = function(opts)
+      local c = require('ts_context_commentstring.integrations.comment_nvim')
+      opts.pre_hook = c.create_pre_hook()
+    end
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
@@ -458,11 +455,6 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {
       auto_open = true -- Automatically open nvim-cmp on choice node (default: true)
     }
-  },
-  {
-    'mvllow/modes.nvim',
-    version = '*',
-    opts = {}
   },
   {
     'https://git.sr.ht/~havi/telescope-toggleterm.nvim',
