@@ -138,11 +138,6 @@ do
     trail = space
   }
 
-  --- @diagnostic disable-next-line: incomplete-signature-doc
-  local function error_hl()
-    set_hl(0, 'TrailingWhitespace', { link = 'Error' })
-  end
-
   vim.cmd([[match TrailingWhitespace /\\s\\+\$/]])
 
   create_autocmd('InsertEnter', {
@@ -157,7 +152,7 @@ do
     group = create_augroup('hl_trailing_whitespace_pt_2'),
     callback = function()
       vim.opt.listchars.trail = space
-      error_hl()
+      set_hl(0, 'TrailingWhitespace', { link = 'Error' })
     end
   })
 end
