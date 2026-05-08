@@ -230,6 +230,24 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
+    'nvim-mini/mini.comment',
+    opts = {
+      options = {
+        custom_commentstring = function()
+          return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
+        end
+      }
+    },
+    version = '*'
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
+    ---@type ts_context_commentstring.Config
+    opts = {
+      enable_autocmd = false
+    }
+  },
+  {
     'chrisgrieser/nvim-recorder',---@module 'recorder'
     ---@param opts configObj
     opts = function(_, opts)
@@ -477,13 +495,6 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'nacro90/numb.nvim',
     opts = {}
-  },
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
-    ---@type ts_context_commentstring.Config
-    opts = {
-      enable_autocmd = false
-    }
   },
   {
     'luckasRanarison/tailwind-tools.nvim',---@module 'tailwind-tools'
