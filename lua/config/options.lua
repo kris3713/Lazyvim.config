@@ -31,12 +31,12 @@ vim.o.expandtab = true
 do
   local bufnr = vim.api.nvim_get_current_buf()
 
-  if (vim.bo[bufnr].shiftwidth >= 4) or (vim.bo[bufnr].tabstop >= 4) then
-    vim.bo[bufnr].shiftwidth = 4
+  if vim.bo[bufnr].tabstop >= 1 then
+    -- vim.bo[bufnr].shiftwidth = 4
     vim.bo[bufnr].tabstop = 4
   else
     vim.bo[bufnr].shiftwidth = 2
-    vim.bo[bufnr].tabstop = 2
+    -- vim.bo[bufnr].tabstop = 2
   end
 end
 
