@@ -396,7 +396,76 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'akinsho/toggleterm.nvim',
-    opts = {}
+    opts = {},
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local function open_terminal()
+        local tt = require('toggleterm')
+        local terminals = require('toggleterm.terminal').get_all()
+        if #terminals == 0 then
+          tt.new(nil, LazyVim.root(), 'horizontal')
+        else
+          tt.toggle_all()
+        end
+      end
+
+      local function create_terminal()
+        local tt = require('toggleterm')
+        local terminals = require('toggleterm.terminal').get_all()
+        if #terminals ~= 0 then
+          tt.new(nil, LazyVim.root(), 'horizontal')
+        end
+      end
+
+      local function toggle_all_terminals()
+        local tt = require('toggleterm')
+        tt.toggle_all()
+      end
+
+      local function open_terminal_in_root()
+        local tt = require('toggleterm')
+        tt.new(nil, LazyVim.root(), 'horizontal')
+      end
+
+      local function open_terminal_in_cwd()
+        local tt = require('toggleterm')
+        tt.new(nil, vim.fn.getcwd(), 'horizontal')
+      end
+
+      keys = {
+        {
+          '<c-/>',
+          open_terminal,
+          desc = 'Open a Terminal (if one is not open)',
+          mode = { 'n', 't' }
+        },
+        {
+          '<c-\\>',
+          create_terminal,
+          desc = 'Create a new Terminal (if one is active)',
+          mode = 'n'
+        },
+        {
+          '<c-?>',
+          toggle_all_terminals,
+          desc = 'Toggles all Terminal instances'
+        },
+        {
+          '<leader>ft',
+          open_terminal_in_root,
+          desc = 'Open a Terminal (Root Dir)',
+          mode = 'n'
+        },
+        {
+          '<leader>fT',
+          open_terminal_in_cwd,
+          desc = 'Open a Terminal (cwd)',
+          mode = 'n'
+        }
+      }
+
+      return keys
+    end
   },
   {
     'stevearc/stickybuf.nvim',
@@ -558,7 +627,28 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {
       ---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
       use_default_keymaps = false
-    }
+    },
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local treesj = require('treesj')
+
+      keys = {
+        {
+          '<leader>i',
+          treesj.split,
+          desc = 'Split code block',
+          mode = 'n'
+        },
+        {
+          '<leader>j',
+          treesj.join,
+          desc = 'Join code block',
+          mode = 'n'
+        }
+      }
+
+      return keys
+    end
   },
   {
     'NMAC427/guess-indent.nvim',
@@ -589,12 +679,12 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'mcauley-penney/visual-whitespace.nvim',
-    event = 'ModeChanged *:[vV\22]',
     opts = {
       list_chars = {
         tab = '|󰌒'
       }
-    }
+    },
+    event = 'ModeChanged *:[vV\22]'
   },
   {
     'nvimdev/lspsaga.nvim',---@module 'lspsaga'
@@ -602,6 +692,26 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {
       ui = { code_action = '' },
       symbol_in_winbar = { enable = false }
+    },
+    keys = {
+      {
+        '<Tab>',
+        function() vim.cmd('Lspsaga hover_doc') end,
+        desc = 'Hover Doc',
+        mode = 'n'
+      },
+      {
+        'gt',
+        function() vim.cmd('Lspsaga peek_definition') end,
+        desc = 'Peek definition',
+        mode = 'n'
+      },
+      {
+        'gT',
+        function() vim.cmd('Lspsaga peek_type_definition') end,
+        desc = 'Peek type definition',
+        mode = 'n'
+      }
     }
   },
   {
@@ -610,7 +720,47 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {
       open_for_directories = true
     },
-    event = 'VeryLazy'
+    event = 'VeryLazy',
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local function open_at_current_file()
+        local yz = require('yazi')
+        yz.yazi(yz.config)
+      end
+
+      local function open_in_cwd()
+        local yz = require('yazi')
+        yz.yazi(yz.config, vim.fn.getcwd(), nil)
+      end
+
+      local function resume_last_session()
+        local yz = require('yazi')
+        yz.toggle(yz.config)
+      end
+
+      keys = {
+        {
+          '<leader>Y',
+          open_at_current_file,
+          desc = 'Open yazi at the current file',
+          mode = 'n'
+        },
+        {
+          '<leader>cw',
+          open_in_cwd,
+          desc = 'Open yazi in the cwd',
+          mode = 'n'
+        },
+        {
+          '<leader><up>',
+          resume_last_session,
+          desc = 'Resume the last yazi session',
+          mode = 'n'
+        }
+      }
+
+      return keys
+    end
   },
   {
     'nvim-flutter/flutter-tools.nvim',
@@ -624,7 +774,7 @@ return --[[@type (LazyPluginSpec[])]]{
       hint_prefix = '❔ ',
       floating_window_off_y = -2
     },
-    event = 'InsertEnter',
+    event = 'InsertEnter'
   },
   {
     'Bekaboo/dropbar.nvim',---@module 'dropbar'
@@ -636,7 +786,34 @@ return --[[@type (LazyPluginSpec[])]]{
         }
       }
     },
-    lazy = false
+    lazy = false,
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local dropbar_api = require('dropbar.api')
+
+      keys = {
+        {
+          '<leader>;',
+          dropbar_api.pick,
+          desc = 'Pick symbols in winbar',
+          mode = 'n'
+        },
+        {
+          '[;',
+          dropbar_api.goto_context_start,
+          desc = 'Go to start of current context',
+          mode = 'n'
+        },
+        {
+          '];',
+          dropbar_api.select_next_context,
+          desc = 'Select next context',
+          mode = 'n'
+        }
+      }
+
+      return keys
+    end
   },
   {
     'gbprod/phpactor.nvim',
@@ -680,7 +857,28 @@ return --[[@type (LazyPluginSpec[])]]{
       autoFold = { enabled = false },
       foldKeymaps = { setup = false }
     },
-    event = 'VeryLazy'
+    event = 'VeryLazy',
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local origami = require('origami')
+
+      keys = {
+        {
+          'zR',
+          origami.dollar,
+          desc = 'Open all folds',
+          mode = 'n'
+        },
+        {
+          'zM',
+          origami.caret,
+          desc = 'Close all folds',
+          mode = 'n'
+        }
+      }
+
+      return keys
+    end
   },
   {
     'michaelb/sniprun',
@@ -718,6 +916,7 @@ return --[[@type (LazyPluginSpec[])]]{
         '<leader>cv',
         function() vim.cmd('VenvSelect') end,
         desc = 'Select VirtualEnv',
+        mode = 'n',
         ft = 'python'
       }
     }
@@ -737,6 +936,14 @@ return --[[@type (LazyPluginSpec[])]]{
       trim_on_write = false,
       -- highlight trailing spaces
       highlight = true
+    },
+    keys = {
+      {
+        '<leader>T',
+        function() vim.cmd('Trim') end,
+        desc = 'Trim all trailing whitespaces and lines',
+        mode = 'n'
+      }
     }
   },
   {
@@ -757,30 +964,29 @@ return --[[@type (LazyPluginSpec[])]]{
     event = 'VeryLazy'
   },
   {
-    'kylechui/nvim-surround',
+    'kylechui/nvim-surround',---@module 'nvim-surround'
+    ---@type user_options
+    opts = {},
     version = '*',
     event = 'VeryLazy'
   },
   {
     'LunarVim/bigfile.nvim',
-    config = function()
-      --- @diagnostic disable-next-line: param-type-mismatch
-      require('bigfile').setup {
-        filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
-        pattern = { '*' }, -- autocmd pattern or function see <### Overriding the detection of big files>
-        features = { -- features to disable
-          'indent_blankline',
-          'illuminate',
-          'lsp',
-          'treesitter',
-          ---@diagnostic disable-next-line: assign-type-mismatch
-          'syntax',
-          'matchparen',
-          'vimopts',
-          'filetype'
-        }
+    --- @diagnostic disable-next-line: param-type-mismatch
+    opts = {
+      filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
+      pattern = { '*' }, -- autocmd pattern or function see <### Overriding the detection of big files>
+      features = { -- features to disable
+        'indent_blankline',
+        'illuminate',
+        'lsp',
+        'treesitter',
+        'syntax',
+        'matchparen',
+        'vimopts',
+        'filetype'
       }
-    end
+    }
   },
   {
     'nvim-tree/nvim-tree.lua',---@module 'nvim-tree'
@@ -801,9 +1007,7 @@ return --[[@type (LazyPluginSpec[])]]{
 
       local setEnable = { enable = true }
 
-      if not opts then
-        return
-      end
+      if not opts then return end
       -- Has potential for a more complex configuration
       opts.sync_root_with_cwd = true
       opts.respect_buf_cwd = true
@@ -827,7 +1031,75 @@ return --[[@type (LazyPluginSpec[])]]{
     end,
     dependencies = 'antosha417/nvim-lsp-file-operations',
     lazy = false,
-    deactivate = function() vim.cmd('NvimTreeClose') end
+    deactivate = function() vim.cmd('NvimTreeClose') end,
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      -- Open nvim-tree at root
+      local function open_at_root()
+        local api = require('nvim-tree.api')
+        api.tree.toggle { path = LazyVim.root() }
+      end
+
+      -- Open nvim-tree at CWD
+      local function open_at_cwd()
+        local api = require('nvim-tree.api')
+        api.tree.toggle { path = vim.fn.getcwd() }
+      end
+
+      -- Change root to CWD for nvim-tree
+      local function change_root_to_global_cwd()
+        local api = require('nvim-tree.api')
+        local global_cwd = vim.fn.getcwd(-1, -1)
+        api.tree.change_root(global_cwd)
+      end
+
+      -- Focus on currently opened file in nvim-tree
+      local function find_opened_file()
+        local api = require('nvim-tree.api')
+        api.tree.find_file { update_root = false, open = true, focus = true }
+      end
+
+      keys = {
+        {
+          '<leader>e',
+          open_at_root,
+          desc = 'nvim-tree: Explorer nvim-tree (root)',
+          mode = 'n'
+        },
+        {
+          '<leader>E',
+          open_at_cwd,
+          desc = 'nvim-tree: Explorer nvim-tree (cwd)',
+          mode = 'n'
+        },
+        {
+          '<leader>fe',
+          open_at_root,
+          desc = 'nvim-tree: Explorer nvim-tree (root)',
+          mode = 'n'
+       },
+        {
+          '<leader>fE',
+          open_at_cwd,
+          desc = 'nvim-tree: Explorer nvim-tree (cwd)',
+          mode = 'n'
+        },
+        {
+          '<leader>fC',
+          change_root_to_global_cwd,
+          desc = 'nvim-tree: Change root to global cwd (nvim-tree)',
+          mode = 'n'
+        },
+        {
+          '<leader>fd',
+          find_opened_file,
+          desc = 'nvim-tree: Focus on currently opened file',
+          mode = 'n'
+        }
+      }
+
+      return keys
+    end
   },
   {
     'rmagatti/auto-session',---@module 'auto-session'
@@ -870,7 +1142,48 @@ return --[[@type (LazyPluginSpec[])]]{
         end
       }
     },
-    lazy = false
+    lazy = false,
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local function save_session()
+        local auto = require('auto-session')
+        auto.save_session(vim.fn.getcwd())
+      end
+
+      local function restore_session()
+        local auto = require('auto-session')
+        auto.restore_session(vim.fn.getcwd())
+      end
+
+      keys = {
+        {
+          '<leader>qf',
+          function() vim.cmd('AutoSession search') end,
+          desc = 'Select a session to load/delete',
+          mode = 'n'
+        },
+        {
+          '<leader>qS',
+          save_session,
+          desc = 'Save session based on cwd',
+          mode = 'n'
+        },
+        {
+          '<leader>qs',
+          restore_session,
+          desc = 'Restore last session based on cwd',
+          mode = 'n'
+        },
+        {
+          '<leader>qd',
+          function() vim.cmd('AutoSession toggle') end,
+          desc = 'Toggle autosave',
+          mode = 'n'
+        }
+      }
+
+      return keys
+    end
   },
   {
     'milanglacier/minuet-ai.nvim',

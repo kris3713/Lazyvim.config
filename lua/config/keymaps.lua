@@ -44,44 +44,8 @@ if vim.g.neovide then
 end
 
 
--- nvim-tree
-do
-  -- Open nvim-tree at root
-  local function open_at_root()
-    local api = require('nvim-tree.api')
-    api.tree.toggle { path = LazyVim.root() }
-  end
-
-  -- Open nvim-tree at CWD
-  local function open_at_cwd()
-    local api = require('nvim-tree.api')
-    api.tree.toggle { path = vim.fn.getcwd() }
-  end
-
-  -- Change root to CWD for nvim-tree
-  local function change_root_to_global_cwd()
-    local api = require('nvim-tree.api')
-    local global_cwd = vim.fn.getcwd(-1, -1)
-    api.tree.change_root(global_cwd)
-  end
-
-  -- Focus on currently opened file in nvim-tree
-  local function find_opened_file()
-    local api = require('nvim-tree.api')
-    api.tree.find_file { update_root = false, open = true, focus = true }
-  end
-
-  vim_keymap.set('n', '<leader>e', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
-  vim_keymap.set('n', '<leader>E', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
-  vim_keymap.set('n', '<leader>fe', open_at_root, opts('nvim-tree: Explorer nvim-tree (root)'))
-  vim_keymap.set('n', '<leader>fE', open_at_cwd, opts('nvim-tree: Explorer nvim-tree (cwd)'))
-  vim_keymap.set('n', '<leader>fC', change_root_to_global_cwd, opts('nvim-tree: Change root to global cwd (nvim-tree)'))
-  vim_keymap.set('n', '<leader>fd', find_opened_file, opts('nvim-tree: Focus on currently opened file'))
-end
-
-
--- Map Ctrl-z to do nothing
-vim_keymap.set(all_modes, '<C-z>', '<Nop>', opts('', true))
+-- -- Map Ctrl-z to do nothing
+-- vim_keymap.set(all_modes, '<C-z>', '<Nop>', opts('', true))
 
 
 -- -- Map q to do nothing
@@ -125,17 +89,6 @@ do
 end
 
 
--- -- actions-preview.nvim
--- do
---   local function ap__code_actions()
---     local ap = require('actions-preview')
---     ap.code_actions {}
---   end
---
---   vim_keymap.set({ 'x', 'n' }, '<leader>xf', ap__code_actions, opts('Open Code Actions'))
--- end
-
-
 -- neogen
 do
   local function neogen_generate()
@@ -159,72 +112,9 @@ vim_keymap.set('n', '<leader>L', function() vim.cmd('LazyExtras') end, opts('Ope
 vim_keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mason'))
 
 
--- auto-session
-do
-  local function save_session()
-    local auto = require('auto-session')
-    auto.save_session(vim.fn.getcwd())
-  end
-
-  local function restore_session()
-    local auto = require('auto-session')
-    auto.restore_session(vim.fn.getcwd())
-  end
-
-  vim_keymap.set('n', '<leader>qf', function() vim.cmd('AutoSession search') end, opts('Select a session to load/delete'))
-  vim_keymap.set('n', '<leader>qS', save_session, opts('Save session based on cwd'))
-  vim_keymap.set('n', '<leader>qs', restore_session, opts('Restore last session based on cwd'))
-  vim_keymap.set('n', '<leader>qd', function() vim.cmd('AutoSession toggle') end, opts('Toggle autosave'))
-end
-
-
 -- Map the backwards/inverse indent to Shift + Tab
 vim_keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards/Inverse indent (INSERT mode)'))
 -- vim_keymap.set({ 'n', 'x' }, '<S-Tab>', '<S-Tab>', opts('Backwards/Inverse indent'))
-
-
--- toggleterm.nvim
-do
-  local function open_terminal()
-    local tt = require('toggleterm')
-    local terminals = require('toggleterm.terminal').get_all()
-    if #terminals == 0 then
-      tt.new(nil, LazyVim.root(), 'horizontal')
-    else
-      tt.toggle_all()
-    end
-  end
-
-  local function create_terminal()
-    local tt = require('toggleterm')
-    local terminals = require('toggleterm.terminal').get_all()
-    if #terminals ~= 0 then
-      tt.new(nil, LazyVim.root(), 'horizontal')
-    end
-  end
-
-  local function toggle_all_terminals()
-    local tt = require('toggleterm')
-    tt.toggle_all()
-  end
-
-  local function open_terminal_in_root()
-    local tt = require('toggleterm')
-    tt.new(nil, LazyVim.root(), 'horizontal')
-  end
-
-  local function open_terminal_in_cwd()
-    local tt = require('toggleterm')
-    tt.new(nil, vim.fn.getcwd(), 'horizontal')
-  end
-
-  vim_keymap.set({ 'n', 't' }, '<C-/>', open_terminal, opts('Open a Terminal (if one is not open)'))
-  vim_keymap.set('n', '<C-\\>', create_terminal, opts('Create a new Terminal (if one is active)'))
-  -- NOTE: "?" is short for "Ctrl + Shift + /"
-  vim_keymap.set('n', '<C-?>', toggle_all_terminals, opts('Toggles all Terminal instances'))
-  vim_keymap.set('n', '<leader>ft', open_terminal_in_root, opts('Open a Terminal (Root Dir)'))
-  vim_keymap.set('n', '<leader>fT', open_terminal_in_cwd, opts('Open a Terminal (cwd)'))
-end
 
 
 -- grug-far
@@ -232,53 +122,15 @@ do
   local grug = require('grug-far')
 
   local function grug_with_v_selection()
-    grug.with_visual_selection({
+    grug.with_visual_selection {
       prefills = { paths = vim.fn.expand('%') }
-    })
+    }
   end
 
   --TODO: Add some more keymaps for normal mode
 
   vim_keymap.set('v', '<leader>s/', grug_with_v_selection, opts('Search and Replace in current file'))
 end
-
-
--- Yazi keymaps
-do
-  local function open_at_current_file()
-    local yz = require('yazi')
-    yz.yazi(yz.config)
-  end
-
-  local function open_in_cwd()
-    local yz = require('yazi')
-    yz.yazi(yz.config, vim.fn.getcwd(), nil)
-  end
-
-  local function resume_last_session()
-    local yz = require('yazi')
-    yz.toggle(yz.config)
-  end
-
-  vim_keymap.set('n', '<leader>Y', open_at_current_file, opts('Open yazi at the current file', true))
-  vim_keymap.set('n', '<leader>cw', open_in_cwd, opts('Open yazi in the cwd', true))
-  vim_keymap.set('n', '<leader><up>', resume_last_session, opts('Resume the last yazi session', true))
-end
-
-
--- nvim-ufo
-do
-  local origami = require('origami')
-
-  vim_keymap.set('n', 'zR', origami.dollar, opts('Open all folds'))
-  vim_keymap.set('n', 'zM', origami.caret, opts('Close all folds'))
-end
-
-
--- lspsaga
-vim_keymap.set('n', '<Tab>', function() vim.cmd('Lspsaga hover_doc') end, opts('Hover Doc'))
-vim_keymap.set('n', 'gt', function() vim.cmd('Lspsaga peek_definition') end, opts('Peek definition'))
-vim_keymap.set('n', 'gT', function() vim.cmd('Lspsaga peek_type_definition') end, opts('Peek type definition'))
 
 
 -- -- hover.nvim
@@ -299,25 +151,6 @@ do
   end
 
   vim_keymap.set('n', '<leader>O', aerial_toggle, opts('Outline'))
-end
-
-
--- dropbar
-do
-  local dropbar_api = require('dropbar.api')
-
-  vim_keymap.set('n', '<Leader>;', dropbar_api.pick, opts('Pick symbols in winbar'))
-  vim_keymap.set('n', '[;', dropbar_api.goto_context_start, opts('Go to start of current context'))
-  vim_keymap.set('n', '];', dropbar_api.select_next_context, opts('Select next context'))
-end
-
-
--- treesj
-do
-  local treesj = require('treesj')
-
-  vim_keymap.set('n', '<leader>i', treesj.split, opts('Split code block'))
-  vim_keymap.set('n', '<leader>j', treesj.join, opts('Join code block'))
 end
 
 
@@ -396,20 +229,6 @@ do
   vim_keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by Tabs'))
 end
 
-
--- multicursor-nvim
-do
-  local mc = require('multicursor-nvim')
-  local modes = { 'n', 'x' }
-
-  -- TODO: Finish setting up multicursor-nvim   https://github.com/jake-stewart/multicursor.nvim#example-config-lazynvim
-
-  -- vim_keymap.set(modes, '<leader>m', mc.start, opts('Create a selection for selected text or word under the cursor'))
-end
-
-
--- trim.nvim
-vim_keymap.set('n', '<leader>T', function() vim.cmd('Trim') end, opts('Trim all trailing whitespaces and lines'))
 
 -- nvim-surround
 do

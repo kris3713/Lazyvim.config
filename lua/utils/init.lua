@@ -66,7 +66,7 @@ function utils.switch_indent_style(bufnr)
   if vim.bo[bufnr].expandtab then
     -- Switched to spaces, set a common default for shiftwidth
     vim.bo[bufnr].expandtab = true
-    vim.bo[bufnr].tabstop = 2
+    -- vim.bo[bufnr].tabstop = 2
     vim.bo[bufnr].shiftwidth = 2
     vim.cmd('retab')
 
@@ -76,7 +76,7 @@ function utils.switch_indent_style(bufnr)
   else
     -- Switched to tabs, set a common default for tabstop
     vim.bo[bufnr].expandtab = false
-    vim.bo[bufnr].shiftwidth = 4
+    -- vim.bo[bufnr].shiftwidth = 4
     vim.bo[bufnr].tabstop = 4
     vim.cmd('retab')
 

@@ -67,13 +67,6 @@ end
 --   hover.open {}
 -- end
 
-------Selects a code action available at the current cursor position.
----local function ap__code_actions()
----  -- actions-preview
----  local ap = require('actions-preview')
----  ap.code_actions {}
----end
-
 
 return --[[@type LazyPluginSpec]]{
   'neovim/nvim-lspconfig',
