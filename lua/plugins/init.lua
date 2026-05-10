@@ -357,16 +357,13 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {}
   },
   {
-    'sontungexpt/better-diagnostic-virtual-text',
-    event = 'LspAttach',
-    opts = {
-      inline = false,
-      ui = { above = true }
-    }
+    'rachartier/tiny-inline-diagnostic.nvim',
+    opts = {},
+    event = 'VeryLazy',
+    priority = 1000
   },
   {
     'dgagn/diagflow.nvim',
-    event = 'LspAttach',
     opts = {
       padding_right = 3,
       padding_top = 7,
@@ -377,7 +374,8 @@ return --[[@type (LazyPluginSpec[])]]{
         bottom_right = '╯',
       },
       show_borders = true
-    }
+    },
+    event = 'LspAttach'
   },
   {
     'b0o/SchemaStore.nvim',
@@ -414,15 +412,13 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'julienvincent/hunk.nvim',
-    cmd = 'DiffEditor',
-    opts = {}
+    opts = {},
+    cmd = 'DiffEditor'
   },
   {
     'chentoast/marks.nvim',
     opts = function(_, opts)
-      if not opts then
-        return
-      end
+      if not opts then return end
 
       opts.mappings = {
         set = 'mm',
@@ -477,9 +473,9 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'https://git.sr.ht/~havi/telescope-toggleterm.nvim',
+    opts = {},
     event = 'TermOpen',
-    dependencies = 'nvim-lua/popup.nvim',
-    opts = {}
+    dependencies = 'nvim-lua/popup.nvim'
   },
   {
     'jmbuhr/otter.nvim',
@@ -487,8 +483,8 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    opts = {}
+    opts = {},
+    event = 'InsertEnter'
   },
   {
     'DaikyXendo/nvim-material-icon',

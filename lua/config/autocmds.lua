@@ -93,41 +93,51 @@ create_autocmd('BufReadPost', {
 create_autocmd('BufEnter', {
   group = create_augroup('lock_buffer_to_window'),
   desc = 'Pin the buffer to any window that is fixed width or height',
-  callback = function(_)
+  callback = function()
     local stickybuf = require('stickybuf')
-
-    -- local bufnr = args.buf
     local winid = vim.api.nvim_get_current_win()
-    if not stickybuf.is_pinned(winid) and (vim.wo.winfixwidth or vim.wo.winfixheight) then
+
+    local checkWindow = vim.wo.winfixwidth or vim.wo.winfixheight
+    if not stickybuf.is_pinned(winid) and checkWindow then
       stickybuf.pin(winid, {})
     end
   end
 })
 
-create_autocmd('RecordingEnter', {
-  group = create_augroup('show_macro_recording_on_lualine'),
-  callback = function(_)
-    --- @diagnostic disable-next-line: missing-fields, param-type-mismatch
-    require('lualine').refresh {
-      place = { 'statusline' }
-    }
-  end
-})
-
-create_autocmd('RecordingLeave', {
-  group = create_augroup('show_macro_recording_on_lualine'),
-  callback = function(_)
-    -- Small delay to allow vim.fn.reg_recording() to clear
-    --- @diagnostic disable-next-line: undefined-field
-    local timer = vim.uv.new_timer()
-    timer:start(50, 0, vim.schedule_wrap(function()
-      --- @diagnostic disable-next-line: missing-fields, param-type-mismatch
-      require('lualine').refresh {
-        place = { 'statusline' }
-      }
-    end))
-  end
-})
+-- do
+--   local lualine = require('lualine')
+--   ---@type LualineRefreshOpts
+--   ---@diagnostic disable-next-line: missing-fields, param-type-mismatch
+--   local refreshOpts = {
+--     place = { 'statusline' }
+--   }
+--
+--   create_autocmd('RecordingEnter', {
+--     group = create_augroup('show_macro_recording_on_lualine'),
+--     callback = function()
+--       lualine.refresh {
+--         place = { 'statusline' }
+--       }
+--     end
+--   })
+--
+--   create_autocmd('RecordingLeave', {
+--     group = create_augroup('show_macro_recording_on_lualine'),
+--     callback = function()
+--       ---Small delay to allow vim.fn.reg_recording() to clear
+--       --- @diagnostic disable-next-line: undefined-field
+--       local timer = vim.uv.new_timer()
+--       if timer then
+--         timer:start(50, 0, vim.schedule_wrap(function()
+--           lualine.refresh {
+--             place = { 'statusline' }
+--           }
+--         end))
+--       end
+--
+--     end
+--   })
+-- end
 
 -- Ensure comments in Systemd files use '#'
 create_autocmd({ 'BufEnter', 'BufRead' }, {
