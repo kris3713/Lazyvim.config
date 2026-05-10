@@ -96,10 +96,12 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'neovim-plugins/comment.nvim',---@module 'Comment'
-    ---@param opts CommentConfig
-    opts = function(opts)
-      local c = require('ts_context_commentstring.integrations.comment_nvim')
-      opts.pre_hook = c.create_pre_hook()
+    ---@param opts CommentConfig?
+    opts = function(_, opts)
+      if opts then
+        local c = require('ts_context_commentstring.integrations.comment_nvim')
+        opts.pre_hook = c.create_pre_hook()
+      end
     end
   },
   {
@@ -114,19 +116,6 @@ return --[[@type (LazyPluginSpec[])]]{
     branch = '1.0',
     ---@param keys LazyKeysSpec[]|LazyKeys[]
     keys = function (_, keys)
-      -- Customize how cursors look.
-      local set_hl = vim.api.nvim_set_hl
-      local reverse = { reverse = true }
-      local visual = { link = 'Visual' }
-      local sign_column = { link = 'SignColumn'}
-      set_hl(0, 'MultiCursorCursor', reverse)
-      set_hl(0, 'MultiCursorVisual', visual)
-      set_hl(0, 'MultiCursorSign', sign_column)
-      set_hl(0, 'MultiCursorMatchPreview', { link = 'Search' })
-      set_hl(0, 'MultiCursorDisabledCursor', reverse)
-      set_hl(0, 'MultiCursorDisabledVisual', visual)
-      set_hl(0, 'MultiCursorDisabledSign', sign_column)
-
       local mc = require('multicursor-nvim')
       local modes = { 'n', 'x' }
 
@@ -240,6 +229,21 @@ return --[[@type (LazyPluginSpec[])]]{
       }
 
       return keys
+    end,
+    init = function()
+      -- Customize how cursors look.
+      local set_hl = vim.api.nvim_set_hl
+      local reverse = { reverse = true }
+      local visual = { link = 'Visual' }
+      local sign_column = { link = 'SignColumn'}
+
+      set_hl(0, 'MultiCursorCursor', reverse)
+      set_hl(0, 'MultiCursorVisual', visual)
+      set_hl(0, 'MultiCursorSign', sign_column)
+      set_hl(0, 'MultiCursorMatchPreview', { link = 'Search' })
+      set_hl(0, 'MultiCursorDisabledCursor', reverse)
+      set_hl(0, 'MultiCursorDisabledVisual', visual)
+      set_hl(0, 'MultiCursorDisabledSign', sign_column)
     end
   },
   {
@@ -286,22 +290,39 @@ return --[[@type (LazyPluginSpec[])]]{
   },
   {
     'mfussenegger/nvim-dap-python',
-    keys = {
-      {
-        '<leader>dPt',
-        function() require('dap-python').test_method() end,
-        desc = 'Debug Method',
-        ft = 'python'
-      },
-      {
-        '<leader>dPc',
-        function() require('dap-python').test_class() end,
-        desc = 'Debug Class',
-        ft = 'python'
-      }
-    },
     config = function()
       require('dap-python').setup('debugpy-adapter', {})
+    end,
+    ft = 'python',
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local dap_py = require('dap-python')
+      keys = {
+        {
+          '<leader>dy',
+          '',
+          desc = '+Dap Python',
+          mode = 'n'
+        },
+        {
+          '<leader>dyt',
+          dap_py.test_method,
+          desc = 'Debug Method',
+          mode = 'n',
+          expr = true,
+          ft = 'python',
+        },
+        {
+          '<leader>dyc',
+          dap_py.test_class,
+          desc = 'Debug Class',
+          mode = 'n',
+          expr = true,
+          ft = 'python'
+        }
+      }
+
+      return keys
     end
   },
   {
