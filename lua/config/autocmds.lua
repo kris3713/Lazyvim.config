@@ -13,9 +13,12 @@ local function create_augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
+
 local create_autocmd = vim.api.nvim_create_autocmd
 
+
 local set_hl = vim.api.nvim_set_hl
+
 
 -- Get rid of Neovim's stupid cursor change
 create_autocmd('VimLeave', {
@@ -26,14 +29,14 @@ create_autocmd('VimLeave', {
 })
 
 
--- Make sure all LSP servers close when quitting Neovim
-create_autocmd('VimLeave', {
-  group = create_augroup('close_all_lsp_servers_on_quit'),
-  desc = 'Close all lsp servers on qutting Neovim',
-  callback = function(_)
-    vim.lsp.stop_client(vim.lsp.get_clients())
-  end
-})
+-- -- Make sure all LSP servers close when quitting Neovim
+-- create_autocmd('VimLeave', {
+--   group = create_augroup('close_all_lsp_servers_on_quit'),
+--   desc = 'Close all lsp servers on qutting Neovim',
+--   callback = function()
+--     vim.lsp.stop_client(vim.lsp.get_clients())
+--   end
+-- })
 
 
 -- Enable semantic highlighting
@@ -64,8 +67,6 @@ create_autocmd('VimEnter', {
   desc = 'Auto-start nvim-tree with directory',
   once = true,
   callback = function(args)
-    -- Check if the `data` parameter is a table
-    if type(args) ~= 'table' then return end
     -- buffer is a directory
     if not (vim.fn.isdirectory(args.file) == 1) then return end
 
