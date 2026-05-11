@@ -1215,7 +1215,7 @@ return --[[@type (LazyPluginSpec[])]]{
           api_key = 'TERM',
           name = 'llama-swap',
           end_point = 'http://localhost:1234/v1/completions',
-          model = 'granite-4.1',
+          model = 'Qwen3-Coder-30B-A3B-Instruct',
           -- optional = {
           --   max_tokens = 56
           -- },
