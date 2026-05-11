@@ -393,11 +393,21 @@ return --[[@type (LazyPluginSpec[])]]{
               -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
               -- can also be a function to dynamically calculate max width such as
               -- menu = function() return math.floor(0.45 * vim.o.columns) end,
-              menu = 60, -- leading text (labelDetails)
+              menu = 50, -- leading text (labelDetails)
               abbr = 60 -- actual suggestion item
             },
             ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-            show_labelDetails = true
+            show_labelDetails = true,
+            ---https://www.reddit.com/r/neovim/comments/1acbh4h/comment/kjtu57l/
+            ---@param vim_item_o vim.CompletedItem
+            ---@return vim.CompletedItem
+            before = function(_, vim_item_o)
+              if vim_item_o.menu and (string.len(vim_item_o.menu) > 45) then
+                vim_item_o.menu = string.sub(vim_item_o.menu, 1, 42) .. '...'
+              end
+
+              return vim_item_o
+            end
           }
           local kind = require('lspkind').cmp_format(options)(entry, vim.deepcopy(vim_item))
           local highlights_info = require('colorful-menu').cmp_highlights(entry)
