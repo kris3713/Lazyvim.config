@@ -947,6 +947,14 @@ return --[[@type (LazyPluginSpec[])]]{
     }
   },
   {
+    '3rd/image.nvim',---@module 'image'
+    ---@type Options
+    opts = {
+      processor = 'magick_cli'
+    },
+    build = false
+  },
+  {
     -- support for image pasting
     'HakonHarnes/img-clip.nvim',
     opts = {

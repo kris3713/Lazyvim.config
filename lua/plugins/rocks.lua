@@ -1,11 +1,15 @@
+---@module 'lazy'
+
 return --[[@type (LazyPluginSpec[])]]{
-  -- {
-  --   'vhyrro/luarocks.nvim',
-  --   priority = 1000,
-  --   opts = { -- Put the names of rocks from luarocks.org here:
-  --     -- rocks = {
-  --     --   'json.lua'
-  --     -- }
-  --   }
-  -- }
+  {
+    'vhyrro/luarocks.nvim',
+    opts = { -- Put the names of rocks from luarocks.org here:
+      rocks = {
+        'magick',
+        'dkjson'
+      }
+    },
+    priority = 1001,
+    enabled = false
+  }
 }
