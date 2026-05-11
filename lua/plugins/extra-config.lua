@@ -229,6 +229,14 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'nvim-lualine/lualine.nvim',
     opts = {
+      options = {
+        -- -- Circles
+        -- section_separators = { left = '', right = '' },
+        -- component_separators = { left = '', right = '' }
+        -- Block/Lines
+        section_separators = { left = '▌', right = '▐' },
+        component_separators = { left = '⎸', right = '⎹' }
+      },
       sections = {
         lualine_b = {
           { require('recorder').recordingStatus },
@@ -277,7 +285,9 @@ return --[[@type (LazyPluginSpec[])]]{
               if clicks == 2 then
                 require('utils').switch_indent_style(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
-                require('lualine').refresh {}
+                require('lualine').refresh {
+                  place = { 'statusline' }
+                }
               end
             end
           },
@@ -300,7 +310,9 @@ return --[[@type (LazyPluginSpec[])]]{
               if clicks == 2 then
                 require('utils').set_indent_size(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
-                require('lualine').refresh {}
+                require('lualine').refresh {
+                  place = { 'statusline' }
+                }
               end
             end
           },
@@ -333,7 +345,9 @@ return --[[@type (LazyPluginSpec[])]]{
                 end
 
                 -- Force Lualine to refresh to reflect the change immediately
-                require('lualine').refresh {}
+                require('lualine').refresh {
+                  place = { 'statusline' }
+                }
               end
             end
           },
@@ -347,10 +361,15 @@ return --[[@type (LazyPluginSpec[])]]{
             end
           }
         },
-        lualine_y = { 'searchcount', 'selectioncount', 'progress' },
+        lualine_y = {
+          'searchcount',
+          'selectioncount',
+          'progress'
+        },
         lualine_z = { 'location' }
       }
-    }
+    },
+    event = 'VeryLazy'
   },
   {
     'hrsh7th/nvim-cmp',---@module 'cmp'
