@@ -480,11 +480,6 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {}
   },
   {
-    'julienvincent/hunk.nvim',
-    opts = {},
-    cmd = 'DiffEditor'
-  },
-  {
     'chentoast/marks.nvim',
     opts = function(_, opts)
       if not opts then return end
