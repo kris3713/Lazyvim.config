@@ -213,7 +213,7 @@ do
   --TODO: Add some more keymaps for normal mode
 
   vim_keymap.set(
-    'v',
+    'x',
     '<leader>s/',
     grug_with_v_selection,
     opts('Search and Replace in current file')
