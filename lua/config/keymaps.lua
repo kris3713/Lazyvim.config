@@ -10,7 +10,7 @@
 local function opts(desc, silent)
   silent = silent or false
   ---@type vim.keymap.set.Opts
-  local set_opts = { desc = desc, silent = silent, noremap = true }
+  local set_opts = { desc = desc, silent = silent }
   return set_opts
 end
 
@@ -74,7 +74,6 @@ vim_keymap.set('x', '<Del>', '"_x', opts('', true))
 -- Make it easier to paste
 vim_keymap.set({ 'i', 'c' }, '<C-v>', '<C-r>+', opts('', false))
 vim_keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', opts('', false))
-vim_keymap.set('n', '<C-v>', '"+p', opts('', false))
 vim_keymap.set('n', '<S-Insert>', '"+p', opts('', false))
 
 
@@ -119,17 +118,27 @@ vim_keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards/Inverse indent (INSERT m
 
 -- grug-far
 do
-  local grug = require('grug-far')
-
   local function grug_with_v_selection()
+    local grug = require('grug-far')
     grug.with_visual_selection {
       prefills = { paths = vim.fn.expand('%') }
+    }
+  end
+
+  local function grug_open()
+    local grug = require('grug-far')
+    grug.open {
+      prefills = {
+        paths = vim.fn.expand('%'),
+        flags = '--fixed-strings'
+      }
     }
   end
 
   --TODO: Add some more keymaps for normal mode
 
   vim_keymap.set('v', '<leader>s/', grug_with_v_selection, opts('Search and Replace in current file'))
+  vim_keymap.set('n', '<leader>sR', grug_open, opts('Search and Replace in current file'))
 end
 
 
