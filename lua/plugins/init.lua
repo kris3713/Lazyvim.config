@@ -190,24 +190,24 @@ return --[[@type (LazyPluginSpec[])]]{
           desc = 'Move only the main cursor by matching the current word/selection. Forwards',
           mode = modes
         },
-        -- {
-        --   '<leader>m<c-leftmouse>',
-        --   mc.handleMouse,
-        --   desc = 'add/remove cursors with mouse click',
-        --   mode = 'n'
-        -- },
-        -- {
-        --   '<leader>m<c-leftdrag>',
-        --   mc.handleMouseDrag,
-        --   desc = 'add/remove cursors with (vertical) mouse drag',
-        --   mode = 'n'
-        -- },
-        -- {
-        --   '<leader>m<c-leftrelease>',
-        --   mc.handleMouseRelease,
-        --   desc = 'Improve mouse support when dragging with a modifier',
-        --   mode = 'n'
-        -- },
+        {
+          '<a-leftmouse>',
+          mc.handleMouse,
+          desc = 'add/remove cursors with mouse click',
+          mode = 'n'
+        },
+        {
+          '<a-leftdrag>',
+          mc.handleMouseDrag,
+          desc = 'add/remove cursors with (vertical) mouse drag',
+          mode = 'n'
+        },
+        {
+          '<a-leftrelease>',
+          mc.handleMouseRelease,
+          desc = 'Improve mouse support when dragging with a modifier',
+          mode = 'n'
+        },
         {
           '<leader>mq',
           mc.toggleCursor,
@@ -219,12 +219,12 @@ return --[[@type (LazyPluginSpec[])]]{
       return keys
     end,
     init = function()
-      -- Customize how cursors look.
       local set_hl = vim.api.nvim_set_hl
       local reverse = { reverse = true }
       local visual = { link = 'Visual' }
       local sign_column = { link = 'SignColumn'}
 
+      -- Customize how cursors look.
       set_hl(0, 'MultiCursorCursor', reverse)
       set_hl(0, 'MultiCursorVisual', visual)
       set_hl(0, 'MultiCursorSign', sign_column)
