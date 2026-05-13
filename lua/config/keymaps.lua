@@ -427,6 +427,18 @@ do
     '<Plug>(nvim-surround-normal-cur-line)',
     opts('Add surrounding pair around current line on new lines')
   )
+  vim_keymap.set(
+    'n',
+    'gsc',
+    '<Plug>(nvim-surround-change)',
+    opts('Change surrounding pair')
+  )
+  vim_keymap.set(
+    'n',
+    'gSc',
+    '<Plug>(nvim-surround-change-line)',
+    opts('Change surrounding pair putting replacements on new lines')
+  )
 
   -- Visual mode
   vim_keymap.set(
@@ -448,20 +460,6 @@ do
     'gsd',
     '<Plug>(nvim-surround-delete)',
     opts('Delete surrounding pair')
-  )
-
-  -- Change mode
-  vim_keymap.set(
-    'n',
-    'gsc',
-    '<Plug>(nvim-surround-change)',
-    opts('Change surrounding pair')
-  )
-  vim_keymap.set(
-    'n',
-    'gSc',
-    '<Plug>(nvim-surround-change-line)',
-    opts('Change surrounding pair putting replacements on new lines')
   )
 
   -- Insert mode
