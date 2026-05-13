@@ -132,8 +132,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.lineAddCursor(-1)
           end,
           desc = 'Add a cursor above the main cursor, skipping empty lines',
-          mode = modes,
-          expr = true
+          mode = modes
         },
         {
           '<leader>m<down>',
@@ -141,8 +140,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.lineAddCursor(1)
           end,
           desc = 'Add a cursor below the main cursor, skipping empty lines',
-          mode = modes,
-          expr = true
+          mode = modes
         },
         {
           '<leader>m<left>',
@@ -150,8 +148,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.lineSkipCursor(-1)
           end,
           desc = 'Move only the main cursor up a line, skipping empty lines',
-          mode = modes,
-          expr = true
+          mode = modes
         },
         {
           '<leader>m<right>',
@@ -159,8 +156,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.lineSkipCursor(1)
           end,
           desc = 'Move only the main cursor down a line, skipping empty lines',
-          mode = modes,
-          expr = true
+          mode = modes
         },
         {
           '<leader>mn',
@@ -168,8 +164,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.matchAddCursor(1)
           end,
           desc = 'Add a new cursor by matching the current word/selection. Backwards',
-          mode = modes,
-          expr = true
+          mode = modes
         },
         {
           '<leader>ms',
@@ -177,8 +172,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.matchSkipCursor(1)
           end,
           desc = 'Move only the main cursor by matching the current word/selection. Backwards',
-          mode = modes,
-          expr = true
+          mode = modes
         },
         {
           '<leader>mN',
@@ -186,8 +180,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.matchAddCursor(-1)
           end,
           desc = 'Add a new cursor by matching the current word/selection. Forwards',
-          mode = modes,
-          expr = true
+          mode = modes
         },
         {
           '<leader>mS',
@@ -195,36 +188,31 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.matchSkipCursor(-1)
           end,
           desc = 'Move only the main cursor by matching the current word/selection. Forwards',
-          mode = modes,
-          expr = true
+          mode = modes
         },
         -- {
         --   '<leader>m<c-leftmouse>',
         --   mc.handleMouse,
         --   desc = 'add/remove cursors with mouse click',
-        --   mode = 'n',
-        --   expr = true
+        --   mode = 'n'
         -- },
         -- {
         --   '<leader>m<c-leftdrag>',
         --   mc.handleMouseDrag,
         --   desc = 'add/remove cursors with (vertical) mouse drag',
-        --   mode = 'n',
-        --   expr = true
+        --   mode = 'n'
         -- },
         -- {
         --   '<leader>m<c-leftrelease>',
         --   mc.handleMouseRelease,
         --   desc = 'Improve mouse support when dragging with a modifier',
-        --   mode = 'n',
-        --   expr = true
+        --   mode = 'n'
         -- },
         {
           '<leader>mq',
           mc.toggleCursor,
           desc = 'Disable and enable cursors',
-          mode = modes,
-          expr = true
+          mode = modes
         }
       }
 
@@ -268,6 +256,25 @@ return --[[@type (LazyPluginSpec[])]]{
     -- ,dependencies = 'rcarriga/nvim-notify'
   },
   {
+    'hiphish/rainbow-delimiters.nvim',---@module 'rainbow-delimiters'
+    ---@param opts rainbow_delimiters.config
+    opts = function(_, opts)
+      local highlight = {
+        'RainbowDelimiterRed',
+        'RainbowDelimiterOrange',
+        'RainbowDelimiterYellow',
+        'RainbowDelimiterLightGreen',
+        'RainbowDelimiterGreen',
+        'RainbowDelimiterBlue',
+        'RainbowDelimiterCyan',
+        'RainbowDelimiterViolet'
+      }
+
+      opts.highlight = highlight
+    end,
+    main = 'rainbow-delimiters.setup',
+  },
+  {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
     opts = {}
@@ -309,7 +316,7 @@ return --[[@type (LazyPluginSpec[])]]{
           dap_py.test_method,
           desc = 'Debug Method',
           mode = 'n',
-          expr = true,
+          -- expr = true,
           ft = 'python',
         },
         {
@@ -317,7 +324,7 @@ return --[[@type (LazyPluginSpec[])]]{
           dap_py.test_class,
           desc = 'Debug Class',
           mode = 'n',
-          expr = true,
+          -- expr = true,
           ft = 'python'
         }
       }

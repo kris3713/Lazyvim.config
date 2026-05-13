@@ -74,15 +74,7 @@ do
   set_hl(0, highlight[6], { fg = '#3f78ec' })
   set_hl(0, highlight[7], { fg = '#7dc4e4' })
   set_hl(0, highlight[8], { fg = '#9c5aef' })
-
-  vim.g.rainbow_delimiters = { highlight = highlight }
 end
-
--- harper:ignore
--- -- nvim-snippets
--- require('snippets').setup {
---   search_paths = {  os.getenv('HOME') .. '/MEGA' }
--- }
 
 
 -- Keep everything else from mini.animate except the cursor animation.
@@ -93,6 +85,7 @@ do
     mod.config.cursor.enable = false
   end
 end
+
 
 -- TODO: Deprecate in favor of https://github.com/meznaric/conmenu
 -- mouse menu

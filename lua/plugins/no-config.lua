@@ -3,7 +3,6 @@
 
 return --[[@type LazyPluginSpec]]{
     -- No config plugins go here
-  'hiphish/rainbow-delimiters.nvim',
   -- 'nvim-tree/nvim-web-devicons',
   'nvimtools/none-ls-extras.nvim',
   'Tastyep/structlog.nvim',
