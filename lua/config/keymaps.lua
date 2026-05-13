@@ -76,25 +76,13 @@ vim_keymap.set(
 
 -- Change delete keymaps to "Delete without yanking"
 vim_keymap.set(
-  'n',
+  { 'n', 'x' },
   'd',
   '"_x',
   opts('', true)
 )
 vim_keymap.set(
-  'n',
-  '<Del>',
-  '"_x',
-  opts('', true)
-)
-vim_keymap.set(
-  'x',
-  'd',
-  '"_x',
-  opts('', true)
-)
-vim_keymap.set(
-  'x',
+  { 'n', 'x' },
   '<Del>',
   '"_x',
   opts('', true)
