@@ -57,24 +57,69 @@ end
 
 
 -- Map quit command to Ctrl-q
-vim_keymap.set('n', '<C-q>', function() vim.cmd('q') end, opts('Quit Neovim', true))
+vim_keymap.set(
+  'n',
+  '<C-q>',
+  function() vim.cmd('q') end,
+  opts('Quit Neovim', true)
+)
 
 
 -- Map quit all command to Ctrl+Alt+q
-vim_keymap.set('n', '<C-A-q>', function() vim.cmd('qa') end, opts('Quit all Neovim instances', true))
+vim_keymap.set(
+  'n',
+  '<C-A-q>',
+  function() vim.cmd('qa') end,
+  opts('Quit all Neovim instances', true)
+)
 
 
 -- Change delete keymaps to "Delete without yanking"
-vim_keymap.set('n', 'd', '"_x', opts('', true))
-vim_keymap.set('n', '<Del>', '"_x', opts('', true))
-vim_keymap.set('x', 'd', '"_x', opts('', true))
-vim_keymap.set('x', '<Del>', '"_x', opts('', true))
+vim_keymap.set(
+  'n',
+  'd',
+  '"_x',
+  opts('', true)
+)
+vim_keymap.set(
+  'n',
+  '<Del>',
+  '"_x',
+  opts('', true)
+)
+vim_keymap.set(
+  'x',
+  'd',
+  '"_x',
+  opts('', true)
+)
+vim_keymap.set(
+  'x',
+  '<Del>',
+  '"_x',
+  opts('', true)
+)
 
 
 -- Make it easier to paste
-vim_keymap.set({ 'i', 'c' }, '<C-v>', '<C-r>+', opts('', false))
-vim_keymap.set({ 'i', 'c' }, '<S-Insert>', '<C-r>+', opts('', false))
-vim_keymap.set('n', '<S-Insert>', '"+p', opts('', false))
+vim_keymap.set(
+  'i',
+  '<C-v>',
+  '<C-r>*',
+  opts('Paste', false)
+)
+vim_keymap.set(
+  'i',
+  '<S-Insert>',
+  '<C-r>*',
+  opts('Paste', false)
+)
+vim_keymap.set(
+  'n',
+  '<S-Insert>',
+  '"+p',
+  opts('Put Text After Cursor', false)
+)
 
 
 -- Switch between Tabs or Spaces
@@ -84,7 +129,12 @@ do
     require('utils').switch_indent_style(bufnr)
   end
 
-  vim_keymap.set('n', '<leader>\\', switch_indent_style, opts('Switch between Tabs or Spaces'))
+  vim_keymap.set(
+    'n',
+    '<leader>\\',
+    switch_indent_style,
+    opts('Switch between Tabs or Spaces')
+  )
 end
 
 
@@ -95,24 +145,49 @@ do
     neogen.generate {}
   end
 
-  vim_keymap.set('n', '<leader>N', neogen_generate, opts('Generate annotations', true))
+  vim_keymap.set(
+    'n',
+    '<leader>N',
+    neogen_generate,
+    opts('Generate annotations', true)
+  )
 end
 
 
 -- Set softwrap to Alt + Z
-vim_keymap.set('n', '<A-z>', function() vim.cmd('set wrap!') end, opts('Toggle softwrap', true))
+vim_keymap.set(
+  'n',
+  '<A-z>',
+  function() vim.cmd('set wrap!') end,
+  opts('Toggle softwrap', true)
+)
 
 
 -- Make it easier to open LazyExtras
-vim_keymap.set('n', '<leader>L', function() vim.cmd('LazyExtras') end, opts('Open LazyExtras'))
+vim_keymap.set(
+  'n',
+  '<leader>L',
+  function() vim.cmd('LazyExtras') end,
+  opts('Open LazyExtras')
+)
 
 
 -- Make it easier to open Mason
-vim_keymap.set('n', '<leader>M', function() vim.cmd('Mason') end, opts('Open Mason'))
+vim_keymap.set(
+  'n',
+  '<leader>M',
+  function() vim.cmd('Mason') end,
+  opts('Open Mason')
+)
 
 
 -- Map the backwards/inverse indent to Shift + Tab
-vim_keymap.set('i', '<S-Tab>', '<C-d>', opts('Backwards/Inverse indent (INSERT mode)'))
+vim_keymap.set(
+  'i',
+  '<S-Tab>',
+  '<C-d>',
+  opts('Backwards/Inverse indent (INSERT mode)')
+)
 -- vim_keymap.set({ 'n', 'x' }, '<S-Tab>', '<S-Tab>', opts('Backwards/Inverse indent'))
 
 
@@ -137,8 +212,18 @@ do
 
   --TODO: Add some more keymaps for normal mode
 
-  vim_keymap.set('v', '<leader>s/', grug_with_v_selection, opts('Search and Replace in current file'))
-  vim_keymap.set('n', '<leader>sR', grug_open, opts('Search and Replace in current file'))
+  vim_keymap.set(
+    'v',
+    '<leader>s/',
+    grug_with_v_selection,
+    opts('Search and Replace in current file')
+  )
+  vim_keymap.set(
+    'n',
+    '<leader>sR',
+    grug_open,
+    opts('Search and Replace in current file')
+  )
 end
 
 
@@ -177,18 +262,48 @@ do
     end
   end
 
-  vim_keymap.set('n', '<leader>fq', swap_fileformats, opts('Swap fileformats (unix, dos, mac)'))
+  vim_keymap.set(
+    'n',
+    '<leader>fq',
+    swap_fileformats,
+    opts('Swap fileformats (unix, dos, mac)')
+  )
 end
 
 
 -- Telescope
-vim_keymap.set('n', '<leader>se', function() vim.cmd('Telescope symbols') end, opts('Telescope symbols'))
-vim_keymap.set('n', '<leader>U', function() vim.cmd('Telescope undo') end, opts('Telescope undo'))
-vim_keymap.set('n', '"', function() vim.cmd('Telescope registers') end, opts('Telescope registers'))
-vim_keymap.set('n', "<leader>'", function() vim.cmd('Telescope keymaps') end, opts('Telescope keymaps'))
+vim_keymap.set(
+  'n',
+  '<leader>se',
+  function() vim.cmd('Telescope symbols') end,
+  opts('Telescope symbols')
+)
+vim_keymap.set(
+  'n',
+  '<leader>U',
+  function() vim.cmd('Telescope undo') end,
+  opts('Telescope undo')
+)
+vim_keymap.set(
+  'n',
+  '"',
+  function() vim.cmd('Telescope registers') end,
+  opts('Telescope registers')
+)
+vim_keymap.set(
+  'n',
+  "<leader>'",
+  function() vim.cmd('Telescope keymaps') end,
+  opts('Telescope keymaps')
+)
 
 for _, lhs in ipairs { "'", '`' } do
-  vim_keymap.set('n', lhs, function() vim.cmd('Telescope marks') end, opts('Telescope marks'))
+  vim_keymap.set(
+    'n',
+    lhs,
+    function() vim.cmd('Telescope marks') end,
+    opts('Telescope marks')
+  )
 end
 
 
@@ -212,9 +327,24 @@ do
     b_line.sort_by('tabs')
   end
 
-  vim_keymap.set('n', '<leader>bq', '', opts('+sort by'))
-  vim_keymap.set('n', '<leader>bf', b_line.pick, opts('Bufferline Pick'))
-  vim_keymap.set('n', '<leader>bF', b_line.close_with_pick, opts('Bufferline Close with Pick'))
+  vim_keymap.set(
+    'n',
+    '<leader>bq',
+    '',
+    opts('+sort by')
+  )
+  vim_keymap.set(
+    'n',
+    '<leader>bf',
+    b_line.pick,
+    opts('Bufferline Pick')
+  )
+  vim_keymap.set(
+    'n',
+    '<leader>bF',
+    b_line.close_with_pick,
+    opts('Bufferline Close with Pick')
+  )
   vim_keymap.set(
     'n',
     '<leader>bL',
@@ -227,15 +357,30 @@ do
     function() vim.cmd('BufferLineMoveNext') end,
     opts('Bufferline Move next')
   )
-  vim_keymap.set('n', '<leader>bqe', b_line_sort_by_ext, opts('Bufferline Sort by Extension'))
-  vim_keymap.set('n', '<leader>bqd', b_line_sort_by_dir, opts('Bufferline Sort by Directory'))
+  vim_keymap.set(
+    'n',
+    '<leader>bqe',
+    b_line_sort_by_ext,
+    opts('Bufferline Sort by Extension')
+  )
+  vim_keymap.set(
+    'n',
+    '<leader>bqd',
+    b_line_sort_by_dir,
+    opts('Bufferline Sort by Directory')
+  )
   vim_keymap.set(
     'n',
     '<leader>bqr',
     b_line_sort_by_rel_dir,
     opts('Bufferline Sort by Relative Directory')
   )
-  vim_keymap.set('n', '<leader>bqt', b_line_sort_by_tabs, opts('Bufferline Sort by Tabs'))
+  vim_keymap.set(
+    'n',
+    '<leader>bqt',
+    b_line_sort_by_tabs,
+    opts('Bufferline Sort by Tabs')
+  )
 end
 
 
@@ -258,23 +403,78 @@ do
   end
 
   -- Normal mode
-  vim_keymap.set('n', 'gss', '<Plug>(nvim-surround-normal)', opts('Add surrounding pair around motion'))
-  vim_keymap.set('n', 'gsS', '<Plug>(nvim-surround-normal-cur)', opts('Add surrounding pair around current line'))
-  vim_keymap.set('n', 'gSs', '<Plug>(nvim-surround-normal-line)', opts('Add surrounding pair around motion on new lines'))
-  vim_keymap.set('n', 'gSS', '<Plug>(nvim-surround-normal-cur-line)', opts('Add surrounding pair around current line on new lines'))
+  vim_keymap.set(
+    'n',
+    'gss',
+    '<Plug>(nvim-surround-normal)',
+    opts('Add surrounding pair around motion')
+  )
+  vim_keymap.set(
+    'n',
+    'gsS',
+    '<Plug>(nvim-surround-normal-cur)',
+    opts('Add surrounding pair around current line')
+  )
+  vim_keymap.set(
+    'n',
+    'gSs',
+    '<Plug>(nvim-surround-normal-line)',
+    opts('Add surrounding pair around motion on new lines')
+  )
+  vim_keymap.set(
+    'n',
+    'gSS',
+    '<Plug>(nvim-surround-normal-cur-line)',
+    opts('Add surrounding pair around current line on new lines')
+  )
 
   -- Visual mode
-  vim_keymap.set('x', 'gss', '<Plug>(nvim-surround-visual)', opts('Add surrounding pair around visual selection'))
-  vim_keymap.set('x', 'gsS', '<Plug>(nvim-surround-visual-line)', opts('Add surrounding pair around visual selection on new lines'))
+  vim_keymap.set(
+    'x',
+    'gss',
+    '<Plug>(nvim-surround-visual)',
+    opts('Add surrounding pair around visual selection')
+  )
+  vim_keymap.set(
+    'x',
+    'gsS',
+    '<Plug>(nvim-surround-visual-line)',
+    opts('Add surrounding pair around visual selection on new lines')
+  )
 
   -- Delete mode
-  vim_keymap.set('n', 'gsd', '<Plug>(nvim-surround-delete)', opts('Delete surrounding pair'))
+  vim_keymap.set(
+    'n',
+    'gsd',
+    '<Plug>(nvim-surround-delete)',
+    opts('Delete surrounding pair')
+  )
 
   -- Change mode
-  vim_keymap.set('n', 'gsc', '<Plug>(nvim-surround-change)', opts('Change surrounding pair'))
-  vim_keymap.set('n', 'gSc', '<Plug>(nvim-surround-change-line)', opts('Change surrounding pair putting replacements on new lines'))
+  vim_keymap.set(
+    'n',
+    'gsc',
+    '<Plug>(nvim-surround-change)',
+    opts('Change surrounding pair')
+  )
+  vim_keymap.set(
+    'n',
+    'gSc',
+    '<Plug>(nvim-surround-change-line)',
+    opts('Change surrounding pair putting replacements on new lines')
+  )
 
   -- Insert mode
-  vim_keymap.set('i', '<C-g>s', '<Plug>(nvim-surround-insert)', opts('Add surrounding pair around cursor (insert mode)'))
-  vim_keymap.set('i', '<C-g>S', '<Plug>(nvim-surround-insert-line)', opts('Add surrounding pair around cursor on new lines (insert mode)'))
+  vim_keymap.set(
+    'i',
+    '<C-g>s',
+    '<Plug>(nvim-surround-insert)',
+    opts('Add surrounding pair around cursor (insert mode)')
+  )
+  vim_keymap.set(
+    'i',
+    '<C-g>S',
+    '<Plug>(nvim-surround-insert-line)',
+    opts('Add surrounding pair around cursor on new lines (insert mode)')
+  )
 end
