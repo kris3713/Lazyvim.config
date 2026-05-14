@@ -275,6 +275,22 @@ return --[[@type (LazyPluginSpec[])]]{
     main = 'rainbow-delimiters.setup',
   },
   {
+    'rachartier/tiny-code-action.nvim',
+    opts = {
+      ---The backend to use, currently only 'vim', 'delta', 'difftastic', 'diffsofancy' are supported
+      ---@type 'vim'|'delta'|'difftastic'|'diffsofancy'
+      backend = 'delta',
+
+      ---The picker to use, 'telescope', 'snacks', 'select', 'buffer', 'fzf-lua' are supported
+      ---And it's opts that will be passed at the picker's creation, optional
+      ---
+      ---You can also set `picker = '<picker>'` without any opts.
+      ---@type 'telescope'|'snacks'|'select'|'buffer'|'fzf-lua'
+      picker = 'snacks'
+    },
+    event = 'LspAttach'
+  },
+  {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
     opts = {}
@@ -694,26 +710,6 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {
       ui = { code_action = '' },
       symbol_in_winbar = { enable = false }
-    },
-    keys = {
-      {
-        '<Tab>',
-        function() vim.cmd('Lspsaga hover_doc') end,
-        desc = 'Hover Doc',
-        mode = 'n'
-      },
-      {
-        'gt',
-        function() vim.cmd('Lspsaga peek_definition') end,
-        desc = 'Peek definition',
-        mode = 'n'
-      },
-      {
-        'gT',
-        function() vim.cmd('Lspsaga peek_type_definition') end,
-        desc = 'Peek type definition',
-        mode = 'n'
-      }
     }
   },
   {

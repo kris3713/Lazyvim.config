@@ -930,29 +930,44 @@ return --[[@type LazyPluginSpec]]{
         'K',
         function() vim.cmd('Lspsaga hover_doc') end,
         desc = 'Hover Doc',
-        noremap = true
       },
-      -- { -- Code Actions
-      --   '<leader>ca',
-      --   ,
-      --   desc = 'Open Code Actions',
-      --   noremap = true
-      -- },
+      { -- Code Actions
+        '<leader>ca',
+        function()
+          local tiny_ca = require('tiny-code-action')
+          tiny_ca.code_action {}
+        end,
+        desc = 'Open Code Actions',
+      },
       { -- LSP Rename
         '<leader>cr',
         function()
           vim.cmd('Lspsaga rename')
         end,
-        desc = 'Lsp Rename',
-        noremap = true
+        desc = 'Lsp Rename'
       },
       { -- Line Diagnostics
         '<leader>cd',
         function()
           vim.cmd('Lspsaga show_line_diagnostics')
         end,
-        desc = 'Line Diagnostics',
-        noremap = true
+        desc = 'Line Diagnostics'
+      },
+      {
+        '<Tab>',
+        function() vim.cmd('Lspsaga hover_doc') end,
+        desc = 'Hover Doc',
+        -- mode = 'n'
+      },
+      {
+        'gt',
+        function() vim.cmd('Lspsaga peek_definition') end,
+        desc = 'Peek definition'
+      },
+      {
+        'gT',
+        function() vim.cmd('Lspsaga peek_type_definition') end,
+        desc = 'Peek type definition',
       }
     }
 
