@@ -107,6 +107,7 @@ create_autocmd('BufEnter', {
 
 -- Ensure comments in Systemd files use '#'
 create_autocmd({ 'BufEnter', 'BufRead' }, {
+  group = create_augroup('systemd_comments'),
   callback = function(args)
     local bufnr = args.buf
     if vim.bo[bufnr].filetype == 'systemd' then
