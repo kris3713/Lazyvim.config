@@ -114,3 +114,15 @@ create_autocmd({ 'BufEnter', 'BufRead' }, {
     end
   end
 })
+
+-- Ensure bun shebangs are detected as JavaScript
+create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
+  group = create_augroup('bun_shebang'),
+  callback = function(args)
+    local bufnr = args.buf
+    local shebang = vim.fn.getline(1)
+    if shebang:match('^#!.*bun') then
+      vim.bo[bufnr].filetype = 'javascript'
+    end
+  end
+})
