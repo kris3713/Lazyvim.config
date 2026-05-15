@@ -43,7 +43,7 @@ create_autocmd('VimLeave', {
 create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
   desc = 'Set semantic highlighting for LSP tokens',
-  callback = function(_)
+  callback = function()
     -- set_hl(0, '@lsp.type.class', { fg = '#eed49f' })
     set_hl(0, '@lsp.type.typeParameter', { fg = '#ed9687', italic = true })
     -- set_hl(0, '@lsp.type.method', { fg = '#8aadf4' })
@@ -67,11 +67,12 @@ create_autocmd('VimEnter', {
   desc = 'Auto-start nvim-tree with directory',
   once = true,
   callback = function(args)
+    local file = args.file
     -- buffer is a directory
-    if not (vim.fn.isdirectory(args.file) == 1) then return end
+    if not (vim.fn.isdirectory(file) == 1) then return end
 
     -- change to the directory
-    vim.cmd.cd(args.file)
+    vim.cmd.cd(file)
     -- open the tree
     require('nvim-tree.api').tree.open()
   end
