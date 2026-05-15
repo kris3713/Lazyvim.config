@@ -105,41 +105,6 @@ create_autocmd('BufEnter', {
   end
 })
 
--- do
---   local lualine = require('lualine')
---   ---@type LualineRefreshOpts
---   ---@diagnostic disable-next-line: missing-fields, param-type-mismatch
---   local refreshOpts = {
---     place = { 'statusline' }
---   }
---
---   create_autocmd('RecordingEnter', {
---     group = create_augroup('show_macro_recording_on_lualine'),
---     callback = function()
---       lualine.refresh {
---         place = { 'statusline' }
---       }
---     end
---   })
---
---   create_autocmd('RecordingLeave', {
---     group = create_augroup('show_macro_recording_on_lualine'),
---     callback = function()
---       ---Small delay to allow vim.fn.reg_recording() to clear
---       --- @diagnostic disable-next-line: undefined-field
---       local timer = vim.uv.new_timer()
---       if timer then
---         timer:start(50, 0, vim.schedule_wrap(function()
---           lualine.refresh {
---             place = { 'statusline' }
---           }
---         end))
---       end
---
---     end
---   })
--- end
-
 -- Ensure comments in Systemd files use '#'
 create_autocmd({ 'BufEnter', 'BufRead' }, {
   callback = function(args)
