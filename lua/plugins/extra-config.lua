@@ -235,7 +235,7 @@ return --[[@type (LazyPluginSpec[])]]{
         -- component_separators = { left = '', right = '' }
         -- Block/Lines
         section_separators = { left = '▌', right = '▐' },
-        component_separators = { left = '⎸', right = '⎹' }
+        component_separators = { left = '', right = '' }
       },
       sections = {
         lualine_b = {
