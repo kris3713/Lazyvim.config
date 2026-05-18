@@ -1201,9 +1201,7 @@ return --[[@type (LazyPluginSpec[])]]{
         enable_auto_complete = false
       },
       lsp = {
-        completion = {
-          enable = true
-        }
+        completion = { enable = false }
       },
       provider = 'openai_fim_compatible',
       n_completions = 1,
@@ -1214,9 +1212,10 @@ return --[[@type (LazyPluginSpec[])]]{
           name = 'llama-swap',
           end_point = 'http://localhost:1234/v1/completions',
           model = 'Qwen3-Coder-30B-A3B-Instruct',
-          -- optional = {
-          --   max_tokens = 56
-          -- },
+          optional = {
+            max_tokens = 56,
+            top_p = 0.9
+          },
           -- Llama.cpp does not support the `suffix` option in FIM completion.
           -- Therefore, we must disable it and manually populate the special
           -- tokens required for FIM completion.
