@@ -286,7 +286,7 @@ return --[[@type (LazyPluginSpec[])]]{
       ---
       ---You can also set `picker = '<picker>'` without any opts.
       ---@type 'telescope'|'snacks'|'select'|'buffer'|'fzf-lua'
-      picker = 'telescope'
+      picker = 'snacks'
     },
     event = 'LspAttach'
   },
