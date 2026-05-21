@@ -770,7 +770,7 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {
       handler_opts = { border = 'rounded' },
       hint_prefix = '❔ ',
-      floating_window_off_y = -5
+      floating_window_off_y = -1
     },
     event = 'InsertEnter'
   },
