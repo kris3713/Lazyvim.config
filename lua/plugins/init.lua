@@ -1190,51 +1190,5 @@ return --[[@type (LazyPluginSpec[])]]{
 
       return keys
     end
-  },
-  {
-    'milanglacier/minuet-ai.nvim',
-    opts = {
-      cmp = {
-        enable_auto_complete = false
-      },
-      blink = {
-        enable_auto_complete = false
-      },
-      lsp = {
-        completion = { enable = false }
-      },
-      provider = 'openai_fim_compatible',
-      n_completions = 1,
-      context_window = 512,
-      provider_options = {
-        openai_fim_compatible = {
-          api_key = 'TERM',
-          name = 'llama-swap',
-          end_point = 'http://localhost:1234/v1/completions',
-          model = 'Qwen3-Coder-30B-A3B-Instruct',
-          optional = {
-            max_tokens = 56,
-            top_p = 0.9
-          },
-          -- Llama.cpp does not support the `suffix` option in FIM completion.
-          -- Therefore, we must disable it and manually populate the special
-          -- tokens required for FIM completion.
-          template = {
-            ---@param context_before_cursor string
-            ---@param context_after_cursor string
-            ---@return string
-            prompt = function(context_before_cursor, context_after_cursor, _)
-              return '<|fim_prefix|>'
-                .. context_before_cursor
-                .. '<|fim_suffix|>'
-                .. context_after_cursor
-                .. '<|fim_middle|>'
-            end,
-            suffix = false
-          }
-        }
-      }
-    },
-    enabled = true
   }
 }

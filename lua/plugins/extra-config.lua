@@ -450,11 +450,11 @@ return --[[@type (LazyPluginSpec[])]]{
     init = function()
       local cmp = require('cmp')
 
-      cmp.setup {
-        mapping = cmp.mapping.preset.insert {
-          ['<a-y>'] = require('minuet').make_cmp_map()
-        }
-      }
+      -- cmp.setup {
+      --   mapping = cmp.mapping.preset.insert {
+      --     ['<a-y>'] = require('minuet').make_cmp_map()
+      --   }
+      -- }
 
       -- only for sql
       cmp.setup.filetype('sql', {
