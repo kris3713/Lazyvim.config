@@ -931,8 +931,10 @@ return  --[[@type LazyPluginSpec]]{
     opts.servers = vim.tbl_deep_extend('force', opts.servers or {}, lspConfig.servers)
     opts.setup = vim.tbl_deep_extend('force', opts.setup or {}, lspConfig.setup)
 
+    local modes = { 'n', 'x' }
+
     ---keymaps for all LSP servers/clients
-    ---@type vim.api.keyset.keymap[]
+    ---@type vim.api.keyset.keymap[] | ({ mode: table })[]
     local all_keymaps = {
       { -- Hover Doc
         'K',
@@ -940,14 +942,15 @@ return  --[[@type LazyPluginSpec]]{
           vim.cmd('Lspsaga hover_doc')
         end,
         desc = 'Hover Doc',
+        mode = modes,
       },
       { -- Code Actions
         '<leader>ca',
         function()
-          local tiny_ca = require('tiny-code-action')
-          tiny_ca.code_action({})
+          require('tiny-code-action').code_action({})
         end,
         desc = 'Open Code Actions',
+        mode = modes,
       },
       { -- LSP Rename
         '<leader>cr',
@@ -955,6 +958,7 @@ return  --[[@type LazyPluginSpec]]{
           vim.cmd('Lspsaga rename')
         end,
         desc = 'Lsp Rename',
+        mode = modes,
       },
       { -- Line Diagnostics
         '<leader>cd',
@@ -962,6 +966,7 @@ return  --[[@type LazyPluginSpec]]{
           vim.cmd('Lspsaga show_line_diagnostics')
         end,
         desc = 'Line Diagnostics',
+        mode = modes,
       },
       {
         '<Tab>',
@@ -969,7 +974,7 @@ return  --[[@type LazyPluginSpec]]{
           vim.cmd('Lspsaga hover_doc')
         end,
         desc = 'Hover Doc',
-        -- mode = 'n'
+        mode = modes,
       },
       {
         'gt',
