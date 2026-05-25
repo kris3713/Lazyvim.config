@@ -879,6 +879,28 @@ return --[[@type (LazyPluginSpec[])]]{
     end
   },
   {
+    'andymass/vim-matchup',---@module 'match-up'
+    ---@type matchup.Config
+    opts = {
+      treesitter = {
+        stopline = 500
+      }
+    }
+  },
+  {
+    'qwavies/smart-backspace.nvim',
+    opts = {},
+    event = { 'InsertEnter', 'CmdlineEnter' },
+    keys = {
+      {
+        '<leader>B',
+        function() vim.cmd('SmartBackspaceToggle') end,
+        desc = 'Toggle Smart Backspace',
+        mode = 'n'
+      }
+    }
+  },
+  {
     'michaelb/sniprun',
     opts = {},
     branch = 'master',
