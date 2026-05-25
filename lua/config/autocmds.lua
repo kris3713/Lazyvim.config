@@ -13,21 +13,17 @@ local function create_augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
-
 local create_autocmd = vim.api.nvim_create_autocmd
 
-
 local set_hl = vim.api.nvim_set_hl
-
 
 -- Get rid of Neovim's stupid cursor change
 create_autocmd('VimLeave', {
   group = create_augroup('restore_cursor_shape_on_exit'),
   desc = 'Restore the cursor shape on exit of neovim',
   once = true,
-  command = 'set guicursor=a:ver20'
+  command = 'set guicursor=a:ver20',
 })
-
 
 -- -- Make sure all LSP servers close when quitting Neovim
 -- create_autocmd('VimLeave', {
@@ -37,7 +33,6 @@ create_autocmd('VimLeave', {
 --     vim.lsp.stop_client(vim.lsp.get_clients())
 --   end
 -- })
-
 
 -- Enable semantic highlighting
 create_autocmd('LspTokenUpdate', {
@@ -56,9 +51,8 @@ create_autocmd('LspTokenUpdate', {
     -- Golang
     set_hl(0, '@lsp.mod.format.go', { link = '@character.printf' })
     -- set_hl(0, '@string.escape.go', { fg = 'pink' })
-  end
+  end,
 })
-
 
 --- @diagnostic disable-next-line: assign-type-mismatch
 -- Auto-start for nvim-tree
@@ -69,15 +63,16 @@ create_autocmd('VimEnter', {
   callback = function(args)
     local file = args.file
     -- buffer is a directory
-    if not (vim.fn.isdirectory(file) == 1) then return end
+    if not (vim.fn.isdirectory(file) == 1) then
+      return
+    end
 
     -- change to the directory
     vim.cmd.cd(file)
     -- open the tree
     require('nvim-tree.api').tree.open()
-  end
+  end,
 })
-
 
 -- GuessIndent
 create_autocmd('BufReadPost', {
@@ -88,7 +83,7 @@ create_autocmd('BufReadPost', {
     local bufnr = args.buf
     ---@diagnostic disable-next-line: param-type-mismatch
     require('guess-indent').set_from_buffer(bufnr, true, true)
-  end
+  end,
 })
 
 -- Lock a buffer to a window
@@ -103,7 +98,7 @@ create_autocmd('BufEnter', {
     if not stickybuf.is_pinned(winid) and checkWindow then
       stickybuf.pin(winid, {})
     end
-  end
+  end,
 })
 
 -- Ensure comments in Systemd files use '#'
@@ -114,7 +109,7 @@ create_autocmd({ 'BufEnter', 'BufRead' }, {
     if vim.bo[bufnr].filetype == 'systemd' then
       vim.bo[bufnr].commentstring = '# %s'
     end
-  end
+  end,
 })
 
 -- Ensure bun shebangs are detected as JavaScript
@@ -126,5 +121,5 @@ create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
     if shebang:match('^#!.*bun') then
       vim.bo[bufnr].filetype = 'javascript'
     end
-  end
+  end,
 })

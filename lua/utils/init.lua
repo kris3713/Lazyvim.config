@@ -7,20 +7,18 @@ local action_state = require('telescope.actions.state')
 
 local utils = {}
 
-
 ---Allows for setting a function to pick a value for shiftwidth or tabstop
 ---@param bufnr integer
 function utils.set_indent_size(bufnr)
-  pickers.new(
-    {
+  pickers
+    .new({
       layout_config = {
         height = 5,
-        width = 60
-      }
-    },
-    {
+        width = 60,
+      },
+    }, {
       prompt_title = 'Set the Indent Size',
-      finder = finders._new {}, -- Use a static finder with no results
+      finder = finders._new({}), -- Use a static finder with no results
       -- sorter = conf.generic_sorter {}, -- Use a generic sorter
 
       -- Define custom actions
@@ -52,11 +50,10 @@ function utils.set_indent_size(bufnr)
         -- map('i', '<C-c>', actions.close)
 
         return true
-      end
-    }
-  ):find()
+      end,
+    })
+    :find()
 end
-
 
 ---Allows for switching between tabs or spaces.
 ---@param bufnr integer
@@ -85,6 +82,5 @@ function utils.switch_indent_style(bufnr)
     print('Switched Indent Style to Tabs')
   end
 end
-
 
 return utils

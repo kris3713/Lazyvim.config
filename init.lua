@@ -1,18 +1,14 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require('config.lazy')
 
-
 -- Set the theme to Catpuccin Macchiato
 vim.cmd('colorscheme catppuccin-macchiato')
-
 
 -- Enable vim loader
 vim.loader.enable(true)
 
-
 -- `vim.api.nvim_set_hl`
 local set_hl = vim.api.nvim_set_hl
-
 
 -- indent-blankline
 do
@@ -24,7 +20,7 @@ do
     'RainbowGreen',
     'RainbowBlue',
     'RainbowCyan',
-    'RainbowViolet'
+    'RainbowViolet',
   }
 
   local hooks = require('ibl.hooks')
@@ -41,17 +37,16 @@ do
     set_hl(0, highlight[8], { fg = '#9c5aef' })
   end)
 
-  require('ibl').setup {
+  require('ibl').setup({
     indent = {
       smart_indent_cap = true,
       char = '│',
       highlight = highlight,
-      tab_char = '│'
+      tab_char = '│',
     },
-    scope = { show_start = true, show_end = true }
-  }
+    scope = { show_start = true, show_end = true },
+  })
 end
-
 
 -- rainbow-delimiters
 do
@@ -63,7 +58,7 @@ do
     'RainbowDelimiterGreen',
     'RainbowDelimiterBlue',
     'RainbowDelimiterCyan',
-    'RainbowDelimiterViolet'
+    'RainbowDelimiterViolet',
   }
 
   set_hl(0, highlight[1], { fg = '#ed6e6d' })
@@ -76,7 +71,6 @@ do
   set_hl(0, highlight[8], { fg = '#9c5aef' })
 end
 
-
 -- Keep everything else from mini.animate except the cursor animation.
 do
   local mini_ani__exists, mod = pcall(require, 'mini.animate')
@@ -86,54 +80,43 @@ do
   end
 end
 
-
 -- TODO: Deprecate in favor of https://github.com/meznaric/conmenu
 -- mouse menu
 vim.cmd('aunmenu PopUp.How-to\\ disable\\ mouse')
 
-for _, mode in ipairs { 'n', 'x' } do
+for _, mode in ipairs({ 'n', 'x' }) do
   -- Modified built-in entries
-  vim.cmd(
-    ([[ %smenu PopUp.Go\ to\ definition gd ]]):format(mode)
-  )
-  vim.cmd(
-    ([[ %smenu PopUp.Show\ Diagnostics <leader>cd ]]):format(mode)
-  )
-  vim.cmd(
-    ([[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]]):format(mode)
-  )
-  vim.cmd(
-    ([[ %smenu PopUp.Configure\ Diagnostics <Nop> ]]):format(mode)
-  )
+  vim.cmd(([[ %smenu PopUp.Go\ to\ definition gd ]]):format(mode))
+  vim.cmd(([[ %smenu PopUp.Show\ Diagnostics <leader>cd ]]):format(mode))
+  vim.cmd(([[ %smenu PopUp.Show\ All\ Diagnostics <leader>xX ]]):format(mode))
+  vim.cmd(([[ %smenu PopUp.Configure\ Diagnostics <Nop> ]]):format(mode))
 
   -- Implement a code actions entry
-  vim.cmd(
-    ([[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]]):format(mode)
-  )
+  vim.cmd(([[ %smenu PopUp.Open\ Code\ Actions <leader>ca ]]):format(mode))
 
   -- Implement all go-to definitions
-  vim.cmd(
-    ([[ %smenu PopUp.Show\ References gr ]]):format(mode)
-  )
-  vim.cmd(
-    ([[ %smenu PopUp.Show\ Implementation gI ]]):format(mode)
-  )
-  vim.cmd(
-    ([[ %smenu PopUp.Show\ Type\ Definition gy ]]):format(mode)
-  )
+  vim.cmd(([[ %smenu PopUp.Show\ References gr ]]):format(mode))
+  vim.cmd(([[ %smenu PopUp.Show\ Implementation gI ]]):format(mode))
+  vim.cmd(([[ %smenu PopUp.Show\ Type\ Definition gy ]]):format(mode))
 end
-
 
 -- User commands
 do
   local create_user_command = vim.api.nvim_create_user_command
 
   create_user_command('M', 'MurenToggle', {
-    desc = 'Toggle Muren', bang = true, register = true, range = 0
+    desc = 'Toggle Muren',
+    bang = true,
+    register = true,
+    range = 0,
   })
 
   --- @diagnostic disable-next-line: param-type-mismatch
   create_user_command('LspInfoPicker', Snacks.picker.lsp_config, {
-    desc = 'Show lsp info', bang = true, register = true, range = 0, force = true
+    desc = 'Show lsp info',
+    bang = true,
+    register = true,
+    range = 0,
+    force = true,
   })
 end

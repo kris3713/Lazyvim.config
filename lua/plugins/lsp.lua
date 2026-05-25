@@ -67,8 +67,7 @@ end
 --   hover.open {}
 -- end
 
-
-return --[[@type LazyPluginSpec]]{
+return  --[[@type LazyPluginSpec]]{
   'neovim/nvim-lspconfig',
   ---@param opts lspConfigOpts
   opts = function(_, opts)
@@ -127,28 +126,28 @@ return --[[@type LazyPluginSpec]]{
               '*.kube',
               '*.pod',
               '*.build',
-              '*.image'
+              '*.image',
             }
 
             local util = require('lspconfig.util')
 
             on_dir((util.root_pattern(systemd_unit_filetypes))(fname))
-          end
+          end,
         },
         -- nickel_ls
         nickel_ls = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- clangd
         clangd = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- steep
         steep = {
           mason = false,
-          enabled = false
+          enabled = false,
         },
         -- sorbet
         sorbet = {
@@ -162,79 +161,79 @@ return --[[@type LazyPluginSpec]]{
             return cmd
           end)(),
           init_options = {
-            highlightUntyped = true
-          }
+            highlightUntyped = true,
+          },
         },
         -- ruby-lsp
         ruby_lsp = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- solargraph
         solargraph = {
           mason = false,
-          enabled = false
+          enabled = false,
         },
         herb_ls = {
           mason = false,
           enabled = true,
-          filetypes = { 'eruby' }
+          filetypes = { 'eruby' },
         },
         -- typeprof
         typeprof = {
-          enabled = true
+          enabled = true,
         },
         -- lemminx
         lemminx = {
-          enabled = true
+          enabled = true,
         },
         -- phan
         phan = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- dartls
         dartls = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- gradle_ls
         gradle_ls = {
-          enabled = true
+          enabled = true,
         },
         -- jdtls
         jdtls = {
-          enabled = true
+          enabled = true,
         },
         -- kotlin_lsp
         kotlin_lsp = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- rpmspec
         rpmspec = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- tombi
         tombi = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- hadolint
         hadolint = {
           mason = false,
-          enabled = false
+          enabled = false,
         },
         -- fish_lsp
         fish_lsp = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- bashls
         bashls = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- oxlint
         oxlint = {
@@ -243,81 +242,81 @@ return --[[@type LazyPluginSpec]]{
           root_markers = {
             '.oxlintrc.json',
             '.oxlintrc.jsonc',
-            'oxlint.config.ts'
-          }
+            'oxlint.config.ts',
+          },
         },
         -- css_variables
         css_variables = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- dockerls
         dockerls = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- docker_compose_language_service
         docker_compose_language_service = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- docker_language_server
         docker_language_server = {
           mason = false,
-          enabled = false
+          enabled = false,
         },
         -- dprint
         dprint = {
           mason = false,
-          enabled = false
+          enabled = false,
         },
         -- eslint
         eslint = {
           mason = false,
-          enabled = false
+          enabled = false,
         },
         -- basedpyright
         basedpyright = { -- medium speed and perfect
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- jedi_language_server
         jedi_language_server = { -- slow, but perfect
           mason = false,
-          enabled = false
+          enabled = false,
         },
         -- pyrefly
         pyrefly = { -- fast and perfect
           mason = false,
-          enabled = false
+          enabled = false,
         },
         ty = { -- Still in beta, but has most of the expected features from a python language server
           mason = false,
-          enabled = false
+          enabled = false,
         },
         zuban = { -- Supports most features, but needs more.
           mason = false,
-          enabled = false
+          enabled = false,
         },
         -- tailwindcss
         tailwindcss = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- vimls
         vimls = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- intelephense
         intelephense = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- nil_ls
         nil_ls = {
           enabled = true,
-          mason = false
+          mason = false,
         },
         -- MSBuild
         -- msbuild_project_tools_server = {
@@ -328,7 +327,7 @@ return --[[@type LazyPluginSpec]]{
         cssls = {
           mason = false,
           enabled = true,
-          capabilities = capabilities()
+          capabilities = capabilities(),
         },
         -- powershell_es
         powershell_es = {
@@ -344,25 +343,26 @@ return --[[@type LazyPluginSpec]]{
                 local realpath = vim.fn.resolve(vim.fn.fnamemodify(exec, ':p'))
                 -- Get the dirname of the realpath
                 local dirname = vim.fn.resolve(vim.fn.fnamemodify(realpath, ':h'))
-                local normalized_path = vim.fs.normalize(dirname .. '/../lib/powershell-editor-services/PowerShellEditorServices')
+                local normalized_path =
+                  vim.fs.normalize(dirname .. '/../lib/powershell-editor-services/PowerShellEditorServices')
                 local bundle_path = vim.fs.abspath(normalized_path)
                 return bundle_path
               end
 
               return ''
-            end)()
-          }
+            end)(),
+          },
         },
         -- html
         html = {
           mason = false,
           enabled = false,
-          capabilities = capabilities()
+          capabilities = capabilities(),
         },
         -- superhtml
         superhtml = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- svelte
         svelte = {
@@ -372,17 +372,17 @@ return --[[@type LazyPluginSpec]]{
             {
               '<leader>co',
               function()
-                vim.lsp.buf.code_action {
+                vim.lsp.buf.code_action({
                   apply = true,
                   context = {
                     only = { 'source.organizeImports' },
-                    diagnostics = {}
-                  }
-                }
+                    diagnostics = {},
+                  },
+                })
               end,
-              desc = 'Organize Imports'
-            }
-          }
+              desc = 'Organize Imports',
+            },
+          },
         },
         -- cssmodules_ls
         cssmodules_ls = {
@@ -393,14 +393,14 @@ return --[[@type LazyPluginSpec]]{
             local new_filetypes = {
               'astro',
               'vue',
-              'svelte'
+              'svelte',
             }
 
             filetypes = vim.list_extend(filetypes, new_filetypes)
             table.sort(filetypes)
 
             return filetypes
-          end)()
+          end)(),
         },
         -- jsonls
         jsonls = {
@@ -421,9 +421,9 @@ return --[[@type LazyPluginSpec]]{
           settings = {
             json = {
               format = { enable = true },
-              validate = { enable = true }
-            }
-          }
+              validate = { enable = true },
+            },
+          },
         },
         -- yamlls
         yamlls = {
@@ -435,9 +435,9 @@ return --[[@type LazyPluginSpec]]{
             textDocument = {
               foldingRange = {
                 dynamicRegistration = false,
-                lineFoldingOnly = true
-              }
-            }
+                lineFoldingOnly = true,
+              },
+            },
           },
           -- lazy-load schemastore when needed
           before_init = function(_, new_config)
@@ -447,7 +447,8 @@ return --[[@type LazyPluginSpec]]{
               --- @diagnostic disable-next-line: inject-field, unknown-cast-variable
               ---@cast new_config.settings.yaml lsp.LSPObject
               ---@diagnostic disable-next-line: inject-field
-              new_config.settings.yaml.schemas = vim.tbl_deep_extend('force', new_config.settings.yaml.schemas or {}, schemas)
+              new_config.settings.yaml.schemas =
+                vim.tbl_deep_extend('force', new_config.settings.yaml.schemas or {}, schemas)
             end
           end,
           settings = {
@@ -455,7 +456,7 @@ return --[[@type LazyPluginSpec]]{
             yaml = {
               keyOrdering = false,
               format = {
-                enable = true
+                enable = true,
               },
               validate = true,
               schemaStore = {
@@ -463,10 +464,10 @@ return --[[@type LazyPluginSpec]]{
                 -- schemas from SchemaStore.nvim plugin
                 enable = false,
                 -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-                url = ''
-              }
-            }
-          }
+                url = '',
+              },
+            },
+          },
         },
         -- emmylua_ls
         emmylua_ls = {
@@ -480,7 +481,7 @@ return --[[@type LazyPluginSpec]]{
             'selene.toml',
             'selene.yml',
             '.emmyrc.json',
-            '.git'
+            '.git',
           },
           ---@param client vim.lsp.Client
           on_init = function(client, _)
@@ -489,8 +490,7 @@ return --[[@type LazyPluginSpec]]{
             if client.workspace_folders and client.workspace_folders[1] then
               local path = client.workspace_folders[1].name
               --- @diagnostic disable: undefined-field
-              local exists = (uv.fs_stat(path .. '/.luarc.json') or
-                uv.fs_stat(path .. '/.luarc.jsonc'))
+              local exists = (uv.fs_stat(path .. '/.luarc.json') or uv.fs_stat(path .. '/.luarc.jsonc'))
               if path ~= vim.fn.stdpath('config') and exists then
                 return
               end
@@ -505,8 +505,8 @@ return --[[@type LazyPluginSpec]]{
                 workspace = {
                   library = {
                     '${3rd}/luv/library',
-                    '${3rd}/busted/library'
-                  }
+                    '${3rd}/busted/library',
+                  },
                   -- Or pull in all of 'runtimepath'.
                   -- NOTE: this is a lot slower and will cause issues when working on
                   -- your own configuration.
@@ -514,14 +514,14 @@ return --[[@type LazyPluginSpec]]{
                   -- library = {
                   --   vim.api.nvim_get_runtime_file('', true),
                   -- }
-                }
+                },
               } --[[@as lsp.LSPObject]])
             end
           end,
           settings = {
             Lua = {
               completion = {
-                callSnippet = true
+                callSnippet = true,
               },
               runtime = {
                 version = 'LuaJIT', -- Needed because Neovim is using LuaJIT as it's Lua interpreter
@@ -536,36 +536,36 @@ return --[[@type LazyPluginSpec]]{
                   'ftplugin/?.lua',
                   'after/?.lua',
                   'after/?/?.lua',
-                  'spec/?.lua'
+                  'spec/?.lua',
                 },
-                frameworkVersions = { 'luv' } -- Also needed because Neovim is using luv in addition to LuaJIT
+                frameworkVersions = { 'luv' }, -- Also needed because Neovim is using luv in addition to LuaJIT
               },
               diagnostics = {
                 -- This prevents diagnostics from mistaking the global variable `vim` as an unknown
                 globals = {
                   'vim',
                   'LazyVim',
-                  'Snacks'
+                  'Snacks',
                 },
                 disable = {
-                  'unnecessary-if'
+                  'unnecessary-if',
                 },
                 enables = {
                   'iter-variable-reassign',
                   'non-literal-expressions-in-assert',
-                  'incomplete-signature-doc'
-                }
+                  'incomplete-signature-doc',
+                },
               },
               codeAction = {
-                insertSpace = true
+                insertSpace = true,
               },
               strict = {
                 typeCall = true,
                 arrayIndex = true,
-                requirePath = false
-              }
-            }
-          }
+                requirePath = false,
+              },
+            },
+          },
         },
         -- lua_ls
         lua_ls = {
@@ -576,10 +576,10 @@ return --[[@type LazyPluginSpec]]{
               completion = {
                 callSnippet = 'Replace',
                 showWord = 'Enable',
-                workspaceWord = true
+                workspaceWord = true,
               },
               doc = {
-                privateName = { '^_' }
+                privateName = { '^_' },
               },
               hint = {
                 enable = true,
@@ -587,10 +587,10 @@ return --[[@type LazyPluginSpec]]{
                 paramType = true,
                 paramName = 'Disable',
                 semicolon = 'Disable',
-                arrayIndex = 'Disable'
-              }
-            }
-          }
+                arrayIndex = 'Disable',
+              },
+            },
+          },
         },
         -- Harper
         harper_ls = {
@@ -617,18 +617,18 @@ return --[[@type LazyPluginSpec]]{
           settings = {
             ['harper-ls'] = {
               userDictPath = harperDictPath,
-              fileDictPath = harperDictPath
-            }
+              fileDictPath = harperDictPath,
+            },
           },
           capabilities = {
             textDocument = {
               completion = {
                 completionItem = {
-                  snippetSupport = false
-                }
-              }
-            }
-          }
+                  snippetSupport = false,
+                },
+              },
+            },
+          },
         },
         -- marksman
         marksman = {
@@ -648,12 +648,12 @@ return --[[@type LazyPluginSpec]]{
         -- astro
         astro = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- vue_ls
         vue_ls = {
           mason = false,
-          enabled = true
+          enabled = true,
         },
         -- vtsls
         vtsls = {
@@ -667,7 +667,7 @@ return --[[@type LazyPluginSpec]]{
               'svelte',
               'vue',
               'javascript.jsx',
-              'typescript.tsx'
+              'typescript.tsx',
             })
             table.sort(filetypes)
 
@@ -678,42 +678,42 @@ return --[[@type LazyPluginSpec]]{
             ---@type lsp.LSPArray
             local options = {
               updateImportsOnFileMove = {
-                enabled = 'always'
+                enabled = 'always',
               },
               suggest = {
-                completeFunctionCalls = true
+                completeFunctionCalls = true,
               },
               inlayHints = {
                 enumMemberValues = {
-                  enabled = true
+                  enabled = true,
                 },
                 functionLikeReturnTypes = {
-                  enabled = true
+                  enabled = true,
                 },
                 parameterNames = {
-                  enabled = 'literals'
+                  enabled = 'literals',
                 },
                 parameterTypes = {
-                  enabled = true
+                  enabled = true,
                 },
                 propertyDeclarationTypes = {
-                  enabled = true
+                  enabled = true,
                 },
                 variableTypes = {
-                  enabled = false
-                }
+                  enabled = false,
+                },
               },
               preferences = {
                 quoteStyle = 'single',
                 importModuleSpecifier = 'shortest',
                 renameMatchingJsxTags = true,
-                jsxAttributeCompletionStyle = 'auto'
-              }
+                jsxAttributeCompletionStyle = 'auto',
+              },
             }
 
             client.config.settings = vim.tbl_deep_extend('force', client.config.settings or {}, {
               typescript = options,
-              javascript = options
+              javascript = options,
             } --[[@as lsp.LSPObject]])
           end,
           settings = {
@@ -734,29 +734,33 @@ return --[[@type LazyPluginSpec]]{
                   -- },
                   {
                     name = '@vue/typescript-plugin',
-                    location = (vim.fn.system {
-                      'mise',
-                      'where',
-                      'npm:@vue/language-server@latest'
-                    }:gsub('%c', '') .. '/node_modules'),
+                    location = (vim.fn
+                      .system({
+                        'mise',
+                        'where',
+                        'npm:@vue/language-server@latest',
+                      })
+                      :gsub('%c', '') .. '/node_modules'),
                     languages = { 'vue' },
                     configNamespace = 'typescript',
-                    enableForWorkspaceTypeScriptVersions = true
+                    enableForWorkspaceTypeScriptVersions = true,
                   },
                   {
                     name = 'typescript-svelte-plugin',
-                    location = (vim.fn.system {
-                      'mise',
-                      'where',
-                      'npm:typescript-svelte-plugin@latest'
-                    }:gsub('%c', '') .. '/node_modules'),
+                    location = (vim.fn
+                      .system({
+                        'mise',
+                        'where',
+                        'npm:typescript-svelte-plugin@latest',
+                      })
+                      :gsub('%c', '') .. '/node_modules'),
                     languages = { 'svelte' },
-                    enableForWorkspaceTypeScriptVersions = true
-                  }
-                }
+                    enableForWorkspaceTypeScriptVersions = true,
+                  },
+                },
               },
-            }
-          }
+            },
+          },
         },
         -- gopls
         gopls = {
@@ -773,7 +777,7 @@ return --[[@type LazyPluginSpec]]{
                 test = true,
                 tidy = true,
                 upgrade_dependency = true,
-                vendor = true
+                vendor = true,
               },
               hints = {
                 assignVariableTypes = true,
@@ -782,23 +786,27 @@ return --[[@type LazyPluginSpec]]{
                 constantValues = true,
                 functionTypeParameters = true,
                 parameterNames = true,
-                rangeVariableTypes = true
+                rangeVariableTypes = true,
               },
               analyses = {
                 nilness = true,
                 unusedparams = true,
                 unusedwrite = true,
-                useany = true
+                useany = true,
               },
               usePlaceholders = true,
               completeUnimported = true,
               staticcheck = true,
               directoryFilters = {
-                '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules'
+                '-.git',
+                '-.vscode',
+                '-.idea',
+                '-.vscode-test',
+                '-node_modules',
               },
-              semanticTokens = true
-            }
-          }
+              semanticTokens = true,
+            },
+          },
         },
 
         -- Disabled
@@ -807,35 +815,35 @@ return --[[@type LazyPluginSpec]]{
 
         -- golangci_lint_ls
         golangci_lint_ls = {
-          enabled = false
+          enabled = false,
         },
         -- ruff
         ruff = {
-          enabled = false
+          enabled = false,
         },
         -- rubocop
         rubocop = {
-          enabled = false
+          enabled = false,
         },
         -- texlab
         texlab = {
-          enabled = false
+          enabled = false,
         },
         -- statix
         statix = {
-          enabled = false
+          enabled = false,
         },
         -- stylua
         stylua = {
-          enabled = false
+          enabled = false,
         },
         -- stylelint_lsp
         stylelint_lsp = {
-          enabled = false
+          enabled = false,
         },
         -- gh_actions_ls
         gh_actions_ls = {
-          enabled = false
+          enabled = false,
         },
       },
       setup = {
@@ -853,9 +861,9 @@ return --[[@type LazyPluginSpec]]{
                   full = true,
                   legend = {
                     tokenTypes = semantic.tokenTypes,
-                    tokenModifiers = semantic.tokenModifiers
+                    tokenModifiers = semantic.tokenModifiers,
                   },
-                  range = true
+                  range = true,
                 }
               end
             end
@@ -914,8 +922,8 @@ return --[[@type LazyPluginSpec]]{
               end)
             end
           end)
-        end
-      }
+        end,
+      },
     }
 
     opts.diagnostics = vim.tbl_deep_extend('force', opts.diagnostics or {}, lspConfig.diagnostics)
@@ -928,14 +936,16 @@ return --[[@type LazyPluginSpec]]{
     local all_keymaps = {
       { -- Hover Doc
         'K',
-        function() vim.cmd('Lspsaga hover_doc') end,
+        function()
+          vim.cmd('Lspsaga hover_doc')
+        end,
         desc = 'Hover Doc',
       },
       { -- Code Actions
         '<leader>ca',
         function()
           local tiny_ca = require('tiny-code-action')
-          tiny_ca.code_action {}
+          tiny_ca.code_action({})
         end,
         desc = 'Open Code Actions',
       },
@@ -944,31 +954,37 @@ return --[[@type LazyPluginSpec]]{
         function()
           vim.cmd('Lspsaga rename')
         end,
-        desc = 'Lsp Rename'
+        desc = 'Lsp Rename',
       },
       { -- Line Diagnostics
         '<leader>cd',
         function()
           vim.cmd('Lspsaga show_line_diagnostics')
         end,
-        desc = 'Line Diagnostics'
+        desc = 'Line Diagnostics',
       },
       {
         '<Tab>',
-        function() vim.cmd('Lspsaga hover_doc') end,
+        function()
+          vim.cmd('Lspsaga hover_doc')
+        end,
         desc = 'Hover Doc',
         -- mode = 'n'
       },
       {
         'gt',
-        function() vim.cmd('Lspsaga peek_definition') end,
-        desc = 'Peek definition'
+        function()
+          vim.cmd('Lspsaga peek_definition')
+        end,
+        desc = 'Peek definition',
       },
       {
         'gT',
-        function() vim.cmd('Lspsaga peek_type_definition') end,
+        function()
+          vim.cmd('Lspsaga peek_type_definition')
+        end,
         desc = 'Peek type definition',
-      }
+      },
     }
 
     -- Special config for '*'
@@ -976,5 +992,5 @@ return --[[@type LazyPluginSpec]]{
       ---@cast opts.servers table<string, (lspClientOpts|vim.lsp.Client)>
       (opts.servers['*']).keys = vim.list_extend((opts.servers['*']).keys or {}, all_keymaps)
     end
-  end
+  end,
 }

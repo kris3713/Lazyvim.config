@@ -1,21 +1,21 @@
-return --[[@type (LazyPluginSpec[])]]{
+return  --[[@type (LazyPluginSpec[])]]{
   -- Disabled plugins go here
   {
     'stevearc/conform.nvim',
-    enabled = false
+    enabled = false,
   },
   {
     'mfussenegger/nvim-lint',
-    enabled = false
+    enabled = false,
   },
   {
     'mini.pairs',
-    enabled = false
+    enabled = false,
   },
   {
     'folke/persistence.nvim',
-    enabled = false
-  }
+    enabled = false,
+  },
   -- harper:ignore
   -- {
   --   'saecki/live-rename.nvim',

@@ -1,14 +1,14 @@
 --- @diagnostic disable: missing-fields, type-not-found, annotation-usage-error
 ---@module 'lazy'
 
-return --[[@type (LazyPluginSpec[])]]{
+return  --[[@type (LazyPluginSpec[])]]{
   -- Plugins with configs go here
   {
-    'ThePrimeagen/refactoring.nvim',---@module 'refactoring'
+    'ThePrimeagen/refactoring.nvim', ---@module 'refactoring'
     ---@type refactor.UserConfig
     opts = {},
     dependencies = {
-      { 'lewis6991/async.nvim', lazy = true }
+      { 'lewis6991/async.nvim', lazy = true },
     },
     event = { 'BufReadPre', 'BufNewFile' },
     ---@param keys LazyKeysSpec[]|LazyKeys[]
@@ -21,101 +21,101 @@ return --[[@type (LazyPluginSpec[])]]{
           '<leader>r',
           '',
           desc = '+refactor',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>rs',
           function()
-            refactoring.select_refactor {}
+            refactoring.select_refactor({})
           end,
           desc = 'Select Refactor',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>re',
           '',
           desc = '+inline operations',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>rev',
           function()
-            return refactoring.inline_var {}
+            return refactoring.inline_var({})
           end,
           desc = 'Inline Variable',
           mode = modes,
-          expr = true
+          expr = true,
         },
         {
           '<leader>ref',
           function()
-            return refactoring.inline_func {}
+            return refactoring.inline_func({})
           end,
           desc = 'Inline Function',
           mode = modes,
-          expr = true
+          expr = true,
         },
         {
           '<leader>rx',
           '',
           desc = '+extraction operations',
           mode = modes,
-          expr = true
+          expr = true,
         },
         {
           '<leader>rxv',
           function()
-            return refactoring.extract_var {}
+            return refactoring.extract_var({})
           end,
           desc = 'Extract Variable',
           mode = modes,
-          expr = true
+          expr = true,
         },
         {
           '<leader>rxf',
           function()
-            return refactoring.extract_func {}
+            return refactoring.extract_func({})
           end,
           desc = 'Extract Function',
           mode = modes,
-          expr = true
+          expr = true,
         },
         {
           '<leader>rxF',
           function()
-            return refactoring.extract_func_to_file {}
+            return refactoring.extract_func_to_file({})
           end,
           desc = 'Extract Function To File',
           mode = modes,
-          expr = true
-        }
+          expr = true,
+        },
       }
 
       return keys
-    end
+    end,
   },
   {
-    'neovim-plugins/comment.nvim',---@module 'Comment'
+    'neovim-plugins/comment.nvim', ---@module 'Comment'
     ---@param opts CommentConfig?
     opts = function(_, opts)
       if opts then
         local c = require('ts_context_commentstring.integrations.comment_nvim')
         opts.pre_hook = c.create_pre_hook()
       end
-    end
+    end,
   },
   {
-    'JoosepAlviste/nvim-ts-context-commentstring',---@module 'ts_context_commentstring'
+    'JoosepAlviste/nvim-ts-context-commentstring', ---@module 'ts_context_commentstring'
     ---@type ts_context_commentstring.Config
-    opts = { enable_autocmd = false }
+    opts = { enable_autocmd = false },
   },
   {
-    'jake-stewart/multicursor.nvim',---@module 'multicursor-nvim'
+    'jake-stewart/multicursor.nvim', ---@module 'multicursor-nvim'
     ---@type mc.MultiCursorOpts
     opts = {},
     branch = '1.0',
     ---@param keys LazyKeysSpec[]|LazyKeys[]
-    keys = function (_, keys)
+    keys = function(_, keys)
       local mc = require('multicursor-nvim')
       local modes = { 'n', 'x' }
 
@@ -124,15 +124,15 @@ return --[[@type (LazyPluginSpec[])]]{
           '<leader>m',
           '',
           desc = '+multicursor',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>m<up>',
-          function ()
+          function()
             mc.lineAddCursor(-1)
           end,
           desc = 'Add a cursor above the main cursor, skipping empty lines',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>m<down>',
@@ -140,7 +140,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.lineAddCursor(1)
           end,
           desc = 'Add a cursor below the main cursor, skipping empty lines',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>m<left>',
@@ -148,7 +148,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.lineSkipCursor(-1)
           end,
           desc = 'Move only the main cursor up a line, skipping empty lines',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>m<right>',
@@ -156,7 +156,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.lineSkipCursor(1)
           end,
           desc = 'Move only the main cursor down a line, skipping empty lines',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>mn',
@@ -164,7 +164,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.matchAddCursor(1)
           end,
           desc = 'Add a new cursor by matching the current word/selection. Backwards',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>ms',
@@ -172,7 +172,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.matchSkipCursor(1)
           end,
           desc = 'Move only the main cursor by matching the current word/selection. Backwards',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>mN',
@@ -180,7 +180,7 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.matchAddCursor(-1)
           end,
           desc = 'Add a new cursor by matching the current word/selection. Forwards',
-          mode = modes
+          mode = modes,
         },
         {
           '<leader>mS',
@@ -188,32 +188,32 @@ return --[[@type (LazyPluginSpec[])]]{
             mc.matchSkipCursor(-1)
           end,
           desc = 'Move only the main cursor by matching the current word/selection. Forwards',
-          mode = modes
+          mode = modes,
         },
         {
           '<a-leftmouse>',
           mc.handleMouse,
           desc = 'add/remove cursors with mouse click',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<a-leftdrag>',
           mc.handleMouseDrag,
           desc = 'add/remove cursors with (vertical) mouse drag',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<a-leftrelease>',
           mc.handleMouseRelease,
           desc = 'Improve mouse support when dragging with a modifier',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>mq',
           mc.toggleCursor,
           desc = 'Disable and enable cursors',
-          mode = modes
-        }
+          mode = modes,
+        },
       }
 
       return keys
@@ -222,7 +222,7 @@ return --[[@type (LazyPluginSpec[])]]{
       local set_hl = vim.api.nvim_set_hl
       local reverse = { reverse = true }
       local visual = { link = 'Visual' }
-      local sign_column = { link = 'SignColumn'}
+      local sign_column = { link = 'SignColumn' }
 
       -- Customize how cursors look.
       set_hl(0, 'MultiCursorCursor', reverse)
@@ -232,31 +232,31 @@ return --[[@type (LazyPluginSpec[])]]{
       set_hl(0, 'MultiCursorDisabledCursor', reverse)
       set_hl(0, 'MultiCursorDisabledVisual', visual)
       set_hl(0, 'MultiCursorDisabledSign', sign_column)
-    end
+    end,
   },
   {
-    'chrisgrieser/nvim-recorder',---@module 'recorder'
+    'chrisgrieser/nvim-recorder', ---@module 'recorder'
     ---@type configObj
     opts = {
       mapping = {
         startStopRecording = 'qq',
         switchSlot = '<A-q>',
         editMacro = 'qc',
-        deleteAllMacros = 'qd'
-      }
+        deleteAllMacros = 'qd',
+      },
     },
     keys = {
       {
         'q',
         '',
         desc = '+macros',
-        mode = 'n'
-      }
-    }
+        mode = 'n',
+      },
+    },
     -- ,dependencies = 'rcarriga/nvim-notify'
   },
   {
-    'hiphish/rainbow-delimiters.nvim',---@module 'rainbow-delimiters'
+    'hiphish/rainbow-delimiters.nvim', ---@module 'rainbow-delimiters'
     ---@param opts rainbow_delimiters.config
     opts = function(_, opts)
       local highlight = {
@@ -267,7 +267,7 @@ return --[[@type (LazyPluginSpec[])]]{
         'RainbowDelimiterGreen',
         'RainbowDelimiterBlue',
         'RainbowDelimiterCyan',
-        'RainbowDelimiterViolet'
+        'RainbowDelimiterViolet',
       }
 
       opts.highlight = highlight
@@ -286,30 +286,32 @@ return --[[@type (LazyPluginSpec[])]]{
       ---
       ---You can also set `picker = '<picker>'` without any opts.
       ---@type 'telescope'|'snacks'|'select'|'buffer'|'fzf-lua'
-      picker = 'snacks'
+      picker = 'snacks',
     },
-    event = 'LspAttach'
+    event = 'LspAttach',
   },
   {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
-    opts = {}
+    opts = {},
   },
   {
     'auipga/hmts.nvim',
-    branch = 'patch-1'
+    branch = 'patch-1',
   },
   {
     'nanotee/zoxide.vim',
-    init = function() vim.g.zoxide_use_select = 1 end
+    init = function()
+      vim.g.zoxide_use_select = 1
+    end,
   },
   {
     'Mgenuit/nvim-dap-kotlin',
-    opts = {}
+    opts = {},
   },
   {
     'leoluz/nvim-dap-go',
-    opts = {}
+    opts = {},
   },
   {
     'mfussenegger/nvim-dap-python',
@@ -325,7 +327,7 @@ return --[[@type (LazyPluginSpec[])]]{
           '<leader>dy',
           '',
           desc = '+Dap Python',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>dyt',
@@ -341,49 +343,49 @@ return --[[@type (LazyPluginSpec[])]]{
           desc = 'Debug Class',
           mode = 'n',
           -- expr = true,
-          ft = 'python'
-        }
+          ft = 'python',
+        },
       }
 
       return keys
-    end
+    end,
   },
   {
     'fei6409/log-highlight.nvim',
-    opts = {}
+    opts = {},
   },
   {
     'AckslD/muren.nvim',
-    opts = {}
+    opts = {},
   },
   {
     'nvzone/volt',
-    lazy = true
+    lazy = true,
   },
   {
     'kevinhwang91/nvim-hlslens',
-    opts = {}
+    opts = {},
   },
   {
     'nvzone/showkeys',
     cmd = 'ShowkeysToggle',
-    opts = { position = 'bottom-center' }
+    opts = { position = 'bottom-center' },
   },
   {
     'nvzone/minty',
     cmd = { 'Shades', 'Heufy' },
-    opts = {}
+    opts = {},
   },
   {
     'abccsss/nvim-gitstatus',
     event = 'VeryLazy',
-    opts = {}
+    opts = {},
   },
   {
     'rachartier/tiny-inline-diagnostic.nvim',
     opts = {},
     event = 'VeryLazy',
-    priority = 1000
+    priority = 1000,
   },
   {
     'dgagn/diagflow.nvim',
@@ -396,26 +398,26 @@ return --[[@type (LazyPluginSpec[])]]{
         bottom_left = '╰',
         bottom_right = '╯',
       },
-      show_borders = true
+      show_borders = true,
     },
-    event = 'LspAttach'
+    event = 'LspAttach',
   },
   {
     'b0o/SchemaStore.nvim',
     lazy = true,
-    version = false -- last release is way too old
+    version = false, -- last release is way too old
   },
   {
     'cbochs/portal.nvim',
-    opts = {}
+    opts = {},
   },
   {
     'chrisgrieser/nvim-scissors',
-    opts = { snippetDir = os.getenv('HOME') .. '/MEGA' }
+    opts = { snippetDir = os.getenv('HOME') .. '/MEGA' },
   },
   {
     'm-demare/hlargs.nvim',
-    opts = { color = '#ed8796' }
+    opts = { color = '#ed8796' },
   },
   {
     'akinsho/toggleterm.nvim',
@@ -460,59 +462,61 @@ return --[[@type (LazyPluginSpec[])]]{
           '<c-/>',
           open_terminal,
           desc = 'Open a Terminal (if one is not open)',
-          mode = { 'n', 't' }
+          mode = { 'n', 't' },
         },
         {
           '<c-\\>',
           create_terminal,
           desc = 'Create a new Terminal (if one is active)',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<c-?>',
           toggle_all_terminals,
-          desc = 'Toggles all Terminal instances'
+          desc = 'Toggles all Terminal instances',
         },
         {
           '<leader>ft',
           open_terminal_in_root,
           desc = 'Open a Terminal (Root Dir)',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>fT',
           open_terminal_in_cwd,
           desc = 'Open a Terminal (cwd)',
-          mode = 'n'
-        }
+          mode = 'n',
+        },
       }
 
       return keys
-    end
+    end,
   },
   {
     'stevearc/stickybuf.nvim',
-    opts = {}
+    opts = {},
   },
   {
     'ckolkey/ts-node-action',
-    opts = {}
+    opts = {},
   },
   {
     'aaronik/treewalker.nvim',
-    opts = {}
+    opts = {},
   },
   {
     'chentoast/marks.nvim',
     opts = function(_, opts)
-      if not opts then return end
+      if not opts then
+        return
+      end
 
       opts.mappings = {
         set = 'mm',
         delete = 'md',
         delete_line = 'md-',
         delete_bookmark = 'md=',
-        delete_buf = 'md<space>'
+        delete_buf = 'md<space>',
         -- set_next = "m,",
         -- next = "m]",
         -- preview = "m:",
@@ -531,76 +535,76 @@ return --[[@type (LazyPluginSpec[])]]{
         'm',
         '',
         desc = '+marks',
-        mode = 'n'
-      }
-    }
+        mode = 'n',
+      },
+    },
   },
   {
     'sustech-data/wildfire.nvim',
     event = 'VeryLazy',
-    opts = {}
+    opts = {},
   },
   {
     'dstein64/nvim-scrollview',
     opts = {
-      excluded_filetypes = { 'NvimTree' }
-    }
+      excluded_filetypes = { 'NvimTree' },
+    },
   },
   {
     'vuki656/package-info.nvim',
     opts = {
-      package_manager = 'bun'
-    }
+      package_manager = 'bun',
+    },
   },
   {
     'L3MON4D3/cmp-luasnip-choice',
     opts = {
-      auto_open = true -- Automatically open nvim-cmp on choice node (default: true)
-    }
+      auto_open = true, -- Automatically open nvim-cmp on choice node (default: true)
+    },
   },
   {
     'https://git.sr.ht/~havi/telescope-toggleterm.nvim',
     opts = {},
     event = 'TermOpen',
-    dependencies = 'nvim-lua/popup.nvim'
+    dependencies = 'nvim-lua/popup.nvim',
   },
   {
     'jmbuhr/otter.nvim',
-    opts = {}
+    opts = {},
   },
   {
     'windwp/nvim-autopairs',
     opts = {},
-    event = 'InsertEnter'
+    event = 'InsertEnter',
   },
   {
     'DaikyXendo/nvim-material-icon',
     opts = {
       color_icons = true,
-      default = true
-    }
+      default = true,
+    },
   },
   {
-    'xzbdmw/colorful-menu.nvim',---@module 'colorful-menu'
+    'xzbdmw/colorful-menu.nvim', ---@module 'colorful-menu'
     ---@type ColorfulMenuConfig
     opts = {
-      max_width = 60
-    }
+      max_width = 60,
+    },
   },
   {
-    'seblyng/roslyn.nvim',---@module 'roslyn'
+    'seblyng/roslyn.nvim', ---@module 'roslyn'
     ---@type RoslynNvimConfig
     opts = {
-      filewatching = 'roslyn'
+      filewatching = 'roslyn',
     },
-    ft = { 'cs' }
+    ft = { 'cs' },
   },
   {
     'nacro90/numb.nvim',
-    opts = {}
+    opts = {},
   },
   {
-    'luckasRanarison/tailwind-tools.nvim',---@module 'tailwind-tools'
+    'luckasRanarison/tailwind-tools.nvim', ---@module 'tailwind-tools'
     ---@type TailwindTools.Option
     opts = {
       server = {
@@ -608,43 +612,45 @@ return --[[@type (LazyPluginSpec[])]]{
           experimental = {
             classRegex = {
               {
-                "classnames\\(([^)]*)\\)",
-                "'([^']*)'"
+                'classnames\\(([^)]*)\\)',
+                '\'([^\']*)\'',
               },
               {
-                "classList={{([^;]*)}}",
-                "\\s*?[\"'`]([^\"'`]*).*?:"
+                'classList={{([^;]*)}}',
+                '\\s*?["\'`]([^"\'`]*).*?:',
               },
               {
-                "classNames:\\s*{([\\s\\S]*?)}",
-                "\\s?[\\w].*:\\s*?[\"'`]([^\"'`]*).*?,?\\s?"
+                'classNames:\\s*{([\\s\\S]*?)}',
+                '\\s?[\\w].*:\\s*?["\'`]([^"\'`]*).*?,?\\s?',
               },
-              "class:\\s*['\\\"]([^'\\\"]*)['\\\"]",
-              ":class=\\s*\\{([^}]+)\\}",
-              "(?:enter|leave)(?:From|To)?=\\s*(?:\"|'|{`)([^(?:\"|'|`})]*)",
-              "tw`([^`]*)`",
-              "tw=\"([^\"]*)", -- <div tw="..." />
-              "tw={\"([^\"}]*)", -- <div tw={"..."} />
-              "tw\\.\\w+`([^`]*)", -- tw.xxx`...`
-              "tw\\(.*?\\)`([^`]*)" -- tw(Component)`...`
-            }
+              'class:\\s*[\'\\"]([^\'\\"]*)[\'\\"]',
+              ':class=\\s*\\{([^}]+)\\}',
+              '(?:enter|leave)(?:From|To)?=\\s*(?:"|\'|{`)([^(?:"|\'|`})]*)',
+              'tw`([^`]*)`',
+              'tw="([^"]*)', -- <div tw="..." />
+              'tw={"([^"}]*)', -- <div tw={"..."} />
+              'tw\\.\\w+`([^`]*)', -- tw.xxx`...`
+              'tw\\(.*?\\)`([^`]*)', -- tw(Component)`...`
+            },
           },
           includeLanguages = {
             elixir = 'html-eex',
             eelixir = 'html-eex',
-            heex = 'html-eex'
-          }
-        }
-      }
+            heex = 'html-eex',
+          },
+        },
+      },
     },
     name = 'tailwind-tools',
-    build = function() vim.cmd('UpdateRemotePlugins') end
+    build = function()
+      vim.cmd('UpdateRemotePlugins')
+    end,
   },
   {
     'Wansmer/treesj',
     opts = {
       ---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
-      use_default_keymaps = false
+      use_default_keymaps = false,
     },
     ---@param keys LazyKeysSpec[]|LazyKeys[]
     keys = function(_, keys)
@@ -655,18 +661,18 @@ return --[[@type (LazyPluginSpec[])]]{
           '<leader>i',
           treesj.split,
           desc = 'Split code block',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>j',
           treesj.join,
           desc = 'Join code block',
-          mode = 'n'
-        }
+          mode = 'n',
+        },
       }
 
       return keys
-    end
+    end,
   },
   {
     'NMAC427/guess-indent.nvim',
@@ -675,9 +681,9 @@ return --[[@type (LazyPluginSpec[])]]{
         'netrw',
         'tutor',
         'snacks_dashboard',
-        'snacks_terminal'
-      }
-    }
+        'snacks_terminal',
+      },
+    },
   },
   {
     'tzachar/highlight-undo.nvim',
@@ -691,32 +697,32 @@ return --[[@type (LazyPluginSpec[])]]{
         'netrw',
         'tutor',
         'snacks_dashboard',
-        'snacks_terminal'
-      }
-    }
+        'snacks_terminal',
+      },
+    },
   },
   {
     'mcauley-penney/visual-whitespace.nvim',
     opts = {
       list_chars = {
-        tab = '|󰌒'
-      }
+        tab = '|󰌒',
+      },
     },
-    event = 'ModeChanged *:[vV\22]'
+    event = 'ModeChanged *:[vV\22]',
   },
   {
-    'nvimdev/lspsaga.nvim',---@module 'lspsaga'
+    'nvimdev/lspsaga.nvim', ---@module 'lspsaga'
     ---@type LspsagaConfig
     opts = {
       ui = { code_action = '' },
-      symbol_in_winbar = { enable = false }
-    }
+      symbol_in_winbar = { enable = false },
+    },
   },
   {
-    'mikavilpas/yazi.nvim',---@module 'yazi'
+    'mikavilpas/yazi.nvim', ---@module 'yazi'
     ---@type YaziConfig
     opts = {
-      open_for_directories = true
+      open_for_directories = true,
     },
     event = 'VeryLazy',
     ---@param keys LazyKeysSpec[]|LazyKeys[]
@@ -741,48 +747,48 @@ return --[[@type (LazyPluginSpec[])]]{
           '<leader>Y',
           open_at_current_file,
           desc = 'Open yazi at the current file',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>cw',
           open_in_cwd,
           desc = 'Open yazi in the cwd',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader><up>',
           resume_last_session,
           desc = 'Resume the last yazi session',
-          mode = 'n'
-        }
+          mode = 'n',
+        },
       }
 
       return keys
-    end
+    end,
   },
   {
     'nvim-flutter/flutter-tools.nvim',
     lazy = false,
-    opts = {}
+    opts = {},
   },
   {
     'ray-x/lsp_signature.nvim',
     opts = {
       handler_opts = { border = 'rounded' },
       hint_prefix = '❔ ',
-      floating_window_off_y = -1
+      floating_window_off_y = -1,
     },
-    event = 'InsertEnter'
+    event = 'InsertEnter',
   },
   {
-    'Bekaboo/dropbar.nvim',---@module 'dropbar'
+    'Bekaboo/dropbar.nvim', ---@module 'dropbar'
     ---@type dropbar_configs_t
     opts = {
       menu = {
         win_configs = {
-          border = 'rounded'
-        }
-      }
+          border = 'rounded',
+        },
+      },
     },
     lazy = false,
     ---@param keys LazyKeysSpec[]|LazyKeys[]
@@ -794,24 +800,24 @@ return --[[@type (LazyPluginSpec[])]]{
           '<leader>;',
           dropbar_api.pick,
           desc = 'Pick symbols in winbar',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '[;',
           dropbar_api.goto_context_start,
           desc = 'Go to start of current context',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '];',
           dropbar_api.select_next_context,
           desc = 'Select next context',
-          mode = 'n'
-        }
+          mode = 'n',
+        },
       }
 
       return keys
-    end
+    end,
   },
   {
     'gbprod/phpactor.nvim',
@@ -819,12 +825,12 @@ return --[[@type (LazyPluginSpec[])]]{
     opts = {
       install = {
         path = vim.fn.stdpath('data') .. '/mason/bin',
-        bin = vim.fn.stdpath('data') .. '/mason/bin/phpactor'
-      }
-    }
+        bin = vim.fn.stdpath('data') .. '/mason/bin/phpactor',
+      },
+    },
   },
   {
-    'windwp/nvim-ts-autotag',---@module 'nvim-ts-autotag'
+    'windwp/nvim-ts-autotag', ---@module 'nvim-ts-autotag'
     ---@type nvim-ts-autotag.PluginSetup
     opts = {
       --- @diagnostic disable-next-line: param-type-mismatch
@@ -832,28 +838,28 @@ return --[[@type (LazyPluginSpec[])]]{
       opts = {
         enable_close = true,
         enable_close_on_slash = true,
-        enable_rename = true
-      }
-    }
+        enable_rename = true,
+      },
+    },
   },
   {
-    'zbirenbaum/neodim',---@module 'neodim'
+    'zbirenbaum/neodim', ---@module 'neodim'
     ---@type neodim.Options
     opts = {
       hide = {
         underline = false,
         virtual_text = false,
-        signs = false
-      }
+        signs = false,
+      },
     },
-    event = 'LspAttach'
+    event = 'LspAttach',
   },
   {
-    'chrisgrieser/nvim-origami',---@module 'origami'
+    'chrisgrieser/nvim-origami', ---@module 'origami'
     ---@type Origami.config
     opts = {
       autoFold = { enabled = false },
-      foldKeymaps = { setup = false }
+      foldKeymaps = { setup = false },
     },
     event = 'VeryLazy',
     ---@param keys LazyKeysSpec[]|LazyKeys[]
@@ -865,27 +871,27 @@ return --[[@type (LazyPluginSpec[])]]{
           'zR',
           origami.dollar,
           desc = 'Open all folds',
-          mode = 'n'
+          mode = 'n',
         },
         {
           'zM',
           origami.caret,
           desc = 'Close all folds',
-          mode = 'n'
-        }
+          mode = 'n',
+        },
       }
 
       return keys
-    end
+    end,
   },
   {
-    'andymass/vim-matchup',---@module 'match-up'
+    'andymass/vim-matchup', ---@module 'match-up'
     ---@type matchup.Config
     opts = {
       treesitter = {
-        stopline = 500
-      }
-    }
+        stopline = 500,
+      },
+    },
   },
   {
     'qwavies/smart-backspace.nvim',
@@ -894,17 +900,19 @@ return --[[@type (LazyPluginSpec[])]]{
     keys = {
       {
         '<leader>B',
-        function() vim.cmd('SmartBackspaceToggle') end,
+        function()
+          vim.cmd('SmartBackspaceToggle')
+        end,
         desc = 'Toggle Smart Backspace',
-        mode = 'n'
-      }
-    }
+        mode = 'n',
+      },
+    },
   },
   {
     'michaelb/sniprun',
     opts = {},
     branch = 'master',
-    build = 'sh ./install.sh'
+    build = 'sh ./install.sh',
     -- do 'sh install.sh 1' if you want to force compile locally
     -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
   },
@@ -915,18 +923,18 @@ return --[[@type (LazyPluginSpec[])]]{
         python = {
           extension = 'md',
           style = 'markdown',
-          force_ft = 'markdown' -- you can set whatever filetype you want here
-        }
-      }
-    }
+          force_ft = 'markdown', -- you can set whatever filetype you want here
+        },
+      },
+    },
   },
   {
-    'linux-cultist/venv-selector.nvim',---@module 'venv-selector'
+    'linux-cultist/venv-selector.nvim', ---@module 'venv-selector'
     ---@type venv-selector.Settings
     opts = {
       options = {
-        notify_user_on_venv_activation = true
-      }
+        notify_user_on_venv_activation = true,
+      },
     },
     ft = 'python',
     cmd = 'VenvSelect',
@@ -934,12 +942,14 @@ return --[[@type (LazyPluginSpec[])]]{
     keys = {
       {
         '<leader>cv',
-        function() vim.cmd('VenvSelect') end,
+        function()
+          vim.cmd('VenvSelect')
+        end,
         desc = 'Select VirtualEnv',
         mode = 'n',
-        ft = 'python'
-      }
-    }
+        ft = 'python',
+      },
+    },
   },
   {
     'cappyzawa/trim.nvim',
@@ -949,30 +959,32 @@ return --[[@type (LazyPluginSpec[])]]{
       -- you can specify filetypes.
       ft_blocklist = {
         'snacks_dashboard',
-        'snacks_terminal'
+        'snacks_terminal',
       },
       -- harper:ignore
       -- if you want to disable trim on write by default
       trim_on_write = false,
       -- highlight trailing spaces
-      highlight = true
+      highlight = true,
     },
     keys = {
       {
         '<leader>T',
-        function() vim.cmd('Trim') end,
+        function()
+          vim.cmd('Trim')
+        end,
         desc = 'Trim all trailing whitespaces and lines',
-        mode = 'n'
-      }
-    }
+        mode = 'n',
+      },
+    },
   },
   {
-    '3rd/image.nvim',---@module 'image'
+    '3rd/image.nvim', ---@module 'image'
     ---@type Options
     opts = {
-      processor = 'magick_cli'
+      processor = 'magick_cli',
     },
-    build = false
+    build = false,
   },
   {
     -- support for image pasting
@@ -983,20 +995,20 @@ return --[[@type (LazyPluginSpec[])]]{
         embed_image_as_base64 = false,
         prompt_for_file_name = false,
         drag_and_drop = {
-          insert_mode = true
+          insert_mode = true,
         },
         -- required for Windows users
-        use_absolute_path = vim.fn.has('win32') and true or false
-      }
+        use_absolute_path = vim.fn.has('win32') and true or false,
+      },
     },
-    event = 'VeryLazy'
+    event = 'VeryLazy',
   },
   {
-    'kylechui/nvim-surround',---@module 'nvim-surround'
+    'kylechui/nvim-surround', ---@module 'nvim-surround'
     ---@type user_options
     opts = {},
     version = '*',
-    event = 'VeryLazy'
+    event = 'VeryLazy',
   },
   {
     'LunarVim/bigfile.nvim',
@@ -1012,22 +1024,18 @@ return --[[@type (LazyPluginSpec[])]]{
         'syntax',
         'matchparen',
         'vimopts',
-        'filetype'
-      }
-    }
+        'filetype',
+      },
+    },
   },
   {
-    'nvim-tree/nvim-tree.lua',---@module 'nvim-tree'
+    'nvim-tree/nvim-tree.lua', ---@module 'nvim-tree'
     ---@param opts nvim_tree.config?
     opts = function(_, opts)
       ---@param rel_path string
       ---@return string
       local function label(rel_path)
-        rel_path = rel_path:gsub(
-          tostring(os.getenv('HOME')),
-          '~',
-          1
-        )
+        rel_path = rel_path:gsub(tostring(os.getenv('HOME')), '~', 1)
         -- local a = path:gsub('([a-zA-Z])[a-z0-9]+', '%1')
         -- local b = tostring(path:match '[a-zA-Z]([a-z0-9]*)$' or '')
         return rel_path
@@ -1035,13 +1043,15 @@ return --[[@type (LazyPluginSpec[])]]{
 
       local setEnable = { enable = true }
 
-      if not opts then return end
+      if not opts then
+        return
+      end
       -- Has potential for a more complex configuration
       opts.sync_root_with_cwd = true
       opts.respect_buf_cwd = true
       opts.update_focused_file = {
         enable = true,
-        update_root = setEnable
+        update_root = setEnable,
       }
       opts.filters = setEnable
       opts.renderer = {
@@ -1049,29 +1059,31 @@ return --[[@type (LazyPluginSpec[])]]{
           glyphs = {
             git = {
               unstaged = '󰄱',
-              staged = '󰱒'
-            }
-          }
+              staged = '󰱒',
+            },
+          },
         },
         root_folder_label = label,
-        group_empty = label
+        group_empty = label,
       }
     end,
     dependencies = 'antosha417/nvim-lsp-file-operations',
     lazy = false,
-    deactivate = function() vim.cmd('NvimTreeClose') end,
+    deactivate = function()
+      vim.cmd('NvimTreeClose')
+    end,
     ---@param keys LazyKeysSpec[]|LazyKeys[]
     keys = function(_, keys)
       -- Open nvim-tree at root
       local function open_at_root()
         local api = require('nvim-tree.api')
-        api.tree.toggle { path = LazyVim.root() }
+        api.tree.toggle({ path = LazyVim.root() })
       end
 
       -- Open nvim-tree at CWD
       local function open_at_cwd()
         local api = require('nvim-tree.api')
-        api.tree.toggle { path = vim.fn.getcwd() }
+        api.tree.toggle({ path = vim.fn.getcwd() })
       end
 
       -- Change root to CWD for nvim-tree
@@ -1084,7 +1096,7 @@ return --[[@type (LazyPluginSpec[])]]{
       -- Focus on currently opened file in nvim-tree
       local function find_opened_file()
         local api = require('nvim-tree.api')
-        api.tree.find_file { update_root = false, open = true, focus = true }
+        api.tree.find_file({ update_root = false, open = true, focus = true })
       end
 
       keys = {
@@ -1092,49 +1104,49 @@ return --[[@type (LazyPluginSpec[])]]{
           '<leader>e',
           open_at_root,
           desc = 'nvim-tree: Explorer nvim-tree (root)',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>E',
           open_at_cwd,
           desc = 'nvim-tree: Explorer nvim-tree (cwd)',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>fe',
           open_at_root,
           desc = 'nvim-tree: Explorer nvim-tree (root)',
-          mode = 'n'
-       },
+          mode = 'n',
+        },
         {
           '<leader>fE',
           open_at_cwd,
           desc = 'nvim-tree: Explorer nvim-tree (cwd)',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>fC',
           change_root_to_global_cwd,
           desc = 'nvim-tree: Change root to global cwd (nvim-tree)',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>fd',
           find_opened_file,
           desc = 'nvim-tree: Focus on currently opened file',
-          mode = 'n'
-        }
+          mode = 'n',
+        },
       }
 
       return keys
-    end
+    end,
   },
   {
-    'rmagatti/auto-session',---@module 'auto-session'
+    'rmagatti/auto-session', ---@module 'auto-session'
     ---@type AutoSession.Config
     opts = {
       session_lens = {
-        load_on_setup = true
+        load_on_setup = true,
       },
       lazy_support = true,
       lsp_stop_on_restore = true,
@@ -1158,17 +1170,17 @@ return --[[@type (LazyPluginSpec[])]]{
             pattern = '*',
             callback = function()
               local bufnr = vim.api.nvim_get_current_buf()
-              local is_true = (vim.bo[bufnr].filetype ~= 'help') or
-                (vim.bo[bufnr].filetype ~= 'man') or
-                (vim.bo[bufnr].filetype ~= 'gitcommit')
+              local is_true = (vim.bo[bufnr].filetype ~= 'help')
+                or (vim.bo[bufnr].filetype ~= 'man')
+                or (vim.bo[bufnr].filetype ~= 'gitcommit')
 
               if is_true and vim.bo[bufnr].modifiable then
                 vim.o.fileformats = 'unix,dos,mac'
               end
-            end
+            end,
           })
-        end
-      }
+        end,
+      },
     },
     lazy = false,
     ---@param keys LazyKeysSpec[]|LazyKeys[]
@@ -1186,31 +1198,35 @@ return --[[@type (LazyPluginSpec[])]]{
       keys = {
         {
           '<leader>qf',
-          function() vim.cmd('AutoSession search') end,
+          function()
+            vim.cmd('AutoSession search')
+          end,
           desc = 'Select a session to load/delete',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>qS',
           save_session,
           desc = 'Save session based on cwd',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>qs',
           restore_session,
           desc = 'Restore last session based on cwd',
-          mode = 'n'
+          mode = 'n',
         },
         {
           '<leader>qd',
-          function() vim.cmd('AutoSession toggle') end,
+          function()
+            vim.cmd('AutoSession toggle')
+          end,
           desc = 'Toggle autosave',
-          mode = 'n'
-        }
+          mode = 'n',
+        },
       }
 
       return keys
-    end
-  }
+    end,
+  },
 }

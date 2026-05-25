@@ -1,8 +1,8 @@
 --- @diagnostic disable: annotation-usage-error
 ---@module 'lazy'
 
-return --[[@type LazyPluginSpec]]{
-    -- No config plugins go here
+return  --[[@type LazyPluginSpec]]{
+  -- No config plugins go here
   -- 'nvim-tree/nvim-web-devicons',
   'nvimtools/none-ls-extras.nvim',
   'Tastyep/structlog.nvim',
@@ -33,5 +33,5 @@ return --[[@type LazyPluginSpec]]{
   'kkharji/sqlite.lua',
   'tpope/vim-repeat',
   'RRethy/nvim-treesitter-endwise',
-  'nickel-lang/vim-nickel'
+  'nickel-lang/vim-nickel',
 }

@@ -1,6 +1,6 @@
 --- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter, type-not-found
 
-return --[[@type (LazyPluginSpec[])]]{
+return  --[[@type (LazyPluginSpec[])]]{
   --harper:ignore
   -- Configuration for plugins already installed by LazyExtras or by LazyVim (by default)
   -- {
@@ -12,18 +12,18 @@ return --[[@type (LazyPluginSpec[])]]{
   {
     'L3MON4D3/LuaSnip',
     init = function()
-      require('luasnip.loaders.from_vscode').lazy_load {
-        paths = { os.getenv('HOME') .. '/MEGA' }
-      }
-    end
+      require('luasnip.loaders.from_vscode').lazy_load({
+        paths = { os.getenv('HOME') .. '/MEGA' },
+      })
+    end,
   },
   {
-    'folke/lazydev.nvim',---@module 'lazydev'
+    'folke/lazydev.nvim', ---@module 'lazydev'
     ---@param opts lazydev.Config
     opts = function(_, opts)
       ---@type lazydev.Library.spec[]
       local extra = {
-        { path = 'wezterm-types', mods = { 'wezterm' } }
+        { path = 'wezterm-types', mods = { 'wezterm' } },
       }
 
       opts.library = vim.tbl_deep_extend('force', opts.library or {}, extra)
@@ -34,18 +34,18 @@ return --[[@type (LazyPluginSpec[])]]{
       {
         'DrKJeff16/wezterm-types',
         lazy = true,
-        version = false
-      }
-    }
+        version = false,
+      },
+    },
   },
   {
-    'mason-org/mason.nvim',---@module 'mason'
+    'mason-org/mason.nvim', ---@module 'mason'
     ---@param opts MasonSettings | { ensure_installed: table }
     opts = function(_, opts)
       opts.registries = {
         'github:mason-org/mason-registry',
         'github:Crashdummyy/mason-registry',
-        'github:MKindberg/ghostty-ls'
+        'github:MKindberg/ghostty-ls',
       }
 
       -- Ensure none of these are installed by mason.
@@ -62,14 +62,15 @@ return --[[@type (LazyPluginSpec[])]]{
             'stylua',
             'shellcheck',
             'shfmt',
-            'sqlfluff'
+            'sqlfluff',
           }, table_to_check)
         end,
-      opts.ensure_installed or {})
-    end
+        opts.ensure_installed or {}
+      )
+    end,
   },
   {
-    'folke/which-key.nvim',---@module 'which-key'
+    'folke/which-key.nvim', ---@module 'which-key'
     ---@param opts wk.Opts
     opts = function(_, opts)
       ---@type wk.Spec[]
@@ -87,27 +88,27 @@ return --[[@type (LazyPluginSpec[])]]{
           end
 
           return wk_mapping
-        end)()
+        end)(),
       }
 
       opts.spec = vim.list_extend(opts.spec or {}, extra_keys)
-    end
+    end,
   },
   {
-    'folke/noice.nvim',---@module 'noice'
+    'folke/noice.nvim', ---@module 'noice'
     ---@type NoiceConfig
     opts = {
       lsp = {
         hover = { silent = true },
         message = { silent = true },
         signature = {
-          auto_open = { enabled = false }
-        }
-      }
-    }
+          auto_open = { enabled = false },
+        },
+      },
+    },
   },
   {
-    'nvim-neotest/neotest',---@module 'neotest'
+    'nvim-neotest/neotest', ---@module 'neotest'
     ---@param opts neotest.Config
     opts = function(_, opts)
       ---@type neotest.Adapter[]
@@ -116,7 +117,7 @@ return --[[@type (LazyPluginSpec[])]]{
         ['neotest-golang'] = {
           -- Here we can set options for neotest-golang, e.g.
           -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
-          dap_go_enabled = true -- requires leoluz/nvim-dap-go
+          dap_go_enabled = true, -- requires leoluz/nvim-dap-go
         },
         -- Here you can specify the settings for the adapter, i.e.
         -- runner = 'pytest',
@@ -131,7 +132,7 @@ return --[[@type (LazyPluginSpec[])]]{
           --     "rspec",
           --   })
           -- end
-        }
+        },
       }
 
       opts.adapters = vim.tbl_deep_extend('force', opts.adapters or {}, new_adapters)
@@ -140,11 +141,11 @@ return --[[@type (LazyPluginSpec[])]]{
       'Issafalcon/neotest-dotnet',
       'fredrikaverpil/neotest-golang',
       'nvim-neotest/neotest-python',
-      'olimorris/neotest-rspec'
+      'olimorris/neotest-rspec',
     },
   },
   {
-    'akinsho/bufferline.nvim',---@module 'bufferline'
+    'akinsho/bufferline.nvim', ---@module 'bufferline'
     ---@type bufferline.Config
     opts = {
       options = {
@@ -153,10 +154,10 @@ return --[[@type (LazyPluginSpec[])]]{
         hover = {
           enabled = true,
           delay = 120,
-          reveal = { 'close' }
-        }
-      }
-    }
+          reveal = { 'close' },
+        },
+      },
+    },
   },
   {
     'nvim-telescope/telescope.nvim',
@@ -172,7 +173,7 @@ return --[[@type (LazyPluginSpec[])]]{
         'telescope-tabs',
         'ast_grep',
         'package_info',
-        'toggleterm'
+        'toggleterm',
       }
 
       -- load telescope plugins
@@ -186,45 +187,45 @@ return --[[@type (LazyPluginSpec[])]]{
         ast_grep = {
           command = {
             'ast-grep', -- For Linux, use `ast-grep` instead of `sg`
-            '--json=stream'
+            '--json=stream',
           }, -- must have --json=stream
           grep_open_files = false, -- search in opened files
-          lang = nil -- string value, specify language for ast-grep `nil` for default
-        }
+          lang = nil, -- string value, specify language for ast-grep `nil` for default
+        },
       })
-    end
+    end,
   },
   {
     'folke/snacks.nvim', ---@module 'snacks'
     ---@type snacks.Config
     opts = {
       explorer = {
-        enabled = false
+        enabled = false,
       },
       picker = {
         previewers = {
           diff = {
             builtin = false,
-            cmd = { 'delta' }
+            cmd = { 'delta' },
           },
           git = {
-            builtin = false
+            builtin = false,
           },
-          man_pager = 'nvim +Man!'
-        }
+          man_pager = 'nvim +Man!',
+        },
       },
       win = {
-        border = 'rounded'
+        border = 'rounded',
       },
       notifier = {
-        style = 'fancy'
-      }
+        style = 'fancy',
+      },
     },
     version = '*',
     keys = {
       { '<leader>S', false }, -- Disables Scratchpad keymap
-      { '<C-/>', false, mode = 'i' } -- Disables Snacks terminal keymap
-    }
+      { '<C-/>', false, mode = 'i' }, -- Disables Snacks terminal keymap
+    },
   },
   {
     'nvim-lualine/lualine.nvim',
@@ -235,13 +236,13 @@ return --[[@type (LazyPluginSpec[])]]{
         -- component_separators = { left = '', right = '' }
         -- Block/Lines
         section_separators = { left = '▌', right = '▐' },
-        component_separators = { left = '', right = '' }
+        component_separators = { left = '', right = '' },
       },
       sections = {
         lualine_b = {
           { require('recorder').recordingStatus },
           'branch',
-          'gitstatus'
+          'gitstatus',
         },
         lualine_c = {
           { require('recorder').displaySlots },
@@ -253,18 +254,18 @@ return --[[@type (LazyPluginSpec[])]]{
 
               if clicks == 2 then
                 ---@diagnostic disable-next-line: missing-fields
-                require('trouble').toggle {
+                require('trouble').toggle({
                   mode = 'diagnostics',
-                  filter = { buf = bufnr }
-                }
+                  filter = { buf = bufnr },
+                })
               end
-            end
-          }
+            end,
+          },
         },
         lualine_x = {
           {
             'encoding',
-            show_bomb = true
+            show_bomb = true,
           },
           {
             -- indent_style
@@ -285,11 +286,11 @@ return --[[@type (LazyPluginSpec[])]]{
               if clicks == 2 then
                 require('utils').switch_indent_style(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
-                require('lualine').refresh {
-                  place = { 'statusline' }
-                }
+                require('lualine').refresh({
+                  place = { 'statusline' },
+                })
               end
-            end
+            end,
           },
           {
             -- indent_size
@@ -310,11 +311,11 @@ return --[[@type (LazyPluginSpec[])]]{
               if clicks == 2 then
                 require('utils').set_indent_size(bufnr)
                 -- Force Lualine to refresh to reflect the change immediately
-                require('lualine').refresh {
-                  place = { 'statusline' }
-                }
+                require('lualine').refresh({
+                  place = { 'statusline' },
+                })
               end
-            end
+            end,
           },
           {
             -- fileformat
@@ -345,34 +346,34 @@ return --[[@type (LazyPluginSpec[])]]{
                 end
 
                 -- Force Lualine to refresh to reflect the change immediately
-                require('lualine').refresh {
-                  place = { 'statusline' }
-                }
+                require('lualine').refresh({
+                  place = { 'statusline' },
+                })
               end
-            end
+            end,
           },
           {
             'filetype',
             ---@param clicks integer
             on_click = function(clicks, _, _)
               if clicks == 2 then
-                require('telescope.builtin').filetypes {}
+                require('telescope.builtin').filetypes({})
               end
-            end
-          }
+            end,
+          },
         },
         lualine_y = {
           'searchcount',
           'selectioncount',
-          'progress'
+          'progress',
         },
-        lualine_z = { 'location' }
-      }
+        lualine_z = { 'location' },
+      },
     },
-    event = 'VeryLazy'
+    event = 'VeryLazy',
   },
   {
-    'hrsh7th/nvim-cmp',---@module 'cmp'
+    'hrsh7th/nvim-cmp', ---@module 'cmp'
     ---@param opts cmp.SetupProperty|cmp.ConfigSchema
     opts = function(_, opts)
       ---@type cmp.SourceConfig[]
@@ -385,7 +386,7 @@ return --[[@type (LazyPluginSpec[])]]{
         { name = 'luasnip_choice' },
         { name = 'npm' },
         { name = 'pypi' },
-        { name = 'git' }
+        { name = 'git' },
       }
       opts.sources = vim.list_extend(opts.sources or {}, cmp_sources)
 
@@ -394,8 +395,8 @@ return --[[@type (LazyPluginSpec[])]]{
         completion = setRounded,
         documentation = {
           border = setRounded.border,
-          max_width = 60
-        }
+          max_width = 60,
+        },
       }
 
       if opts.performance then
@@ -413,7 +414,7 @@ return --[[@type (LazyPluginSpec[])]]{
               -- can also be a function to dynamically calculate max width such as
               -- menu = function() return math.floor(0.45 * vim.o.columns) end,
               menu = 50, -- leading text (labelDetails)
-              abbr = 60 -- actual suggestion item
+              abbr = 60, -- actual suggestion item
             },
             ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
             show_labelDetails = true,
@@ -426,7 +427,7 @@ return --[[@type (LazyPluginSpec[])]]{
               end
 
               return vim_item_o
-            end
+            end,
           }
           local kind = require('lspkind').cmp_format(options)(entry, vim.deepcopy(vim_item))
           local highlights_info = require('colorful-menu').cmp_highlights(entry)
@@ -444,7 +445,7 @@ return --[[@type (LazyPluginSpec[])]]{
           vim_item.menu = ''
 
           return vim_item
-        end
+        end,
       }
     end,
     init = function()
@@ -459,8 +460,8 @@ return --[[@type (LazyPluginSpec[])]]{
       -- only for sql
       cmp.setup.filetype('sql', {
         sources = {
-          { name = 'sql' }
-        }
+          { name = 'sql' },
+        },
       })
 
       -- only for golang
@@ -473,9 +474,9 @@ return --[[@type (LazyPluginSpec[])]]{
             max_item_count = 5,
             ---@module 'cmp_go_deep'
             ---@type cmp_go_deep.Options
-            option = {}
-          }
-        }
+            option = {},
+          },
+        },
       })
 
       cmp.setup.cmdline({ '/', '?' }, {
@@ -483,12 +484,12 @@ return --[[@type (LazyPluginSpec[])]]{
         sources = {
           {
             name = 'buffer',
-            option = { keyword_pattern = [[\k\+]] }
+            option = { keyword_pattern = [[\k\+]] },
           },
-          { name = 'buffer-lines' }
-        }
+          { name = 'buffer-lines' },
+        },
       })
-    end
+    end,
   },
   {
     'mfussenegger/nvim-dap',
@@ -501,12 +502,12 @@ return --[[@type (LazyPluginSpec[])]]{
           command = vim.fn.exepath('netcoredbg'),
           args = { '--interpreter=vscode' },
           options = {
-            detached = false
-          }
+            detached = false,
+          },
         }
       end
 
-      for _, lang in ipairs { 'cs', 'fsharp', 'vb' } do
+      for _, lang in ipairs({ 'cs', 'fsharp', 'vb' }) do
         if not dap.configurations[lang] then
           dap.configurations[lang] = {
             {
@@ -516,17 +517,17 @@ return --[[@type (LazyPluginSpec[])]]{
               program = function()
                 return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/', 'file')
               end,
-              cwd = '${workspaceFolder}'
-            }
+              cwd = '${workspaceFolder}',
+            },
           }
         end
       end
-    end
+    end,
   },
   {
     'nvimtools/none-ls.nvim',
     dependencies = {
-      'gbprod/none-ls-shellcheck.nvim'
+      'gbprod/none-ls-shellcheck.nvim',
     },
     ---@param opts { sources: table }
     opts = function(_, opts)
@@ -547,7 +548,7 @@ return --[[@type (LazyPluginSpec[])]]{
       local exts = {
         code_actions = {
           eslint_d = require('none-ls.code_actions.eslint_d'),
-          shellcheck = require('none-ls-shellcheck.code_actions')
+          shellcheck = require('none-ls-shellcheck.code_actions'),
         },
 
         formatting = {
@@ -556,56 +557,62 @@ return --[[@type (LazyPluginSpec[])]]{
           oxfmt = require('none-ls.formatting.oxfmt'),
           ruff = require('none-ls.formatting.ruff'),
           tex_fmt = require('none-ls.formatting.tex_fmt'),
-          yq = require('none-ls.formatting.yq')
+          yq = require('none-ls.formatting.yq'),
         },
 
         diagnostics = {
           eslint_d = require('none-ls.diagnostics.eslint_d'),
           oxlint = require('none-ls.diagnostics.oxlint'),
           ruff = require('none-ls.diagnostics.ruff'),
-          shellcheck = require('none-ls-shellcheck.diagnostics')
-        }
+          shellcheck = require('none-ls-shellcheck.diagnostics'),
+        },
       }
 
       local new_sources = {
         -- exts.code_actions.eslint_d,
         code_actions.gitsigns,
-        code_actions.refactoring.with --[[@as fun(user_opts: table)]]{
-          extra_filetypes = {
-            'javascriptreact',
-            'typescriptreact',
-            'vue',
-            'svelte'
-          }
-        },
+        code_actions
+          .refactoring
+          .with --[[@as fun(user_opts: table)]]({
+            extra_filetypes = {
+              'javascriptreact',
+              'typescriptreact',
+              'vue',
+              'svelte',
+            },
+          }),
         code_actions.gomodifytags,
         code_actions.impl,
         exts.code_actions.shellcheck,
         code_actions.statix,
-        code_actions.ts_node_action.with --[[@as fun(user_opts: table)]]{
-          -- Don't remove, this is needed by `nvim-tree.lua`
-          disabled_filetypes = {
-            'conf',
-            'dosini',
-            'fish',
-            'spec',
-            'systemd',
-            'toml',
-            'sh',
-            'bash',
-            'text',
-            'nix',
-            'lisp',
-            'ps1',
-            'log',
-            ''
-          }
-        },
+        code_actions
+          .ts_node_action
+          .with --[[@as fun(user_opts: table)]]({
+            -- Don't remove, this is needed by `nvim-tree.lua`
+            disabled_filetypes = {
+              'conf',
+              'dosini',
+              'fish',
+              'spec',
+              'systemd',
+              'toml',
+              'sh',
+              'bash',
+              'text',
+              'nix',
+              'lisp',
+              'ps1',
+              'log',
+              '',
+            },
+          }),
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
-        diagnostics.editorconfig_checker.with --[[@as fun(user_opts: table)]]{
-          filetypes = { 'editorconfig' }
-        },
+        diagnostics
+          .editorconfig_checker
+          .with --[[@as fun(user_opts: table)]]({
+            filetypes = { 'editorconfig' },
+          }),
         diagnostics.erb_lint,
         -- exts.diagnostics.eslint_d,
         diagnostics.fish,
@@ -632,30 +639,32 @@ return --[[@type (LazyPluginSpec[])]]{
         exts.formatting.golangci_lint,
         exts.formatting.jq,
         formatting.markdownlint,
-        formatting.shfmt.with --[[@as fun(user_opts: table)]]{
-          extra_filetypes = { 'bash' }
-        },
+        formatting
+          .shfmt
+          .with --[[@as fun(user_opts: table)]]({
+            extra_filetypes = { 'bash' },
+          }),
         exts.formatting.oxfmt,
         exts.formatting.ruff,
         formatting.uncrustify,
-        exts.formatting.yq
+        exts.formatting.yq,
       }
 
       -- harper:ignore
 
       -- NOTE: Don't use vim.tbl_deep_extend with this one
       opts.sources = vim.list_extend(opts.sources or {}, new_sources)
-    end
+    end,
   },
   {
     'nvim-mini/mini.icons',
     opts = {
       file = {
-        ['.go-version'] = { glyph = '', hl = 'MiniIconsBlue' }
+        ['.go-version'] = { glyph = '', hl = 'MiniIconsBlue' },
       },
       filetype = {
-        gotmpl = { glyph = '󰟓', hl = 'MiniIconsGrey' }
-      }
-    }
-  }
+        gotmpl = { glyph = '󰟓', hl = 'MiniIconsGrey' },
+      },
+    },
+  },
 }

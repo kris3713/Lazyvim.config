@@ -60,25 +60,25 @@ vim.g.lazyvim_cmp = 'nvim-cmp'
 
 --- Custom filetypes
 -- `msbuild`
-vim.filetype.add {
+vim.filetype.add({
   extension = {
     props = 'msbuild',
     tasks = 'msbuild',
-    targets = 'msbuild'
+    targets = 'msbuild',
   },
   pattern = {
-    [ [[.*\..*proj]] ] = 'msbuild'
-  }
-}
+    [ [[.*\..*proj]] ] = 'msbuild',
+  },
+})
 
 vim.treesitter.language.register('xml', { 'msbuild' })
 
 -- `composer.lock`
-vim.filetype.add {
+vim.filetype.add({
   filename = {
-    ['composer.lock'] = 'json'
-  }
-}
+    ['composer.lock'] = 'json',
+  },
+})
 
 -- Set filetype to Systemd for Systemd unit files
 do
@@ -102,7 +102,7 @@ do
     'kube',
     'pod',
     'build',
-    'image'
+    'image',
   }
 
   local extension_map = {}
@@ -110,7 +110,7 @@ do
     extension_map[exts] = 'systemd'
   end
 
-  vim.filetype.add { extension = extension_map }
+  vim.filetype.add({ extension = extension_map })
 end
 
 -- Set listchars
@@ -129,14 +129,14 @@ do
   local space = '·'
   local blankspace = '␣'
 
-  vim.opt.listchars:append {
+  vim.opt.listchars:append({
     lead = space,
     tab = '|' .. tab,
     multispace = space,
     nbsp = blankspace,
     space = space,
-    trail = space
-  }
+    trail = space,
+  })
 
   vim.cmd([[match TrailingWhitespace /\\s\\+\$/]])
 
@@ -145,7 +145,7 @@ do
     callback = function()
       vim.opt.listchars.trail = nil
       set_hl(0, 'TrailingWhitespace', { link = 'Whitespace' })
-    end
+    end,
   })
 
   create_autocmd('InsertLeave', {
@@ -153,7 +153,7 @@ do
     callback = function()
       vim.opt.listchars.trail = space
       set_hl(0, 'TrailingWhitespace', { link = 'Error' })
-    end
+    end,
   })
 end
 
@@ -199,10 +199,10 @@ vim.o.smartindent = true
 -- vim.o.autoindent = true
 
 -- Configure Neovim's diagnostics
-vim.diagnostic.config {
+vim.diagnostic.config({
   underline = true,
   signs = true,
   virtual_text = false,
   virtual_lines = false,
-  update_in_insert = true
-}
+  update_in_insert = true,
+})
