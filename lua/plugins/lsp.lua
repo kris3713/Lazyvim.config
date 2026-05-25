@@ -808,9 +808,7 @@ return  --[[@type LazyPluginSpec]]{
             },
           },
         },
-
         -- Disabled
-
         -- This is taken cared of by null-ls
 
         -- golangci_lint_ls
