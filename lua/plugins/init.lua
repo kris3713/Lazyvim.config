@@ -574,7 +574,7 @@ return  --[[@type (LazyPluginSpec[])]]{
   },
   {
     'windwp/nvim-autopairs',
-    opts = {},
+    opts = { map_bs = false },
     event = 'InsertEnter',
   },
   {
