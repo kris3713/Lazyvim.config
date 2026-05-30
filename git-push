@@ -2,3 +2,4 @@
 
 git add -- .
 git commit -m 'Updates' -m 'Signed-off-by: kris3713 <07e5297d5b@c0x0.com>'
+git push origin master
