@@ -620,7 +620,7 @@ return  --[[@type (LazyPluginSpec[])]]{
         formatting.erb_lint,
         formatting.fish_indent,
         formatting.gofumpt,
-        formatting.goimports,
+        formatting.goimports_reviser,
         exts.formatting.golangci_lint,
         exts.formatting.jq,
         formatting.markdownlint,
