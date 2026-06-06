@@ -50,7 +50,6 @@ create_autocmd('LspTokenUpdate', {
 
     -- Golang
     set_hl(0, '@lsp.mod.format.go', { link = '@character.printf' })
-    -- set_hl(0, '@string.escape.go', { fg = 'pink' })
   end,
 })
 
