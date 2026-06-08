@@ -129,7 +129,7 @@ do
 
   vim.opt.listchars:append({
     lead = space,
-    tab = ' ',
+    tab = '│ ',
     multispace = space,
     nbsp = '␣',
     space = space,
