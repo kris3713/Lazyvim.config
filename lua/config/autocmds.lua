@@ -39,14 +39,18 @@ create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
   desc = 'Set semantic highlighting for LSP tokens',
   callback = function()
-    -- set_hl(0, '@lsp.type.class', { fg = '#eed49f' })
-    set_hl(0, '@lsp.type.typeParameter', { fg = '#ed9687', italic = true })
-    -- set_hl(0, '@lsp.type.method', { fg = '#8aadf4' })
-    -- set_hl(0, '@lsp.typemod.variable.global', { fg = '#8bd5ca' })
-    -- set_hl(0, '@lsp.type.event', { fg = '#72d35d' })
+    local catppuccin_palletes = require('catppuccin.palettes')
+    local colors = catppuccin_palletes.get_palette()
+
+    set_hl(0, '@lsp.type.typeParameter', { fg = colors.maroon, italic = true })
     set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
     set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
     set_hl(0, '@lsp.mod.readonly', { italic = true })
+
+    -- Rust
+    set_hl(0, '@lsp.type.variable.rust', { fg = colors.text })
+    set_hl(0, '@lsp.typemod.const.declaration.rust', { link = '@lsp.mod.readonly' })
+    set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
   end,
 })
 

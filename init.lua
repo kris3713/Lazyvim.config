@@ -1,6 +1,9 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require('config.lazy')
 
+-- Set catppuccin flavour
+vim.g.catppuccin_flavour = 'macchiato'
+
 -- Set the theme to Catpuccin Macchiato
 vim.cmd('colorscheme catppuccin-macchiato')
 
