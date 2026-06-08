@@ -47,9 +47,6 @@ create_autocmd('LspTokenUpdate', {
     set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
     set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
     set_hl(0, '@lsp.mod.readonly', { italic = true })
-
-    -- Golang
-    set_hl(0, '@lsp.mod.format.go', { link = '@character.printf' })
   end,
 })
 
