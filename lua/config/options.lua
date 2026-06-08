@@ -136,7 +136,7 @@ do
     trail = space,
   })
 
-  vim.cmd([[match TrailingWhitespace /\\s\\+\$/]])
+  vim.cmd('match TrailingWhitespace /\\s\\+\\$/')
 
   create_autocmd('InsertEnter', {
     group = create_augroup('hl_trailing_whitespace_pt_1'),
