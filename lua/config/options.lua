@@ -125,15 +125,13 @@ do
 
   local set_hl = vim.api.nvim_set_hl
 
-  local tab = ''
   local space = '·'
-  local blankspace = '␣'
 
   vim.opt.listchars:append({
     lead = space,
-    tab = '│' .. tab,
+    tab = ' ',
     multispace = space,
-    nbsp = blankspace,
+    nbsp = '␣',
     space = space,
     trail = space,
   })
