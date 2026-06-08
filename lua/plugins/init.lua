@@ -705,7 +705,7 @@ return  --[[@type (LazyPluginSpec[])]]{
     'mcauley-penney/visual-whitespace.nvim',
     opts = {
       list_chars = {
-        tab = '|󰌒',
+        tab = '',
       },
     },
     event = 'ModeChanged *:[vV\22]',

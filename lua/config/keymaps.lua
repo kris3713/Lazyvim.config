@@ -175,21 +175,22 @@ end
 -- Telescope
 vim_keymap.set('n', '<leader>se', function()
   vim.cmd('Telescope symbols')
-end, opts('Telescope symbols'))
+end, opts('Symbols'))
 vim_keymap.set('n', '<leader>U', function()
   vim.cmd('Telescope undo')
-end, opts('Telescope undo'))
+end, opts('Undo history'))
 vim_keymap.set('n', '"', function()
   vim.cmd('Telescope registers')
-end, opts('Telescope registers'))
+end, opts('Registers'))
 vim_keymap.set('n', '<leader>\'', function()
   vim.cmd('Telescope keymaps')
-end, opts('Telescope keymaps'))
+end, opts('Keymaps'))
 
-for _, lhs in ipairs({ '\'', '`' }) do
+-- stylua: ignore
+for _, lhs in ipairs({ "'", '`' }) do
   vim_keymap.set('n', lhs, function()
     vim.cmd('Telescope marks')
-  end, opts('Telescope marks'))
+  end, opts('Marks'))
 end
 
 -- bufferline
