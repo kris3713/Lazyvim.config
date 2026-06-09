@@ -38,9 +38,11 @@ create_autocmd('VimLeave', {
 create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
   desc = 'Set semantic highlighting for LSP tokens',
-  callback = function()
+  callback = function(args)
     local catppuccin_palletes = require('catppuccin.palettes')
     local colors = catppuccin_palletes.get_palette()
+
+    local set_hl_token = vim.lsp.semantic_tokens.highlight_token
 
     set_hl(0, '@lsp.type.typeParameter', { fg = colors.maroon, italic = true })
     set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
@@ -49,8 +51,22 @@ create_autocmd('LspTokenUpdate', {
 
     -- Rust
     set_hl(0, '@lsp.type.variable.rust', { fg = colors.text })
-    set_hl(0, '@lsp.typemod.const.declaration.rust', { link = '@lsp.mod.readonly' })
     set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
+    set_hl(0, '@lsp.type.const.rust', { link = '@lsp.mod.readonly' })
+
+    ---@type { type: lsp.SemanticTokenTypes, modifiers: table<string, boolean>? }
+    local token = args.data.token
+    local bufnr = args.buf
+    local client_id = args.data.client_id --[[@as integer]]
+
+    if vim.bo[bufnr].filetype == 'rust' and token.modifiers then
+      if token.type == 'variable' or token.type == 'parameter' then
+        -- Highlight mutable variables
+        if not token.modifiers.mutable then
+          set_hl_token(token, bufnr, client_id, '@lsp.mod.readonly')
+        end
+      end
+    end
   end,
 })
 
