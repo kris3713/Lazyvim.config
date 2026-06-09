@@ -390,11 +390,12 @@ return  --[[@type (LazyPluginSpec[])]]{
       }
       opts.sources = vim.list_extend(opts.sources or {}, cmp_sources)
 
-      local setRounded = { border = 'rounded' }
       opts.window = {
-        completion = setRounded,
+        completion = {
+          border = 'rounded',
+        },
         documentation = {
-          border = setRounded.border,
+          border = 'rounded',
           max_width = 60,
         },
       }
