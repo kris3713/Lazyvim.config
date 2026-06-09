@@ -291,6 +291,12 @@ return  --[[@type (LazyPluginSpec[])]]{
     event = 'LspAttach',
   },
   {
+    'romus204/tree-sitter-manager.nvim',
+    opts = {
+      border = 'rounded',
+    },
+  },
+  {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
     opts = {},
