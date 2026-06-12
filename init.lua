@@ -5,7 +5,7 @@ require('config.lazy')
 vim.g.catppuccin_flavour = 'macchiato'
 
 -- Set the theme to Catpuccin Macchiato
-vim.cmd('colorscheme catppuccin-macchiato')
+vim.cmd('colorscheme catppuccin-' .. vim.g.catppuccin_flavour)
 
 -- Enable vim loader
 vim.loader.enable(true)
