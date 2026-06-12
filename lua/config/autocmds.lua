@@ -54,7 +54,9 @@ create_autocmd('LspTokenUpdate', {
     set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
     set_hl(0, '@lsp.type.const.rust', { link = '@lsp.mod.readonly' })
 
-    ---@type { type: lsp.SemanticTokenTypes, modifiers: table<string, boolean>? }
+    ---@type {
+    ---   type: lsp.SemanticTokenTypes,
+    ---   modifiers: table<string, boolean>?}
     local token = args.data.token
     local client_id = args.data.client_id --[[@as integer]]
     local bufnr = args.buf
@@ -68,7 +70,7 @@ create_autocmd('LspTokenUpdate', {
       end
     end
 
-    if vim.bo[bufnr].filetype == 'fish' then
+    if vim.bo[bufnr].filetype == 'fish' and token.modifiers then
       if token.type == 'variable' then
         if token.modifiers.global then
           set_hl_token(token, bufnr, client_id, 'Constant')
