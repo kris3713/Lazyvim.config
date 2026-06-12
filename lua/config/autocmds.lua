@@ -56,14 +56,22 @@ create_autocmd('LspTokenUpdate', {
 
     ---@type { type: lsp.SemanticTokenTypes, modifiers: table<string, boolean>? }
     local token = args.data.token
-    local bufnr = args.buf
     local client_id = args.data.client_id --[[@as integer]]
+    local bufnr = args.buf
 
     if vim.bo[bufnr].filetype == 'rust' and token.modifiers then
       if token.type == 'variable' or token.type == 'parameter' then
         -- Highlight mutable variables
         if not token.modifiers.mutable then
           set_hl_token(token, bufnr, client_id, '@lsp.mod.readonly')
+        end
+      end
+    end
+
+    if vim.bo[bufnr].filetype == 'fish' then
+      if token.type == 'variable' then
+        if token.modifiers.global then
+          set_hl_token(token, bufnr, client_id, 'Constant')
         end
       end
     end
