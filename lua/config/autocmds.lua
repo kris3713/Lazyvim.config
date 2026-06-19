@@ -66,7 +66,8 @@ create_autocmd('LspTokenUpdate', {
     end
 
     if vim.bo[bufnr].filetype == 'rust' then
-      if token.type == 'variable' or token.type == 'parameter' then
+      local type = token.type
+      if type == 'variable' or type == 'parameter' or type == 'property' then
         -- Highlight mutable variables
         if not token.modifiers.mutable then
           hl_token(token, bufnr, client_id, '@lsp.mod.readonly')
