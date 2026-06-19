@@ -14,7 +14,6 @@ local function create_augroup(name)
 end
 
 local create_autocmd = vim.api.nvim_create_autocmd
-
 local set_hl = vim.api.nvim_set_hl
 
 -- Get rid of Neovim's stupid cursor change
@@ -41,38 +40,44 @@ create_autocmd('LspTokenUpdate', {
   callback = function(args)
     local colors = require('catppuccin.palettes').get_palette()
 
-    local set_hl_token = vim.lsp.semantic_tokens.highlight_token
+    local hl_token = vim.lsp.semantic_tokens.highlight_token
 
     set_hl(0, '@lsp.type.typeParameter', { fg = colors.maroon, italic = true })
     set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
     set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
     set_hl(0, '@lsp.mod.readonly', { italic = true })
+    set_hl(0, '@lsp.type.variable', { fg = colors.text })
 
     -- Rust
-    set_hl(0, '@lsp.type.variable.rust', { fg = colors.text })
     set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
     set_hl(0, '@lsp.type.const.rust', { link = '@lsp.mod.readonly' })
 
     ---@type {
     ---   type: lsp.SemanticTokenTypes,
-    ---   modifiers: table<string, boolean>?}
+    ---   modifiers: table<string, boolean>}
     local token = args.data.token
     local client_id = args.data.client_id --[[@as integer]]
     local bufnr = args.buf
 
-    if vim.bo[bufnr].filetype == 'rust' and token.modifiers then
+    -- Prevents hlargs from highlighting variables that have
+    -- the same name as a parameter
+    if token.type == 'variable' then
+      hl_token(token, bufnr, client_id, '@lsp.type.variable', { priority = 129 })
+    end
+
+    if vim.bo[bufnr].filetype == 'rust' then
       if token.type == 'variable' or token.type == 'parameter' then
         -- Highlight mutable variables
         if not token.modifiers.mutable then
-          set_hl_token(token, bufnr, client_id, '@lsp.mod.readonly')
+          hl_token(token, bufnr, client_id, '@lsp.mod.readonly')
         end
       end
     end
 
-    if vim.bo[bufnr].filetype == 'fish' and token.modifiers then
+    if vim.bo[bufnr].filetype == 'fish' then
       if token.type == 'variable' then
         if token.modifiers.global then
-          set_hl_token(token, bufnr, client_id, 'Constant')
+          hl_token(token, bufnr, client_id, 'Constant')
         end
       end
     end

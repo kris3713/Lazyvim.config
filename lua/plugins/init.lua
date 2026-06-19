@@ -425,7 +425,7 @@ return  --[[@type (LazyPluginSpec[])]]{
     'm-demare/hlargs.nvim',
     opts = {
       color = require('catppuccin.palettes').get_palette().red,
-      hl_priority = 130,
+      hl_priority = 128,
     },
   },
   {
