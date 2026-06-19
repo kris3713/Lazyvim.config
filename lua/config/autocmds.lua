@@ -43,6 +43,7 @@ create_autocmd('LspTokenUpdate', {
 
     local set_hl_token = vim.lsp.semantic_tokens.highlight_token
 
+    set_hl(0, '@lsp.type.parameter', { link = 'Hlargs' })
     set_hl(0, '@lsp.type.typeParameter', { fg = colors.maroon, italic = true })
     set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
     set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
