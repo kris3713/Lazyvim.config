@@ -423,7 +423,7 @@ return  --[[@type (LazyPluginSpec[])]]{
   },
   {
     'm-demare/hlargs.nvim',
-    opts = { color = '#ed8796' },
+    opts = { color = require('catppuccin.palettes').get_palette().red },
   },
   {
     'akinsho/toggleterm.nvim',

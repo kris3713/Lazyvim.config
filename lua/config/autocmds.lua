@@ -39,8 +39,7 @@ create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
   desc = 'Set semantic highlighting for LSP tokens',
   callback = function(args)
-    local catppuccin_palletes = require('catppuccin.palettes')
-    local colors = catppuccin_palletes.get_palette()
+    local colors = require('catppuccin.palettes').get_palette()
 
     local set_hl_token = vim.lsp.semantic_tokens.highlight_token
 
