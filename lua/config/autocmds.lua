@@ -149,7 +149,7 @@ create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
     local bufnr = args.buf
     local shebang = vim.fn.getline(1)
     if shebang:match('^#!.*bun') then
-      vim.bo[bufnr].filetype = 'javascript'
+      vim.bo[bufnr].filetype = 'typescript'
     end
   end,
 })
