@@ -55,7 +55,7 @@ create_autocmd('LspTokenUpdate', {
 
     ---@class Token
     ---@field type lsp.SemanticTokenTypes
-    ---@field modifiers table<string, boolean>
+    ---@field modifiers table<string, true>
     local token = args.data.token
     local client_id = args.data.client_id --[[@as integer]]
     local bufnr = args.buf
