@@ -20,20 +20,20 @@ local function enable_lua_ls(lsp_name)
 
   ---@alias is_enabled { enabled: boolean }
 
+  ---@class NeoConf_Plugins
+  ---@field lua_ls is_enabled
+  ---@field emmylua_ls is_enabled
+
   ---@class NeoConf_Json
-  ---@private
-  ---@field neoconf { plugins: {
-  ---   lua_ls: is_enabled,
-  ---   emmylua_ls: is_enabled
-  --- }}
+  ---@field neoconf { plugins: NeoConf_Plugins }
 
   local neoconf_json = nil
   local success, data = pcall(vim.json.decode, json_content, { object = true })
   if success then
-    ---@cast neoconf_json NeoConf_Json?
     neoconf_json = data
   end
 
+  ---@cast neoconf_json NeoConf_Json?
   if neoconf_json then
     local neoconf_plugins = neoconf_json.neoconf.plugins
     if neoconf_plugins[lsp_name] then
