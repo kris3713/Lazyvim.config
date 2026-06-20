@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-git add -- ./lazy-lock.json
+git add -v -- ./lazy-lock.json
 git commit -m 'Updates' -m 'Signed-off-by: kris3713 <07e5297d5b@c0x0.com>'
 git push
