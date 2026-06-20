@@ -142,7 +142,7 @@ create_autocmd({ 'BufEnter', 'BufRead' }, {
   end,
 })
 
--- Ensure bun shebangs are detected as JavaScript
+-- Ensure bun shebangs are detected as TypeScript
 create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
   group = create_augroup('bun_shebang'),
   callback = function(args)
