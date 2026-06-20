@@ -53,11 +53,9 @@ create_autocmd('LspTokenUpdate', {
     set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
     set_hl(0, '@lsp.type.const.rust', { link = '@lsp.mod.readonly' })
 
-    ---@alias TokenModifiers lsp.SemanticTokenModifiers | string
-
     ---@class Token
     ---@field type lsp.SemanticTokenTypes
-    ---@field modifiers table<TokenModifiers, boolean>
+    ---@field modifiers table<string, boolean>
     local token = args.data.token
     local client_id = args.data.client_id --[[@as integer]]
     local bufnr = args.buf
