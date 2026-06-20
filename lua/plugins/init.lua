@@ -257,9 +257,9 @@ return  --[[@type (LazyPluginSpec[])]]{
   },
   {
     'hiphish/rainbow-delimiters.nvim', ---@module 'rainbow-delimiters'
-    ---@param opts rainbow_delimiters.config
-    opts = function(_, opts)
-      local highlight = {
+    ---@type rainbow_delimiters.config
+    opts = {
+      highlight = {
         'RainbowDelimiterRed',
         'RainbowDelimiterOrange',
         'RainbowDelimiterYellow',
@@ -268,10 +268,8 @@ return  --[[@type (LazyPluginSpec[])]]{
         'RainbowDelimiterBlue',
         'RainbowDelimiterCyan',
         'RainbowDelimiterViolet',
-      }
-
-      opts.highlight = highlight
-    end,
+      },
+    },
     main = 'rainbow-delimiters.setup',
   },
   {
@@ -294,6 +292,12 @@ return  --[[@type (LazyPluginSpec[])]]{
     'romus204/tree-sitter-manager.nvim',
     opts = {
       border = 'rounded',
+    },
+  },
+  {
+    'Sang-it/fluoride',
+    opts = {
+      window = { border = 'rounded' },
     },
   },
   {
