@@ -45,6 +45,7 @@ create_autocmd('LspTokenUpdate', {
     set_hl(0, '@lsp.type.typeParameter', { fg = colors.maroon, italic = true })
     set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
     set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
+    set_hl(0, '@lsp.typemod.variable.global', { link = '@namespace' })
     set_hl(0, '@lsp.mod.readonly', { italic = true })
     set_hl(0, '@lsp.type.variable', { fg = colors.text })
 
@@ -63,7 +64,7 @@ create_autocmd('LspTokenUpdate', {
 
     -- Prevents hlargs from highlighting variables that have
     -- the same name as a parameter
-    if token.type == 'variable' then
+    if token.type == 'variable' and not token.modifiers.global then
       hl_token(token, bufnr, client_id, '@lsp.type.variable', { priority = 129 })
     end
 
@@ -78,10 +79,8 @@ create_autocmd('LspTokenUpdate', {
     end
 
     if vim.bo[bufnr].filetype == 'fish' then
-      if token.type == 'variable' then
-        if token.modifiers.global then
-          hl_token(token, bufnr, client_id, 'Constant')
-        end
+      if token.type == 'variable' and token.modifiers.global then
+        hl_token(token, bufnr, client_id, 'Constant')
       end
     end
   end,
