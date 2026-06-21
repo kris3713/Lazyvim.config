@@ -44,14 +44,15 @@ create_autocmd('LspTokenUpdate', {
 
     set_hl(0, '@lsp.type.typeParameter', { fg = colors.maroon, italic = true })
     set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
-    set_hl(0, '@lsp.typemod.parameter.readonly', { italic = true })
-    set_hl(0, '@lsp.typemod.variable.global', { link = '@namespace' })
     set_hl(0, '@lsp.mod.readonly', { italic = true })
+    set_hl(0, '@lsp.typemod.parameter.readonly', { link = '@lsp.mod.readonly' })
+    set_hl(0, '@lsp.typemod.variable.global', { link = '@namespace' })
     set_hl(0, '@lsp.type.variable', { fg = colors.text })
 
     -- Rust
     set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
     set_hl(0, '@lsp.type.const.rust', { link = '@lsp.mod.readonly' })
+    set_hl(0, '@lsp.typemod.const.constant.rust', { link = 'Constant' })
 
     ---@class Token
     ---@field type lsp.SemanticTokenTypes
