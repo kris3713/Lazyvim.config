@@ -46,10 +46,9 @@ create_autocmd('LspTokenUpdate', {
     set_hl(0, '@lsp.typemod.variable.defaultLibrary', { italic = true, bold = true })
     set_hl(0, '@lsp.mod.readonly', { italic = true })
     set_hl(0, '@lsp.typemod.parameter.readonly', { link = '@lsp.mod.readonly' })
-    set_hl(0, '@lsp.typemod.variable.global', { link = '@namespace' })
-    set_hl(0, '@lsp.type.variable', { fg = colors.text })
 
     -- Rust
+    set_hl(0, '@lsp.type.variable.rust', { fg = colors.text })
     set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
     set_hl(0, '@lsp.type.const.rust', { link = '@lsp.mod.readonly' })
     set_hl(0, '@lsp.typemod.const.constant.rust', { link = 'Constant' })
@@ -60,12 +59,6 @@ create_autocmd('LspTokenUpdate', {
     local token = args.data.token
     local client_id = args.data.client_id --[[@as integer]]
     local bufnr = args.buf
-
-    -- Prevents hlargs from highlighting variables that have
-    -- the same name as a parameter
-    if token.type == 'variable' and not token.modifiers.global then
-      hl_token(token, bufnr, client_id, '@lsp.type.variable', { priority = 129 })
-    end
 
     if vim.bo[bufnr].filetype == 'rust' then
       local t_type = token.type
