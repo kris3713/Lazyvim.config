@@ -26,7 +26,7 @@ return  --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rs',
           function()
-            refactoring.select_refactor({})
+            refactoring.select_refactor()
           end,
           desc = 'Select Refactor',
           mode = modes,
@@ -40,7 +40,7 @@ return  --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rev',
           function()
-            return refactoring.inline_var({})
+            return refactoring.inline_var()
           end,
           desc = 'Inline Variable',
           mode = modes,
@@ -49,7 +49,7 @@ return  --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>ref',
           function()
-            return refactoring.inline_func({})
+            return refactoring.inline_func()
           end,
           desc = 'Inline Function',
           mode = modes,
@@ -65,7 +65,7 @@ return  --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rxv',
           function()
-            return refactoring.extract_var({})
+            return refactoring.extract_var()
           end,
           desc = 'Extract Variable',
           mode = modes,
@@ -74,7 +74,7 @@ return  --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rxf',
           function()
-            return refactoring.extract_func({})
+            return refactoring.extract_func()
           end,
           desc = 'Extract Function',
           mode = modes,
@@ -83,7 +83,7 @@ return  --[[@type (LazyPluginSpec[])]]{
         {
           '<leader>rxF',
           function()
-            return refactoring.extract_func_to_file({})
+            return refactoring.extract_func_to_file()
           end,
           desc = 'Extract Function To File',
           mode = modes,
