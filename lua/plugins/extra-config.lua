@@ -1,4 +1,4 @@
---- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter, type-not-found
+--- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
 
 return  --[[@type (LazyPluginSpec[])]]{
   --harper:ignore

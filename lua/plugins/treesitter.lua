@@ -11,4 +11,8 @@ return  --[[@type (LazyPluginSpec[])]]{
     'ckolkey/ts-node-action',
     opts = {},
   },
+  {
+    'aaronik/treewalker.nvim',
+    opts = {},
+  },
 }

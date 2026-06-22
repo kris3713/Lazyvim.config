@@ -252,6 +252,11 @@ return  --[[@type (LazyPluginSpec[])]]{
     event = 'VeryLazy',
   },
   {
+    'windwp/nvim-autopairs',
+    opts = { map_bs = false },
+    event = 'InsertEnter',
+  },
+  {
     'cappyzawa/trim.nvim',
     opts = {
       -- harper:ignore
@@ -416,5 +421,13 @@ return  --[[@type (LazyPluginSpec[])]]{
       },
     },
     event = 'LspAttach',
-  }
+  },
+  {
+    'chrisgrieser/nvim-scissors',
+    opts = { snippetDir = os.getenv('HOME') .. '/MEGA' },
+  },
+  {
+    'fei6409/log-highlight.nvim',
+    opts = {},
+  },
 }

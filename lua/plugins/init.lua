@@ -1,4 +1,4 @@
---- @diagnostic disable: missing-fields, type-not-found, annotation-usage-error
+--- @diagnostic disable: missing-fields
 ---@module 'lazy'
 
 return  --[[@type (LazyPluginSpec[])]]{
@@ -25,20 +25,39 @@ return  --[[@type (LazyPluginSpec[])]]{
     -- ,dependencies = 'rcarriga/nvim-notify'
   },
   {
-    'rachartier/tiny-code-action.nvim',
-    opts = {
-      ---The backend to use, currently only 'vim', 'delta', 'difftastic', 'diffsofancy' are supported
-      ---@type 'vim'|'delta'|'difftastic'|'diffsofancy'
-      backend = 'delta',
+    'chentoast/marks.nvim',
+    opts = function(_, opts)
+      if not opts then
+        return
+      end
 
-      ---The picker to use, 'telescope', 'snacks', 'select', 'buffer', 'fzf-lua' are supported
-      ---And it's opts that will be passed at the picker's creation, optional
-      ---
-      ---You can also set `picker = '<picker>'` without any opts.
-      ---@type 'telescope'|'snacks'|'select'|'buffer'|'fzf-lua'
-      picker = 'snacks',
+      opts.mappings = {
+        set = 'mm',
+        delete = 'md',
+        delete_line = 'md-',
+        delete_bookmark = 'md=',
+        delete_buf = 'md<space>',
+        -- set_next = "m,",
+        -- next = "m]",
+        -- preview = "m:",
+        -- set_bookmark0 = "m0",
+        -- prev = false
+      }
+
+      for i = 0, 9 do
+        opts.mappings['set_bookmark' .. i] = 'm' .. tostring(i)
+        opts.mappings['delete_bookmark' .. i] = 'md' .. tostring(i)
+      end
+    end,
+    event = 'VeryLazy',
+    keys = {
+      {
+        'm',
+        '',
+        desc = '+marks',
+        mode = 'n',
+      },
     },
-    event = 'LspAttach',
   },
   {
     'Sang-it/fluoride',
@@ -47,55 +66,19 @@ return  --[[@type (LazyPluginSpec[])]]{
     },
   },
   {
-    'yousefhadder/markdown-plus.nvim',
-    ft = 'markdown',
-    opts = {},
-  },
-  {
     'nanotee/zoxide.vim',
     init = function()
       vim.g.zoxide_use_select = 1
     end,
   },
   {
-    'fei6409/log-highlight.nvim',
-    opts = {},
-  },
-  {
     'AckslD/muren.nvim',
-    opts = {},
-  },
-  {
-    'kevinhwang91/nvim-hlslens',
-    opts = {},
-  },
-  {
-    'nvzone/volt',
-    lazy = true,
-  },
-  {
-    'nvzone/showkeys',
-    cmd = 'ShowkeysToggle',
-    opts = { position = 'bottom-center' },
-  },
-  {
-    'nvzone/minty',
-    cmd = { 'Shades', 'Heufy' },
-    opts = {},
-  },
-  {
-    'abccsss/nvim-gitstatus',
-    event = 'VeryLazy',
     opts = {},
   },
   {
     'b0o/SchemaStore.nvim',
     lazy = true,
     version = false, -- last release is way too old
-  },
-  {
-    'chrisgrieser/nvim-scissors',
-    opts = { snippetDir = os.getenv('HOME') .. '/MEGA' },
   },
   {
     'akinsho/toggleterm.nvim',
@@ -171,55 +154,6 @@ return  --[[@type (LazyPluginSpec[])]]{
     end,
   },
   {
-    'stevearc/stickybuf.nvim',
-    opts = {},
-  },
-  {
-    'aaronik/treewalker.nvim',
-    opts = {},
-  },
-  {
-    'chentoast/marks.nvim',
-    opts = function(_, opts)
-      if not opts then
-        return
-      end
-
-      opts.mappings = {
-        set = 'mm',
-        delete = 'md',
-        delete_line = 'md-',
-        delete_bookmark = 'md=',
-        delete_buf = 'md<space>',
-        -- set_next = "m,",
-        -- next = "m]",
-        -- preview = "m:",
-        -- set_bookmark0 = "m0",
-        -- prev = false
-      }
-
-      for i = 0, 9 do
-        opts.mappings['set_bookmark' .. i] = 'm' .. tostring(i)
-        opts.mappings['delete_bookmark' .. i] = 'md' .. tostring(i)
-      end
-    end,
-    event = 'VeryLazy',
-    keys = {
-      {
-        'm',
-        '',
-        desc = '+marks',
-        mode = 'n',
-      },
-    },
-  },
-  {
-    'dstein64/nvim-scrollview',
-    opts = {
-      excluded_filetypes = { 'NvimTree' },
-    },
-  },
-  {
     'vuki656/package-info.nvim',
     opts = {
       package_manager = 'bun',
@@ -232,82 +166,8 @@ return  --[[@type (LazyPluginSpec[])]]{
     },
   },
   {
-    'https://git.sr.ht/~havi/telescope-toggleterm.nvim',
-    opts = {},
-    event = 'TermOpen',
-    dependencies = 'nvim-lua/popup.nvim',
-  },
-  {
-    'jmbuhr/otter.nvim',
-    opts = {},
-  },
-  {
-    'windwp/nvim-autopairs',
-    opts = { map_bs = false },
-    event = 'InsertEnter',
-  },
-  {
-    'seblyng/roslyn.nvim', ---@module 'roslyn'
-    ---@type RoslynNvimConfig
-    opts = {
-      filewatching = 'roslyn',
-    },
-    ft = { 'cs' },
-  },
-  {
     'nacro90/numb.nvim',
     opts = {},
-  },
-  {
-    'luckasRanarison/tailwind-tools.nvim', ---@module 'tailwind-tools'
-    ---@type TailwindTools.Option
-    opts = {
-      server = {
-        settings = {
-          experimental = {
-            classRegex = {
-              {
-                'classnames\\(([^)]*)\\)',
-                '\'([^\']*)\'',
-              },
-              {
-                'classList={{([^;]*)}}',
-                '\\s*?["\'`]([^"\'`]*).*?:',
-              },
-              {
-                'classNames:\\s*{([\\s\\S]*?)}',
-                '\\s?[\\w].*:\\s*?["\'`]([^"\'`]*).*?,?\\s?',
-              },
-              'class:\\s*[\'\\"]([^\'\\"]*)[\'\\"]',
-              ':class=\\s*\\{([^}]+)\\}',
-              '(?:enter|leave)(?:From|To)?=\\s*(?:"|\'|{`)([^(?:"|\'|`})]*)',
-              'tw`([^`]*)`',
-              'tw="([^"]*)', -- <div tw="..." />
-              'tw={"([^"}]*)', -- <div tw={"..."} />
-              'tw\\.\\w+`([^`]*)', -- tw.xxx`...`
-              'tw\\(.*?\\)`([^`]*)', -- tw(Component)`...`
-            },
-          },
-          includeLanguages = {
-            elixir = 'html-eex',
-            eelixir = 'html-eex',
-            heex = 'html-eex',
-          },
-        },
-      },
-    },
-    name = 'tailwind-tools',
-    build = function()
-      vim.cmd('UpdateRemotePlugins')
-    end,
-  },
-  {
-    'nvimdev/lspsaga.nvim', ---@module 'lspsaga'
-    ---@type LspsagaConfig
-    opts = {
-      ui = { code_action = '' },
-      symbol_in_winbar = { enable = false },
-    },
   },
   {
     'mikavilpas/yazi.nvim', ---@module 'yazi'
@@ -358,79 +218,12 @@ return  --[[@type (LazyPluginSpec[])]]{
     end,
   },
   {
-    'nvim-flutter/flutter-tools.nvim',
-    lazy = false,
-    opts = {},
-  },
-  {
-    'ray-x/lsp_signature.nvim',
-    opts = {
-      handler_opts = { border = 'rounded' },
-      hint_prefix = '❔ ',
-      floating_window_off_y = 15,
-    },
-    event = 'InsertEnter',
-  },
-  {
-    'gbprod/phpactor.nvim',
-    ft = 'php',
-    opts = {
-      install = {
-        path = vim.fn.stdpath('data') .. '/mason/bin',
-        bin = vim.fn.stdpath('data') .. '/mason/bin/phpactor',
-      },
-    },
-  },
-  {
     'michaelb/sniprun',
     opts = {},
     branch = 'master',
     build = 'sh ./install.sh',
     -- do 'sh install.sh 1' if you want to force compile locally
     -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
-  },
-  {
-    'GCBallesteros/jupytext.nvim',
-    opts = {
-      custom_language_formatting = {
-        python = {
-          extension = 'md',
-          style = 'markdown',
-          force_ft = 'markdown', -- you can set whatever filetype you want here
-        },
-      },
-    },
-  },
-  {
-    'linux-cultist/venv-selector.nvim', ---@module 'venv-selector'
-    ---@type venv-selector.Settings
-    opts = {
-      options = {
-        notify_user_on_venv_activation = true,
-      },
-    },
-    ft = 'python',
-    cmd = 'VenvSelect',
-    --  Call config for Python files and load the cached venv automatically
-    keys = {
-      {
-        '<leader>cv',
-        function()
-          vim.cmd('VenvSelect')
-        end,
-        desc = 'Select VirtualEnv',
-        mode = 'n',
-        ft = 'python',
-      },
-    },
-  },
-  {
-    '3rd/image.nvim', ---@module 'image'
-    ---@type Options
-    opts = {
-      processor = 'magick_cli',
-    },
-    build = false,
   },
   {
     -- support for image pasting
