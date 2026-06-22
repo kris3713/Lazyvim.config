@@ -1019,7 +1019,15 @@ return  --[[@type (LazyPluginSpec[])]]{
   {
     'kylechui/nvim-surround', ---@module 'nvim-surround'
     ---@type user_options
-    opts = {},
+    opts = {
+      surrounds = {
+        ['|'] = {
+          add = { '|', '|' },
+          delete = '^(.)().-(.)()$',
+          label = '|...|',
+        },
+      },
+    },
     version = '*',
     event = 'VeryLazy',
   },
