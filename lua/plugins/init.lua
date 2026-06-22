@@ -1024,6 +1024,9 @@ return  --[[@type (LazyPluginSpec[])]]{
         ['|'] = {
           add = { '|', '|' },
           delete = '^(.)().-(.)()$',
+          find = function()
+            return require('nvim-surround.config').get_selection({ motion = 'a|' })
+          end,
           label = '|...|',
         },
       },
