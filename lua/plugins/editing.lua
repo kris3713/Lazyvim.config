@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 ---@module 'lazy'
 
 return  --[[@type (LazyPluginSpec[])]]{
@@ -232,4 +233,188 @@ return  --[[@type (LazyPluginSpec[])]]{
       set_hl(0, 'MultiCursorDisabledSign', sign_column)
     end,
   },
+  {
+    'kylechui/nvim-surround', ---@module 'nvim-surround'
+    ---@type user_options
+    opts = {
+      surrounds = {
+        ['|'] = {
+          add = { '|', '|' },
+          delete = '^(.)().-(.)()$',
+          find = function()
+            return require('nvim-surround.config').get_selection({ motion = 'a|' })
+          end,
+          label = '|...|',
+        },
+      },
+    },
+    version = '*',
+    event = 'VeryLazy',
+  },
+  {
+    'cappyzawa/trim.nvim',
+    opts = {
+      -- harper:ignore
+      -- if you want to ignore markdown file.
+      -- you can specify filetypes.
+      ft_blocklist = {
+        'snacks_dashboard',
+        'snacks_terminal',
+      },
+      -- harper:ignore
+      -- if you want to disable trim on write by default
+      trim_on_write = false,
+      -- highlight trailing spaces
+      highlight = true,
+    },
+    keys = {
+      {
+        '<leader>T',
+        function()
+          vim.cmd('Trim')
+        end,
+        desc = 'Trim all trailing whitespaces and lines',
+        mode = 'n',
+      },
+    },
+  },
+  {
+    'qwavies/smart-backspace.nvim',
+    opts = {},
+    event = { 'InsertEnter', 'CmdlineEnter' },
+    keys = {
+      {
+        '<leader>B',
+        function()
+          vim.cmd('SmartBackspaceToggle')
+        end,
+        desc = 'Toggle Smart Backspace',
+        mode = 'n',
+      },
+    },
+  },
+  {
+    'chrisgrieser/nvim-origami', ---@module 'origami'
+    ---@type Origami.config
+    opts = {
+      autoFold = { enabled = false },
+      foldKeymaps = { setup = false },
+    },
+    event = 'VeryLazy',
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local origami = require('origami')
+
+      keys = {
+        {
+          'zR',
+          origami.dollar,
+          desc = 'Open all folds',
+          mode = 'n',
+        },
+        {
+          'zM',
+          origami.caret,
+          desc = 'Close all folds',
+          mode = 'n',
+        },
+      }
+
+      return keys
+    end,
+  },
+  {
+    'andymass/vim-matchup', ---@module 'match-up'
+    ---@type matchup.Config
+    opts = {
+      treesitter = {
+        stopline = 500,
+      },
+    },
+  },
+  {
+    'windwp/nvim-ts-autotag', ---@module 'nvim-ts-autotag'
+    ---@type nvim-ts-autotag.PluginSetup
+    opts = {
+      --- @diagnostic disable-next-line: param-type-mismatch
+      -- Has potential for a complex configuration
+      opts = {
+        enable_close = true,
+        enable_close_on_slash = true,
+        enable_rename = true,
+      },
+    },
+  },
+  {
+    'tzachar/highlight-undo.nvim',
+    opts = {
+      ignored_filetypes = {
+        'neo-tree',
+        'fugitive',
+        'TelescopePrompt',
+        'mason',
+        'lazy',
+        'netrw',
+        'tutor',
+        'snacks_dashboard',
+        'snacks_terminal',
+      },
+    },
+  },
+  {
+    'NMAC427/guess-indent.nvim',
+    opts = {
+      filetype_exclude = {
+        'netrw',
+        'tutor',
+        'snacks_dashboard',
+        'snacks_terminal',
+      },
+    },
+  },
+  {
+    'Wansmer/treesj',
+    opts = {
+      ---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
+      use_default_keymaps = false,
+    },
+    ---@param keys LazyKeysSpec[]|LazyKeys[]
+    keys = function(_, keys)
+      local treesj = require('treesj')
+
+      keys = {
+        {
+          '<leader>i',
+          treesj.split,
+          desc = 'Split code block',
+          mode = 'n',
+        },
+        {
+          '<leader>j',
+          treesj.join,
+          desc = 'Join code block',
+          mode = 'n',
+        },
+      }
+
+      return keys
+    end,
+  },
+  {
+    'sustech-data/wildfire.nvim',
+    event = 'VeryLazy',
+    opts = {},
+  },
+  {
+    'zbirenbaum/neodim', ---@module 'neodim'
+    ---@type neodim.Options
+    opts = {
+      hide = {
+        underline = false,
+        virtual_text = false,
+        signs = false,
+      },
+    },
+    event = 'LspAttach',
+  }
 }

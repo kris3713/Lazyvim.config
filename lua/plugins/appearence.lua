@@ -25,4 +25,27 @@ return  --[[@type (LazyPluginSpec[])]]{
       hl_priority = 128,
     },
   },
+  {
+    'mcauley-penney/visual-whitespace.nvim',
+    opts = {
+      list_chars = {
+        tab = '│',
+      },
+    },
+    event = 'ModeChanged *:[vV\22]',
+  },
+  {
+    'xzbdmw/colorful-menu.nvim', ---@module 'colorful-menu'
+    ---@type ColorfulMenuConfig
+    opts = {
+      max_width = 60,
+    },
+  },
+  {
+    'DaikyXendo/nvim-material-icon',
+    opts = {
+      color_icons = true,
+      default = true,
+    },
+  },
 }
