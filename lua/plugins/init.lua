@@ -307,6 +307,7 @@ return  --[[@type (LazyPluginSpec[])]]{
   },
   {
     'auipga/hmts.nvim',
+    enabled = false,
     branch = 'patch-1',
   },
   {
