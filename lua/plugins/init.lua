@@ -306,11 +306,6 @@ return  --[[@type (LazyPluginSpec[])]]{
     opts = {},
   },
   {
-    'auipga/hmts.nvim',
-    enabled = false,
-    branch = 'patch-1',
-  },
-  {
     'nanotee/zoxide.vim',
     init = function()
       vim.g.zoxide_use_select = 1
