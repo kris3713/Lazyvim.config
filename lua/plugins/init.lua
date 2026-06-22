@@ -60,12 +60,6 @@ return  --[[@type (LazyPluginSpec[])]]{
     },
   },
   {
-    'Sang-it/fluoride',
-    opts = {
-      window = { border = 'rounded' },
-    },
-  },
-  {
     'nanotee/zoxide.vim',
     init = function()
       vim.g.zoxide_use_select = 1
@@ -164,10 +158,6 @@ return  --[[@type (LazyPluginSpec[])]]{
     opts = {
       auto_open = true, -- Automatically open nvim-cmp on choice node (default: true)
     },
-  },
-  {
-    'nacro90/numb.nvim',
-    opts = {},
   },
   {
     'mikavilpas/yazi.nvim', ---@module 'yazi'

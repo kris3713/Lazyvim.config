@@ -15,4 +15,10 @@ return  --[[@type (LazyPluginSpec[])]]{
     'aaronik/treewalker.nvim',
     opts = {},
   },
+  {
+    'Sang-it/fluoride',
+    opts = {
+      window = { border = 'rounded' },
+    },
+  },
 }

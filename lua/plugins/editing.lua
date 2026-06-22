@@ -430,4 +430,8 @@ return  --[[@type (LazyPluginSpec[])]]{
     'fei6409/log-highlight.nvim',
     opts = {},
   },
+  {
+    'nacro90/numb.nvim',
+    opts = {},
+  },
 }
