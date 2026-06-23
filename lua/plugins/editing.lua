@@ -254,6 +254,12 @@ return  --[[@type (LazyPluginSpec[])]]{
   {
     'windwp/nvim-autopairs',
     opts = { map_bs = false },
+    init = function()
+      local Rule = require('nvim-autopairs.rule')
+      local npairs = require('nvim-autopairs')
+
+      npairs.add_rule(Rule('|', '|', { 'rust' }))
+    end,
     event = 'InsertEnter',
   },
   {
