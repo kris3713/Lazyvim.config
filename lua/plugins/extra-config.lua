@@ -1,4 +1,4 @@
---- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil, missing-parameter
+--- @diagnostic disable: param-type-mismatch, missing-fields, assign-type-mismatch, need-check-nil
 
 return  --[[@type (LazyPluginSpec[])]]{
   --harper:ignore
@@ -419,15 +419,16 @@ return  --[[@type (LazyPluginSpec[])]]{
             },
             ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
             show_labelDetails = true,
-            ---https://www.reddit.com/r/neovim/comments/1acbh4h/comment/kjtu57l/
-            ---@param vim_item_o vim.CompletedItem
+            ---https://old.reddit.com/r/neovim/comments/1acbh4h/comment/kjtu57l/
+            ---@param vim_item vim.CompletedItem
             ---@return vim.CompletedItem
-            before = function(_, vim_item_o)
-              if vim_item_o.menu and (string.len(vim_item_o.menu) > 45) then
-                vim_item_o.menu = string.sub(vim_item_o.menu, 1, 42) .. '...'
+            ---@diagnostic disable-next-line: redefined-local
+            before = function(_, vim_item)
+              if vim_item.menu and string.len(vim_item.menu) > 45 then
+                vim_item.menu = string.sub(vim_item.menu, 1, 42) .. '...'
               end
 
-              return vim_item_o
+              return vim_item
             end,
           }
           local kind = require('lspkind').cmp_format(options)(entry, vim.deepcopy(vim_item))
@@ -475,6 +476,10 @@ return  --[[@type (LazyPluginSpec[])]]{
           { name = 'buffer-lines' },
         },
       })
+
+      -- autopairs
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },
   {
