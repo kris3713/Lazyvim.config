@@ -253,12 +253,20 @@ return  --[[@type (LazyPluginSpec[])]]{
   },
   {
     'windwp/nvim-autopairs',
-    opts = { map_bs = false },
+    opts = {
+      check_ts = false,
+      map_bs = false,
+    },
     init = function()
       local Rule = require('nvim-autopairs.rule').new
       local npairs = require('nvim-autopairs')
+      local ts_conds = require('nvim-autopairs.ts-conds')
 
-      npairs.add_rule(Rule('|', '|', { 'rust' }))
+      npairs.add_rules({
+        Rule('|', '|', { 'rust' }):with_pair(ts_conds.is_ts_node({
+          'arguments',
+        })),
+      })
     end,
     event = 'InsertEnter',
   },
