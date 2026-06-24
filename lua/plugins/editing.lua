@@ -305,7 +305,14 @@ return  --[[@type (LazyPluginSpec[])]]{
       {
         '<leader>B',
         function()
-          vim.cmd('SmartBackspaceToggle')
+          vim.g.smart_backspace_toggled = not vim.g.smart_backspace_toggled
+          if vim.g.smart_backspace_toggled == true then
+            vim.cmd('SmartBackspaceToggle on')
+            vim.notify('Smart Backspace Enabled!')
+          elseif vim.g.smart_backspace_toggled == false then
+            vim.cmd('SmartBackspaceToggle off')
+            vim.notify('Smart Backspace Disabled!')
+          end
         end,
         desc = 'Toggle Smart Backspace',
         mode = 'n',
