@@ -83,16 +83,16 @@ create_autocmd({ 'BufReadPost', 'FileType' }, {
       vim.bo[bufnr].smartindent = false
       vim.bo[bufnr].autoindent = false
       vim.bo[bufnr].expandtab = false
-      vim.bo[bufnr].tabstop = 4
-      vim.bo[bufnr].shiftwidth = 4
-      vim.bo[bufnr].softtabstop = 4
+      vim.bo[bufnr].tabstop = vim.bo[bufnr].tabstop or 4
+      vim.bo[bufnr].shiftwidth = vim.bo[bufnr].shiftwidth or 4
+      vim.bo[bufnr].softtabstop = vim.bo[bufnr].softtabstop or 4
     else
       vim.bo[bufnr].smartindent = true
       vim.bo[bufnr].autoindent = true
       vim.bo[bufnr].expandtab = true
-      vim.bo[bufnr].tabstop = 2
-      vim.bo[bufnr].shiftwidth = 2
-      vim.bo[bufnr].softtabstop = 2
+      vim.bo[bufnr].tabstop = vim.bo[bufnr].tabstop or 2
+      vim.bo[bufnr].shiftwidth = vim.bo[bufnr].shiftwidth or 2
+      vim.bo[bufnr].softtabstop = vim.bo[bufnr].softtabstop or 2
     end
   end,
 })
