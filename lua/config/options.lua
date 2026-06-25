@@ -106,7 +106,6 @@ do
   end
 
   local create_autocmd = vim.api.nvim_create_autocmd
-
   local set_hl = vim.api.nvim_set_hl
 
   local space = '·'
@@ -175,10 +174,7 @@ vim.o.undofile = true
 -- Ensure the relative line number is always shown
 vim.o.relativenumber = false
 
--- Enable smartindent
-vim.o.smartindent = true
 -- harper:ignore
--- vim.o.autoindent = true
 
 -- Configure Neovim's diagnostics
 vim.diagnostic.config({

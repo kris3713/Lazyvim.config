@@ -43,11 +43,15 @@ create_autocmd('FileType', {
     local indent_style = require('guess-indent').guess_from_buffer(bufnr)
 
     if indent_style == 'tabs' then
+      vim.bo[bufnr].smartindent = false
+      vim.bo[bufnr].autoindent = false
       vim.bo[bufnr].expandtab = false
       vim.bo[bufnr].tabstop = 4
       vim.bo[bufnr].shiftwidth = 4
       vim.bo[bufnr].softtabstop = 4
     else
+      vim.bo[bufnr].smartindent = true
+      vim.bo[bufnr].autoindent = true
       vim.bo[bufnr].expandtab = true
       vim.bo[bufnr].tabstop = 2
       vim.bo[bufnr].shiftwidth = 2
