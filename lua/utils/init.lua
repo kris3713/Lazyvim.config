@@ -45,7 +45,7 @@ function utils.switch_indent_style(bufnr)
     vim.bo[bufnr].tabstop = 2
     vim.bo[bufnr].shiftwidth = 2
     vim.bo[bufnr].softtabstop = 2
-    vim.cmd('retab' .. 2)
+    vim.cmd('retab ' .. 2)
 
     ---@diagnostic disable-next-line: param-type-mismatch
     guess_indent.set_from_buffer(bufnr, true, true)
@@ -58,7 +58,7 @@ function utils.switch_indent_style(bufnr)
     vim.bo[bufnr].tabstop = 4
     vim.bo[bufnr].shiftwidth = 4
     vim.bo[bufnr].softtabstop = 4
-    vim.cmd('retab' .. 4)
+    vim.cmd('retab ' .. 4)
 
     ---@diagnostic disable-next-line: param-type-mismatch
     guess_indent.set_from_buffer(bufnr, true, true)
