@@ -323,11 +323,11 @@ return  --[[@type (LazyPluginSpec[])]]{
               local bufnr = vim.api.nvim_get_current_buf()
 
               if vim.bo[bufnr].fileformat == 'unix' then
-                return 'LF (unix)'
+                return 'LF'
               elseif vim.bo[bufnr].fileformat == 'dos' then
-                return 'CRLF (dos)'
+                return 'CRLF'
               elseif vim.bo[bufnr].fileformat == 'mac' then
-                return 'CR (mac)'
+                return 'CR'
               else
                 return vim.bo[bufnr].fileformat
               end
