@@ -24,33 +24,6 @@ create_autocmd('VimLeave', {
   command = 'set guicursor=a:ver20',
 })
 
--- Enable either shiftwidth or tabstop.
-create_autocmd({ 'BufReadPost', 'FileType' }, {
-  group = create_augroup('set_indent'),
-  desc = 'Sets indent size and indent type',
-  pattern = '*',
-  callback = function(args)
-    local bufnr = args.buf
-    local indent_style = require('guess-indent').guess_from_buffer(bufnr)
-
-    if indent_style == 'tabs' then
-      vim.bo[bufnr].smartindent = false
-      vim.bo[bufnr].autoindent = false
-      vim.bo[bufnr].expandtab = false
-      vim.bo[bufnr].tabstop = 4
-      vim.bo[bufnr].shiftwidth = 4
-      vim.bo[bufnr].softtabstop = 4
-    else
-      vim.bo[bufnr].smartindent = true
-      vim.bo[bufnr].autoindent = true
-      vim.bo[bufnr].expandtab = true
-      vim.bo[bufnr].tabstop = 2
-      vim.bo[bufnr].shiftwidth = 2
-      vim.bo[bufnr].softtabstop = 2
-    end
-  end,
-})
-
 -- Enable semantic highlighting
 create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
@@ -93,6 +66,33 @@ create_autocmd('LspTokenUpdate', {
       if token.type == 'variable' and token.modifiers.global then
         hl_token(token, bufnr, client_id, 'Constant')
       end
+    end
+  end,
+})
+
+-- Enable either shiftwidth or tabstop.
+create_autocmd({ 'BufReadPost', 'FileType' }, {
+  group = create_augroup('set_indent_size_and_style'),
+  desc = 'Sets indent size and indent type',
+  pattern = '*',
+  callback = function(args)
+    local bufnr = args.buf
+    local indent_style = require('guess-indent').guess_from_buffer(bufnr)
+
+    if indent_style == 'tabs' then
+      vim.bo[bufnr].smartindent = false
+      vim.bo[bufnr].autoindent = false
+      vim.bo[bufnr].expandtab = false
+      vim.bo[bufnr].tabstop = 4
+      vim.bo[bufnr].shiftwidth = 4
+      vim.bo[bufnr].softtabstop = 4
+    else
+      vim.bo[bufnr].smartindent = true
+      vim.bo[bufnr].autoindent = true
+      vim.bo[bufnr].expandtab = true
+      vim.bo[bufnr].tabstop = 2
+      vim.bo[bufnr].shiftwidth = 2
+      vim.bo[bufnr].softtabstop = 2
     end
   end,
 })
