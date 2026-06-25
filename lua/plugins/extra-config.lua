@@ -77,13 +77,12 @@ return  --[[@type (LazyPluginSpec[])]]{
       local extra_keys = {
         (function()
           local bufnr = vim.api.nvim_get_current_buf()
+          ---@type wk.Spec
           local wk_mapping = {}
 
           if vim.bo[bufnr].filetype == 'man' then
-            ---@cast wk_mapping wk.Spec
             wk_mapping = { 'gO', desc = 'Open table of contents', mode = 'n' }
           else
-            ---@cast wk_mapping wk.Spec
             wk_mapping = { 'gO', desc = 'Open document symbols', mode = 'n' }
           end
 
