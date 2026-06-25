@@ -25,7 +25,7 @@ create_autocmd('VimLeave', {
 })
 
 -- Enable either shiftwidth or tabstop.
-create_autocmd('BufReadPost', {
+create_autocmd({ 'BufReadPost', 'FileType' }, {
   group = create_augroup('set_indent'),
   desc = 'Sets indent size and indent type',
   pattern = '*',
@@ -123,9 +123,8 @@ create_autocmd('BufReadPost', {
   desc = 'Activates the cmd "GuessIndent" on BufReadPost event',
   pattern = '*',
   callback = function(args)
-    local bufnr = args.buf
     ---@diagnostic disable-next-line: param-type-mismatch
-    require('guess-indent').set_from_buffer(bufnr, true, true)
+    require('guess-indent').set_from_buffer(args.buf, true, true)
   end,
 })
 
@@ -148,9 +147,8 @@ create_autocmd('BufEnter', {
 create_autocmd({ 'BufEnter', 'BufRead' }, {
   group = create_augroup('systemd_comments'),
   callback = function(args)
-    local bufnr = args.buf
-    if vim.bo[bufnr].filetype == 'systemd' then
-      vim.bo[bufnr].commentstring = '# %s'
+    if vim.bo[args.buf].filetype == 'systemd' then
+      vim.bo[args.buf].commentstring = '# %s'
     end
   end,
 })
@@ -159,10 +157,9 @@ create_autocmd({ 'BufEnter', 'BufRead' }, {
 create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
   group = create_augroup('bun_shebang'),
   callback = function(args)
-    local bufnr = args.buf
     local shebang = vim.fn.getline(1)
     if shebang:match('^#!.*bun') then
-      vim.bo[bufnr].filetype = 'typescript'
+      vim.bo[args.buf].filetype = 'typescript'
     end
   end,
 })
