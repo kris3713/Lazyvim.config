@@ -932,7 +932,7 @@ return  --[[@type LazyPluginSpec]]{
     local modes = { 'n', 'x' }
 
     ---keymaps for all LSP servers/clients
-    ---@type vim.api.keyset.keymap[] | ({ mode: table })[]
+    ---@type LazyKeysSpec[]|LazyKeys[]
     local all_keymaps = {
       { -- Hover Doc
         'K',
@@ -992,8 +992,10 @@ return  --[[@type LazyPluginSpec]]{
 
     -- Special config for '*'
     if opts.servers['*'] then
+      ---@diagnostic disable-next-line: unknown-cast-variable
       ---@cast opts.servers table<string, (lspClientOpts|vim.lsp.Client)>
-      (opts.servers['*']).keys = vim.list_extend((opts.servers['*']).keys or {}, all_keymaps)
+      opts.servers['*'].keys =
+        vim.list_extend(opts.servers['*'].keys or {}, all_keymaps --[[@as (vim.api.keyset.keymap[])]])
     end
   end,
 }
