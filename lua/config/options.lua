@@ -24,22 +24,6 @@ end
 -- Set softwrapping to always be true
 vim.opt.wrap = true
 
--- Ensure all indents are spaces and have a width of 2
-vim.o.expandtab = true
-
--- Enable either shiftwidth or tabstop.
-do
-  local bufnr = vim.api.nvim_get_current_buf()
-
-  if vim.bo[bufnr].tabstop >= 1 then
-    -- vim.bo[bufnr].shiftwidth = 4
-    vim.bo[bufnr].tabstop = 4
-  else
-    vim.bo[bufnr].shiftwidth = 2
-    -- vim.bo[bufnr].tabstop = 2
-  end
-end
-
 -- -- Set leader key
 -- vim.g.mapleader = ","
 

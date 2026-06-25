@@ -33,6 +33,29 @@ create_autocmd('VimLeave', {
 --   end
 -- })
 
+-- Enable either shiftwidth or tabstop.
+create_autocmd('FileType', {
+  group = create_augroup('set_indent'),
+  desc = 'Sets indent size and indent type',
+  pattern = '*',
+  callback = function(args)
+    local bufnr = args.buf
+    local indent_style = require('guess-indent').guess_from_buffer(bufnr)
+
+    if indent_style == 'tabs' then
+      vim.bo[bufnr].expandtab = false
+      vim.bo[bufnr].tabstop = 4
+      vim.bo[bufnr].shiftwidth = 4
+      vim.bo[bufnr].softtabstop = 4
+    else
+      vim.bo[bufnr].expandtab = true
+      vim.bo[bufnr].tabstop = 2
+      vim.bo[bufnr].shiftwidth = 2
+      vim.bo[bufnr].softtabstop = 2
+    end
+  end,
+})
+
 -- Enable semantic highlighting
 create_autocmd('LspTokenUpdate', {
   group = create_augroup('set_semantic_highlighting'),
@@ -105,9 +128,8 @@ create_autocmd('BufReadPost', {
   desc = 'Activates the cmd "GuessIndent" on BufReadPost event',
   pattern = '*',
   callback = function(args)
-    local bufnr = args.buf
     ---@diagnostic disable-next-line: param-type-mismatch
-    require('guess-indent').set_from_buffer(bufnr, true, true)
+    require('guess-indent').set_from_buffer(args.buf, true, true)
   end,
 })
 
