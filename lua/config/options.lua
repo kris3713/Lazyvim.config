@@ -24,6 +24,27 @@ end
 -- Set softwrapping to always be true
 vim.opt.wrap = true
 
+-- -- Enable either shiftwidth or tabstop.
+-- do
+--   local bufnr = vim.api.nvim_get_current_buf()
+--
+--   if vim.bo[bufnr].tabstop >= 1 then
+--     vim.bo[bufnr].smartindent = false
+--     -- vim.bo[bufnr].autoindent = false
+--     vim.bo[bufnr].expandtab = false
+--     vim.bo[bufnr].tabstop = 4
+--     vim.bo[bufnr].shiftwidth = 4
+--     vim.bo[bufnr].softtabstop = 4
+--   else
+--     vim.bo[bufnr].smartindent = true
+--     -- vim.bo[bufnr].autoindent = true
+--     vim.bo[bufnr].expandtab = true
+--     vim.bo[bufnr].tabstop = 2
+--     vim.bo[bufnr].shiftwidth = 2
+--     vim.bo[bufnr].softtabstop = 2
+--   end
+-- end
+
 -- -- Set leader key
 -- vim.g.mapleader = ","
 
@@ -106,6 +127,7 @@ do
   end
 
   local create_autocmd = vim.api.nvim_create_autocmd
+
   local set_hl = vim.api.nvim_set_hl
 
   local space = '·'
@@ -173,8 +195,6 @@ vim.o.undofile = true
 
 -- Ensure the relative line number is always shown
 vim.o.relativenumber = false
-
--- harper:ignore
 
 -- Configure Neovim's diagnostics
 vim.diagnostic.config({

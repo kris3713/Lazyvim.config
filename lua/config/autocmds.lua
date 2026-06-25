@@ -24,17 +24,8 @@ create_autocmd('VimLeave', {
   command = 'set guicursor=a:ver20',
 })
 
--- -- Make sure all LSP servers close when quitting Neovim
--- create_autocmd('VimLeave', {
---   group = create_augroup('close_all_lsp_servers_on_quit'),
---   desc = 'Close all lsp servers on qutting Neovim',
---   callback = function()
---     vim.lsp.stop_client(vim.lsp.get_clients())
---   end
--- })
-
 -- Enable either shiftwidth or tabstop.
-create_autocmd('FileType', {
+create_autocmd('BufReadPost', {
   group = create_augroup('set_indent'),
   desc = 'Sets indent size and indent type',
   pattern = '*',
@@ -132,8 +123,9 @@ create_autocmd('BufReadPost', {
   desc = 'Activates the cmd "GuessIndent" on BufReadPost event',
   pattern = '*',
   callback = function(args)
+    local bufnr = args.buf
     ---@diagnostic disable-next-line: param-type-mismatch
-    require('guess-indent').set_from_buffer(args.buf, true, true)
+    require('guess-indent').set_from_buffer(bufnr, true, true)
   end,
 })
 
