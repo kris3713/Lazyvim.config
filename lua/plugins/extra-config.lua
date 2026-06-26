@@ -546,6 +546,7 @@ return  --[[@type (LazyPluginSpec[])]]{
           jq = require('none-ls.formatting.jq'),
           oxfmt = require('none-ls.formatting.oxfmt'),
           ruff = require('none-ls.formatting.ruff'),
+          rustfmt = require('none-ls.formatting.rustfmt'),
           tex_fmt = require('none-ls.formatting.tex_fmt'),
           yq = require('none-ls.formatting.yq'),
         },
@@ -637,6 +638,24 @@ return  --[[@type (LazyPluginSpec[])]]{
           }),
         exts.formatting.oxfmt,
         exts.formatting.ruff,
+        exts.formatting.rustfmt.with({
+          ---@param params table<'root', string>
+          extra_args = function(params)
+            ---@type Path
+            local cargo_toml = require('plenary.path'):new(params.root .. '/Cargo.toml')
+
+            if cargo_toml:exists() and cargo_toml:is_file() then
+              for _, line in ipairs(cargo_toml:readlines()) do
+                local edition = line:match([[^edition%s*=%s*%"(%d+)%"]])
+                if edition then
+                  return { '--edition=' .. edition }
+                end
+              end
+            end
+            -- default edition when we don't find `Cargo.toml` or the `edition` in it.
+            return { '--edition=2021' }
+          end,
+        }),
         formatting.uncrustify,
         exts.formatting.yq,
       }
