@@ -97,6 +97,15 @@ return  --[[@type (LazyPluginSpec[])]]{
     'folke/noice.nvim', ---@module 'noice'
     ---@type NoiceConfig
     opts = {
+      ---@type NoiceConfigViews
+      views = {
+        mini = {
+          position = {
+            row = -1, -- Negative values count from the bottom; 0 is bottom
+            col = '98%', -- "100%" aligns to the right edge; use "50%" for center
+          },
+        },
+      },
       lsp = {
         hover = { silent = true },
         message = { silent = true },
