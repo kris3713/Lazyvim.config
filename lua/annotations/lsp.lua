@@ -45,4 +45,4 @@
 ---@field servers table<string, (lspClientOpts | vim.lsp.ClientConfig)>
 ---
 ---Extra LSP server/client configuration options. Mostly used for workarounds.
----@field setup table<string, fun(server: string, opts: lspClientOpts): boolean?>
+---@field setup table<string, fun(server: string, opts: lspClientOpts): any?>
