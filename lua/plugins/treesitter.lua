@@ -16,70 +16,55 @@ return  --[[@type (LazyPluginSpec[])]]{
     opts = {},
     ---@param keys LazyKeysSpec[]|LazyKeys[]
     keys = function(_, keys)
+      local tw = require('treewalker')
       local modes = { 'n', 'v' }
 
       keys = {
         {
           '<c-k>',
-          function()
-            vim.cmd('Treewalker Up')
-          end,
+          tw.move_up,
           desc = 'Treewalker Up',
           mode = modes,
         },
         {
           '<c-j>',
-          function()
-            vim.cmd('Treewalker Down')
-          end,
+          tw.move_down,
           desc = 'Treewalker Down',
           mode = modes,
         },
         {
           '<c-h>',
-          function()
-            vim.cmd('Treewalker Left')
-          end,
+          tw.move_out,
           desc = 'Treewalker Left',
           mode = modes,
         },
         {
           '<c-l>',
-          function()
-            vim.cmd('Treewalker Right')
-          end,
+          tw.move_in,
           desc = 'Treewalker Right',
           mode = modes,
         },
         {
           '<c-s-k>',
-          function()
-            vim.cmd('Treewalker SwapUp')
-          end,
+          tw.swap_up,
           desc = 'Treewalker SwapUp',
           mode = 'n',
         },
         {
           '<c-s-j>',
-          function()
-            vim.cmd('Treewalker SwapDown')
-          end,
+          tw.swap_down,
           desc = 'Treewalker SwapDown',
           mode = 'n',
         },
         {
           '<c-s-h>',
-          function()
-            vim.cmd('Treewalker SwapLeft')
-          end,
+          tw.swap_left,
           desc = 'Treewalker SwapLeft',
           mode = 'n',
         },
         {
           '<c-s-l>',
-          function()
-            vim.cmd('Treewalker SwapRight')
-          end,
+          tw.swap_right,
           desc = 'Treewalker SwapRight',
           mode = 'n',
         },
