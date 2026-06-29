@@ -175,6 +175,6 @@
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "wildfire.nvim": { "branch": "master", "commit": "918a1873c2b8010baa034f373cf28c53ce4f038f" },
   "yanky.nvim": { "branch": "main", "commit": "020c22d0cfa60358569e49d1d7b91630f175aef0" },
-  "yazi.nvim": { "branch": "main", "commit": "4c375ea7e9396f6210436a654a8f185562a95ece" },
+  "yazi.nvim": { "branch": "main", "commit": "36e634c807ab2bef81685a7cd107a107e67e0900" },
   "zoxide.vim": { "branch": "master", "commit": "520d1abeb71ba42989a842251f8ba5c46be89aab" }
 }
