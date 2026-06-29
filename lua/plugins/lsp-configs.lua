@@ -148,6 +148,7 @@ return  --[[@type LazyPluginSpec]]{
         neocmake = {
           mason = false,
           enabled = true,
+          capabilities = capabilities(),
         },
         -- steep
         steep = {
