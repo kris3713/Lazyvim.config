@@ -4,7 +4,7 @@
 ---@param lsp_name 'lua_ls' | 'emmylua_ls'
 ---@return boolean
 local function enable_lua_ls(lsp_name)
-  local script_dir = vim.fn.expand('<sfile>:p:h')
+  local script_dir = vim.fn.expand('<script>:p:h')
   local filepath = script_dir .. '/.neoconf.json'
   local file = io.open(filepath, 'r')
 
@@ -141,6 +141,11 @@ return  --[[@type LazyPluginSpec]]{
         },
         -- clangd
         clangd = {
+          mason = false,
+          enabled = true,
+        },
+        -- neocmakelsp
+        neocmakelsp = {
           mason = false,
           enabled = true,
         },
