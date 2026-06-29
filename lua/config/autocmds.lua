@@ -43,6 +43,7 @@ create_autocmd('LspTokenUpdate', {
     set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
     set_hl(0, '@lsp.type.const.rust', { link = '@lsp.mod.readonly' })
     set_hl(0, '@lsp.typemod.const.constant.rust', { link = 'Constant' })
+    set_hl(0, '@lsp.mod.callable.rust', { link = 'Function' })
 
     ---@class Token
     ---@field type lsp.SemanticTokenTypes
