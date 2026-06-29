@@ -145,7 +145,7 @@ return  --[[@type LazyPluginSpec]]{
           enabled = true,
         },
         -- neocmakelsp
-        neocmakelsp = {
+        neocmake = {
           mason = false,
           enabled = true,
         },
