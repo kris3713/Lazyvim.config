@@ -561,7 +561,6 @@ return  --[[@type (LazyPluginSpec[])]]{
         },
 
         diagnostics = {
-          cpplint = require('none-ls.diagnostics.cpplint'),
           eslint_d = require('none-ls.diagnostics.eslint_d'),
           oxlint = require('none-ls.diagnostics.oxlint'),
           ruff = require('none-ls.diagnostics.ruff'),
@@ -610,7 +609,7 @@ return  --[[@type (LazyPluginSpec[])]]{
           }),
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
-        exts.diagnostics.cpplint,
+        diagnostics.cppcheck,
         diagnostics
           .editorconfig_checker
           .with --[[@as fun(user_opts: table)]]({
