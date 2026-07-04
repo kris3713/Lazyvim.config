@@ -38,6 +38,9 @@ create_autocmd('LspTokenUpdate', {
     set_hl(0, '@lsp.mod.readonly', { italic = true })
     set_hl(0, '@lsp.typemod.parameter.readonly', { link = '@lsp.mod.readonly' })
 
+    -- Nix
+    set_hl(0, '@lsp.mod.escape.nix', { link = '@string.escape' } )
+
     -- Rust
     set_hl(0, '@lsp.type.variable.rust', { fg = colors.text })
     set_hl(0, '@lsp.type.formatSpecifier.rust', { link = '@string.escape' })
