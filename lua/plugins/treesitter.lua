@@ -8,10 +8,6 @@ return  --[[@type (LazyPluginSpec[])]]{
     },
   },
   {
-    'ckolkey/ts-node-action',
-    opts = {},
-  },
-  {
     'aaronik/treewalker.nvim',
     opts = {},
     ---@param keys LazyKeysSpec[]|LazyKeys[]

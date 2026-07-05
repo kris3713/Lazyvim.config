@@ -585,28 +585,6 @@ return  --[[@type (LazyPluginSpec[])]]{
         code_actions.impl,
         exts.code_actions.shellcheck,
         code_actions.statix,
-        code_actions
-          .ts_node_action
-          .with --[[@as fun(user_opts: table)]]({
-            -- Don't remove, this is needed by `nvim-tree.lua`
-            disabled_filetypes = {
-              'bash',
-              'conf',
-              'dosini',
-              'fish',
-              'gitconfig',
-              'lisp',
-              'log',
-              'sh',
-              'spec',
-              'systemd',
-              'text',
-              'toml',
-              'nix',
-              'ps1',
-              '',
-            },
-          }),
         diagnostics.deadnix,
         diagnostics.dotenv_linter,
         diagnostics.cppcheck,
