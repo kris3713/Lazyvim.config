@@ -208,14 +208,6 @@ return  --[[@type (LazyPluginSpec[])]]{
     end,
   },
   {
-    'michaelb/sniprun',
-    opts = {},
-    branch = 'master',
-    build = 'sh ./install.sh',
-    -- do 'sh install.sh 1' if you want to force compile locally
-    -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
-  },
-  {
     -- support for image pasting
     'HakonHarnes/img-clip.nvim',
     opts = {
@@ -227,14 +219,13 @@ return  --[[@type (LazyPluginSpec[])]]{
           insert_mode = true,
         },
         -- required for Windows users
-        use_absolute_path = vim.fn.has('win32') and true or false,
+        use_absolute_path = vim.fn.has('win32') == 1 and true or false,
       },
     },
     event = 'VeryLazy',
   },
   {
     'LunarVim/bigfile.nvim',
-    --- @diagnostic disable-next-line: param-type-mismatch
     opts = {
       filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
       pattern = { '*' }, -- autocmd pattern or function see <### Overriding the detection of big files>

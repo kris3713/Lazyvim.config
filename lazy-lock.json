@@ -132,7 +132,6 @@
   "smart-backspace.nvim": { "branch": "main", "commit": "e8fd6e01f10d64a78403d6d27c9bbc746631afc1" },
   "smear-cursor.nvim": { "branch": "main", "commit": "9e9378d6ee34bb3782e0e8c63d9ec8ca618b479b" },
   "snacks.nvim": { "branch": "main", "commit": "e6fd58c82f2f3fcddd3fe81703d47d6d48fc7b9f" },
-  "sniprun": { "branch": "master", "commit": "6416f98924018385f7f5ebfe8dc773a4482426e4" },
   "sqlite.lua": { "branch": "master", "commit": "50092d60feb242602d7578398c6eb53b4a8ffe7b" },
   "stickybuf.nvim": { "branch": "master", "commit": "9e00edfd94baef4a78b4248ae8309a2d4943f118" },
   "structlog.nvim": { "branch": "main", "commit": "45b26a2b1036bb93c0e83f4225e85ab3cee8f476" },
@@ -174,6 +173,6 @@
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "wildfire.nvim": { "branch": "master", "commit": "918a1873c2b8010baa034f373cf28c53ce4f038f" },
   "yanky.nvim": { "branch": "main", "commit": "020c22d0cfa60358569e49d1d7b91630f175aef0" },
-  "yazi.nvim": { "branch": "main", "commit": "e36efe6b31cd9041ece4857aace292d182812466" },
+  "yazi.nvim": { "branch": "main", "commit": "8d6c25cb4e7c5702d6cd5a263cb36129fa78aa4c" },
   "zoxide.vim": { "branch": "master", "commit": "520d1abeb71ba42989a842251f8ba5c46be89aab" }
 }
