@@ -4,5 +4,5 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 cd "$SCRIPT_DIR" || exit 1
 
 git add -v -- ./lazy-lock.json
-git commit -m 'Updates' -m 'Signed-off-by: kris3713 <07e5297d5b@c0x0.com>'
+git commit -m 'Updates'
 git push
