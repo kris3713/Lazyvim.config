@@ -553,6 +553,7 @@ return  --[[@type (LazyPluginSpec[])]]{
         formatting = {
           golangci_lint = require('none-ls.formatting.golangci_lint'),
           jq = require('none-ls.formatting.jq'),
+          mbake = require('none-ls.formatting.mbake'),
           oxfmt = require('none-ls.formatting.oxfmt'),
           ruff = require('none-ls.formatting.ruff'),
           rustfmt = require('none-ls.formatting.rustfmt'),
@@ -626,6 +627,7 @@ return  --[[@type (LazyPluginSpec[])]]{
           .with --[[@as fun(user_opts: table)]]({
             extra_filetypes = { 'bash' },
           }),
+        exts.formatting.mbake,
         exts.formatting.oxfmt,
         exts.formatting.ruff,
         exts.formatting.rustfmt.with({

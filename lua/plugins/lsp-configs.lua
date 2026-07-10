@@ -144,6 +144,13 @@ return  --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true,
         },
+        -- make-ls
+        make_ls = {
+          enabled = true,
+          cmd = { 'make-ls' },
+          filetypes = { 'make' },
+          root_dir = vim.fs.root(0, { 'Makefile', 'makefile', 'GNUmakefile' }),
+        },
         -- neocmakelsp
         neocmake = {
           mason = false,
