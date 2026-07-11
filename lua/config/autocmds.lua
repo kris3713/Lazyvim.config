@@ -122,9 +122,9 @@ create_autocmd('VimEnter', {
 })
 
 -- GuessIndent
-create_autocmd('BufReadPost', {
+create_autocmd('FileType', {
   group = create_augroup('guess_indent_activate'),
-  desc = 'Activates the cmd "GuessIndent" on BufReadPost event',
+  desc = 'Activates the cmd "GuessIndent" on FileType event',
   pattern = '*',
   callback = function(args)
     ---@diagnostic disable-next-line: param-type-mismatch
