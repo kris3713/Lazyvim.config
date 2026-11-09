@@ -233,6 +233,14 @@ return  --[[@type (LazyPluginSpec[])]]{
     keys = {
       { '<leader>S', false }, -- Disables Scratchpad keymap
       { '<C-/>', false, mode = 'i' }, -- Disables Snacks terminal keymap
+      {
+        '<leader>gl',
+        function()
+          Snacks.picker.git_log({ cwd = LazyVim.root.git() })
+        end,
+        desc = 'Git Log',
+        mode = 'n',
+      },
     },
   },
   {

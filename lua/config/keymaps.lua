@@ -50,6 +50,9 @@ end
 -- -- Map q to do nothing
 -- vim_keymap.set({ 'n', 'x' }, 'q', '<Nop>', opts('', true))
 
+-- Map <leader>gc to do nothing
+vim_keymap.del('n', '<leader>gc', {})
+
 -- -- Map alt + q to macro recording
 -- vim_keymap.set({ 'n', 'x' }, 'Q', 'q', opts('Record macro'))
 
