@@ -3,12 +3,7 @@
 return  --[[@type LazyPluginSpec]]{
   'mikavilpas/yazi.nvim', ---@module 'yazi'
   ---@type YaziConfig
-  opts = {
-    open_for_directories = true,
-    keymaps = {
-      show_help = '<f1>',
-    },
-  },
+  opts = { open_for_directories = true },
   event = 'VeryLazy',
   ---@param keys LazyKeysSpec[]|LazyKeys[]
   keys = function(_, keys)
