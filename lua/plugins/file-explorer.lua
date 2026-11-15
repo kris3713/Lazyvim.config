@@ -41,8 +41,8 @@ return  --[[@type LazyPluginSpec]]{
       },
       {
         '<leader>e',
-        open_in_cwd,
-        desc = 'yazi.nvim: Open yazi in the cwd',
+        open_at_current_file,
+        desc = 'yazi.nvim: Open yazi at the current file',
         mode = 'n',
       },
       {
