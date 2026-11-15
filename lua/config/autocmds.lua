@@ -102,24 +102,6 @@ create_autocmd({ 'BufReadPost', 'FileType' }, {
 })
 
 --- @diagnostic disable-next-line: assign-type-mismatch
--- Auto-start for nvim-tree
-create_autocmd('VimEnter', {
-  group = create_augroup('autostart_nvim_tree'),
-  desc = 'Auto-start nvim-tree with directory',
-  once = true,
-  callback = function(args)
-    local file = args.file
-    -- buffer is a directory
-    if not (vim.fn.isdirectory(file) == 1) then
-      return
-    end
-
-    -- change to the directory
-    vim.cmd.cd(file)
-    -- open the tree
-    require('nvim-tree.api').tree.open()
-  end,
-})
 
 -- GuessIndent
 create_autocmd('FileType', {

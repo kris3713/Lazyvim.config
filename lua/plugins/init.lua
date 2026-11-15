@@ -160,54 +160,6 @@ return  --[[@type (LazyPluginSpec[])]]{
     },
   },
   {
-    'mikavilpas/yazi.nvim', ---@module 'yazi'
-    ---@type YaziConfig
-    opts = {
-      open_for_directories = true,
-    },
-    event = 'VeryLazy',
-    ---@param keys LazyKeysSpec[]|LazyKeys[]
-    keys = function(_, keys)
-      local function open_at_current_file()
-        local yz = require('yazi')
-        yz.yazi(yz.config)
-      end
-
-      local function open_in_cwd()
-        local yz = require('yazi')
-        yz.yazi(yz.config, vim.fn.getcwd(), nil)
-      end
-
-      local function resume_last_session()
-        local yz = require('yazi')
-        yz.toggle(yz.config)
-      end
-
-      keys = {
-        {
-          '<leader>Y',
-          open_at_current_file,
-          desc = 'Open yazi at the current file',
-          mode = 'n',
-        },
-        {
-          '<leader>cw',
-          open_in_cwd,
-          desc = 'Open yazi in the cwd',
-          mode = 'n',
-        },
-        {
-          '<leader><up>',
-          resume_last_session,
-          desc = 'Resume the last yazi session',
-          mode = 'n',
-        },
-      }
-
-      return keys
-    end,
-  },
-  {
     -- support for image pasting
     'HakonHarnes/img-clip.nvim',
     opts = {
