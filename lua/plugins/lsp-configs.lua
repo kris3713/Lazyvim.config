@@ -134,6 +134,11 @@ return  --[[@type LazyPluginSpec]]{
             on_dir((util.root_pattern(systemd_unit_filetypes))(fname))
           end,
         },
+        -- just-lsp
+        just = {
+          mason = false,
+          enabled = true,
+        },
         -- nickel_ls
         nickel_ls = {
           mason = false,
