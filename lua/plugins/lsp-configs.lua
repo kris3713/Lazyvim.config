@@ -331,12 +331,34 @@ return  --[[@type LazyPluginSpec]]{
         },
         -- nixd
         nixd = {
-          enabled = true,
+          enabled = false,
           mason = false,
+          settings = {
+            nixd = {
+              nixpkgs = {
+                expr = 'import <nixpkgs> { }',
+              },
+              -- formatting = {
+              --   command = { 'nixfmt' },
+              -- },
+              options = {
+                home_manager = {
+                  expr = (function()
+                    local part_1 = '(builtins.getFlake (toString ./.))'
+                    local username = string.gsub(vim.fn.system('whoami'), '\n', '')
+                    -- local hostname = vim.loop.os_gethostname()
+                    local part_2 = ('.homeConfigurations.%s.options'):format(username)
+
+                    return part_1 .. part_2
+                  end)(),
+                },
+              },
+            },
+          },
         },
         -- nil_ls
         nil_ls = {
-          enabled = false,
+          enabled = true,
           mason = false,
         },
         -- MSBuild
