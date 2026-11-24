@@ -329,9 +329,14 @@ return  --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true,
         },
+        -- nixd
+        nixd = {
+          enabled = true,
+          mason = false,
+        },
         -- nil_ls
         nil_ls = {
-          enabled = true,
+          enabled = false,
           mason = false,
         },
         -- MSBuild
