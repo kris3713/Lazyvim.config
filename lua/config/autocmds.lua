@@ -158,7 +158,8 @@ create_autocmd('User', {
     ---@diagnostic disable: missing-fields
     require('nvim-treesitter.parsers').rpmspec = {
       install_info = {
-        url = 'https://github.com/cryptomilk/tree-sitter-rpmspec',
+        url = 'https://github.com/kris3713/tree-sitter-rpmspec',
+        branch = 'rpmls',
         location = 'rpmspec',
         queries = 'neovim/queries/rpmspec',
       },
@@ -166,7 +167,8 @@ create_autocmd('User', {
 
     require('nvim-treesitter.parsers').rpmbash = {
       install_info = {
-        url = 'https://github.com/cryptomilk/tree-sitter-rpmspec',
+        url = 'https://github.com/kris3713/tree-sitter-rpmspec',
+        branch = 'rpmls',
         location = 'rpmbash',
         queries = 'neovim/queries/rpmbash',
       },
