@@ -226,6 +226,17 @@ return  --[[@type LazyPluginSpec]]{
           mason = false,
           enabled = true,
         },
+        -- rpmls
+        rpmls = {
+          enabled = false,
+          cmd = {
+            'rpmls',
+            '--spec-doc',
+            '/usr/share/doc/rpm/spec.md',
+          },
+          filetypes = { 'spec' },
+          root_markers = { '.git' },
+        },
         -- rpmspec
         rpmspec = {
           mason = false,

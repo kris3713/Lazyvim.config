@@ -76,7 +76,11 @@ vim.filetype.add({
   },
 })
 
+-- Register msbuild as xml
 vim.treesitter.language.register('xml', { 'msbuild' })
+
+-- User rpmspec for spec file extension
+vim.treesitter.language.register('rpmspec', { 'spec' })
 
 -- `composer.lock`
 vim.filetype.add({

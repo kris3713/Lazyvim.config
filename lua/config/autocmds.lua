@@ -39,7 +39,7 @@ create_autocmd('LspTokenUpdate', {
     set_hl(0, '@lsp.typemod.parameter.readonly', { link = '@lsp.mod.readonly' })
 
     -- Nix
-    set_hl(0, '@lsp.mod.escape.nix', { link = '@string.escape' } )
+    set_hl(0, '@lsp.mod.escape.nix', { link = '@string.escape' })
 
     -- Rust
     set_hl(0, '@lsp.type.variable.rust', { fg = colors.text })
@@ -147,5 +147,42 @@ create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
     if shebang:match('^#!.*bun') then
       vim.bo[args.buf].filetype = 'typescript'
     end
+  end,
+})
+
+-- Add rpmspec and rpmbash
+create_autocmd('User', {
+  group = create_augroup('add_rpmspec_and_rpmbash'),
+  pattern = 'TSUpdate',
+  callback = function()
+    ---@diagnostic disable: missing-fields
+    require('nvim-treesitter.parsers').rpmspec = {
+      install_info = {
+        url = 'https://github.com/cryptomilk/tree-sitter-rpmspec',
+        location = 'rpmspec',
+        queries = 'neovim/queries/rpmspec',
+      },
+    }
+
+    require('nvim-treesitter.parsers').rpmbash = {
+      install_info = {
+        url = 'https://github.com/cryptomilk/tree-sitter-rpmspec',
+        location = 'rpmbash',
+        queries = 'neovim/queries/rpmbash',
+      },
+    }
+    ---@diagnostic enable: missing-fields
+  end,
+})
+
+-- Assign the spec file type to the rpmspec parser
+create_autocmd('FileType', {
+  group = create_augroup('rpmspec'),
+  pattern = '*.spec',
+  callback = function(args)
+    vim.treesitter.start(args.buf, 'rpmspec')
+
+    vim.bo.commentstring = '# %s'
+    vim.bo.comments = 'b:#'
   end,
 })
