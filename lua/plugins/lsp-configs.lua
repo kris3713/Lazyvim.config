@@ -227,8 +227,8 @@ return  --[[@type LazyPluginSpec]]{
           enabled = true,
         },
         -- rpmls
-        rpmls = {
-          enabled = false,
+        rpm_ls = {
+          enabled = true,
           cmd = {
             'rpmls',
             '--spec-doc',
@@ -240,7 +240,7 @@ return  --[[@type LazyPluginSpec]]{
         -- rpmspec
         rpmspec = {
           mason = false,
-          enabled = true,
+          enabled = false,
         },
         -- tombi
         tombi = {
