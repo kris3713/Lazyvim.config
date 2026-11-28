@@ -2,12 +2,6 @@
 
 return  --[[@type (LazyPluginSpec[])]]{
   {
-    'romus204/tree-sitter-manager.nvim',
-    opts = {
-      border = 'rounded',
-    },
-  },
-  {
     'aaronik/treewalker.nvim',
     opts = {},
     ---@param keys LazyKeysSpec[]|LazyKeys[]
@@ -18,25 +12,25 @@ return  --[[@type (LazyPluginSpec[])]]{
       keys = {
         {
           '<c-k>',
-          tw.move_up,
+          tw.up,
           desc = 'Treewalker Up',
           mode = modes,
         },
         {
           '<c-j>',
-          tw.move_down,
+          tw.down,
           desc = 'Treewalker Down',
           mode = modes,
         },
         {
           '<c-h>',
-          tw.move_out,
+          tw.left,
           desc = 'Treewalker Left',
           mode = modes,
         },
         {
           '<c-l>',
-          tw.move_in,
+          tw.right,
           desc = 'Treewalker Right',
           mode = modes,
         },

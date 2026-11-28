@@ -109,17 +109,12 @@ do
 
   create_user_command('M', 'MurenToggle', {
     desc = 'Toggle Muren',
-    bang = true,
-    register = true,
     range = 0,
   })
 
   --- @diagnostic disable-next-line: param-type-mismatch
   create_user_command('LspInfoPicker', Snacks.picker.lsp_config, {
     desc = 'Show lsp info',
-    bang = true,
-    register = true,
     range = 0,
-    force = true,
   })
 end
